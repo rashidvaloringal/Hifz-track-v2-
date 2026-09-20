@@ -14,60 +14,38 @@
 @font-face { font-family: 'DigitalKhatt Old Madina'; src: url('./DigitalKhattQuranic.otf') format('opentype'); font-display: swap; }
 
 :root {
-  --emerald-900: #04211a;
-  --emerald-800: #063327;
-  --emerald-700: #004d3a;
-  --emerald-600: #006b54;
-  --emerald-500: #0a8f6f;
-  --gold-600: #b8860b;
-  --gold-500: #c5a059;
-  --gold-400: #dfba73;
-  --gold-300: #ecd49c;
-  --paper: #fdfbf5;
-  --ink: #14120e;
-  --app-bg: #0a0f0d;
-  --surface-1: #111814;
-  --surface-2: #1a231e;
-  --surface-3: #232e28;
-  --border-1: #2c3831;
-  --border-2: #3a4740;
-  --text-1: #e8e4dc;
-  --text-2: #a8a89e;
-  --text-3: #6b7570;
-  --jalalah-red: #c81e1e;
-  --ghalat-red: #d42222;
-  --tajweed-yellow: #f4c430;
-  --underline-blue: #2563eb;
-  --success: #16a34a;
-  --danger: #dc2626;
-  --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
-  --shadow-lg: 0 12px 40px rgba(0,0,0,0.6);
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 14px;
-  --radius-xl: 20px;
+  --emerald-900:#04211a; --emerald-800:#063327; --emerald-700:#004d3a; --emerald-600:#006b54; --emerald-500:#0a8f6f;
+  --gold-600:#b8860b; --gold-500:#c5a059; --gold-400:#dfba73; --gold-300:#ecd49c;
+  --paper:#fdfbf5; --ink:#14120e;
+  --app-bg:#0a0f0d; --surface-1:#111814; --surface-2:#1a231e; --surface-3:#232e28;
+  --border-1:#2c3831; --border-2:#3a4740;
+  --text-1:#e8e4dc; --text-2:#a8a89e; --text-3:#6b7570;
+  --jalalah-red:#c81e1e; --ghalat-red:#d42222; --tajweed-yellow:#f4c430; --underline-blue:#2563eb;
+  --success:#16a34a; --danger:#dc2626;
+  --shadow-md:0 4px 16px rgba(0,0,0,0.4); --shadow-lg:0 12px 40px rgba(0,0,0,0.6);
+  --radius-sm:6px; --radius-md:10px; --radius-lg:14px; --radius-xl:20px;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-html, body { height: 100%; background: var(--app-bg); color: var(--text-1); font-family: 'Inter', 'Noto Sans Malayalam', system-ui, sans-serif; overflow: hidden; font-size: 14px; line-height: 1.5; }
+html, body { height: 100%; background: var(--app-bg); color: var(--text-1); font-family:'Inter','Noto Sans Malayalam',system-ui,sans-serif; overflow: hidden; font-size: 14px; line-height: 1.5; }
 button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
 input, select, textarea { font: inherit; outline: none; }
 .hidden { display: none !important; }
 
-/* TOP BAR */
+/* ═══ TOP BAR ═══ */
 .topbar {
   height: 52px; background: var(--surface-1); border-bottom: 1px solid var(--border-1);
-  display: flex; align-items: center; padding: 0 10px; gap: 8px;
+  display: flex; align-items: center; padding: 0 8px; gap: 6px;
   position: relative; z-index: 50; direction: ltr;
 }
 .tb-left { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-.tb-center { display: flex; align-items: center; gap: 6px; flex: 1; justify-content: center; }
-.tb-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.tb-center { display: flex; align-items: center; gap: 4px; flex: 1; justify-content: center; min-width: 0; }
+.tb-right { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
 
 .brand-mark {
   width: 34px; height: 34px; border-radius: 9px;
   background: linear-gradient(135deg, var(--emerald-600), var(--emerald-800));
   display: flex; align-items: center; justify-content: center;
-  color: var(--gold-400); font-family: 'Amiri', serif; font-size: 19px; font-weight: 700;
+  color: var(--gold-400); font-size: 18px;
   border: 1px solid var(--gold-500); flex-shrink: 0;
 }
 .brand-text { display: flex; flex-direction: column; line-height: 1.1; }
@@ -75,10 +53,10 @@ input, select, textarea { font: inherit; outline: none; }
 .brand-text span { font-size: 8.5px; color: var(--text-3); letter-spacing: 0.08em; text-transform: uppercase; }
 
 .icon-btn {
-  min-width: 36px; height: 36px; padding: 0 8px; border-radius: var(--radius-md);
+  min-width: 34px; height: 34px; padding: 0 7px; border-radius: var(--radius-md);
   background: var(--surface-2); border: 1px solid var(--border-2);
   color: var(--text-1); display: flex; align-items: center; justify-content: center;
-  gap: 4px; font-size: 12px; font-weight: 600; transition: all 0.15s; white-space: nowrap;
+  gap: 4px; font-size: 13px; font-weight: 700; transition: all 0.15s; white-space: nowrap;
 }
 .icon-btn:hover { background: var(--surface-3); border-color: var(--gold-500); }
 .icon-btn.active { background: var(--gold-500); color: var(--emerald-900); border-color: var(--gold-400); }
@@ -86,23 +64,24 @@ input, select, textarea { font: inherit; outline: none; }
 
 .page-indicator {
   font-family: 'Amiri', serif; font-size: 14px; font-weight: 700; color: var(--gold-400);
-  padding: 7px 12px; background: var(--surface-2); border: 1px solid var(--border-2);
+  padding: 6px 10px; background: var(--surface-2); border: 1px solid var(--border-2);
   border-radius: var(--radius-md); cursor: pointer; white-space: nowrap;
 }
 .page-indicator:hover { border-color: var(--gold-500); }
 
 .pill-btn {
-  display: flex; align-items: center; gap: 5px;
-  padding: 7px 10px; background: var(--surface-2); border: 1px solid var(--border-2);
+  display: flex; align-items: center; gap: 4px;
+  padding: 6px 9px; background: var(--surface-2); border: 1px solid var(--border-2);
   border-radius: var(--radius-md); font-size: 11.5px; font-weight: 600;
-  max-width: 150px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+  max-width: 140px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
   transition: all 0.15s; cursor: pointer;
 }
 .pill-btn:hover { border-color: var(--gold-500); background: var(--surface-3); }
 .pill-btn .ar { font-family: 'Amiri', serif; font-size: 13px; }
-.pill-btn .caret { font-size: 9px; opacity: 0.6; }
+.pill-btn .caret { font-size: 9px; opacity: 0.6; flex-shrink: 0; }
+.pill-btn .name { overflow: hidden; text-overflow: ellipsis; }
 
-/* STAGE */
+/* ═══ STAGE ═══ */
 .stage {
   height: calc(100vh - 52px - 62px); height: calc(100dvh - 52px - 62px);
   overflow: hidden; display: flex; justify-content: center; align-items: center;
@@ -110,7 +89,7 @@ input, select, textarea { font: inherit; outline: none; }
 }
 .book-spread { display: flex; direction: rtl; gap: 12px; align-items: center; justify-content: center; height: 100%; max-width: 100%; }
 
-/* MUSHAF SHEET */
+/* ═══ MUSHAF SHEET ═══ */
 .mushaf-sheet {
   height: 100%; aspect-ratio: 1/1.5; max-width: 49vw;
   background: var(--paper); position: relative; padding: 8px 16px 6px;
@@ -137,7 +116,7 @@ input, select, textarea { font: inherit; outline: none; }
 .mushaf-tag { font-size: 8.5px; font-weight: 700; color: #8c734b; letter-spacing: 0.08em; text-transform: uppercase; }
 .page-num-display { font-family: 'Amiri', serif; font-size: 15px; font-weight: 700; color: #3b2c14; }
 
-/* 15-LINE GRID */
+/* ═══ 15-LINE GRID ═══ */
 .lines-grid { flex: 1; display: flex; flex-direction: column; justify-content: space-between; direction: rtl; width: 100%; margin: 1px 0; position: relative; }
 .qline { height: calc(100%/15); min-height: 5.8%; display: flex; align-items: center; justify-content: space-between; white-space: nowrap; direction: rtl; position: relative; width: 100%; padding: 0 2px; }
 .qline.centered { justify-content: center; gap: 14px; }
@@ -155,28 +134,23 @@ input, select, textarea { font: inherit; outline: none; }
 .word.mark-underline { box-shadow: inset 0 -3px 0 var(--underline-blue); }
 .word.mark-ghalat { background: rgba(212,34,34,0.14); box-shadow: inset 0 -3px 0 var(--ghalat-red); }
 .word.mark-tajweed { background: rgba(244,196,48,0.35); box-shadow: inset 0 -3px 0 var(--tajweed-yellow); }
-.word.tapped { background: rgba(0,0,0,0.12); }
-
 .qudratullah-mode .word {
   font-family: 'DigitalKhatt IndoPak','Noto Nastaliq Urdu','Amiri',serif !important;
   font-size: clamp(15px, 2.15vh, 25px); line-height: 1.9;
 }
-
 .surah-head {
   width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
-  gap: 12px; background: linear-gradient(180deg, #fefbf2 0%, #f4e7c3 50%, #fefbf2 100%);
+  gap: 10px; background: linear-gradient(180deg,#fefbf2 0%,#f4e7c3 50%,#fefbf2 100%);
   border: 1.5px solid #2d2417; outline: 1px solid var(--gold-500); outline-offset: -3px;
-  padding: 0 14px; border-radius: 2px;
+  padding: 0 12px; border-radius: 2px;
 }
 .surah-head .sep { color: #8c734b; font-size: 10px; }
 .surah-head .meta { font-family: 'Amiri', serif; font-size: 11px; font-weight: 700; color: #5c4118; white-space: nowrap; }
 .surah-head .title { font-family: 'Amiri', serif; font-size: 17px; font-weight: 700; color: #16291e; white-space: nowrap; }
-
 .bismillah {
   height: 100%; display: flex; align-items: center; justify-content: center;
   font-family: 'Amiri', serif; font-size: 18px; color: #172d21; direction: rtl;
 }
-
 .ayah-mark {
   display: inline-block; cursor: pointer; padding: 0 2px; border-radius: 6px;
   transition: all 0.15s; font-family: 'Amiri', serif;
@@ -185,29 +159,26 @@ input, select, textarea { font: inherit; outline: none; }
 .ayah-mark.lesson-start { background: rgba(22,163,74,0.25); box-shadow: 0 0 0 1.5px var(--success); }
 .ayah-mark.lesson-end { background: rgba(220,38,38,0.25); box-shadow: 0 0 0 1.5px var(--danger); }
 
-/* DOCK */
+/* ═══ DOCK ═══ */
 .dock {
   height: 62px; background: var(--surface-1); border-top: 1px solid var(--border-1);
-  display: flex; align-items: center; justify-content: center; gap: 5px;
-  padding: 0 8px; overflow-x: auto; direction: ltr; position: relative; z-index: 40;
+  display: flex; align-items: center; justify-content: center; gap: 4px;
+  padding: 0 6px; overflow-x: auto; direction: ltr; position: relative; z-index: 40;
 }
 .dock::-webkit-scrollbar { height: 0; }
 .dock-group { display: flex; align-items: center; gap: 3px; padding: 3px; background: var(--surface-2); border: 1px solid var(--border-1); border-radius: var(--radius-lg); }
 .dock-btn {
   min-width: 40px; height: 40px; padding: 0 10px; border-radius: var(--radius-md);
   background: transparent; color: var(--text-1); display: flex; align-items: center;
-  justify-content: center; gap: 4px; font-size: 13px; font-weight: 600; transition: all 0.15s;
-  white-space: nowrap;
+  justify-content: center; gap: 4px; font-size: 13px; font-weight: 600; transition: all 0.15s; white-space: nowrap;
 }
 .dock-btn:hover { background: var(--surface-3); }
 .dock-btn.active { background: var(--gold-500); color: var(--emerald-900); }
 .dock-btn.primary { background: var(--emerald-600); color: #fff; }
 .dock-btn.primary:hover { background: var(--emerald-500); }
-.dock-btn.danger { color: #ff8a8a; }
-.dock-btn.danger:hover { background: rgba(220,38,38,0.15); }
 .dock-btn .label { font-size: 11px; }
 
-/* DROPDOWN MENUS */
+/* ═══ MENUS ═══ */
 .menu {
   position: fixed; z-index: 600; background: var(--surface-2); border: 1px solid var(--gold-500);
   border-radius: var(--radius-md); box-shadow: var(--shadow-lg); padding: 5px;
@@ -227,7 +198,7 @@ input, select, textarea { font: inherit; outline: none; }
 .menu-divider { height: 1px; background: var(--border-1); margin: 4px 6px; }
 .menu-header { padding: 8px 12px 4px; font-size: 10px; font-weight: 800; color: var(--text-3); letter-spacing: 0.1em; text-transform: uppercase; }
 
-/* MODAL */
+/* ═══ MODAL ═══ */
 .modal { position: fixed; inset: 0; z-index: 700; display: none; align-items: center; justify-content: center; padding: 16px; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); }
 .modal.open { display: flex; }
 .modal-card {
@@ -239,7 +210,6 @@ input, select, textarea { font: inherit; outline: none; }
 .modal-head h3 { font-size: 16px; font-weight: 700; color: var(--gold-400); }
 .close-x { width: 32px; height: 32px; border-radius: var(--radius-md); background: var(--surface-2); color: var(--text-2); font-size: 18px; display: flex; align-items: center; justify-content: center; }
 .close-x:hover { background: var(--surface-3); color: var(--text-1); }
-
 .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 11px; }
 .field { display: flex; flex-direction: column; gap: 5px; }
 .field.full { grid-column: 1/-1; }
@@ -251,12 +221,7 @@ input, select, textarea { font: inherit; outline: none; }
 }
 .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--gold-500); box-shadow: 0 0 0 3px rgba(197,160,89,0.12); }
 .field textarea { min-height: 70px; resize: vertical; }
-
-.btn {
-  padding: 10px 18px; border-radius: var(--radius-md); font-size: 12.5px; font-weight: 600;
-  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-  transition: all 0.15s; border: 1px solid transparent;
-}
+.btn { padding: 10px 18px; border-radius: var(--radius-md); font-size: 12.5px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; gap: 6px; transition: all 0.15s; border: 1px solid transparent; }
 .btn-primary { background: var(--emerald-600); color: #fff; }
 .btn-primary:hover { background: var(--emerald-500); }
 .btn-gold { background: var(--gold-500); color: var(--emerald-900); }
@@ -267,7 +232,7 @@ input, select, textarea { font: inherit; outline: none; }
 .btn-danger:hover { background: rgba(220,38,38,0.25); }
 .btn-block { width: 100%; }
 
-/* DRAWER */
+/* ═══ DRAWER ═══ */
 .drawer-scrim { position: fixed; inset: 0; z-index: 800; background: rgba(0,0,0,0.6); backdrop-filter: blur(3px); opacity: 0; pointer-events: none; transition: opacity 0.2s; }
 .drawer-scrim.open { opacity: 1; pointer-events: auto; }
 .drawer {
@@ -280,7 +245,7 @@ input, select, textarea { font: inherit; outline: none; }
 .drawer.open { transform: translateX(0); }
 .drawer-head { padding: 20px; background: linear-gradient(135deg, var(--emerald-700), var(--emerald-900)); border-bottom: 1px solid var(--gold-500); }
 .drawer-head .logo { display: flex; align-items: center; gap: 12px; }
-.drawer-head .logo-mark { width: 42px; height: 42px; border-radius: 11px; background: var(--gold-500); color: var(--emerald-900); display: flex; align-items: center; justify-content: center; font-family: 'Amiri', serif; font-size: 22px; font-weight: 700; border: 2px solid var(--gold-300); }
+.drawer-head .logo-mark { width: 42px; height: 42px; border-radius: 11px; background: var(--gold-500); color: var(--emerald-900); display: flex; align-items: center; justify-content: center; font-size: 22px; border: 2px solid var(--gold-300); }
 .drawer-head h2 { font-size: 16px; font-weight: 800; color: var(--gold-400); }
 .drawer-head small { font-size: 10px; color: var(--text-3); letter-spacing: 0.08em; text-transform: uppercase; }
 .drawer-body { flex: 1; overflow-y: auto; padding: 12px; }
@@ -289,7 +254,7 @@ input, select, textarea { font: inherit; outline: none; }
 .drawer-item:hover { background: var(--surface-2); color: var(--gold-400); }
 .drawer-item .ico { font-size: 16px; width: 22px; text-align: center; flex-shrink: 0; }
 
-/* SETTINGS SHEET */
+/* ═══ SETTINGS SHEET ═══ */
 .sheet-scrim { position: fixed; inset: 0; z-index: 800; background: rgba(0,0,0,0.6); backdrop-filter: blur(3px); opacity: 0; pointer-events: none; transition: opacity 0.2s; }
 .sheet-scrim.open { opacity: 1; pointer-events: auto; }
 .sheet-panel {
@@ -313,13 +278,8 @@ input, select, textarea { font: inherit; outline: none; }
 .tab-pane { display: none; }
 .tab-pane.active { display: block; }
 .section-title { font-size: 11px; font-weight: 800; color: var(--gold-400); text-transform: uppercase; letter-spacing: 0.1em; margin: 4px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border-1); }
-
 .student-list { display: flex; flex-direction: column; gap: 8px; }
-.student-card {
-  display: flex; align-items: center; gap: 12px; padding: 12px 14px;
-  background: var(--surface-2); border: 1px solid var(--border-2);
-  border-radius: var(--radius-md); cursor: pointer; transition: all 0.15s; direction: ltr;
-}
+.student-card { display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: var(--surface-2); border: 1px solid var(--border-2); border-radius: var(--radius-md); cursor: pointer; transition: all 0.15s; direction: ltr; }
 .student-card:hover { border-color: var(--gold-500); background: var(--surface-3); }
 .student-card.active { border-color: var(--gold-500); background: rgba(197,160,89,0.08); }
 .student-avatar { width: 38px; height: 38px; border-radius: 10px; background: linear-gradient(135deg, var(--emerald-600), var(--emerald-800)); color: var(--gold-300); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; flex-shrink: 0; }
@@ -327,26 +287,20 @@ input, select, textarea { font: inherit; outline: none; }
 .student-info b { font-size: 13.5px; display: block; }
 .student-info small { font-size: 11px; color: var(--text-3); }
 .student-actions { display: flex; gap: 5px; flex-shrink: 0; }
-
 .progress-bar { height: 8px; background: var(--surface-3); border-radius: 4px; overflow: hidden; margin: 8px 0; }
 .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--emerald-500), var(--gold-500)); border-radius: 4px; transition: width 0.2s; }
-
 .cat-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: var(--surface-2); border: 1px solid var(--border-2); border-radius: var(--radius-md); margin-bottom: 6px; }
 .cat-item .name { font-family: 'Amiri', serif; font-size: 15px; font-weight: 700; }
 .cat-item .label { font-size: 12px; color: var(--text-3); margin-left: 8px; }
 
-/* REPORT */
+/* ═══ REPORT ═══ */
 .report-screen { position: fixed; inset: 0; z-index: 900; display: none; flex-direction: column; background: #e5e7e5; direction: ltr; }
 .report-screen.open { display: flex; }
 .report-toolbar { height: 56px; background: var(--surface-1); border-bottom: 1px solid var(--border-1); display: flex; align-items: center; gap: 8px; padding: 0 14px; overflow-x: auto; }
 .report-toolbar::-webkit-scrollbar { height: 0; }
 .report-toolbar select, .report-toolbar input { background: var(--surface-2); border: 1px solid var(--border-2); color: var(--text-1); padding: 7px 10px; border-radius: var(--radius-md); font-size: 12px; }
 .report-body { flex: 1; overflow-y: auto; padding: 20px; display: flex; justify-content: center; }
-.paper {
-  width: 210mm; min-height: 297mm; background: #fff; color: #1a1a1a;
-  padding: 14mm; box-shadow: 0 4px 24px rgba(0,0,0,0.15);
-  font-family: 'Inter', sans-serif; direction: ltr; align-self: flex-start;
-}
+.paper { width: 210mm; min-height: 297mm; background: #fff; color: #1a1a1a; padding: 14mm; box-shadow: 0 4px 24px rgba(0,0,0,0.15); font-family: 'Inter', sans-serif; direction: ltr; align-self: flex-start; }
 .paper .r-header { text-align: center; border-bottom: 3px double var(--emerald-600); padding-bottom: 12px; margin-bottom: 16px; }
 .paper .r-inst { font-size: 20px; font-weight: 800; color: var(--emerald-700); letter-spacing: 0.02em; }
 .paper .r-run { font-size: 11.5px; color: #555; margin-top: 3px; font-weight: 600; }
@@ -370,32 +324,31 @@ input, select, textarea { font: inherit; outline: none; }
 .paper .signs { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 50px; }
 .paper .sign { padding-top: 8px; border-top: 1px solid #555; text-align: center; font-size: 10px; color: #555; font-weight: 600; }
 
-/* TOAST */
-.toast {
-  position: fixed; left: 50%; bottom: 80px; z-index: 1000; padding: 11px 18px;
-  background: var(--surface-2); border: 1px solid var(--gold-500); color: var(--text-1);
-  border-radius: var(--radius-md); font-size: 12.5px; font-weight: 600;
-  opacity: 0; pointer-events: none; transform: translateX(-50%) translateY(12px);
-  transition: all 0.22s; box-shadow: var(--shadow-lg); direction: ltr;
-}
+/* ═══ TOAST ═══ */
+.toast { position: fixed; left: 50%; bottom: 80px; z-index: 1000; padding: 11px 18px; background: var(--surface-2); border: 1px solid var(--gold-500); color: var(--text-1); border-radius: var(--radius-md); font-size: 12.5px; font-weight: 600; opacity: 0; pointer-events: none; transform: translateX(-50%) translateY(12px); transition: all 0.22s; box-shadow: var(--shadow-lg); direction: ltr; }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-/* SPLASH */
+/* ═══ SPLASH ═══ */
 .splash { position: fixed; inset: 0; z-index: 2000; background: radial-gradient(circle at 50% 40%, #14201a 0%, #060908 100%); display: flex; align-items: center; justify-content: center; padding: 20px; direction: ltr; }
 .splash-card { width: min(460px, 100%); background: var(--surface-1); border: 1px solid var(--gold-500); border-radius: var(--radius-xl); padding: 28px 26px; text-align: center; box-shadow: var(--shadow-lg); }
-.splash-mark { width: 62px; height: 62px; margin: 0 auto 14px; border-radius: 16px; background: linear-gradient(135deg, var(--gold-500), var(--gold-600)); color: var(--emerald-900); display: flex; align-items: center; justify-content: center; font-family: 'Amiri', serif; font-size: 32px; font-weight: 700; border: 2px solid var(--gold-300); }
-.splash-card h1 { font-size: 19px; font-weight: 800; color: var(--gold-400); margin-bottom: 6px; }
+.splash-mark { width: 64px; height: 64px; margin: 0 auto 16px; border-radius: 16px; background: linear-gradient(135deg, var(--emerald-600), var(--emerald-800)); color: var(--gold-300); display: flex; align-items: center; justify-content: center; font-size: 32px; border: 2px solid var(--gold-500); }
+.splash-card h1 { font-size: 20px; font-weight: 800; color: var(--gold-400); margin-bottom: 6px; letter-spacing: 0.02em; }
+.splash-card .subtitle { font-size: 11px; color: var(--text-3); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; font-weight: 600; }
 .splash-card p { font-size: 12px; color: var(--text-3); line-height: 1.7; margin-bottom: 14px; }
 .splash-status { font-size: 11px; color: var(--gold-400); font-weight: 600; min-height: 16px; margin-top: 10px; }
 
-/* RESPONSIVE */
+/* ═══ RESPONSIVE ═══ */
 @media (max-width: 1000px), (orientation: portrait) {
   .mushaf-sheet.left-sheet { display: none !important; }
   .mushaf-sheet { width: 100vw; max-width: 100vw; aspect-ratio: auto; height: 100%; border-left: none; border-right: none; outline-offset: 1px; padding: 6px 10px 4px; }
   .stage { padding: 4px 2px; }
-  .brand-text strong { max-width: 70px; font-size: 10.5px; }
-  .brand-text span { display: none; }
-  .brand-mark { width: 30px; height: 30px; font-size: 16px; }
+  /* Mobile: hide brand on mobile */
+  .brand-mark, .brand-text { display: none !important; }
+  .topbar { padding: 0 6px; gap: 4px; }
+  .icon-btn { min-width: 32px; height: 32px; padding: 0 6px; font-size: 12px; }
+  .page-indicator { padding: 6px 8px; font-size: 12.5px; }
+  .pill-btn { padding: 6px 8px; font-size: 11px; max-width: 100px; }
+  .pill-btn .ar { font-size: 12px; }
   .dock { padding: 0 4px; gap: 3px; height: 58px; }
   .dock-btn { min-width: 38px; height: 38px; padding: 0 8px; font-size: 12px; }
   .stage { height: calc(100vh - 52px - 58px); height: calc(100dvh - 52px - 58px); }
@@ -404,14 +357,15 @@ input, select, textarea { font: inherit; outline: none; }
   .paper { width: 100%; min-height: auto; padding: 12px; }
   .paper .summary { grid-template-columns: 1fr 1fr; }
   .paper .r-info { grid-template-columns: 1fr; }
-  .pill-btn { padding: 6px 8px; font-size: 10.5px; max-width: 110px; }
 }
-@media (max-width: 420px) {
-  .tb-center .page-indicator { padding: 6px 8px; font-size: 12px; }
-  .icon-btn { min-width: 32px; height: 32px; padding: 0 6px; }
+@media (max-width: 380px) {
+  .icon-btn { min-width: 30px; height: 30px; padding: 0 5px; }
+  .page-indicator { padding: 5px 6px; font-size: 11.5px; }
+  .pill-btn { padding: 5px 6px; font-size: 10.5px; max-width: 85px; }
+  .dock-btn { min-width: 36px; height: 36px; padding: 0 6px; }
 }
 
-/* PRINT */
+/* ═══ PRINT ═══ */
 @media print {
   body * { visibility: hidden; }
   .report-screen, .report-screen * { visibility: visible; }
@@ -428,8 +382,9 @@ input, select, textarea { font: inherit; outline: none; }
 <!-- SPLASH -->
 <div class="splash" id="splash">
   <div class="splash-card">
-    <div class="splash-mark">ﷲ</div>
+    <div class="splash-mark">📖</div>
     <h1>Al-Halaqah</h1>
+    <div class="subtitle">Hifz Quran Management</div>
     <p id="splashDesc">Preparing Quran data for offline use…</p>
     <div class="progress-bar"><div class="progress-fill" id="splashBar"></div></div>
     <div class="splash-status" id="splashStatus">Initializing…</div>
@@ -441,7 +396,7 @@ input, select, textarea { font: inherit; outline: none; }
 <header class="topbar">
   <div class="tb-left">
     <button class="icon-btn" onclick="UI.openDrawer()">☰</button>
-    <div class="brand-mark">ح</div>
+    <div class="brand-mark">📖</div>
     <div class="brand-text">
       <strong id="brandName">Al-Halaqah</strong>
       <span>Hifz Quran</span>
@@ -454,7 +409,7 @@ input, select, textarea { font: inherit; outline: none; }
   </div>
   <div class="tb-right">
     <button class="pill-btn" id="studentPill" onclick="Menus.toggleStudent(event)">
-      <span>👤</span><span id="studentPillText">Student</span><span class="caret">▼</span>
+      <span>👤</span><span class="name" id="studentPillText">Student</span><span class="caret">▼</span>
     </button>
     <button class="pill-btn" id="lessonPill" onclick="Menus.toggleLesson(event)">
       <span class="ar" id="lessonPillAr">سبق</span><span class="caret">▼</span>
@@ -588,7 +543,7 @@ input, select, textarea { font: inherit; outline: none; }
 <aside class="drawer" id="drawer">
   <div class="drawer-head">
     <div class="logo">
-      <div class="logo-mark">ح</div>
+      <div class="logo-mark">📖</div>
       <div>
         <h2>Al-Halaqah</h2>
         <small>Hifz Quran Management</small>
@@ -598,48 +553,21 @@ input, select, textarea { font: inherit; outline: none; }
   <div class="drawer-body">
     <div class="drawer-label">Current Student</div>
     <div style="padding:12px 14px; background:var(--surface-2); border-radius:10px; font-size:12px; line-height:1.7;" id="drawerStudent">No student</div>
-
     <div class="drawer-label">Quran</div>
-    <button class="drawer-item" onclick="UI.closeDrawer(); Reader.go(1)">
-      <span class="ico">📖</span><span>First Page</span>
-    </button>
-    <button class="drawer-item" onclick="UI.closeDrawer(); Reader.jump()">
-      <span class="ico">🔢</span><span>Go to Page</span>
-    </button>
-    <button class="drawer-item" onclick="UI.closeDrawer(); Reader.changeMushaf(State.currentMushaf === 'madani' ? 'indopak' : 'madani')">
-      <span class="ico">🔄</span><span>Switch Mushaf</span>
-    </button>
-
+    <button class="drawer-item" onclick="UI.closeDrawer(); Reader.go(1)"><span class="ico">📖</span><span>First Page</span></button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Reader.jump()"><span class="ico">🔢</span><span>Go to Page</span></button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Reader.changeMushaf(State.currentMushaf === 'madani' ? 'indopak' : 'madani')"><span class="ico">🔄</span><span>Switch Mushaf</span></button>
     <div class="drawer-label">Management</div>
-    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('students')">
-      <span class="ico">🎓</span><span>Students</span>
-    </button>
-    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('institution')">
-      <span class="ico">🏛</span><span>Institution</span>
-    </button>
-    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('categories')">
-      <span class="ico">📚</span><span>Lesson Categories</span>
-    </button>
-    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('report')">
-      <span class="ico">📄</span><span>Report Settings</span>
-    </button>
-    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('audio')">
-      <span class="ico">🔊</span><span>Audio Settings</span>
-    </button>
-    <button class="drawer-item" onclick="UI.closeDrawer(); Lessons.open()">
-      <span class="ico">📋</span><span>Lesson History</span>
-    </button>
-
+    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('students')"><span class="ico">🎓</span><span>Students</span></button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('institution')"><span class="ico">🏛</span><span>Institution</span></button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('categories')"><span class="ico">📚</span><span>Lesson Categories</span></button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('report')"><span class="ico">📄</span><span>Report Settings</span></button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('audio')"><span class="ico">🔊</span><span>Audio Settings</span></button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Lessons.open()"><span class="ico">📋</span><span>Lesson History</span></button>
     <div class="drawer-label">Data</div>
-    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('data')">
-      <span class="ico">⬇</span><span>Batch Download / Sync</span>
-    </button>
-    <button class="drawer-item" onclick="UI.closeDrawer(); Sync.backup()">
-      <span class="ico">💾</span><span>Backup</span>
-    </button>
-    <button class="drawer-item" onclick="UI.closeDrawer(); Sync.restore()">
-      <span class="ico">📥</span><span>Restore</span>
-    </button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('data')"><span class="ico">⬇</span><span>Batch Download / Sync</span></button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Sync.backup()"><span class="ico">💾</span><span>Backup</span></button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Sync.restore()"><span class="ico">📥</span><span>Restore</span></button>
   </div>
 </aside>
 
@@ -867,19 +795,14 @@ input, select, textarea { font: inherit; outline: none; }
 <script>
 "use strict";
 
-/* ═══════════════════════════════════════════════════════════
-   CONFIG
-   ═══════════════════════════════════════════════════════════ */
+/* ═══ CONFIG ═══ */
 const CONFIG = {
   madani: { id:"madani", name:"Madinah 1405H", shortName:"Madani 1405H", pages:604, lines:15, file:"./qpcv1-35.csv" },
   indopak: { id:"indopak", name:"Indo-Pak Qudratullah", shortName:"Qudratullah 15L", pages:610, lines:15, file:"./indpak-20.csv" }
 };
 
-const SURAH_NAMES = [
-  "","الفاتحة","البقرة","آل عمران","النساء","المائدة","الأنعام","الأعراف","الأنفال","التوبة","يونس","هود","يوسف","الرعد","إبراهيم","الحجر","النحل","الإسراء","الكهف","مريم","طه","الأنبياء","الحج","المؤمنون","النور","الفرقان","الشعراء","النمل","القصص","العنكبوت","الروم","لقمان","السجدة","الأحزاب","سبأ","فاطر","يس","الصافات","ص","الزمر","غافر","فصلت","الشورى","الزخرف","الدخان","الجاثية","الأحقاف","محمد","الفتح","الحجرات","ق","الذاريات","الطور","النجم","القمر","الرحمن","الواقعة","الحديد","المجادلة","الحشر","الممتحنة","الصف","الجمعة","المنافقون","التغابن","الطلاق","التحريم","الملك","القلم","الحاقة","المعارج","نوح","الجن","المزمل","المدثر","القيامة","الإنسان","المرسلات","النبأ","النازعات","عبس","التكوير","الانفطار","المطففين","الانشقاق","البروج","الطارق","الأعلى","الغاشية","الفجر","البلد","الشمس","الليل","الضحى","الشرح","التين","العلق","القدر","البينة","الزلزلة","العاديات","القارعة","التكاثر","العصر","الهمزة","الفيل","قريش","الماعون","الكوثر","الكافرون","النصر","المسد","الإخلاص","الفلق","الناس"
-];
+const SURAH_NAMES = ["","الفاتحة","البقرة","آل عمران","النساء","المائدة","الأنعام","الأعراف","الأنفال","التوبة","يونس","هود","يوسف","الرعد","إبراهيم","الحجر","النحل","الإسراء","الكهف","مريم","طه","الأنبياء","الحج","المؤمنون","النور","الفرقان","الشعراء","النمل","القصص","العنكبوت","الروم","لقمان","السجدة","الأحزاب","سبأ","فاطر","يس","الصافات","ص","الزمر","غافر","فصلت","الشورى","الزخرف","الدخان","الجاثية","الأحقاف","محمد","الفتح","الحجرات","ق","الذاريات","الطور","النجم","القمر","الرحمن","الواقعة","الحديد","المجادلة","الحشر","الممتحنة","الصف","الجمعة","المنافقون","التغابن","الطلاق","التحريم","الملك","القلم","الحاقة","المعارج","نوح","الجن","المزمل","المدثر","القيامة","الإنسان","المرسلات","النبأ","النازعات","عبس","التكوير","الانفطار","المطففين","الانشقاق","البروج","الطارق","الأعلى","الغاشية","الفجر","البلد","الشمس","الليل","الضحى","الشرح","التين","العلق","القدر","البينة","الزلزلة","العاديات","القارعة","التكاثر","العصر","الهمزة","الفيل","قريش","الماعون","الكوثر","الكافرون","النصر","المسد","الإخلاص","الفلق","الناس"];
 
-// Total ayah count per surah (1-114)
 const SURAH_AYAH_COUNT = [0,7,286,200,176,120,165,206,75,129,109,123,111,43,52,99,128,111,110,98,135,112,78,118,64,77,227,93,88,69,60,34,30,73,54,45,83,182,88,75,85,54,53,89,59,37,35,38,29,18,45,60,49,62,55,78,96,29,22,24,13,14,11,11,18,12,12,30,52,52,44,28,28,20,56,40,31,50,40,46,42,29,19,36,25,22,17,19,26,30,20,15,21,11,8,8,19,5,8,8,11,11,8,3,9,5,4,7,3,6,3,5,4,5,6];
 function surahAyahCount(n) { return SURAH_AYAH_COUNT[n] || 0; }
 
@@ -896,7 +819,6 @@ const DEFAULT_SETTINGS = {
   audio: { reciter:"Alafasy_128kbps", enabled:false }
 };
 
-/* STATE */
 const State = {
   settings: structuredClone(DEFAULT_SETTINGS),
   students: [], assignments: [], lessons: [], marks: [],
@@ -908,7 +830,7 @@ const State = {
   undoStack: []
 };
 
-/* UTILITIES */
+/* ═══ UTILS ═══ */
 const U = {
   id: p => p + "_" + Date.now() + "_" + Math.random().toString(36).slice(2,9),
   today: () => new Date().toISOString().slice(0,10),
@@ -940,7 +862,7 @@ const U = {
 
 /* ═══ DB ═══ */
 const DB = {
-  db: null, name: "AlHalaqah_Pro_v2",
+  db: null, name: "AlHalaqah_Pro_v3",
   init() {
     return new Promise((res, rej) => {
       const r = indexedDB.open(this.name, 1);
@@ -991,28 +913,6 @@ const DB = {
     });
   }
 };
-
-/* CSV */
-function clean(v) { let t = String(v ?? "").trim(); if (t.length >= 2 && ((t[0]==="'" && t.endsWith("'")) || (t[0]==='"' && t.endsWith('"')))) t = t.slice(1,-1); return t; }
-function parseCSV(text) {
-  const rows=[]; let cur=[], val="", inQ=false;
-  for (let i = 0; i < text.length; i++) {
-    const c = text[i];
-    if (c === '"') { if (inQ && text[i+1] === '"') { val += '"'; i++; } else inQ = !inQ; continue; }
-    if (c === "," && !inQ) { cur.push(val); val=""; continue; }
-    if ((c === "\n" || c === "\r") && !inQ) {
-      if (c === "\r" && text[i+1] === "\n") i++;
-      cur.push(val); val="";
-      if (cur.some(x=>x!=="")) rows.push(cur);
-      cur=[]; continue;
-    }
-    val += c;
-  }
-  if (val !== "" || cur.length) { cur.push(val); if (cur.some(x=>x!=="")) rows.push(cur); }
-  if (!rows.length) return [];
-  const h = rows[0].map(clean);
-  return rows.slice(1).map(r => { const o={}; h.forEach((k,i)=>o[k]=clean(r[i]??"")); return o; });
-}
 
 /* ═══ INGESTION ═══ */
 const Ingest = {
@@ -1274,17 +1174,16 @@ const Settings = {
 
 /* ═══ MENUS ═══ */
 const Menus = {
-  closeAll() {
-    document.querySelectorAll(".menu").forEach(m => m.classList.remove("open"));
-  },
+  closeAll() { document.querySelectorAll(".menu").forEach(m => m.classList.remove("open")); },
   positionAt(menu, anchor, align = "left") {
     const r = anchor.getBoundingClientRect();
     menu.style.left = "auto"; menu.style.right = "auto";
-    let x = align === "right" ? (r.right - 240) : r.left;
-    if (x + 240 > window.innerWidth) x = window.innerWidth - 250;
+    const mw = Math.min(280, window.innerWidth - 16);
+    let x = align === "right" ? (r.right - mw) : r.left;
+    if (x + mw > window.innerWidth - 8) x = window.innerWidth - mw - 8;
     if (x < 8) x = 8;
     let y = r.bottom + 6;
-    if (y + 320 > window.innerHeight) y = Math.max(8, r.top - 320);
+    if (y + 340 > window.innerHeight) y = Math.max(8, r.top - 340);
     menu.style.left = x + "px";
     menu.style.top = y + "px";
   },
@@ -1316,9 +1215,6 @@ const Menus = {
     if (wasOpen) return;
     m.classList.add("open");
     this.positionAt(m, e.currentTarget, "right");
-  },
-  toggleAyah(e, el, verseKey) {
-    AyahAction.open(e, el, verseKey);
   },
   buildStudentMenu() {
     const list = document.getElementById("studentMenuList");
@@ -1517,7 +1413,6 @@ const Marks = {
     const map = { underline:"toolUnderline", ghalat:"toolGhalat", tajweed:"toolTajweed" };
     if (map[t]) document.getElementById(map[t])?.classList.add("active");
   },
-  // Mark stored by (studentId, mushafId, wordNumberAll) → visible in all lessons
   async toggle(wordId, verseKey, page) {
     if (!State.currentStudentId) { U.toast("Select a student first"); return; }
     if (State.currentTool === "eraser") {
@@ -1532,7 +1427,6 @@ const Marks = {
       m.wordNumberAll === wordId
     );
     if (existing) {
-      // Undo stack
       State.undoStack.push({ kind:"mark-replace", id:existing.id, prev: { ...existing } });
       if (existing.type === State.currentTool) {
         await DB.del("marks", existing.id);
@@ -1564,11 +1458,8 @@ const Marks = {
     const last = State.undoStack.pop();
     if (!last) { U.toast("Nothing to undo"); return; }
     try {
-      if (last.kind === "mark-add") {
-        await DB.del("marks", last.id);
-      } else if (last.kind === "mark-remove" || last.kind === "mark-replace") {
-        await DB.put("marks", last.prev);
-      }
+      if (last.kind === "mark-add") await DB.del("marks", last.id);
+      else if (last.kind === "mark-remove" || last.kind === "mark-replace") await DB.put("marks", last.prev);
       await this.load();
       await Reader.render();
       U.toast("Undone");
@@ -1745,11 +1636,7 @@ const AudioPlayer = {
   toggle() {
     State.settings.audio.enabled = !State.settings.audio.enabled;
     Settings.save();
-    const btn = document.getElementById("audioBtn");
-    if (btn) {
-      btn.textContent = State.settings.audio.enabled ? "🔊" : "🔇";
-      btn.classList.toggle("audio-on", State.settings.audio.enabled);
-    }
+    this.syncUI();
     U.toast("Audio " + (State.settings.audio.enabled ? "ON" : "OFF"));
   },
   syncUI() {
@@ -1769,28 +1656,22 @@ const AyahAction = {
     const [s,a] = verseKey.split(":").map(Number);
     this.current = { verseKey, surah:s, ayah:a, page:State.currentPage, el };
     State.currentAyah = verseKey;
-
     const el1 = document.getElementById("ayahStartMeta");
     const el2 = document.getElementById("ayahEndMeta");
     if (el1) el1.textContent = SURAH_NAMES[s] + " · " + a;
     if (el2) el2.textContent = SURAH_NAMES[s] + " · " + a;
-
     const m = document.getElementById("ayahMenu");
     Menus.closeAll();
     m.classList.add("open");
     Menus.positionAt(m, el, "left");
   },
   close() { document.getElementById("ayahMenu").classList.remove("open"); },
-  play() {
-    if (this.current) AudioPlayer.play(this.current.verseKey);
-    this.close();
-  },
+  play() { if (this.current) AudioPlayer.play(this.current.verseKey); this.close(); },
   startFrom() {
     if (!this.current) return;
     const c = this.current;
     State.lastBoundary = { surah:SURAH_NAMES[c.surah], ayah:c.ayah, page:c.page };
     document.querySelectorAll(".ayah-mark").forEach(el => el.classList.remove("lesson-start"));
-    c.el.classList.add("lesson-start");
     U.toast("Start: " + SURAH_NAMES[c.surah] + " · " + c.ayah);
     this.close();
   },
@@ -1799,7 +1680,6 @@ const AyahAction = {
     const c = this.current;
     State.lastBoundary = { surah:SURAH_NAMES[c.surah], ayah:c.ayah, page:c.page };
     document.querySelectorAll(".ayah-mark").forEach(el => el.classList.remove("lesson-end"));
-    c.el.classList.add("lesson-end");
     U.toast("End: " + SURAH_NAMES[c.surah] + " · " + c.ayah);
     this.close();
     setTimeout(() => Lesson.endDialog(), 250);
@@ -1813,10 +1693,7 @@ const Reader = {
     const s = Students.current();
     if (s) {
       const assigned = Students.assignedMushafs(s.id);
-      if (!assigned.includes(id)) {
-        U.toast("Not assigned to this student");
-        return;
-      }
+      if (!assigned.includes(id)) { U.toast("Not assigned"); return; }
     }
     State.currentMushaf = id;
     const ps = s ? await DB.get("page_states", s.id + "_" + id) : null;
@@ -1878,7 +1755,7 @@ const Reader = {
       if (mark?.type === "underline") cls += " mark-underline";
       const style = isQcf ? "font-family:'" + fontName + "','Amiri',serif;" : "";
       html += '<span class="' + cls + '" style="' + style + '" ' +
-        'data-word="' + w.id + '" data-verse="' + verseKey + '" data-surah="' + w.surah + '" data-ayah="' + w.ayah + '" ' +
+        'data-word="' + w.id + '" data-verse="' + verseKey + '" ' +
         'onclick="Reader.wordClick(event, this)">' + U.esc(text) + '</span>';
     }
     return html;
@@ -1904,14 +1781,14 @@ const Reader = {
         const sn = l.start || 1;
         detectedSurah = sn;
         row.classList.add("centered");
-        const ayahCount = surahAyahCount(sn);
+        const ac = surahAyahCount(sn);
         row.innerHTML =
           '<div class="surah-head">' +
           '<span class="meta">ترتيبها ' + U.ar(sn) + '</span>' +
           '<span class="sep">·</span>' +
           '<span class="title">سُورَةُ ' + (SURAH_NAMES[sn] || "") + '</span>' +
           '<span class="sep">·</span>' +
-          '<span class="meta">' + U.ar(ayahCount) + ' آية</span>' +
+          '<span class="meta">' + U.ar(ac) + ' آية</span>' +
           '</div>';
       } else if (l.type === "basmallah") {
         row.classList.add("centered");
@@ -1964,26 +1841,12 @@ const Reader = {
     const wordId = Number(el.dataset.word);
     const verse = el.dataset.verse;
     State.currentAyah = verse;
-
-    // If audio enabled AND tool is underline/ghalat/tajweed, we still mark; else mark
-    if (State.currentTool === "underline" || State.currentTool === "ghalat" || State.currentTool === "tajweed") {
+    if (State.currentTool === "underline" || State.currentTool === "ghalat" || State.currentTool === "tajweed" || State.currentTool === "eraser") {
       await Marks.toggle(wordId, verse, State.currentPage);
       return;
     }
-    if (State.currentTool === "eraser") {
-      await Marks.toggle(wordId, verse, State.currentPage);
-      return;
-    }
-    // Tool none → popup
     if (State.settings.audio.enabled) AudioPlayer.play(verse);
     AyahAction.open(e, el, verse);
-  },
-  // Ayah marker tap (called from ayah-mark span)
-  async ayahMarkerClick(e, el, verseKey) {
-    e.stopPropagation();
-    State.currentAyah = verseKey;
-    if (State.settings.audio.enabled) AudioPlayer.play(verseKey);
-    AyahAction.open(e, el, verseKey);
   }
 };
 
@@ -2092,13 +1955,10 @@ const Report = {
         '<div class="sign">' + U.esc(inst.department || "Hifz Department") + '</div>' +
         '</div>' : "");
   },
-  print() {
-    this.render();
-    setTimeout(() => window.print(), 200);
-  }
+  print() { this.render(); setTimeout(() => window.print(), 200); }
 };
 
-/* ═══ SYNC / BACKUP ═══ */
+/* ═══ SYNC ═══ */
 const Sync = {
   async download() {
     if (State.syncRunning) { U.toast("Already running"); return; }
@@ -2130,7 +1990,7 @@ const Sync = {
   },
   async backup() {
     const data = {
-      app:"Al-Halaqah", version:2, exportedAt: new Date().toISOString(),
+      app:"Al-Halaqah", version:3, exportedAt: new Date().toISOString(),
       settings: State.settings,
       students: await DB.all("students"),
       assignments: await DB.all("assignments"),
@@ -2229,7 +2089,7 @@ const App = {
       if (tag === "INPUT" || tag === "SELECT" || tag === "TEXTAREA") return;
       if (e.key === "ArrowLeft") Reader.prev();
       if (e.key === "ArrowRight") Reader.next();
-      if (e.key === "Escape") { Menus.closeAll(); }
+      if (e.key === "Escape") Menus.closeAll();
     });
   },
   async reload() {
