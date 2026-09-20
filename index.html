@@ -1,976 +1,3129 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Al-Halaqah — Hifz Quran Management</title>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Sans+Malayalam:wght@400;600;800&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#0d110f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Al-Halaqah — Hifz Quran</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Noto+Nastaliq+Urdu:wght@400;700&family=Plus+Jakarta+Sans:wght@500;600;700&family=Noto+Sans+Malayalam:wght@400;600&display=swap" rel="stylesheet">
+
 <style>
-/* =========================================================
-   FONTS & VARIABLES
-========================================================= */
+/* ═══ Local Authentic Fonts ═══ */
 @font-face {
-    font-family: 'DigitalKhatt IndoPak';
-    src: url('./DigitalKhattIndoPak.otf') format('opentype');
-    font-display: swap;
+  font-family: 'DigitalKhatt IndoPak';
+  src: url('./DigitalKhattIndoPak.otf') format('opentype');
+  font-display: swap;
 }
 @font-face {
-    font-family: 'DigitalKhatt Old Madina';
-    src: url('./DigitalKhattQuranic.otf') format('opentype');
-    font-display: swap;
+  font-family: 'DigitalKhatt Old Madina';
+  src: url('./DigitalKhattQuranic.otf') format('opentype');
+  font-display: swap;
 }
 
 :root {
-    --green: #006b54;
-    --green-dark: #004f3e;
-    --green-light: #e9f5f1;
-    
-    /* Mushaf Colors */
-    --gold-primary: #c5a059;
-    --paper: #fcf9f2;
-    --border-outer: #2d2417;
-    --ink: #14120e;
-    --jalalah-red: #ba1616;
-
-    --bg: #eef1f0;
-    --text: #222;
-    --muted: #737a78;
-    --border: #d8dfdc;
-    --red: #c40000;
-    --yellow: #ffe8a0;
-    --shadow: 0 4px 20px rgba(0,0,0,.10);
+  --gold-primary: #c5a059;
+  --gold-light: #dfba73;
+  --gold-dark: #7a5e27;
+  --paper: #fcf9f2;
+  --border-outer: #2d2417;
+  --ink: #14120e;
+  --app-bg: #0d110f;
+  --surface-dark: #161c18;
+  --surface-card: #1f2722;
+  --surface-border: #2c3831;
+  --jalalah-red: #ba1616;
+  --green: #006b54;
+  --red: #c40000;
+  --yellow: #ffe8a0;
+  --danger: #a40000;
 }
 
-* { box-sizing: border-box; }
-html, body {
-    margin: 0; padding: 0;
-    min-height: 100%;
-    background: var(--bg);
-    color: var(--text);
-    font-family: "Noto Sans Malayalam", sans-serif;
-    -webkit-tap-highlight-color: transparent;
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+body {
+  background: var(--app-bg);
+  color: #edeae4;
+  font-family: 'Plus Jakarta Sans', 'Noto Sans Malayalam', system-ui, sans-serif;
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
-button, input, select, textarea { font: inherit; }
-button { cursor: pointer; }
+
 .hidden { display: none !important; }
+button { cursor: pointer; font: inherit; }
+input, select, textarea { font: inherit; }
 
-/* =========================================================
-   TOP BAR
-========================================================= */
+/* ═══ TOP BAR ═══ */
 .topbar {
-    position: sticky; top: 0; z-index: 100;
-    height: 56px; display: flex; align-items: center; justify-content: space-between;
-    gap: 8px; padding: 0 8px;
-    background: #fff; border-bottom: 1px solid var(--border);
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 0 8px;
+  background: rgba(18, 24, 20, 0.96);
+  border-bottom: 1px solid var(--surface-border);
+  z-index: 100;
+  direction: ltr;
 }
-.top-left, .top-right { display: flex; align-items: center; gap: 6px; }
+.top-left, .top-right { display: flex; align-items: center; gap: 5px; }
 .menu-button {
-    width: 40px; height: 40px; border: 0; border-radius: 9px;
-    background: transparent; font-size: 25px;
+  width: 36px; height: 36px;
+  border: 0; border-radius: 8px;
+  background: transparent;
+  color: var(--gold-light);
+  font-size: 20px;
 }
-.menu-button:hover { background: #f0f3f2; }
+.menu-button:hover { background: rgba(255,255,255,0.06); }
 .brand { display: flex; flex-direction: column; line-height: 1.05; }
 .brand strong {
-    max-width: 210px; overflow: hidden; color: var(--green);
-    font-size: 14px; text-overflow: ellipsis; white-space: nowrap;
+  max-width: 200px; overflow: hidden;
+  color: var(--gold-light);
+  font-size: 13px;
+  text-overflow: ellipsis; white-space: nowrap;
 }
-.brand span { color: #999; font-size: 9px; }
+.brand span { color: #8c734b; font-size: 9px; }
 .top-select {
-    max-width: 145px; padding: 7px 8px; border: 1px solid var(--border);
-    border-radius: 8px; background: #fff; font-size: 11px;
+  max-width: 130px;
+  padding: 6px 8px;
+  border: 1px solid var(--surface-border);
+  border-radius: 7px;
+  background: #0d120f;
+  color: #edeae4;
+  font-size: 10px;
+  outline: none;
 }
-.page-nav { display: flex; align-items: center; gap: 3px; }
-.page-nav button {
-    width: 32px; height: 32px; border: 0; border-radius: 7px;
-    background: #edf1ef; font-size: 18px; font-weight: 800;
+.top-select:focus { border-color: var(--gold-primary); }
+
+/* ═══ MAIN READING STAGE ═══ */
+main {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 4px 44px;
+  background: radial-gradient(circle at 50% 45%, #18221c 0%, #080b09 100%);
 }
-.page-input {
-    width: 55px; padding: 7px 3px; border: 1px solid var(--border);
-    border-radius: 7px; text-align: center;
+.book-spread {
+  display: flex;
+  direction: rtl;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  height: calc(100vh - 94px);
+  height: calc(100dvh - 94px);
 }
 
-/* =========================================================
-   READER & MUSHAF STAGE (Merged UI)
-========================================================= */
-.reader {
-    height: calc(100vh - 56px);
-    height: calc(100dvh - 56px);
-    padding: 5px;
-    display: flex;
-    justify-content: center;
-    background: radial-gradient(circle at 50% 45%, #e1e6e3 0%, #cbd3cf 100%);
-    overflow: hidden;
-}
+/* ═══ MUSHAF PAGE ═══ */
 .mushaf-sheet {
-    width: min(100%, 75vh); /* Golden ratio constraint */
-    height: 100%;
-    max-height: calc(100vh - 66px);
-    background: var(--paper);
-    position: relative;
-    padding: 22px 14px 26px;
-    box-shadow: 0 12px 35px rgba(0,0,0,0.15);
-    border: 2px solid var(--border-outer);
-    outline: 2px solid var(--gold-primary);
-    outline-offset: 2px;
-    border-radius: 3px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  height: 100%;
+  max-height: calc(100vh - 96px);
+  max-height: calc(100dvh - 96px);
+  aspect-ratio: 1 / 1.52;
+  max-width: 49.5vw;
+  background: var(--paper);
+  position: relative;
+  padding: 6px 14px 4px;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.85);
+  border: 2px solid var(--border-outer);
+  outline: 2px solid var(--gold-primary);
+  outline-offset: 2px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .mushaf-sheet::before {
-    content: '';
-    position: absolute; inset: 3px;
-    border: 1px solid rgba(166, 137, 76, 0.4);
-    pointer-events: none;
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border: 1px solid #a6894c77;
+  pointer-events: none;
 }
-.corner-svg {
-    position: absolute; width: 18px; height: 18px; pointer-events: none; z-index: 2;
-}
+.corner-svg { position: absolute; width: 16px; height: 16px; pointer-events: none; z-index: 2; }
 .c-tr { top: 5px; right: 5px; }
 .c-tl { top: 5px; left: 5px; transform: scaleX(-1); }
 .c-br { bottom: 5px; right: 5px; transform: scaleY(-1); }
 .c-bl { bottom: 5px; left: 5px; transform: scale(-1, -1); }
 
-.page-header {
-    height: 20px; display: flex; align-items: center; justify-content: space-between;
-    font-family: 'Amiri', serif; font-size: 13px; font-weight: bold; color: #594017;
-    border-bottom: 1px solid #dfd4b7; padding-bottom: 3px; direction: rtl; margin-bottom: 5px;
+.sheet-header {
+  height: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Amiri', serif;
+  font-size: 12px;
+  font-weight: bold;
+  color: #594017;
+  border-bottom: 1px solid #dfd4b7;
+  padding-bottom: 1px;
+  direction: rtl;
+}
+.sheet-footer {
+  height: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #dfd4b7;
+  padding-top: 1px;
+  direction: rtl;
+}
+.mushaf-tag-indicator {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 8px;
+  font-weight: 700;
+  color: #8c734b;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.page-number-display {
+  font-family: 'Amiri', serif;
+  font-size: 14px;
+  font-weight: bold;
+  color: #3b2c14;
 }
 
-/* 15-Line Grid (Spacing Fix Applied) */
-.quran-lines {
-    width: 100%; direction: rtl; display: flex; flex-direction: column;
-    flex: 1; justify-content: space-between; position: relative; z-index: 5;
+/* ═══ 15-LINE GRID ═══ */
+.lines-grid-15 {
+  width: 100%;
+  direction: rtl;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-between;
+  margin: 1px 0;
+  position: relative;
+  z-index: 5;
 }
-.qline {
-    height: calc(100% / 15); min-height: 6%;
-    display: flex; align-items: center; justify-content: space-between; /* Fix for Word Spacing */
-    white-space: nowrap; direction: rtl; width: 100%;
-    padding: 0 1px;
+.mushaf-line {
+  height: calc(100% / 15);
+  min-height: 6.15%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  white-space: nowrap;
+  direction: rtl;
+  position: relative;
+  width: 100%;
+  padding: 0 1px;
 }
-.qline.centered { justify-content: center; gap: 12px; }
-.qline.empty { visibility: hidden; }
+.madani-mode .mushaf-line { border-bottom: none; }
+.qudratullah-mode .mushaf-line { border-bottom: 1px solid rgba(70, 55, 35, 0.42); }
+.qudratullah-mode .mushaf-line:last-child { border-bottom: none; }
+.mushaf-line.qul-centered-line { justify-content: center !important; gap: 12px; }
 
-/* Indo-Pak Separators */
-.indopak .qline { border-bottom: 1px solid rgba(70, 55, 35, 0.25); }
-.indopak .qline:last-child { border-bottom: none; }
+.mushaf-word {
+  font-size: clamp(17px, 2.35vh, 29px);
+  line-height: 1;
+  color: var(--ink);
+  display: inline-block;
+  font-family: inherit;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 0 2px;
+  transition: background 0.15s;
+}
+.mushaf-word:hover { background: rgba(0,107,84,0.08); }
+.mushaf-word.lafdh-jalalah { color: var(--jalalah-red) !important; font-weight: bold; }
+.mushaf-word.ghalat { background: #ffd5d5; box-shadow: 0 0 0 1px rgba(160,0,0,0.18); }
+.mushaf-word.tajweed { background: var(--yellow); box-shadow: 0 0 0 1px rgba(140,100,0,0.18); }
+.mushaf-word.ayah-marked { background: rgba(0,107,84,0.10); }
 
-.word {
-    display: inline-block; position: relative; cursor: pointer; user-select: none;
-    font-size: clamp(17px, 2.5vh, 32px); line-height: 1; color: var(--ink);
+.qudratullah-mode .mushaf-word {
+  font-family: 'DigitalKhatt IndoPak', 'Noto Nastaliq Urdu', 'Amiri', serif !important;
+  font-size: clamp(16px, 2.2vh, 26px);
+  line-height: 1.8;
 }
 
-.indopak .word {
-    font-family: 'DigitalKhatt IndoPak', 'Amiri', serif !important;
-    font-size: clamp(18px, 2.7vh, 34px); line-height: 1.8;
-}
-
-.word:hover { background: rgba(0,107,84,.08); border-radius: 4px; }
-.word.allah { color: var(--jalalah-red) !important; font-weight: bold; }
-.word.ghalat { background: #ffd5d5; color: #a00000; border-radius: 4px; box-shadow: 0 0 0 1px rgba(160,0,0,.18); }
-.word.tajweed { background: var(--yellow); border-radius: 4px; box-shadow: 0 0 0 1px rgba(140,100,0,.18); }
-.word.ayah-marked { background: rgba(0,107,84,.10); border-radius: 4px; }
-.ayah-marker { display: inline-block; margin-inline: 3px; cursor: pointer; }
-
-/* Surah Cartouche */
 .surah-header-row {
-    width: 100%; height: 100%; position: relative; display: flex; align-items: center; justify-content: space-between;
-    background: linear-gradient(180deg, #fefbf2 0%, #f4e7c3 50%, #fefbf2 100%);
-    border: 1.5px solid var(--border-outer); outline: 1.2px solid var(--gold-primary); outline-offset: -3px;
-    padding: 0 10px; direction: rtl; border-radius: 2px; margin: 3px 0;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(180deg, #fefbf2 0%, #f4e7c3 50%, #fefbf2 100%);
+  border: 1.5px solid var(--border-outer);
+  outline: 1.2px solid var(--gold-primary);
+  outline-offset: -3px;
+  padding: 0 10px;
+  direction: rtl;
+  border-radius: 2px;
 }
-.surah-meta { font-family: 'Amiri', serif; font-size: 11px; font-weight: bold; color: #5c4118; min-width: 55px; text-align: center; }
-.surah-title-text { font-family: 'Amiri', serif; font-size: 18px; font-weight: bold; color: #16291e; flex: 1; text-align: center; }
-.basmallah-text { font-family: 'Amiri', serif; font-size: 19px; color: #172d21; direction: rtl; font-weight: bold; }
-
-/* =========================================================
-   TOOLBAR
-========================================================= */
-.reader-toolbar {
-    position: fixed; left: 50%; bottom: 10px; z-index: 120;
-    display: flex; gap: 4px; max-width: calc(100vw - 12px); padding: 5px;
-    overflow: auto; transform: translateX(-50%);
-    background: rgba(255,255,255,.95); backdrop-filter: blur(5px);
-    border: 1px solid var(--border); border-radius: 12px;
-    box-shadow: 0 5px 22px rgba(0,0,0,.25);
+.surah-meta { font-family: 'Amiri', serif; font-size: 10px; font-weight: bold; color: #5c4118; min-width: 55px; text-align: center; }
+.surah-title { font-family: 'Amiri', serif; font-size: 17px; font-weight: bold; color: #16291e; flex: 1; text-align: center; }
+.bismillah-row {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Amiri', serif;
+  font-size: 18px;
+  color: #172d21;
+  direction: rtl;
 }
-.tool {
-    border: 0; border-radius: 8px; padding: 8px 10px; background: #edf1ef;
-    font-size: 11px; font-weight: 800; white-space: nowrap; transition: 0.2s;
+.canvas-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 25;
+  touch-action: none;
+  cursor: crosshair;
 }
-.tool.active { color: #fff; background: var(--green); }
 
-/* =========================================================
-   DRAWER & PANELS & SETTINGS & REPORTS 
-   (From Original Code)
-========================================================= */
-.drawer-backdrop { position: fixed; inset: 0; z-index: 300; display: none; background: rgba(0,0,0,.40); }
-.drawer-backdrop.open { display: block; }
-.drawer { position: fixed; top: 0; left: 0; bottom: 0; z-index: 301; width: min(330px, 88vw); overflow: auto; background: #fff; box-shadow: 8px 0 30px rgba(0,0,0,.18); transform: translateX(-105%); transition: .22s ease; }
-.drawer.open { transform: translateX(0); }
-.drawer-head { padding: 22px; color: #fff; background: linear-gradient(135deg, var(--green), var(--green-dark)); }
-.drawer-head strong { font-size: 21px; }
-.drawer-head small { display: block; margin-top: 4px; opacity: .8; }
-.drawer-section { padding: 10px 12px; }
-.drawer-label { margin: 6px; color: #999; font-size: 10px; font-weight: 900; text-transform: uppercase; }
-.drawer-current { margin: 6px; padding: 11px; border-radius: 9px; background: #f3f7f5; font-size: 11px; line-height: 1.7; }
-.drawer-item { width: 100%; margin-bottom: 3px; padding: 12px; border: 0; border-radius: 9px; background: transparent; text-align: left; font-weight: 700; }
-.drawer-item:hover { color: var(--green); background: var(--green-light); }
+/* ═══ FLOATING DOCK ═══ */
+.floating-dock {
+  position: fixed;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(18, 24, 20, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--gold-primary);
+  border-radius: 40px;
+  padding: 3px 8px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.65);
+  z-index: 100;
+  direction: ltr;
+  max-width: calc(100vw - 12px);
+  overflow-x: auto;
+}
+.dock-btn {
+  background: transparent;
+  border: none;
+  color: var(--gold-light);
+  font-size: 13px;
+  padding: 5px 8px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.dock-btn:hover { background: rgba(255,255,255,0.08); color: #fff; }
+.dock-btn.active { background: var(--gold-primary); color: #0d120f; }
+.page-badge {
+  font-family: 'Amiri', serif;
+  font-size: 13px;
+  font-weight: bold;
+  color: var(--gold-primary);
+  padding: 2px 8px;
+  border-radius: 8px;
+  background: #090c0a;
+  border: 1px solid #28332d;
+  white-space: nowrap;
+}
+.mushaf-selector-pill, .student-badge-btn {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #f1dfbe;
+  background: #232c25;
+  border: 1px solid var(--gold-dark);
+  padding: 4px 8px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+.student-badge-btn {
+  color: #c0ded0;
+  background: #17241e;
+  border-color: #2b4035;
+  max-width: 130px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
-.panel { position: fixed; inset: 0; z-index: 250; display: none; overflow: auto; background: #f1f4f3; }
-.panel.open { display: block; }
-.panel-header { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; justify-content: space-between; padding: 12px 15px; background: #fff; border-bottom: 1px solid var(--border); }
-.panel-header h2 { margin: 0; color: var(--green); font-size: 19px; }
-.close-button { width: 35px; height: 35px; border: 0; border-radius: 8px; background: #edf1ef; font-size: 19px; }
-.panel-body { width: min(1080px, 100%); margin: auto; padding: 15px; }
+/* ═══ SHEET PANEL (Settings) ═══ */
+.sheet-scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  direction: ltr;
+}
+.sheet-scrim.open { opacity: 1; pointer-events: auto; }
+.sheet-panel {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(100%);
+  width: 100%;
+  max-width: 560px;
+  background: var(--surface-dark);
+  border: 1.5px solid var(--gold-primary);
+  border-bottom: none;
+  border-radius: 20px 20px 0 0;
+  padding: 16px 20px 22px;
+  z-index: 210;
+  color: #fff;
+  transition: transform 0.3s cubic-bezier(0.1, 0.9, 0.2, 1);
+  box-shadow: 0 -10px 40px rgba(0,0,0,0.8);
+  max-height: 88vh;
+  overflow-y: auto;
+}
+.sheet-scrim.open .sheet-panel { transform: translateX(-50%) translateY(0); }
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--surface-border);
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+}
+.panel-header h3 { font-size: 15px; font-weight: 600; color: var(--gold-light); }
+.close-sheet-btn { background: none; border: none; color: #aaa; font-size: 22px; cursor: pointer; }
 
-/* Settings / Forms */
-.settings-tabs { display: flex; gap: 5px; overflow: auto; padding-bottom: 10px; }
-.settings-tab { border: 0; border-radius: 9px; padding: 9px 12px; background: #e6ece9; font-size: 11px; font-weight: 800; white-space: nowrap; }
-.settings-tab.active { color: #fff; background: var(--green); }
-.settings-section { display: none; }
-.settings-section.active { display: block; }
-.card { margin-bottom: 13px; padding: 17px; border: 1px solid var(--border); border-radius: 15px; background: #fff; box-shadow: 0 2px 12px rgba(0,0,0,.04); }
-.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 11px; }
-.field { display: flex; flex-direction: column; gap: 5px; }
+.tab-bar {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 14px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+.tab-btn {
+  flex: 1;
+  padding: 7px 8px;
+  background: #0f1311;
+  border: 1px solid #26312a;
+  color: #a5b5ab;
+  font-size: 10.5px;
+  font-weight: 600;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+.tab-btn.active { background: var(--gold-primary); color: #0d120f; border-color: var(--gold-light); }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.tool-tile {
+  padding: 10px 4px;
+  background: #111714;
+  border: 1px solid #233129;
+  color: #ddd;
+  font-size: 10.5px;
+  font-weight: 600;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+.tool-tile.active { background: var(--gold-primary); color: #0e1411; }
+.tool-tile span { font-size: 18px; }
+
+.form-row { display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+.input-ctrl, .select-ctrl {
+  flex: 1;
+  min-width: 120px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  border: 1px solid #2b3930;
+  background: #0d120f;
+  color: #fff;
+  font-size: 13px;
+  outline: none;
+}
+.input-ctrl:focus, .select-ctrl:focus { border-color: var(--gold-primary); }
+.input-ctrl::placeholder { color: #556; }
+.btn-action {
+  padding: 9px 14px;
+  background: var(--gold-primary);
+  color: #0d120f;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.btn-action:hover { background: var(--gold-light); }
+.btn-action.danger { background: #331919; color: #ff9999; border: 1px solid #5e2626; }
+
+.items-scroll {
+  max-height: 240px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-top: 8px;
+}
+.list-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--surface-card);
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--surface-border);
+  cursor: pointer;
+}
+.list-card.active { border-color: var(--gold-primary); background: #25332a; }
+.list-card small { opacity: 0.7; font-size: 10px; }
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.field { display: flex; flex-direction: column; gap: 4px; }
 .field.full { grid-column: 1 / -1; }
-.field label { color: #65706d; font-size: 11px; font-weight: 800; }
-.field input, .field select, .field textarea { width: 100%; padding: 9px 10px; border: 1px solid #d1d9d6; border-radius: 9px; outline: none; }
-.action-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
-.btn { border: 0; border-radius: 9px; padding: 9px 13px; background: #edf1ef; font-size: 11px; font-weight: 800; }
+.field label { color: #8ea396; font-size: 10.5px; font-weight: 700; }
+.field input, .field select, .field textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #2b3930;
+  border-radius: 8px;
+  background: #0d120f;
+  color: #fff;
+  font-size: 12px;
+  outline: none;
+}
+.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--gold-primary); }
+.field textarea { min-height: 60px; resize: vertical; }
+
+/* ═══ SPLASH / DOWNLOAD ═══ */
+#splashOverlay {
+  position: fixed;
+  inset: 0;
+  background: #0d110f;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+}
+.splash-card {
+  background: #161c18;
+  border: 1.5px solid var(--gold-primary);
+  border-radius: 14px;
+  padding: 24px 20px;
+  max-width: 460px;
+  width: 100%;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.8);
+}
+.splash-card h2 { color: var(--gold-light); font-size: 17px; margin-bottom: 6px; }
+.splash-card p { font-size: 12px; color: #8ea396; line-height: 1.8; }
+.progress-bar {
+  width: 100%;
+  height: 9px;
+  background: #222b26;
+  border-radius: 5px;
+  overflow: hidden;
+  margin: 16px 0 8px;
+}
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--gold-primary);
+  transition: width 0.15s ease;
+}
+
+/* ═══ MODAL ═══ */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  background: rgba(0,0,0,0.55);
+}
+.modal.open { display: flex; }
+.modal-card {
+  width: min(600px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 18px;
+  border-radius: 15px;
+  background: var(--surface-dark);
+  border: 1.5px solid var(--gold-primary);
+  color: #fff;
+}
+.modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.modal-head h3 { color: var(--gold-light); font-size: 16px; }
+.close-button {
+  width: 32px; height: 32px;
+  border: 0; border-radius: 8px;
+  background: #233129;
+  color: #ddd;
+  font-size: 18px;
+}
+
+/* ═══ REPORT ═══ */
+.report-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 260;
+  display: none;
+  overflow: auto;
+  background: #edf1f0;
+}
+.report-screen.open { display: block; }
+.report-toolbar {
+  position: sticky; top: 0; z-index: 5;
+  display: flex; flex-wrap: wrap;
+  align-items: center; gap: 7px;
+  padding: 10px 14px;
+  background: #fff;
+  border-bottom: 1px solid #ccc;
+}
+.report-toolbar select, .report-toolbar input {
+  padding: 7px 9px; border: 1px solid #ccc; border-radius: 7px; font-size: 12px;
+}
+.btn {
+  border: 0; border-radius: 8px;
+  padding: 8px 12px;
+  background: #edf1ef;
+  font-size: 11px; font-weight: 700;
+  color: #222;
+}
 .btn.green { color: #fff; background: var(--green); }
 .btn.red { color: #a00000; background: #fdeaea; }
 .btn.blue { color: #135b90; background: #e8f2fb; }
+.report-wrap { padding: 15px; overflow: auto; }
+.report-paper {
+  width: 210mm; min-height: 297mm;
+  margin: auto; padding: 13mm;
+  background: #fff;
+  box-shadow: 0 3px 25px rgba(0,0,0,0.12);
+  direction: ltr;
+  color: #222;
+}
+.report-header {
+  margin-bottom: 14px; padding-bottom: 10px;
+  text-align: center;
+  border-bottom: 3px solid var(--green);
+}
+.report-institution { color: var(--green); font-size: 22px; font-weight: 900; }
+.report-runby { margin-top: 4px; color: #555; font-size: 12px; font-weight: 700; }
+.report-title { margin-top: 9px; font-size: 17px; font-weight: 900; }
+.report-student-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 20px;
+  margin-bottom: 13px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 12px;
+}
+.report-table { width: 100%; border-collapse: collapse; }
+.report-table th {
+  padding: 8px 5px; color: #fff; background: var(--green);
+  border: 1px solid #fff; text-align: center; font-size: 11px;
+}
+.report-table td {
+  padding: 6px 5px; border: 1px solid #ccc;
+  text-align: center; vertical-align: top; font-size: 10px;
+}
+.report-entry { padding: 3px 0 5px; border-bottom: 1px dashed #aaa; }
+.report-entry:last-child { border-bottom: 0; }
+.report-surah { color: var(--green); font-weight: 900; }
+.report-page {
+  display: inline-block; margin-top: 2px;
+  padding: 2px 5px; color: var(--green);
+  background: #edf7f3; border-radius: 4px;
+  font-size: 8px; font-weight: 800;
+}
+.report-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 7px; margin-top: 14px;
+}
+.summary-box {
+  padding: 8px; border: 1px solid #ddd;
+  border-radius: 7px; text-align: center;
+}
+.summary-box b { display: block; color: var(--green); font-size: 18px; }
+.summary-box span { color: #777; font-size: 9px; }
+.signature-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 30px; margin-top: 32px;
+}
+.signature {
+  padding-top: 8px; border-top: 1px solid #777;
+  text-align: center; font-size: 10px;
+}
 
-/* Students */
-.student-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; }
-.student-card { padding: 13px; border: 1px solid var(--border); border-radius: 13px; background: #fff; }
-.student-card.active { border: 2px solid var(--green); background: #f8fcfa; }
+/* ═══ LESSON HISTORY ═══ */
+.lesson-table { width: 100%; border-collapse: collapse; }
+.lesson-table th {
+  padding: 8px; color: #fff; background: var(--green); font-size: 11px;
+}
+.lesson-table td {
+  padding: 8px; border-bottom: 1px solid #e0e5e3; font-size: 11px;
+  color: #222;
+}
 
-/* Modal */
-.modal { position: fixed; inset: 0; z-index: 500; display: none; align-items: center; justify-content: center; padding: 15px; background: rgba(0,0,0,.45); }
-.modal.open { display: flex; }
-.modal-card { width: min(680px, 100%); max-height: 90vh; overflow: auto; padding: 18px; border-radius: 17px; background: #fff; box-shadow: 0 15px 50px rgba(0,0,0,.25); }
-.modal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+/* ═══ TOAST ═══ */
+.toast {
+  position: fixed;
+  left: 50%; bottom: 70px; z-index: 1000;
+  padding: 9px 14px;
+  color: #fff; background: #222827;
+  border-radius: 9px; font-size: 11px;
+  opacity: 0; pointer-events: none;
+  transform: translateX(-50%) translateY(10px);
+  transition: 0.2s;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-/* Progress Bar Screen */
-.download-screen{ position:fixed; inset:0; z-index:900; display:flex; align-items:center; justify-content:center; padding:20px; background:#0d110f; }
-.download-card{ width:min(500px,100%); padding:28px; border-radius:18px; background:#161c18; box-shadow: 0 12px 40px rgba(0,0,0,.8); text-align:center; border: 1.5px solid var(--gold-primary); }
-.download-card h2{ margin:13px 0 5px; color:var(--gold-light); }
-.download-card p{ color:#8ea396; font-size:12px; line-height:1.8; }
-.progress{ height:9px; overflow:hidden; border-radius:50px; background:#222b26; margin-top:15px; }
-.progress-bar{ width:0; height:100%; background:var(--gold-primary); transition:width .15s linear; }
-.download-status{ margin-top:8px; color:#c5a059; font-size:11px; }
+/* ═══ MOBILE ═══ */
+@media (max-width: 960px), (orientation: portrait) {
+  .mushaf-sheet.left-page { display: none !important; }
+  main { padding: 0 2px 42px; }
+  .book-spread { height: calc(100vh - 92px); height: calc(100dvh - 92px); }
+  .mushaf-sheet {
+    width: 100vw; max-width: 99vw;
+    height: 100%; aspect-ratio: auto;
+    padding: 6px 8px 4px;
+    outline-offset: 1px;
+  }
+  .mushaf-word { font-size: clamp(16px, 2.5vh, 28px); }
+  .floating-dock { bottom: 4px; padding: 2px 6px; gap: 3px; }
+  .dock-btn { padding: 4px 6px; font-size: 12px; }
+  .brand span { display: none; }
+  .brand strong { max-width: 110px; font-size: 11px; }
+  .top-select { max-width: 95px; font-size: 9px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .field.full { grid-column: auto; }
+  .report-wrap { overflow: auto; }
+  .report-paper { margin: 0; }
+  .report-summary { grid-template-columns: 1fr 1fr; }
+}
 
-/* Toast */
-.toast{ position:fixed; left:50%; bottom:70px; z-index:1000; padding:9px 14px; color:#fff; background:#222827; border-radius:9px; font-size:11px; opacity:0; pointer-events:none; transform:translateX(-50%) translateY(10px); transition:.2s; }
-.toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
-
-@media(max-width:800px){
-    .topbar{ height:53px; padding:0 4px; }
-    .brand span{ display:none; }
-    .brand strong{ max-width:120px; font-size:11px; }
-    .top-select{ max-width:105px; padding:6px 4px; font-size:9px; }
-    .page-nav{ display:none; }
-    .mushaf-sheet { width: 100%; padding: 15px 8px 20px; border-radius: 0; outline: none; border: none; }
-    .qline { min-height: 35px; }
+/* ═══ PRINT ═══ */
+@media print {
+  body { background: #fff !important; }
+  .topbar, .floating-dock, .sheet-scrim, .sheet-panel, .modal, .report-toolbar, #splashOverlay, main { display: none !important; }
+  .report-screen { position: static !important; display: block !important; overflow: visible !important; background: #fff !important; }
+  .report-wrap { padding: 0 !important; }
+  .report-paper { width: 210mm; min-height: 297mm; margin: 0; box-shadow: none; }
+  @page { size: A4; margin: 0; }
 }
 </style>
 </head>
+
 <body>
 
-<!-- TOP BAR -->
-<div class="topbar">
-    <div class="top-left">
-        <button class="menu-button" onclick="UI.openDrawer()"> ☰ </button>
-        <div class="brand">
-            <strong id="brandName"> Al-Halaqah </strong>
-            <span> Hifz Quran </span>
-        </div>
+<!-- ═══════════════ SPLASH / DOWNLOAD SCREEN ═══════════════ -->
+<div id="splashOverlay">
+  <div class="splash-card">
+    <h2>Al-Halaqah Offline Setup</h2>
+    <p id="splashDesc">ഖുർആൻ ഡാറ്റാബേസും ഫോണ്ടുകളും IndexedDB-യിലേക്ക് സംഭരിക്കുന്നു...</p>
+    <div class="progress-bar">
+      <div class="progress-fill" id="splashProgress"></div>
     </div>
-    <div class="top-right">
-        <select id="studentSelect" class="top-select" onchange="Students.select(this.value)">
-            <option value=""> Student </option>
+    <div style="font-size:11px; color:#c5a059;" id="splashStatus">Initializing storage...</div>
+    <div id="splashActions" style="margin-top:15px; display:flex; gap:8px; justify-content:center;"></div>
+  </div>
+</div>
+
+<!-- ═══════════════ TOP BAR ═══════════════ -->
+<header class="topbar">
+  <div class="top-left">
+    <button class="menu-button" onclick="UI.openDrawer()">☰</button>
+    <div class="brand">
+      <strong id="brandName">Al-Halaqah</strong>
+      <span>Hifz Quran</span>
+    </div>
+  </div>
+  <div class="top-right">
+    <select id="studentSelect" class="top-select" onchange="Students.select(this.value)">
+      <option value="">Student</option>
+    </select>
+    <select id="mushafSelect" class="top-select" onchange="Reader.changeMushaf(this.value)">
+      <option value="madani">Madani</option>
+      <option value="indopak">Indo-Pak</option>
+    </select>
+  </div>
+</header>
+
+<!-- ═══════════════ MAIN STAGE ═══════════════ -->
+<main id="mainStage">
+  <div class="book-spread" id="bookSpread">
+    <!-- Right Page -->
+    <article class="mushaf-sheet right-page" id="sheetRight">
+      <svg class="corner-svg c-tr" viewBox="0 0 40 40"><path d="M0,8 L32,8 L32,40" fill="none" stroke="#7a5e27" stroke-width="2"/><circle cx="24" cy="24" r="5" fill="#c5a059"/></svg>
+      <svg class="corner-svg c-tl" viewBox="0 0 40 40"><path d="M0,8 L32,8 L32,40" fill="none" stroke="#7a5e27" stroke-width="2"/><circle cx="24" cy="24" r="5" fill="#c5a059"/></svg>
+      <svg class="corner-svg c-br" viewBox="0 0 40 40"><path d="M0,8 L32,8 L32,40" fill="none" stroke="#7a5e27" stroke-width="2"/><circle cx="24" cy="24" r="5" fill="#c5a059"/></svg>
+      <svg class="corner-svg c-bl" viewBox="0 0 40 40"><path d="M0,8 L32,8 L32,40" fill="none" stroke="#7a5e27" stroke-width="2"/><circle cx="24" cy="24" r="5" fill="#c5a059"/></svg>
+      <header class="sheet-header">
+        <span id="rightJuzLabel">الجزء --</span>
+        <span id="rightSurahLabel">سورة --</span>
+      </header>
+      <section class="lines-grid-15" id="linesRight"></section>
+      <footer class="sheet-footer">
+        <span class="mushaf-tag-indicator" id="rightMushafTag">MADANI 1405H</span>
+        <span class="page-number-display" id="rightPageNum">١</span>
+      </footer>
+      <canvas class="canvas-overlay" id="canvasRight"></canvas>
+    </article>
+
+    <!-- Left Page -->
+    <article class="mushaf-sheet left-page" id="sheetLeft">
+      <svg class="corner-svg c-tr" viewBox="0 0 40 40"><path d="M0,8 L32,8 L32,40" fill="none" stroke="#7a5e27" stroke-width="2"/><circle cx="24" cy="24" r="5" fill="#c5a059"/></svg>
+      <svg class="corner-svg c-tl" viewBox="0 0 40 40"><path d="M0,8 L32,8 L32,40" fill="none" stroke="#7a5e27" stroke-width="2"/><circle cx="24" cy="24" r="5" fill="#c5a059"/></svg>
+      <svg class="corner-svg c-br" viewBox="0 0 40 40"><path d="M0,8 L32,8 L32,40" fill="none" stroke="#7a5e27" stroke-width="2"/><circle cx="24" cy="24" r="5" fill="#c5a059"/></svg>
+      <svg class="corner-svg c-bl" viewBox="0 0 40 40"><path d="M0,8 L32,8 L32,40" fill="none" stroke="#7a5e27" stroke-width="2"/><circle cx="24" cy="24" r="5" fill="#c5a059"/></svg>
+      <header class="sheet-header">
+        <span id="leftJuzLabel">الجزء --</span>
+        <span id="leftSurahLabel">سورة --</span>
+      </header>
+      <section class="lines-grid-15" id="linesLeft"></section>
+      <footer class="sheet-footer">
+        <span class="mushaf-tag-indicator" id="leftMushafTag">MADANI 1405H</span>
+        <span class="page-number-display" id="leftPageNum">٢</span>
+      </footer>
+      <canvas class="canvas-overlay" id="canvasLeft"></canvas>
+    </article>
+  </div>
+</main>
+
+<!-- ═══════════════ FLOATING DOCK ═══════════════ -->
+<nav class="floating-dock">
+  <button class="dock-btn" onclick="Reader.prev()" title="Previous Page">◀</button>
+  <span class="page-badge" id="pageBadge" onclick="Reader.jumpPrompt()">p. 1</span>
+  <button class="dock-btn" onclick="Reader.next()" title="Next Page">▶</button>
+  <div class="mushaf-selector-pill" onclick="Reader.toggleMushafMode()" id="mushafPill">
+    📖 <span id="mushafPillText">Madani 1405H</span>
+  </div>
+  <span class="student-badge-btn" onclick="App.openSheet('students')">
+    👤 <span id="badgeStudentTitle">Student</span>
+  </span>
+  <button class="dock-btn" onclick="App.openSheet('tools')" title="Tools">✏️</button>
+  <button class="dock-btn" onclick="Lesson.endDialog()" title="End Lesson">✓</button>
+  <button class="dock-btn" onclick="Report.open()" title="Report">📊</button>
+  <button class="dock-btn" onclick="UI.openDrawer()" title="Menu">⚙️</button>
+</nav>
+
+<!-- ═══════════════ DRAWER ═══════════════ -->
+<div class="drawer-backdrop" id="drawerBackdrop" onclick="UI.closeDrawer()"></div>
+<aside class="drawer" id="drawer" style="position:fixed;top:0;left:0;bottom:0;z-index:301;width:min(330px,88vw);overflow:auto;background:#161c18;box-shadow:8px 0 30px rgba(0,0,0,0.5);transform:translateX(-105%);transition:.22s ease;">
+  <div class="drawer-head" style="padding:22px;color:#fff;background:linear-gradient(135deg,#006b54,#004f3e);">
+    <strong style="font-size:20px;">Al-Halaqah</strong>
+    <small style="display:block;margin-top:4px;opacity:.8;">Hifz Quran Management</small>
+  </div>
+  <div style="padding:10px 12px;">
+    <div style="margin:6px;color:#999;font-size:10px;font-weight:900;text-transform:uppercase;">Current Student</div>
+    <div id="drawerStudent" style="margin:6px;padding:11px;border-radius:9px;background:#1f2722;font-size:11px;line-height:1.7;color:#ddd;">No student</div>
+  </div>
+  <div style="padding:10px 12px;">
+    <div style="margin:6px;color:#999;font-size:10px;font-weight:900;text-transform:uppercase;">Quran</div>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Reader.go(1)" style="width:100%;margin-bottom:3px;padding:12px;border:0;border-radius:9px;background:transparent;color:#ddd;text-align:left;font-weight:700;">📖 First Page</button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Reader.jumpPrompt()" style="width:100%;margin-bottom:3px;padding:12px;border:0;border-radius:9px;background:transparent;color:#ddd;text-align:left;font-weight:700;">🔢 Go to Page</button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Lesson.endDialog()" style="width:100%;margin-bottom:3px;padding:12px;border:0;border-radius:9px;background:transparent;color:#ddd;text-align:left;font-weight:700;">✓ End Lesson</button>
+  </div>
+  <div style="padding:10px 12px;">
+    <div style="margin:6px;color:#999;font-size:10px;font-weight:900;text-transform:uppercase;">Management</div>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open()" style="width:100%;margin-bottom:3px;padding:12px;border:0;border-radius:9px;background:transparent;color:#ddd;text-align:left;font-weight:700;">⚙️ Settings</button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Lessons.open()" style="width:100%;margin-bottom:3px;padding:12px;border:0;border-radius:9px;background:transparent;color:#ddd;text-align:left;font-weight:700;">📚 Lesson History</button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Report.open()" style="width:100%;margin-bottom:3px;padding:12px;border:0;border-radius:9px;background:transparent;color:#ddd;text-align:left;font-weight:700;">📊 Progress Report</button>
+  </div>
+  <div style="padding:10px 12px;">
+    <div style="margin:6px;color:#999;font-size:10px;font-weight:900;text-transform:uppercase;">Quran Data</div>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Sync.open()" style="width:100%;margin-bottom:3px;padding:12px;border:0;border-radius:9px;background:transparent;color:#ddd;text-align:left;font-weight:700;">⬇ Batch Download / Sync</button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Sync.backup()" style="width:100%;margin-bottom:3px;padding:12px;border:0;border-radius:9px;background:transparent;color:#ddd;text-align:left;font-weight:700;">💾 Backup</button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Sync.restore()" style="width:100%;margin-bottom:3px;padding:12px;border:0;border-radius:9px;background:transparent;color:#ddd;text-align:left;font-weight:700;">📥 Restore</button>
+  </div>
+</aside>
+
+<!-- ═══════════════ SETTINGS PANEL (as sheet) ═══════════════ -->
+<div class="sheet-scrim" id="sheetScrim" onclick="App.closeSheet(event)">
+  <div class="sheet-panel" onclick="event.stopPropagation()">
+    <header class="panel-header">
+      <h3 id="panelTitle">Settings & Tools</h3>
+      <button class="close-sheet-btn" onclick="App.closeSheet()">&times;</button>
+    </header>
+
+    <nav class="tab-bar">
+      <button class="tab-btn active" id="tabHeadTools" onclick="App.setTab('tools')">✏️ Tools</button>
+      <button class="tab-btn" id="tabHeadStudents" onclick="App.setTab('students')">🎓 Students</button>
+      <button class="tab-btn" id="tabHeadInstitution" onclick="App.setTab('institution')">🏛 Institution</button>
+      <button class="tab-btn" id="tabHeadPacks" onclick="App.setTab('packs')">💾 Offline Fonts</button>
+      <button class="tab-btn" id="tabHeadData" onclick="App.setTab('data')">🗄 Data</button>
+    </nav>
+
+    <!-- TAB: TOOLS -->
+    <section class="tab-content active" id="tabBodyTools">
+      <div class="tools-grid">
+        <div class="tool-tile active" id="toolPencil" onclick="CanvasOverlay.selectTool('pencil', 'rgba(45,35,20,0.85)', 2)">
+          <span>✏️</span> Notice
+        </div>
+        <div class="tool-tile" id="toolRed" onclick="CanvasOverlay.selectTool('red', 'rgba(215,25,25,0.88)', 2.5)">
+          <span>🔴</span> Ghalat
+        </div>
+        <div class="tool-tile" id="toolHigh" onclick="CanvasOverlay.selectTool('high', 'rgba(235,190,40,0.4)', 14)">
+          <span>🟡</span> Tajweed
+        </div>
+        <div class="tool-tile" id="toolEraser" onclick="CanvasOverlay.selectTool('eraser', null, 24)">
+          <span>🧹</span> Eraser
+        </div>
+      </div>
+      <button class="btn-action danger" style="width:100%;" onclick="CanvasOverlay.clearActiveCanvas()">Clear Markings for This Page</button>
+    </section>
+
+    <!-- TAB: STUDENTS -->
+    <section class="tab-content" id="tabBodyStudents">
+      <div class="form-row">
+        <input type="text" class="input-ctrl" id="newStudentName" placeholder="Student name...">
+        <select class="select-ctrl" id="newStudentMushaf" style="max-width:170px;">
+          <option value="madani">Madani 1405H (604p)</option>
+          <option value="indopak">Indo-Pak 15L (610p)</option>
         </select>
-        <select id="mushafSelect" class="top-select" onchange="Reader.changeMushaf(this.value)">
-            <option value="madani"> Madani 1405H </option>
-            <option value="indopak"> Indo-Pak 15L </option>
-        </select>
-        <div class="page-nav">
-            <button onclick="Reader.prev()"> ‹ </button>
-            <input id="pageInput" class="page-input" type="number" min="1" value="1" onchange="Reader.go(this.value)">
-            <button onclick="Reader.next()"> › </button>
-        </div>
-    </div>
-</div>
+        <button class="btn-action" onclick="Students.addQuick()">+ Add</button>
+      </div>
+      <div class="items-scroll" id="studentsListContainer"></div>
+    </section>
 
-<!-- READER STAGE -->
-<div class="reader" id="mainStage">
-    <div id="mushafPage" class="mushaf-sheet">
-        <!-- Corner SVGs -->
-        <svg class="corner-svg c-tr" viewBox="0 0 40 40"><path d="M0,8 L32,8 L32,40" fill="none" stroke="#7a5e27" stroke-width="2"/><circle cx="24" cy="24" r="5" fill="#c5a059"/></svg>
-        <svg class="corner-svg c-tl" viewBox="0 0 40 40"><path d="M0,8 L32,8 L32,40" fill="none" stroke="#7a5e27" stroke-width="2"/><circle cx="24" cy="24" r="5" fill="#c5a059"/></svg>
-        <svg class="corner-svg c-br" viewBox="0 0 40 40"><path d="M0,8 L32,8 L32,40" fill="none" stroke="#7a5e27" stroke-width="2"/><circle cx="24" cy="24" r="5" fill="#c5a059"/></svg>
-        <svg class="corner-svg c-bl" viewBox="0 0 40 40"><path d="M0,8 L32,8 L32,40" fill="none" stroke="#7a5e27" stroke-width="2"/><circle cx="24" cy="24" r="5" fill="#c5a059"/></svg>
-        
-        <div class="page-header">
-            <span id="juzLabel">الجزء —</span>
-            <span id="pageArabic" style="font-size: 15px;">١</span>
+    <!-- TAB: INSTITUTION -->
+    <section class="tab-content" id="tabBodyInstitution">
+      <div class="form-grid">
+        <div class="field full">
+          <label>Institution Name</label>
+          <input id="institutionName">
         </div>
-        
-        <div id="quranLines" class="quran-lines">
-            <!-- Rendered 15 lines go here via JS -->
+        <div class="field full">
+          <label>Run By</label>
+          <input id="institutionRunBy">
         </div>
-    </div>
-</div>
-
-<!-- TOOLBAR -->
-<div class="reader-toolbar">
-    <button class="tool active" data-tool="none" onclick="Reader.tool('none',this)"> 👆 Select </button>
-    <button class="tool" data-tool="ghalat" onclick="Reader.tool('ghalat',this)"> 🔴 Ghalat </button>
-    <button class="tool" data-tool="tajweed" onclick="Reader.tool('tajweed',this)"> 🟡 Tajweed </button>
-    <button class="tool" data-tool="ayah" onclick="Reader.tool('ayah',this)"> 🔖 Ayah </button>
-    <button class="tool" onclick="Reader.playAyah()"> 🔊 </button>
-    <button class="tool" onclick="Lesson.endDialog()" style="background:#006b54; color:#fff;"> ✓ Save Lesson </button>
-</div>
-
-<!-- DRAWER -->
-<div id="drawerBackdrop" class="drawer-backdrop" onclick="UI.closeDrawer()"></div>
-<div id="drawer" class="drawer">
-    <div class="drawer-head">
-        <strong> Al-Halaqah </strong>
-        <small> Hifz Quran Management </small>
-    </div>
-    <div class="drawer-section">
-        <div class="drawer-label"> Current Student </div>
-        <div id="drawerStudent" class="drawer-current"> No student </div>
-    </div>
-    <div class="drawer-section">
-        <div class="drawer-label"> Quran </div>
-        <button class="drawer-item" onclick=" UI.closeDrawer(); Reader.go(1)"> 📖 First Page </button>
-        <button class="drawer-item" onclick=" UI.closeDrawer(); Reader.pageDialog()"> 🔢 Go to Page </button>
-    </div>
-    <div class="drawer-section">
-        <div class="drawer-label"> Management </div>
-        <button class="drawer-item" onclick=" UI.closeDrawer(); Settings.open()"> ⚙️ Settings / Students </button>
-        <button class="drawer-item" onclick=" UI.closeDrawer(); Lessons.open()"> 📚 Lesson History </button>
-        <button class="drawer-item" onclick=" UI.closeDrawer(); Report.open()"> 📊 Progress Report </button>
-    </div>
-</div>
-
-<!-- DOWNLOAD SCREEN -->
-<div id="downloadScreen" class="download-screen hidden">
-    <div class="download-card">
-        <h2> Al-Halaqah Offline Setup </h2>
-        <p id="splashDesc"> ഖുർആൻ ഡാറ്റാബേസും ഫോണ്ടുകളും ആദ്യമായി IndexedDB-ലേക്ക് സംഭരിക്കുന്നു... </p>
-        <div class="progress">
-            <div id="downloadBar" class="progress-bar"> </div>
+        <div class="field">
+          <label>Address</label>
+          <input id="institutionAddress">
         </div>
-        <div id="downloadStatus" class="download-status"> Initializing storage... </div>
-        <div id="downloadActions" class="action-row" style="justify-content:center; margin-top:15px"> </div>
-    </div>
-</div>
-
-<!-- PANELS & MODALS (Settings, Reports, etc.) remain structural the same, just keeping divs here -->
-<!-- Settings Panel -->
-<div id="settingsPanel" class="panel">
-    <div class="panel-header">
-        <h2> Settings </h2>
-        <button class="close-button" onclick="Settings.close()"> × </button>
-    </div>
-    <div class="panel-body">
-        <div class="settings-tabs">
-            <button class="settings-tab active" onclick="Settings.tab('students', this)"> Students </button>
-            <button class="settings-tab" onclick="Settings.tab('data', this)"> Data / Backup </button>
-            <!-- Other tabs available in full settings logic -->
+        <div class="field">
+          <label>Phone</label>
+          <input id="institutionPhone">
         </div>
-        <section id="settings-students" class="settings-section active">
-            <div class="card">
-                <h3> Student Management </h3>
-                <button class="btn green" onclick="Students.openAdd()"> + Add Student </button>
-            </div>
-            <div id="studentCards" class="student-grid"></div>
-        </section>
-        <section id="settings-data" class="settings-section">
-            <div class="card">
-                <h3> Sync & Backup </h3>
-                <div class="action-row">
-                    <button class="btn blue" onclick="Sync.backup()"> Export Backup </button>
-                    <button class="btn" onclick="Sync.restore()"> Import Backup </button>
-                    <button class="btn red" onclick="Sync.clearQuran()"> Clear Quran Cache </button>
-                </div>
-            </div>
-        </section>
-    </div>
-</div>
-
-<!-- Lesson History Panel -->
-<div id="lessonsPanel" class="panel">
-    <div class="panel-header">
-        <h2> Lesson History </h2>
-        <button class="close-button" onclick="Lessons.close()"> × </button>
-    </div>
-    <div class="panel-body">
-        <div class="card">
-            <div id="lessonHistoryTitle" style="margin-bottom:10px; color:var(--green); font-weight:800"></div>
-            <table style="width:100%; border-collapse:collapse; font-size:12px; text-align:left;">
-                <thead><tr style="background:var(--green); color:#fff;">
-                    <th style="padding:8px">Date</th> <th style="padding:8px">Lesson</th> <th style="padding:8px">Page</th>
-                </tr></thead>
-                <tbody id="lessonHistoryBody"></tbody>
-            </table>
+        <div class="field">
+          <label>Teacher</label>
+          <input id="institutionTeacher">
         </div>
-    </div>
-</div>
-
-<!-- Add Student Modal -->
-<div id="studentModal" class="modal">
-    <div class="modal-card">
-        <div class="modal-head">
-            <h3> Student </h3>
-            <button class="close-button" onclick="UI.closeModal('studentModal')"> × </button>
+        <div class="field">
+          <label>Department</label>
+          <input id="institutionDepartment" value="Hifz Department">
         </div>
+      </div>
+      <button class="btn-action" style="width:100%;" onclick="Settings.saveInstitution()">Save Institution</button>
+
+      <div style="margin-top:18px; border-top:1px solid var(--surface-border); padding-top:14px;">
+        <h4 style="color:var(--gold-light); font-size:13px; margin-bottom:10px;">Report Settings</h4>
         <div class="form-grid">
-            <div class="field"><label> Roll No </label><input id="studentRoll"></div>
-            <div class="field"><label> Name </label><input id="studentName"></div>
-            <div class="field"><label> Class </label><input id="studentClass"></div>
-            <div class="field"><label> Mushaf </label>
-                <select id="studentPrimaryMushaf">
-                    <option value="madani">Madani 1405H</option>
-                    <option value="indopak">Indo-Pak 15L</option>
-                </select>
-            </div>
-            <input type="hidden" id="studentSecondMushaf">
-            <div class="field full"><label> Notes </label><textarea id="studentNotes"></textarea></div>
+          <div class="field full">
+            <label>Report Title</label>
+            <input id="reportTitle" value="HIFZ PROGRESS REPORT">
+          </div>
+          <div class="field">
+            <label>Date Format</label>
+            <select id="reportDateFormat">
+              <option value="DD-MM-YYYY">DD-MM-YYYY</option>
+              <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Teacher Signature</label>
+            <select id="reportTeacherSignature">
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </div>
         </div>
-        <div class="action-row">
-            <button class="btn green" onclick="Students.save()"> Save </button>
-            <button class="btn" onclick="UI.closeModal('studentModal')"> Cancel </button>
+        <button class="btn-action" style="width:100%; margin-top:8px;" onclick="Settings.saveReport()">Save Report Settings</button>
+      </div>
+    </section>
+
+    <!-- TAB: OFFLINE FONTS -->
+    <section class="tab-content" id="tabBodyPacks">
+      <div style="font-size:11px; color:#aaa; line-height:1.6; margin-bottom:12px;">
+        CSV ഡാറ്റാബേസ് IndexedDB-ലേക്ക് ഇൻജസ്റ്റ് ചെയ്തിരിക്കുന്നു. 604 QPC പേജ് ഫോണ്ടുകൾ പൂർണ്ണമായി സേവ് ചെയ്യാൻ താഴെയുള്ള ബട്ടൺ ഉപയോഗിക്കുക:
+      </div>
+      <div style="background:#111714; border:1px solid #233129; border-radius:8px; padding:12px; margin-bottom:12px;">
+        <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:6px; color:#ddd;">
+          <span>QPC Page Fonts (604 Files)</span>
+          <b id="fontDownloadCount">0 / 604</b>
         </div>
+        <div class="progress-bar" style="margin:0 0 10px 0;">
+          <div class="progress-fill" id="fontDownloadBar"></div>
+        </div>
+        <button class="btn-action" id="btnDownloadFonts" style="width:100%;" onclick="BatchIngestion.downloadAllFonts()">
+          ⬇️ Download All Fonts (Resumable)
+        </button>
+      </div>
+      <button class="btn-action" style="background:#26332b; color:#8fa397; width:100%;" onclick="Sync.download()">
+        🔄 Re-sync CSVs
+      </button>
+    </section>
+
+    <!-- TAB: DATA -->
+    <section class="tab-content" id="tabBodyData">
+      <div style="font-size:11px; color:#aaa; line-height:1.8; margin-bottom:14px;">
+        <b>Batch Sync</b> — GitHub root-ൽ ഉള്ള Quran CSV data ഒരിക്കൽ മാത്രം IndexedDB-ലേക്ക് batch ആയി download ചെയ്യുക.
+      </div>
+      <div class="progress-bar" style="margin:10px 0;">
+        <div class="progress-fill" id="syncBar"></div>
+      </div>
+      <div id="syncStatus" style="font-size:11px; color:#c5a059; margin-bottom:10px;">Ready</div>
+      <div class="form-row">
+        <button class="btn-action" onclick="Sync.download()">⬇ Batch Download / Sync</button>
+        <button class="btn-action danger" onclick="Sync.clearQuran()">Clear Quran Cache</button>
+      </div>
+
+      <div style="margin-top:18px; border-top:1px solid var(--surface-border); padding-top:14px;">
+        <h4 style="color:var(--gold-light); font-size:13px; margin-bottom:8px;">Student Data Backup</h4>
+        <p style="font-size:11px; color:#8ea396; line-height:1.7; margin-bottom:10px;">
+          Student information, Mushaf assignments, lesson records, markings and settings മാത്രം backup ചെയ്യുന്നു.
+        </p>
+        <div class="form-row">
+          <button class="btn-action" onclick="Sync.backup()">Export Backup</button>
+          <button class="btn-action" onclick="Sync.restore()">Import Backup</button>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═══════════════ LESSON HISTORY PANEL ═══════════════ -->
+<div class="panel" id="lessonsPanel" style="position:fixed;inset:0;z-index:250;display:none;overflow:auto;background:#0d120f;">
+  <div class="panel-header" style="position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;padding:12px 15px;background:#161c18;border-bottom:1px solid var(--surface-border);">
+    <h2 style="color:var(--gold-light);font-size:17px;">Lesson History</h2>
+    <button class="close-button" onclick="Lessons.close()">×</button>
+  </div>
+  <div style="width:min(1080px,100%);margin:auto;padding:15px;">
+    <div style="margin-bottom:10px;color:var(--gold-light);font-weight:800;" id="lessonHistoryTitle"></div>
+    <div style="overflow:auto;">
+      <table class="lesson-table" style="width:100%;border-collapse:collapse;background:#161c18;color:#ddd;border-radius:8px;overflow:hidden;">
+        <thead>
+          <tr style="background:#233129;">
+            <th style="padding:8px;font-size:11px;">#</th>
+            <th style="padding:8px;font-size:11px;">Date</th>
+            <th style="padding:8px;font-size:11px;">Lesson</th>
+            <th style="padding:8px;font-size:11px;">From</th>
+            <th style="padding:8px;font-size:11px;">To</th>
+            <th style="padding:8px;font-size:11px;">Page</th>
+          </tr>
+        </thead>
+        <tbody id="lessonHistoryBody"></tbody>
+      </table>
     </div>
+  </div>
+</div>
+
+<!-- ═══════════════ REPORT SCREEN ═══════════════ -->
+<div class="report-screen" id="reportScreen">
+  <div class="report-toolbar">
+    <button class="btn" onclick="Report.close()">← Back</button>
+    <select id="reportStudent" onchange="Report.render()"></select>
+    <select id="reportRange" onchange="Report.render()">
+      <option value="month">Current Month</option>
+      <option value="week">Current Week</option>
+      <option value="custom">Custom</option>
+      <option value="all">All Records</option>
+    </select>
+    <input id="reportFrom" type="date" class="hidden" onchange="Report.render()">
+    <input id="reportTo" type="date" class="hidden" onchange="Report.render()">
+    <button class="btn green" onclick="Report.print()">🖨 Save / Print PDF</button>
+  </div>
+  <div class="report-wrap">
+    <div id="reportPaper" class="report-paper"></div>
+  </div>
+</div>
+
+<!-- ═══════════════ MODALS ═══════════════ -->
+<!-- Student Modal -->
+<div class="modal" id="studentModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3>Student</h3>
+      <button class="close-button" onclick="UI.closeModal('studentModal')">×</button>
+    </div>
+    <div class="form-grid">
+      <div class="field">
+        <label>Roll No</label>
+        <input id="studentRoll">
+      </div>
+      <div class="field">
+        <label>Name</label>
+        <input id="studentName">
+      </div>
+      <div class="field">
+        <label>Class / Batch</label>
+        <input id="studentClass">
+      </div>
+      <div class="field">
+        <label>Primary Mushaf</label>
+        <select id="studentPrimaryMushaf"></select>
+      </div>
+      <div class="field full">
+        <label>Optional Second Mushaf</label>
+        <select id="studentSecondMushaf">
+          <option value="">None</option>
+        </select>
+      </div>
+      <div class="field full">
+        <label>Notes</label>
+        <textarea id="studentNotes"></textarea>
+      </div>
+    </div>
+    <div class="form-row" style="margin-top:12px;">
+      <button class="btn-action" onclick="Students.save()">Save</button>
+      <button class="btn-action" style="background:#26332b;color:#8fa397;" onclick="UI.closeModal('studentModal')">Cancel</button>
+    </div>
+  </div>
 </div>
 
 <!-- Lesson End Modal -->
-<div id="lessonModal" class="modal">
-    <div class="modal-card">
-        <div class="modal-head">
-            <h3> Save Lesson </h3>
-            <button class="close-button" onclick="UI.closeModal('lessonModal')"> × </button>
-        </div>
-        <div class="form-grid">
-            <div class="field"><label> Type </label><select id="lessonType"></select></div>
-            <div class="field"><label> Mushaf </label><select id="lessonMushaf"></select></div>
-            <div class="field"><label> Page </label><input id="lessonFromPage" type="number"></div>
-            <input type="hidden" id="lessonToPage"> <input type="hidden" id="lessonFromSurah"> <input type="hidden" id="lessonToSurah"> <input type="hidden" id="lessonFromAyah"> <input type="hidden" id="lessonToAyah">
-        </div>
-        <div class="action-row">
-            <button class="btn green" onclick="Lesson.saveEnd()"> Save Lesson </button>
-        </div>
+<div class="modal" id="lessonModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3>Lesson End</h3>
+      <button class="close-button" onclick="UI.closeModal('lessonModal')">×</button>
     </div>
+    <div style="margin-bottom:12px;padding:10px;color:#c5a059;background:#1f2722;border-radius:9px;font-size:11px;line-height:1.7;">
+      Lesson Start നിർബന്ധമല്ല. Lesson End സമയത്ത് നൽകിയ വിവരങ്ങൾ ഉപയോഗിച്ച് record സൂക്ഷിക്കാം.
+    </div>
+    <div class="form-grid">
+      <div class="field">
+        <label>Lesson Type</label>
+        <select id="lessonType"></select>
+      </div>
+      <div class="field">
+        <label>Mushaf</label>
+        <select id="lessonMushaf"></select>
+      </div>
+      <div class="field">
+        <label>From Page</label>
+        <input id="lessonFromPage" type="number" min="1">
+      </div>
+      <div class="field">
+        <label>To Page</label>
+        <input id="lessonToPage" type="number" min="1">
+      </div>
+      <div class="field">
+        <label>From Surah</label>
+        <input id="lessonFromSurah">
+      </div>
+      <div class="field">
+        <label>To Surah</label>
+        <input id="lessonToSurah">
+      </div>
+      <div class="field">
+        <label>From Ayah</label>
+        <input id="lessonFromAyah" type="number" min="1">
+      </div>
+      <div class="field">
+        <label>To Ayah</label>
+        <input id="lessonToAyah" type="number" min="1">
+      </div>
+    </div>
+    <div class="form-row" style="margin-top:12px;">
+      <button class="btn-action" onclick="Lesson.saveEnd()">Save Lesson</button>
+    </div>
+  </div>
 </div>
 
-<!-- Report Panel dummy structure -->
-<div id="reportScreen" class="panel">
-    <div class="panel-header"><h2>Progress Report</h2> <button class="close-button" onclick="Report.close()">×</button></div>
-    <div class="panel-body" id="reportPaper"><i>Reports will render here...</i></div>
-</div>
+<!-- Toast -->
+<div class="toast" id="toast"></div>
 
-<div id="toast" class="toast"></div>
-
-<!-- =========================================================
-   JAVASCRIPT CORE
-========================================================= -->
 <script>
 "use strict";
 
-/* =========================================================
-   CONSTANTS & SURAH DATA
-========================================================= */
-const DB_NAME = "AlHalaqah_Professional_Hifz_v7";
-const DB_VERSION = 7;
-const FILES = { madani: "./qpcv1-35.csv", indopak: "./indpak-20.csv", words: "./word.csv" };
-const MUSHAFS = {
-    madani: { id: "madani", name: "Madani 1405H", pages: 604 },
-    indopak: { id: "indopak", name: "Indo-Pak Qudratullah", pages: 610 }
+/* ═══════════════════════════════════════════════════════════
+   1. CONFIGURATION & SURAH METADATA
+   ═══════════════════════════════════════════════════════════ */
+const CONFIG = {
+  madani: {
+    id: "madani",
+    name: "Madinah 1405H",
+    shortName: "Madani 1405H",
+    pages: 604,
+    lines: 15,
+    file: "./qpcv1-35.csv"
+  },
+  indopak: {
+    id: "indopak",
+    name: "Indo-Pak Qudratullah",
+    shortName: "Qudratullah 15L",
+    pages: 610,
+    lines: 15,
+    file: "./indpak-20.csv"
+  }
 };
 
-const SURAH_NAMES = {
-    1:"الفَاتِحَة", 2:"البَقَرَة", 3:"آلِ عِمْرَان", 4:"النِّسَاء", 5:"المَائِدَة", 6:"الْأَنْعَام", 7:"الْأَعْرَاف", 8:"الْأَنْفَال", 9:"التَّوْبَة", 10:"يُونُس",
-    11:"هُود", 12:"يُوسُف", 13:"الرَّعْد", 14:"إِبْرَاهِيم", 15:"الْحِجْر", 16:"النَّحْل", 17:"الإِسْرَاء", 18:"الْكَهْف", 19:"مَرْيَم", 20:"طه",
-    21:"الْأَنْبِيَاء", 22:"الْحَجّ", 23:"الْمُؤْمِنُون", 24:"النُّور", 25:"الْفُرْقَان", 26:"الشُّعَرَاء", 27:"النَّمْل", 28:"الْقَصَص", 29:"الْعَنْكَبُوت", 30:"الرُّوم",
-    31:"لُقْمَان", 32:"السَّجْدَة", 33:"الْأَحْزَاب", 34:"سَبَإ", 35:"فَاطِر", 36:"يس", 37:"الصَّافَّات", 38:"ص", 39:"الزُّمَر", 40:"غَافِر",
-    41:"فُصِّلَت", 42:"الشُّورَى", 43:"الزُّخْرُف", 44:"الدُّخَان", 45:"الْجَاثِيَة", 46:"الْأَحْقَاف", 47:"مُحَمَّد", 48:"الْفَتْح", 49:"الْحُجُرَات", 50:"ق",
-    51:"الذَّارِيَات", 52:"الطُّور", 53:"النَّجْم", 54:"الْقَمَر", 55:"الرَّحْمَن", 56:"الْوَاقِعَة", 57:"الْحَدِيد", 58:"الْمُجَادِلَة", 59:"الْحَشْر", 60:"الْمُمْتَحَنَة",
-    61:"الصَّف", 62:"الْجُمُعَة", 63:"الْمُنَافِقُون", 64:"التَّغَابُن", 65:"الطَّلَاق", 66:"التَّحْرِيم", 67:"الْمُلْك", 68:"الْقَلَم", 69:"الْحَاقَّة", 70:"الْمَعَارِج",
-    71:"نُوح", 72:"الْجِن", 73:"الْمُزَّمِّل", 74:"الْمُدَّثِّر", 75:"الْقِيَامَة", 76:"الْإِنْسَان", 77:"الْمُرْسَلَات", 78:"النَّبَأ", 79:"النَّازِعَات", 80:"عَبَس",
-    81:"التَّكْوِير", 82:"الْإِنْفِطَار", 83:"الْمُطَفِّفِين", 84:"الْإِنْشِقَاق", 85:"الْبُرُوج", 86:"الطَّارِق", 87:"الْأَعْلَى", 88:"الْغَاشِيَة", 89:"الْفَجْر", 90:"الْبَلَد",
-    91:"الشَّمْس", 92:"اللَّيْل", 93:"الضُّحَى", 94:"الشَّرْح", 95:"التِّين", 96:"الْعَلَق", 97:"الْقَدْر", 98:"الْبَيِّنَة", 99:"الزَّلْزَلَة", 100:"الْعَادِيَات",
-    101:"الْقَارِعَة", 102:"التَّكَاثُر", 103:"الْعَصْر", 104:"الْهُمَزَة", 105:"الْفِيل", 106:"قُرَيْش", 107:"الْمَاعُون", 108:"الْكَوْثَر", 109:"الْكَافِرُون", 110:"النَّصْر",
-    111:"الْمَسَد", 112:"الْإِخْلَاص", 113:"الْفَلَق", 114:"النَّاس"
-};
+const MUSHAFS = CONFIG;
 
+const SURAH_NAMES = [
+  "", "الفاتحة", "البقرة", "آل عمران", "النساء", "المائدة", "الأنعام", "الأعراف",
+  "الأنفال", "التوبة", "يونس", "هود", "يوسف", "الرعد", "إبراهيم", "الحجر",
+  "النحل", "الإسراء", "الكهف", "مريم", "طه", "الأنبياء", "الحج", "المؤمنون",
+  "النور", "الفرقان", "الشعراء", "النمل", "القصص", "العنكبوت", "الروم", "لقمان",
+  "السجدة", "الأحزاب", "سبأ", "فاطر", "يس", "الصافات", "ص", "الزمر",
+  "غافر", "فصلت", "الشورى", "الزخرف", "الدخان", "الجاثية", "الأحقاف", "محمد",
+  "الفتح", "الحجرات", "ق", "الذاريات", "الطور", "النجم", "القمر", "الرحمن",
+  "الواقعة", "الحديد", "المجادلة", "الحشر", "الممتحنة", "الصف", "الجمعة", "المنافقون",
+  "التغابن", "الطلاق", "التحريم", "الملك", "القلم", "الحاقة", "المعارج", "نوح",
+  "الجن", "المزمل", "المدثر", "القيامة", "الإنسان", "المرسلات", "النبأ", "النازعات",
+  "عبس", "التكوير", "الانفطار", "المطففين", "الانشقاق", "البروج", "الطارق", "الأعلى",
+  "الغاشية", "الفجر", "البلد", "الشمس", "الليل", "الضحى", "الشرح", "التين",
+  "العلق", "القدر", "البينة", "الزلزلة", "العاديات", "القارعة", "التكاثر", "العصر",
+  "الهمزة", "الفيل", "قريش", "الماعون", "الكوثر", "الكافرون", "النصر", "المسد",
+  "الإخلاص", "الفلق", "الناس"
+];
+
+/* ═══════════════════════════════════════════════════════════
+   2. DEFAULT SETTINGS
+   ═══════════════════════════════════════════════════════════ */
 const DEFAULT_SETTINGS = {
-    institution: { name: "Al-Halaqah" },
-    reader: { defaultMushaf: "madani", defaultPage: 1 },
-    categories: [{ id: "sabaq", name: "سبق", label: "പുതിയ പാഠം" }]
+  institution: {
+    name: "NOORUL HIDAYA HIFZUL QURAN COLLEGE",
+    runBy: "Noorul Hidaya Islamic Center Pattambi",
+    address: "",
+    phone: "",
+    teacher: "",
+    department: "Hifz Department"
+  },
+  reader: { defaultMushaf: "madani", defaultPage: 1 },
+  lesson: { start: "optional", end: "required" },
+  categories: [
+    { id: "sabaq", name: "سبق", label: "പുതിയ പാഠം" },
+    { id: "juz_sabaq", name: "جزء سبق", label: "ജുസ്" },
+    { id: "amokhta", name: "أموخته سبق", label: "പഴയ പാഠം" }
+  ],
+  report: {
+    title: "HIFZ PROGRESS REPORT",
+    dateFormat: "DD-MM-YYYY",
+    teacherSignature: true,
+    department: true
+  }
 };
 
-/* =========================================================
-   APP STATE & UTILS
-========================================================= */
+/* ═══════════════════════════════════════════════════════════
+   3. APP STATE
+   ═══════════════════════════════════════════════════════════ */
 const State = {
-    settings: structuredClone(DEFAULT_SETTINGS),
-    students: [], assignments: [], lessons: [], marks: [], pageLines: [], words: [], wordMap: new Map(),
-    currentStudentId: null, currentMushaf: "madani", currentPage: 1, currentTool: "none",
-    quranReady: false, syncRunning: false
+  settings: structuredClone(DEFAULT_SETTINGS),
+  students: [],
+  assignments: [],
+  lessons: [],
+  marks: [],
+  currentStudentId: null,
+  currentMushaf: "madani",
+  currentPage: 1,
+  currentTool: "none",
+  currentAyah: null,
+  currentLessonId: null,
+  quranReady: false,
+  syncRunning: false,
+  fontsLoaded: new Set(),
+  // Canvas
+  canvasStrokes: { Right: [], Left: [] },
+  canvasPageMap: { Right: 1, Left: 2 },
+  canvasTool: "pencil",
+  canvasColor: "rgba(45,35,20,0.85)",
+  canvasWidth: 2,
+  canvasDrawing: false,
+  canvasCurrentStroke: null,
+  canvasActiveSide: "Right"
 };
 
+/* ═══════════════════════════════════════════════════════════
+   4. UTILITIES
+   ═══════════════════════════════════════════════════════════ */
 const U = {
-    id(prefix = "id") { return prefix + "_" + Date.now() + "_" + Math.random().toString(36).slice(2,9); },
-    today() { return new Date().toISOString().slice(0, 10); },
-    arabicDigits(num) { return String(num).replace(/\d/g, d => "٠١٢٣٤٥٦٧٨٩"[Number(d)]); },
-    escape(val) { return String(val ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); },
-    
-    // NEW: Accurate detection of Lafdh al-Jalalah (الله / لله / اللهم)
-    isDivineName(text) {
-        if (!text) return false;
-        let clean = text.normalize("NFKC").replace(/[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED\u0640\u06E5\u06E6]/g, '').trim();
-        clean = clean.replace(/[ٱإأآء]/g, 'ا');
-        clean = clean.replace(/^(و|ف|ب|ت|ك|ل|لل)?(الله|لله|اللهم)$/, '$2');
-        return clean === 'الله' || clean === 'لله' || clean === 'اللهم';
-    },
-    
-    sleep() { return new Promise(r => setTimeout(r, 0)); },
-    toast(msg) {
-        const t = document.getElementById("toast");
-        t.textContent = msg; t.classList.add("show");
-        clearTimeout(this.timer);
-        this.timer = setTimeout(() => t.classList.remove("show"), 2200);
-    }
+  id(prefix = "id") {
+    return prefix + "_" + Date.now() + "_" + Math.random().toString(36).slice(2, 9);
+  },
+  today() {
+    return new Date().toISOString().slice(0, 10);
+  },
+  arabicDigits(number) {
+    return String(number).replace(/\d/g, d => "٠١٢٣٤٥٦٧٨٩"[Number(d)]);
+  },
+  escape(value) {
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  },
+  isAllah(value) {
+    const normalized = String(value || "")
+      .normalize("NFKC")
+      .replace(/[\u064B-\u065F\u0670\u06D6-\u06ED]/g, "")
+      .replace(/[ٱإأآ]/g, "ا");
+    return normalized.includes("الله");
+  },
+  isDivineName(text) {
+    if (!text) return false;
+    let clean = text.replace(/[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED\u0640\u06E5\u06E6]/g, "").trim();
+    clean = clean.replace(/[ٱإأآء]/g, "ا");
+    clean = clean.replace(/^(و|ف|ب|ت|ك|ل|لل)?(الله|لله|اللهم)$/, "$2");
+    return clean === "الله" || clean === "لله" || clean === "اللهم";
+  },
+  date(value) {
+    if (!value) return "";
+    if (State.settings.report.dateFormat === "YYYY-MM-DD") return value;
+    const parts = value.split("-");
+    if (parts.length !== 3) return value;
+    return parts[2] + "-" + parts[1] + "-" + parts[0];
+  },
+  sleep() {
+    return new Promise(resolve => setTimeout(resolve, 0));
+  },
+  toast(message) {
+    const toast = document.getElementById("toast");
+    if (!toast) return;
+    toast.textContent = message;
+    toast.classList.add("show");
+    clearTimeout(this.toastTimer);
+    this.toastTimer = setTimeout(() => {
+      toast.classList.remove("show");
+    }, 2200);
+  }
 };
 
-/* =========================================================
-   INDEXED_DB CORE (From V7)
-========================================================= */
+/* ═══════════════════════════════════════════════════════════
+   5. INDEXEDDB CORE
+   ═══════════════════════════════════════════════════════════ */
 const DB = {
-    db: null,
-    async open() {
-        if(this.db) return this.db;
-        return new Promise((res, rej) => {
-            const req = indexedDB.open(DB_NAME, DB_VERSION);
-            req.onupgradeneeded = e => {
-                const db = e.target.result;
-                const mk = (n, o, idxs=[]) => {
-                    if(!db.objectStoreNames.contains(n)){
-                        const s = db.createObjectStore(n, o);
-                        idxs.forEach(i => s.createIndex(i[0], i[1], i[2] || {unique:false}));
-                    }
-                };
-                mk("settings", {keyPath:"id"});
-                mk("students", {keyPath:"id"});
-                mk("student_mushafs", {keyPath:"id"}, [["studentId","studentId"]]);
-                mk("page_state", {keyPath:"id"});
-                mk("lessons", {keyPath:"id"}, [["studentId","studentId"]]);
-                mk("marks", {keyPath:"id"}, [["studentId","studentId"]]);
-                mk("quran_meta", {keyPath:"id"});
-                mk("page_lines", {keyPath:"id"}, [["mushafId","mushafId"]]);
-                mk("words", {keyPath:"word_number_all"});
-            };
-            req.onsuccess = e => { this.db = e.target.result; res(this.db); };
-            req.onerror = () => rej(req.error);
-        });
-    },
-    async get(store, key) {
-        const db = await this.open();
-        return new Promise(res => {
-            const req = db.transaction(store,"readonly").objectStore(store).get(key);
-            req.onsuccess = () => res(req.result);
-            req.onerror = () => res(null);
-        });
-    },
-    async all(store) {
-        const db = await this.open();
-        return new Promise(res => {
-            const req = db.transaction(store,"readonly").objectStore(store).getAll();
-            req.onsuccess = () => res(req.result || []);
-        });
-    },
-    async putMany(store, records) {
-        if(!records || !records.length) return;
-        const db = await this.open();
-        return new Promise(res => {
-            const tx = db.transaction(store,"readwrite");
-            const s = tx.objectStore(store);
-            for(const r of records) s.put(r);
-            tx.oncomplete = () => res();
-        });
-    },
-    async put(store, record) { return this.putMany(store, [record]); },
-    async delete(store, key) {
-        const db = await this.open();
-        return new Promise(res => {
-            const tx = db.transaction(store,"readwrite");
-            tx.objectStore(store).delete(key);
-            tx.oncomplete = () => res();
-        });
-    },
-    async clear(store) {
-        const db = await this.open();
-        return new Promise(res => {
-            const tx = db.transaction(store,"readwrite");
-            tx.objectStore(store).clear();
-            tx.oncomplete = () => res();
-        });
-    }
+  db: null,
+  name: "AlHalaqah_QUL_Offline",
+  version: 1,
+
+  init() {
+    return new Promise((resolve, reject) => {
+      const req = indexedDB.open(this.name, this.version);
+      req.onupgradeneeded = e => {
+        const d = e.target.result;
+
+        if (!d.objectStoreNames.contains("page_lines")) {
+          const s = d.createObjectStore("page_lines", { keyPath: ["mushaf", "page", "line"] });
+          s.createIndex("mushaf_page", ["mushaf", "page"], { unique: false });
+        }
+        if (!d.objectStoreNames.contains("words")) {
+          d.createObjectStore("words", { keyPath: "id" });
+        }
+        if (!d.objectStoreNames.contains("fonts")) {
+          d.createObjectStore("fonts", { keyPath: "name" });
+        }
+        if (!d.objectStoreNames.contains("students")) {
+          d.createObjectStore("students", { keyPath: "id" });
+        }
+        if (!d.objectStoreNames.contains("student_mushafs")) {
+          d.createObjectStore("student_mushafs", { keyPath: "id" });
+        }
+        if (!d.objectStoreNames.contains("page_state")) {
+          d.createObjectStore("page_state", { keyPath: "id" });
+        }
+        if (!d.objectStoreNames.contains("lessons")) {
+          d.createObjectStore("lessons", { keyPath: "id" });
+        }
+        if (!d.objectStoreNames.contains("marks")) {
+          d.createObjectStore("marks", { keyPath: "id" });
+        }
+        if (!d.objectStoreNames.contains("drawings")) {
+          d.createObjectStore("drawings", { keyPath: ["studentId", "mushaf", "page"] });
+        }
+        if (!d.objectStoreNames.contains("settings")) {
+          d.createObjectStore("settings", { keyPath: "id" });
+        }
+        if (!d.objectStoreNames.contains("meta")) {
+          d.createObjectStore("meta", { keyPath: "key" });
+        }
+      };
+      req.onsuccess = () => {
+        this.db = req.result;
+        resolve();
+      };
+      req.onerror = () => reject(req.error);
+    });
+  },
+
+  async get(store, key) {
+    return new Promise(res => {
+      try {
+        const tx = this.db.transaction(store, "readonly");
+        const req = tx.objectStore(store).get(key);
+        req.onsuccess = () => res(req.result || null);
+        req.onerror = () => res(null);
+      } catch (e) { res(null); }
+    });
+  },
+
+  async put(store, val) {
+    return new Promise((res, rej) => {
+      try {
+        const tx = this.db.transaction(store, "readwrite");
+        tx.objectStore(store).put(val);
+        tx.oncomplete = () => res();
+        tx.onerror = () => rej(tx.error);
+      } catch (e) { rej(e); }
+    });
+  },
+
+  async putMany(store, records) {
+    if (!records || !records.length) return;
+    return new Promise((res, rej) => {
+      try {
+        const tx = this.db.transaction(store, "readwrite");
+        const s = tx.objectStore(store);
+        for (const r of records) s.put(r);
+        tx.oncomplete = () => res();
+        tx.onerror = () => rej(tx.error);
+      } catch (e) { rej(e); }
+    });
+  },
+
+  async delete(store, key) {
+    return new Promise((res, rej) => {
+      try {
+        const tx = this.db.transaction(store, "readwrite");
+        tx.objectStore(store).delete(key);
+        tx.oncomplete = () => res();
+        tx.onerror = () => rej(tx.error);
+      } catch (e) { rej(e); }
+    });
+  },
+
+  async getAll(store) {
+    return new Promise(res => {
+      try {
+        const tx = this.db.transaction(store, "readonly");
+        const req = tx.objectStore(store).getAll();
+        req.onsuccess = () => res(req.result || []);
+        req.onerror = () => res([]);
+      } catch (e) { res([]); }
+    });
+  },
+
+  async clear(store) {
+    return new Promise(res => {
+      try {
+        const tx = this.db.transaction(store, "readwrite");
+        tx.objectStore(store).clear();
+        tx.oncomplete = () => res();
+        tx.onerror = () => res();
+      } catch (e) { res(); }
+    });
+  },
+
+  async getWordsRange(firstId, lastId) {
+    if (!firstId || !lastId || firstId > lastId) return [];
+    return new Promise((resolve, reject) => {
+      const tx = this.db.transaction("words", "readonly");
+      const store = tx.objectStore("words");
+      const range = IDBKeyRange.bound(firstId, lastId);
+      const results = [];
+      const req = store.openCursor(range);
+      req.onsuccess = e => {
+        const cursor = e.target.result;
+        if (!cursor) {
+          results.sort((a, b) => a.id - b.id);
+          resolve(results);
+          return;
+        }
+        results.push(cursor.value);
+        cursor.continue();
+      };
+      req.onerror = () => reject(req.error);
+    });
+  },
+
+  async getLayoutLines(mushaf, page) {
+    return new Promise(res => {
+      const tx = this.db.transaction("page_lines", "readonly");
+      const req = tx.objectStore("page_lines").index("mushaf_page").getAll(IDBKeyRange.only([mushaf, page]));
+      req.onsuccess = () => {
+        const lines = req.result || [];
+        lines.sort((a, b) => a.line - b.line);
+        res(lines);
+      };
+      req.onerror = () => res([]);
+    });
+  },
+
+  saveDrawing(studentId, mushaf, page, strokes) {
+    try {
+      const tx = this.db.transaction("drawings", "readwrite");
+      tx.objectStore("drawings").put({ studentId, mushaf, page, strokes, time: Date.now() });
+    } catch (e) {}
+  },
+
+  async loadDrawing(studentId, mushaf, page) {
+    return new Promise(res => {
+      try {
+        const tx = this.db.transaction("drawings", "readonly");
+        const req = tx.objectStore("drawings").get([studentId, mushaf, page]);
+        req.onsuccess = () => res(req.result ? req.result.strokes : null);
+        req.onerror = () => res(null);
+      } catch (e) { res(null); }
+    });
+  },
+
+  async resetAll() {
+    if (!confirm("Reset all offline databases and re-sync files?")) return;
+    indexedDB.deleteDatabase(this.name);
+    location.reload();
+  }
 };
 
-/* =========================================================
-   CSV PARSER & BATCH DOWNLOAD
-========================================================= */
-function parseCSV(text) {
-    const rows=[]; let cur=[]; let val=""; let inQ=false;
-    for(let i=0; i<text.length; i++){
-        const c = text[i];
-        if(c === '"'){
-            if(inQ && text[i+1]==='"'){ val+='"'; i++; } else { inQ=!inQ; }
-            continue;
-        }
-        if(c === ',' && !inQ){ cur.push(val); val=""; continue; }
-        if((c === '\n' || c === '\r') && !inQ){
-            if(c === '\r' && text[i+1]==='\n') i++;
-            cur.push(val); val="";
-            if(cur.some(x=>x!=="")) rows.push(cur);
-            cur=[]; continue;
-        }
-        val += c;
-    }
-    if(val!=="" || cur.length){ cur.push(val); if(cur.some(x=>x!=="")) rows.push(cur); }
-    const clean = v => String(v??"").trim().replace(/^['"]|['"]$/g, '');
-    const head = rows[0].map(clean);
-    return rows.slice(1).map(r => {
-        const res={}; head.forEach((h,i)=> res[h] = clean(r[i])); return res;
-    });
+/* ═══════════════════════════════════════════════════════════
+   6. CSV PARSER
+   ═══════════════════════════════════════════════════════════ */
+function cleanValue(value) {
+  let text = String(value ?? "").trim();
+  if (text.length >= 2 && (
+    (text.startsWith("'") && text.endsWith("'")) ||
+    (text.startsWith('"') && text.endsWith('"'))
+  )) {
+    text = text.slice(1, -1);
+  }
+  return text;
 }
 
-const Quran = {
-    async installed() {
-        const m = await DB.get("quran_meta", "madani");
-        const i = await DB.get("quran_meta", "indopak");
-        const w = await DB.get("quran_meta", "words");
-        return !!(m && i && w);
-    },
-    async loadMemory() {
-        State.pageLines = await DB.all("page_lines");
-        State.words = await DB.all("words");
-        State.wordMap = new Map();
-        for(const w of State.words) State.wordMap.set(Number(w.word_number_all), w);
-        State.quranReady = true;
-    },
-    progress(pct, text) {
-        const b = document.getElementById("downloadBar"), s = document.getElementById("downloadStatus");
-        if(b) b.style.width = Math.max(0, Math.min(100, pct)) + "%";
-        if(s) s.textContent = text;
-    },
-    async downloadAll() {
-        // Madani Layout
-        this.progress(10, "Downloading Madani Layout...");
-        const mt = await (await fetch(FILES.madani)).text();
-        const mRows = parseCSV(mt).filter(r=>r.page&&r.line).map(r=>({
-            id: "madani_"+r.page+"_"+r.line, mushafId: "madani", page: Number(r.page), line: Number(r.line),
-            type: r.type||"ayah", isCentered: r.is_centered==="1"||r.is_centered==="true",
-            rangeStart: Number(r.range_start)||0, rangeEnd: Number(r.range_end)||0
-        }));
-        await DB.putMany("page_lines", mRows);
-        await DB.put("quran_meta", {id:"madani", installed:true});
-
-        // IndoPak Layout
-        this.progress(35, "Downloading IndoPak Layout...");
-        const it = await (await fetch(FILES.indopak)).text();
-        const iRows = parseCSV(it).filter(r=>r.page&&r.line).map(r=>({
-            id: "indopak_"+r.page+"_"+r.line, mushafId: "indopak", page: Number(r.page), line: Number(r.line),
-            type: r.type||"ayah", isCentered: r.is_centered==="1"||r.is_centered==="true",
-            rangeStart: Number(r.range_start)||0, rangeEnd: Number(r.range_end)||0
-        }));
-        await DB.putMany("page_lines", iRows);
-        await DB.put("quran_meta", {id:"indopak", installed:true});
-
-        // Words
-        this.progress(60, "Downloading Word Data...");
-        const wt = await (await fetch(FILES.words)).text();
-        const wRows = parseCSV(wt);
-        await DB.clear("words");
-        const total = wRows.length; const BATCH = 5000;
-        for(let off=0; off<total; off+=BATCH){
-            const batch = wRows.slice(off, off+BATCH).map(r=>({
-                word_number_all: Number(r.word_number_all), surah_number: Number(r.surah_number)||0,
-                ayah_number: Number(r.ayah_number)||0, word_number: Number(r.word_number)||0,
-                uthmani: r.uthmani||"", indopak: r.indopak||"", dk_indopak: r.dk_indopak||"",
-                qpc_v1: r.qpc_v1||"", is_ayah_marker: String(r.is_ayah_marker)==="1"
-            })).filter(w=>w.word_number_all);
-            await DB.putMany("words", batch);
-            this.progress(60 + (off/total)*40, `Saving Words ${off}/${total}...`);
-            await U.sleep();
-        }
-        await DB.put("quran_meta", {id:"words", installed:true});
-        this.progress(100, "Ready!");
-        await this.loadMemory();
+function parseCSV(text) {
+  const rows = [];
+  let current = [];
+  let value = "";
+  let inDoubleQuote = false;
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i];
+    if (char === '"') {
+      if (inDoubleQuote && text[i + 1] === '"') {
+        value += '"';
+        i++;
+      } else {
+        inDoubleQuote = !inDoubleQuote;
+      }
+      continue;
     }
-};
-
-/* =========================================================
-   FONTS
-========================================================= */
-const Fonts = {
-    loaded: new Set(),
-    async loadForPage(mushafId, page) {
-        if(mushafId === "indopak") return "'DigitalKhatt IndoPak', 'Amiri', serif";
-        const name = "QCFPage" + page;
-        if(this.loaded.has(name)) return `'${name}', 'Amiri', serif`;
-        const url = `https://verses.quran.foundation/fonts/quran/hafs/v1/woff2/p${page}.woff2`;
-        try {
-            const font = new FontFace(name, `url("${url}")`);
-            await font.load();
-            document.fonts.add(font);
-            this.loaded.add(name);
-            return `'${name}', 'Amiri', serif`;
-        } catch(e) { return "'DigitalKhatt Old Madina', 'Amiri', serif"; }
+    if (char === "," && !inDoubleQuote) {
+      current.push(value);
+      value = "";
+      continue;
     }
-};
-
-/* =========================================================
-   READER & RENDERER (Merged Logic)
-========================================================= */
-const Reader = {
-    async changeMushaf(mushafId) {
-        State.currentMushaf = mushafId;
-        const s = await DB.get("page_state", State.currentStudentId + "_" + mushafId);
-        State.currentPage = s?.page || 1;
-        this.sync(); await this.render();
-    },
-    async go(val) {
-        let p = Number(val) || 1;
-        const max = MUSHAFS[State.currentMushaf].pages;
-        State.currentPage = Math.max(1, Math.min(max, Math.floor(p)));
-        if(State.currentStudentId){
-            await DB.put("page_state", { id: State.currentStudentId+"_"+State.currentMushaf, page: State.currentPage });
-        }
-        this.sync(); await this.render();
-    },
-    prev() { if(State.currentPage > 1) this.go(State.currentPage - 1); },
-    next() { if(State.currentPage < MUSHAFS[State.currentMushaf].pages) this.go(State.currentPage + 1); },
-    sync() {
-        document.getElementById("pageInput").value = State.currentPage;
-        document.getElementById("pageArabic").textContent = U.arabicDigits(State.currentPage);
-        document.getElementById("mushafSelect").value = State.currentMushaf;
-        
-        // Setup classes for stage borders
-        const stage = document.getElementById("quranLines");
-        if(State.currentMushaf === "indopak") stage.classList.add("indopak");
-        else stage.classList.remove("indopak");
-    },
-    tool(t, btn) {
-        State.currentTool = t;
-        document.querySelectorAll(".tool").forEach(e=>e.classList.remove("active"));
-        if(btn) btn.classList.add("active");
-    },
-    getWords(start, end) {
-        if(!start || !end) return [];
-        const res=[];
-        for(let n=start; n<=end; n++) {
-            const w = State.wordMap.get(n);
-            if(w) res.push(w);
-        }
-        return res;
-    },
-    wordText(w) {
-        if(State.currentMushaf === "indopak") return w.dk_indopak || w.indopak || w.uthmani || "";
-        return w.qpc_v1 || w.uthmani || "";
-    },
-    wordClass(w, text) {
-        const classes=["word"];
-        if(U.isDivineName(text)) classes.push("allah");
-        
-        const mark = State.marks.find(m => m.studentId === State.currentStudentId && 
-            m.mushafId === State.currentMushaf && m.page === State.currentPage && m.wordNumberAll === w.word_number_all);
-        
-        if(mark?.type === "ghalat") classes.push("ghalat");
-        if(mark?.type === "tajweed") classes.push("tajweed");
-        return classes.join(" ");
-    },
-    
-    // NEW Render Logic: Flexbox handles spacing, NO manual margins
-    renderWords(words) {
-        let html="";
-        for(const w of words){
-            const text = this.wordText(w);
-            if(!text) continue;
-            const vk = w.surah_number + ":" + w.ayah_number;
-            const cls = this.wordClass(w, text);
-            
-            if(w.is_ayah_marker){
-                html += `<span class="ayah-marker ${cls}" data-v="${vk}" data-wn="${w.word_number_all}" onclick="Reader.wClick(event,this)">${U.escape(text)}</span>`;
-            } else {
-                html += `<span class="${cls}" data-v="${vk}" data-wn="${w.word_number_all}" onclick="Reader.wClick(event,this)">${U.escape(text)}</span>`;
-            }
-        }
-        return html;
-    },
-    async render() {
-        if(!State.quranReady) return;
-        const p = State.currentPage, m = State.currentMushaf;
-        const fontStr = await Fonts.loadForPage(m, p);
-        
-        const recs = State.pageLines.filter(i => i.mushafId === m && i.page === p);
-        const lMap = new Map(); recs.forEach(r => lMap.set(r.line, r));
-        
-        const out=[];
-        // Exact 15 physical lines
-        for(let line=1; line<=15; line++){
-            const r = lMap.get(line);
-            if(!r){ out.push(`<div class="qline empty"></div>`); continue; }
-            
-            let content="";
-            let isCentered = r.isCentered;
-            
-            if(r.type === "ayah"){
-                const words = this.getWords(r.rangeStart, r.rangeEnd);
-                // Auto-center short lines naturally
-                if(words.length <= 5) isCentered = true;
-                content = this.renderWords(words);
-            }
-            if(r.type === "surah_name"){
-                const sNum = r.rangeStart;
-                content = `<div class="surah-header-row">
-                    <span class="surah-meta">ترتيبها ${U.arabicDigits(sNum)}</span>
-                    <span class="surah-title-text">سُورَةُ ${SURAH_NAMES[sNum]||""}</span>
-                    <span class="surah-meta">١٥ سطر</span>
-                </div>`;
-                isCentered = true;
-            }
-            if(r.type === "basmallah"){
-                content = `<div class="basmallah-text">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>`;
-                isCentered = true;
-            }
-            
-            const lc = `qline ${isCentered ? 'centered' : ''}`;
-            out.push(`<div class="${lc}" style="font-family:${fontStr}">${content}</div>`);
-        }
-        document.getElementById("quranLines").innerHTML = out.join("");
-    },
-    async wClick(e, el) {
-        e.stopPropagation();
-        const num = Number(el.dataset.wn);
-        const v = el.dataset.v;
-        if(State.currentTool === "none") { /* Audio logic */ return; }
-        if(State.currentTool === "ayah") { await Marks.ayah(v); return; }
-        await Marks.word(num, v, State.currentTool);
+    if ((char === "\n" || char === "\r") && !inDoubleQuote) {
+      if (char === "\r" && text[i + 1] === "\n") i++;
+      current.push(value);
+      value = "";
+      if (current.some(item => item !== "")) {
+        rows.push(current);
+      }
+      current = [];
+      continue;
     }
-};
-
-/* =========================================================
-   MARKS, STUDENTS, LESSONS & SYNC (V7 Logic)
-========================================================= */
-const Marks = {
-    async load() { State.marks = await DB.all("marks"); },
-    async word(wn, vk, type) {
-        if(!State.currentStudentId) return U.toast("Select Student");
-        const ex = State.marks.find(m => m.studentId === State.currentStudentId && m.mushafId === State.currentMushaf && m.page === State.currentPage && m.wordNumberAll === wn);
-        if(ex){
-            if(ex.type === type) await DB.delete("marks", ex.id);
-            else { ex.type = type; await DB.put("marks", ex); }
-        } else {
-            await DB.put("marks", { id: U.id("m"), studentId: State.currentStudentId, mushafId: State.currentMushaf, page: State.currentPage, wordNumberAll: wn, verseKey: vk, type });
-        }
-        await this.load(); await Reader.render();
-    },
-    async ayah(vk) {
-        // Similar to word, simplified for brevity
-        U.toast("Ayah marked");
+    value += char;
+  }
+  if (value !== "" || current.length) {
+    current.push(value);
+    if (current.some(item => item !== "")) {
+      rows.push(current);
     }
-};
+  }
+  if (!rows.length) return [];
+  const headers = rows[0].map(cleanValue);
+  return rows.slice(1).map(row => {
+    const result = {};
+    headers.forEach((header, index) => {
+      result[header] = cleanValue(row[index] ?? "");
+    });
+    return result;
+  });
+}
 
-const Students = {
-    async load() {
-        State.students = await DB.all("students");
-        if(State.students.length){ State.currentStudentId = State.students[0].id; }
-        this.render();
-    },
-    render() {
-        const sel = document.getElementById("studentSelect");
-        sel.innerHTML = `<option value="">Student</option>` + State.students.map(s => `<option value="${s.id}">${U.escape(s.name)}</option>`).join("");
-        sel.value = State.currentStudentId || "";
-    },
-    async select(id) {
-        if(!id) return;
-        State.currentStudentId = id;
-        const s = State.students.find(x=>x.id===id);
-        if(s) { State.currentMushaf = s.mushafId || "madani"; }
-        await Reader.changeMushaf(State.currentMushaf);
-    },
-    openAdd() { UI.closeDrawer(); document.getElementById("studentModal").classList.add("open"); },
-    async save() {
-        const n = document.getElementById("studentName").value;
-        if(!n) return;
-        const m = document.getElementById("studentPrimaryMushaf").value;
-        const st = { id: U.id("s"), name: n, mushafId: m };
-        await DB.put("students", st);
-        await this.load(); UI.closeModal("studentModal"); await this.select(st.id);
+/* ═══════════════════════════════════════════════════════════
+   7. BATCH INGESTION & FONT DOWNLOADER
+   ═══════════════════════════════════════════════════════════ */
+const BatchIngestion = {
+  async run() {
+    const meta = await DB.get("meta", "csv_ready");
+    if (meta && meta.val) {
+      document.getElementById("splashOverlay").style.display = "none";
+      this.updateFontProgressUI();
+      this.autoResumeFonts();
+      State.quranReady = true;
+      return;
     }
-};
 
-const Lesson = {
-    endDialog() { document.getElementById("lessonModal").classList.add("open"); },
-    async saveEnd() { UI.closeModal("lessonModal"); U.toast("Lesson saved successfully"); }
-};
+    const splash = document.getElementById("splashOverlay");
+    const status = document.getElementById("splashStatus");
+    const bar = document.getElementById("splashProgress");
+    splash.style.display = "flex";
 
-const Settings = {
-    open() { document.getElementById("settingsPanel").classList.add("open"); },
-    close() { document.getElementById("settingsPanel").classList.remove("open"); },
-    tab(n, btn) {
-        document.querySelectorAll(".settings-tab, .settings-section").forEach(e=>e.classList.remove("active"));
-        btn.classList.add("active");
-        document.getElementById("settings-"+n).classList.add("active");
-    }
-};
-
-const UI = {
-    openDrawer() { document.getElementById("drawer").classList.add("open"); document.getElementById("drawerBackdrop").classList.add("open"); },
-    closeDrawer() { document.getElementById("drawer").classList.remove("open"); document.getElementById("drawerBackdrop").classList.remove("open"); },
-    closeModal(id) { document.getElementById(id).classList.remove("open"); }
-};
-
-const Sync = {
-    async download() {
-        document.getElementById("downloadActions").innerHTML = "";
-        try {
-            await Quran.downloadAll();
-            document.getElementById("downloadScreen").classList.add("hidden");
-            await Reader.render();
-        } catch(e) {
-            document.getElementById("downloadStatus").textContent = "Error: " + e.message;
-            document.getElementById("downloadActions").innerHTML = `<button class="btn green" onclick="Sync.download()">Retry</button>`;
-        }
-    },
-    async clearQuran() { if(confirm("Clear Data?")){ await DB.clear("page_lines"); await DB.clear("words"); await DB.clear("quran_meta"); location.reload(); } }
-};
-
-/* =========================================================
-   BOOTSTRAP
-========================================================= */
-window.addEventListener("DOMContentLoaded", async () => {
     try {
-        await DB.open();
-        await Students.load(); await Marks.load();
-        
-        if(await Quran.installed()){
-            await Quran.loadMemory();
-            await Reader.render();
-        } else {
-            document.getElementById("downloadScreen").classList.remove("hidden");
-            document.getElementById("downloadActions").innerHTML = `<button class="btn green" onclick="Sync.download()">Download Quran Data</button>`;
+      status.textContent = "Ingesting Madani 1405H Layout...";
+      bar.style.width = "15%";
+      await this.ingestLayoutCSV("madani", CONFIG.madani.file);
+
+      status.textContent = "Ingesting Indo-Pak Layout...";
+      bar.style.width = "35%";
+      await this.ingestLayoutCSV("indopak", CONFIG.indopak.file);
+
+      status.textContent = "Ingesting Master Word Registry...";
+      bar.style.width = "55%";
+      await this.ingestWordCSV(p => {
+        bar.style.width = (55 + p * 0.40) + "%";
+        status.textContent = "Batch writing words: " + Math.round(p) + "%...";
+      });
+
+      status.textContent = "Downloading Indo-Pak Master Font...";
+      await this.downloadFont("indopak",
+        "https://static.qurancdn.com/fonts/quran/indopak/woff2/indopak.woff2");
+
+      await DB.put("meta", { key: "csv_ready", val: true });
+      bar.style.width = "100%";
+      status.textContent = "✅ Database Ready! Running 100% Offline.";
+      State.quranReady = true;
+
+      setTimeout(() => {
+        splash.style.display = "none";
+      }, 400);
+
+      this.updateFontProgressUI();
+      this.autoResumeFonts();
+    } catch (error) {
+      console.error(error);
+      status.textContent = "Error: " + error.message;
+      document.getElementById("splashActions").innerHTML =
+        '<button class="btn-action" onclick="location.reload()">Retry</button>';
+    }
+  },
+
+  async ingestLayoutCSV(mushafKey, fileUrl) {
+    const res = await fetch(fileUrl);
+    const text = await res.text();
+    const lines = text.split(/\r?\n/);
+    const records = [];
+
+    for (let i = 0; i < lines.length; i++) {
+      const l = lines[i].trim();
+      if (!l || l.startsWith("page,") || l.startsWith("!") || l.includes("drive.google")) continue;
+      const p = l.split(",").map(s => s.trim().replace(/^['"]|['"]$/g, ""));
+      if (p.length >= 5) {
+        const pageNum = Number(p[0]);
+        const lineNum = Number(p[1]);
+        if (!pageNum || !lineNum) continue;
+        records.push({
+          mushaf: mushafKey,
+          page: pageNum,
+          line: lineNum,
+          type: p[2],
+          is_centered: p[3] === "1",
+          start: p[4] ? Number(p[4]) : null,
+          end: p[5] ? Number(p[5]) : null
+        });
+      }
+    }
+    await this.batchWrite("page_lines", records, 2500);
+  },
+
+  async ingestWordCSV(onProgress) {
+    const res = await fetch("./word.csv");
+    const text = await res.text();
+    const lines = text.split(/\r?\n/);
+    const total = lines.length;
+    let batch = [];
+    let processed = 0;
+
+    for (let i = 0; i < total; i++) {
+      const l = lines[i].trim();
+      if (!l || !l.match(/^\d+,/)) continue;
+      const p = l.split(",").map(s => s.trim().replace(/^['"]|['"]$/g, ""));
+      if (p.length >= 8) {
+        const wId = Number(p[3]);
+        if (wId) {
+          batch.push({
+            id: wId,
+            surah: Number(p[0]),
+            ayah: Number(p[1]),
+            uthmani: p[4] || "",
+            indopak: p[6] || p[5] || p[4] || "",
+            dk_indopak: p[7] || p[6] || p[4] || "",
+            qpc_v1: p[8] || p[4] || ""
+          });
         }
-    } catch(e) { console.error(e); }
+      }
+      if (batch.length >= 3500) {
+        await this.batchWrite("words", batch, 3500);
+        processed += batch.length;
+        batch = [];
+        if (onProgress) onProgress((processed / total) * 100);
+      }
+    }
+    if (batch.length > 0) {
+      await this.batchWrite("words", batch, batch.length);
+    }
+  },
+
+  batchWrite(storeName, items, chunkSize) {
+    return new Promise((resolve, reject) => {
+      if (items.length === 0) return resolve();
+      const tx = DB.db.transaction(storeName, "readwrite");
+      const store = tx.objectStore(storeName);
+      for (let i = 0; i < items.length; i++) {
+        store.put(items[i]);
+      }
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error);
+    });
+  },
+
+  async downloadFont(name, url) {
+    const exists = await DB.get("fonts", name);
+    if (exists && exists.data) return;
+    try {
+      const res = await fetch(url);
+      if (res.ok) {
+        const buffer = await res.arrayBuffer();
+        await DB.put("fonts", { name, data: buffer });
+      }
+    } catch (e) {
+      console.warn("Font download failed: " + name, e);
+    }
+  },
+
+  async autoResumeFonts() {
+    if (!navigator.onLine) return;
+    const all = await DB.getAll("fonts");
+    const existingCount = all.filter(f => f.name.startsWith("p")).length;
+    if (existingCount < 604) {
+      this.downloadAllFonts();
+    }
+  },
+
+  async downloadAllFonts() {
+    const btn = document.getElementById("btnDownloadFonts");
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = "Downloading Fonts (Resumable)...";
+    }
+    const total = 604;
+    const existing = await DB.getAll("fonts");
+    const existingSet = new Set(existing.map(f => f.name));
+    const queue = [];
+    for (let p = 1; p <= total; p++) {
+      if (!existingSet.has("p" + p)) {
+        queue.push(p);
+      }
+    }
+    let downloaded = total - queue.length;
+    this.updateFontProgressUI(downloaded, total);
+
+    const concurrency = 6;
+    let index = 0;
+    const worker = async () => {
+      while (index < queue.length) {
+        if (!navigator.onLine) break;
+        const p = queue[index++];
+        const url = "https://verses.quran.foundation/fonts/quran/hafs/v1/woff2/p" + p + ".woff2";
+        try {
+          const res = await fetch(url);
+          if (res.ok) {
+            const buffer = await res.arrayBuffer();
+            await DB.put("fonts", { name: "p" + p, data: buffer });
+            downloaded++;
+            this.updateFontProgressUI(downloaded, total);
+          }
+        } catch (e) {
+          console.warn("Retry font p" + p);
+        }
+      }
+    };
+    const workers = [];
+    for (let i = 0; i < concurrency; i++) workers.push(worker());
+    await Promise.all(workers);
+
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = downloaded >= total ? "✅ All Fonts Downloaded" : "⬇️ Resume Font Download";
+    }
+  },
+
+  async updateFontProgressUI(current, total = 604) {
+    if (current === undefined) {
+      const all = await DB.getAll("fonts");
+      current = all.filter(f => f.name.startsWith("p")).length;
+    }
+    const pct = Math.round((current / total) * 100);
+    const countEl = document.getElementById("fontDownloadCount");
+    const barEl = document.getElementById("fontDownloadBar");
+    if (countEl) countEl.textContent = current + " / " + total + " (" + pct + "%)";
+    if (barEl) barEl.style.width = pct + "%";
+  }
+};
+
+/* ═══════════════════════════════════════════════════════════
+   8. FONT MANAGER
+   ═══════════════════════════════════════════════════════════ */
+const FontManager = {
+  loadedFonts: new Set(),
+
+  async ensurePageFont(pageNum, isIndoPak) {
+    if (isIndoPak) {
+      return "'DigitalKhatt IndoPak', 'Noto Nastaliq Urdu', 'Amiri', serif";
+    }
+    const fontName = "QCF_P" + pageNum;
+    if (this.loadedFonts.has(fontName)) return fontName;
+
+    const record = await DB.get("fonts", "p" + pageNum);
+    if (record && record.data) {
+      try {
+        const font = new FontFace(fontName, record.data);
+        await font.load();
+        document.fonts.add(font);
+        this.loadedFonts.add(fontName);
+        return fontName;
+      } catch (e) { /* fallthrough */ }
+    }
+
+    if (navigator.onLine) {
+      try {
+        const url = "https://verses.quran.foundation/fonts/quran/hafs/v1/woff2/p" + pageNum + ".woff2";
+        const res = await fetch(url);
+        if (res.ok) {
+          const buffer = await res.arrayBuffer();
+          await DB.put("fonts", { name: "p" + pageNum, data: buffer });
+          const font = new FontFace(fontName, buffer);
+          await font.load();
+          document.fonts.add(font);
+          this.loadedFonts.add(fontName);
+          return fontName;
+        }
+      } catch (e) { /* fallthrough */ }
+    }
+    return "'DigitalKhatt Old Madina', 'Amiri', serif";
+  }
+};
+
+/* ═══════════════════════════════════════════════════════════
+   9. SETTINGS
+   ═══════════════════════════════════════════════════════════ */
+const Settings = {
+  async load() {
+    const saved = await DB.get("settings", "app");
+    if (saved && saved.value) {
+      State.settings = this.merge(structuredClone(DEFAULT_SETTINGS), saved.value);
+    }
+    this.render();
+  },
+
+  merge(base, custom) {
+    const result = structuredClone(base);
+    for (const key of Object.keys(custom || {})) {
+      if (custom[key] && typeof custom[key] === "object" && !Array.isArray(custom[key])) {
+        result[key] = this.merge(result[key] || {}, custom[key]);
+      } else {
+        result[key] = custom[key];
+      }
+    }
+    return result;
+  },
+
+  async save() {
+    await DB.put("settings", { id: "app", value: State.settings });
+  },
+
+  open() {
+    this.render();
+    App.openSheet("tools");
+  },
+
+  close() {
+    App.closeSheet();
+  },
+
+  render() {
+    const s = State.settings;
+    const $ = id => document.getElementById(id);
+    if ($("institutionName")) $("institutionName").value = s.institution.name || "";
+    if ($("institutionRunBy")) $("institutionRunBy").value = s.institution.runBy || "";
+    if ($("institutionAddress")) $("institutionAddress").value = s.institution.address || "";
+    if ($("institutionPhone")) $("institutionPhone").value = s.institution.phone || "";
+    if ($("institutionTeacher")) $("institutionTeacher").value = s.institution.teacher || "";
+    if ($("institutionDepartment")) $("institutionDepartment").value = s.institution.department || "";
+    if ($("reportTitle")) $("reportTitle").value = s.report.title || "";
+    if ($("reportDateFormat")) $("reportDateFormat").value = s.report.dateFormat || "DD-MM-YYYY";
+    if ($("reportTeacherSignature")) $("reportTeacherSignature").value = s.report.teacherSignature ? "yes" : "no";
+    Students.renderList();
+  },
+
+  async saveInstitution() {
+    const $ = id => document.getElementById(id);
+    State.settings.institution.name = $("institutionName").value.trim();
+    State.settings.institution.runBy = $("institutionRunBy").value.trim();
+    State.settings.institution.address = $("institutionAddress").value.trim();
+    State.settings.institution.phone = $("institutionPhone").value.trim();
+    State.settings.institution.teacher = $("institutionTeacher").value.trim();
+    State.settings.institution.department = $("institutionDepartment").value.trim();
+    await this.save();
+    const brand = document.getElementById("brandName");
+    if (brand) brand.textContent = State.settings.institution.name || "Al-Halaqah";
+    U.toast("Institution settings saved");
+  },
+
+  async saveReport() {
+    const $ = id => document.getElementById(id);
+    State.settings.report.title = $("reportTitle").value.trim();
+    State.settings.report.dateFormat = $("reportDateFormat").value;
+    State.settings.report.teacherSignature = $("reportTeacherSignature").value === "yes";
+    await this.save();
+    U.toast("Report settings saved");
+  }
+};
+
+/* ═══════════════════════════════════════════════════════════
+   10. STUDENTS
+   ═══════════════════════════════════════════════════════════ */
+const Students = {
+  async load() {
+    State.students = await DB.getAll("students");
+    State.assignments = await DB.getAll("student_mushafs");
+    const saved = localStorage.getItem("alh_current_student");
+    if (saved && State.students.some(s => s.id === saved)) {
+      State.currentStudentId = saved;
+    } else if (State.students.length) {
+      State.currentStudentId = State.students[0].id;
+    }
+    this.renderList();
+    this.renderSelect();
+    this.updateBadgeUI();
+  },
+
+  current() {
+    return State.students.find(s => s.id === State.currentStudentId);
+  },
+
+  assignedMushafs(studentId) {
+    return State.assignments
+      .filter(a => a.studentId === studentId)
+      .map(a => a.mushafId);
+  },
+
+  renderSelect() {
+    const select = document.getElementById("studentSelect");
+    if (!select) return;
+    select.innerHTML = '<option value="">Student</option>' +
+      State.students.map(s =>
+        '<option value="' + s.id + '">' + U.escape(s.name) + "</option>"
+      ).join("");
+    select.value = State.currentStudentId || "";
+  },
+
+  renderList() {
+    const box = document.getElementById("studentsListContainer");
+    if (!box) return;
+    box.innerHTML = "";
+    if (!State.students.length) {
+      box.innerHTML = '<div style="color:#8ea396;font-size:12px;padding:12px;">No students yet. Add one above.</div>';
+      return;
+    }
+    State.students.forEach(s => {
+      const div = document.createElement("div");
+      div.className = "list-card" + (State.currentStudentId === s.id ? " active" : "");
+      div.innerHTML =
+        "<div><b>" + U.escape(s.name) + "</b><br>" +
+        '<small>Roll: ' + U.escape(s.roll || "-") +
+        " · " + U.escape(CONFIG[s.mushafId]?.shortName || s.mushafId || "-") +
+        "</small></div>" +
+        '<div style="display:flex;gap:5px;">' +
+        '<button class="btn-action" style="padding:4px 8px;font-size:10px;" onclick="event.stopPropagation();Students.edit(\'' + s.id + '\')">✎</button>' +
+        '<button class="btn-action danger" style="padding:4px 8px;font-size:10px;" onclick="event.stopPropagation();Students.remove(\'' + s.id + '\')">🗑</button>' +
+        "</div>";
+      div.onclick = () => this.select(s.id);
+      box.appendChild(div);
+    });
+  },
+
+  updateBadgeUI() {
+    const badge = document.getElementById("badgeStudentTitle");
+    if (badge) badge.textContent = this.current()?.name || "Student";
+    const drawer = document.getElementById("drawerStudent");
+    const c = this.current();
+    if (drawer) {
+      drawer.innerHTML = c
+        ? "<b>" + U.escape(c.name) + "</b><br>Roll: " + U.escape(c.roll || "-") +
+          "<br>Mushaf: " + U.escape(CONFIG[State.currentMushaf]?.name || State.currentMushaf)
+        : "No student selected";
+    }
+  },
+
+  fillMushafSelects() {
+    const options = Object.values(CONFIG)
+      .map(m => '<option value="' + m.id + '">' + U.escape(m.name) + "</option>")
+      .join("");
+    const p = document.getElementById("studentPrimaryMushaf");
+    const s = document.getElementById("studentSecondMushaf");
+    if (p) p.innerHTML = options;
+    if (s) s.innerHTML = '<option value="">None</option>' + options;
+  },
+
+  openAdd() {
+    const modal = document.getElementById("studentModal");
+    delete modal.dataset.editId;
+    this.fillMushafSelects();
+    document.getElementById("studentRoll").value = "";
+    document.getElementById("studentName").value = "";
+    document.getElementById("studentClass").value = "";
+    document.getElementById("studentNotes").value = "";
+    document.getElementById("studentPrimaryMushaf").value = State.settings.reader.defaultMushaf || "madani";
+    document.getElementById("studentSecondMushaf").value = "";
+    modal.classList.add("open");
+  },
+
+  edit(id) {
+    const s = State.students.find(x => x.id === id);
+    if (!s) return;
+    this.fillMushafSelects();
+    const modal = document.getElementById("studentModal");
+    modal.dataset.editId = id;
+    document.getElementById("studentRoll").value = s.roll || "";
+    document.getElementById("studentName").value = s.name || "";
+    document.getElementById("studentClass").value = s.className || "";
+    document.getElementById("studentPrimaryMushaf").value = s.mushafId || "madani";
+    document.getElementById("studentSecondMushaf").value = "";
+    document.getElementById("studentNotes").value = s.notes || "";
+    modal.classList.add("open");
+  },
+
+  async save() {
+    const modal = document.getElementById("studentModal");
+    const editId = modal.dataset.editId || null;
+    const name = document.getElementById("studentName").value.trim();
+    if (!name) { U.toast("Student name required"); return; }
+    const primary = document.getElementById("studentPrimaryMushaf").value;
+    const secondary = document.getElementById("studentSecondMushaf").value;
+    const old = editId ? State.students.find(s => s.id === editId) : null;
+
+    const student = {
+      id: editId || U.id("student"),
+      roll: document.getElementById("studentRoll").value.trim(),
+      name,
+      className: document.getElementById("studentClass").value.trim(),
+      notes: document.getElementById("studentNotes").value.trim(),
+      mushafId: primary,
+      createdAt: old?.createdAt || new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+    await DB.put("students", student);
+
+    const oldAssignments = State.assignments.filter(a => a.studentId === student.id);
+    for (const a of oldAssignments) await DB.delete("student_mushafs", a.id);
+
+    const assignments = [{
+      id: student.id + "_" + primary,
+      studentId: student.id,
+      mushafId: primary,
+      primary: true,
+      assignedAt: new Date().toISOString()
+    }];
+    if (secondary && secondary !== primary) {
+      assignments.push({
+        id: student.id + "_" + secondary,
+        studentId: student.id,
+        mushafId: secondary,
+        primary: false,
+        assignedAt: new Date().toISOString()
+      });
+    }
+    await DB.putMany("student_mushafs", assignments);
+
+    await this.load();
+    UI.closeModal("studentModal");
+    await this.select(student.id);
+    U.toast("Student saved");
+  },
+
+  async addQuick() {
+    const nameInput = document.getElementById("newStudentName");
+    const sel = document.getElementById("newStudentMushaf");
+    const name = nameInput.value.trim();
+    if (!name) return;
+    const mushaf = sel.value;
+    const student = {
+      id: U.id("student"),
+      roll: "",
+      name,
+      className: "",
+      notes: "",
+      mushafId: mushaf,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+    await DB.put("students", student);
+    await DB.put("student_mushafs", {
+      id: student.id + "_" + mushaf,
+      studentId: student.id,
+      mushafId: mushaf,
+      primary: true,
+      assignedAt: new Date().toISOString()
+    });
+    nameInput.value = "";
+    await this.load();
+    await this.select(student.id);
+    U.toast("Student added");
+  },
+
+  async select(id) {
+    const s = State.students.find(x => x.id === id);
+    if (!s) return;
+    State.currentStudentId = id;
+    localStorage.setItem("alh_current_student", id);
+    const assigned = this.assignedMushafs(id);
+    State.currentMushaf = s.mushafId || assigned[0] || State.settings.reader.defaultMushaf;
+
+    const state = await DB.get("page_state", id + "_" + State.currentMushaf);
+    State.currentPage = state?.page || 1;
+
+    await Marks.load();
+    this.renderList();
+    this.renderSelect();
+    this.updateBadgeUI();
+    Reader.sync();
+    await Reader.render();
+    App.closeSheet();
+    U.toast(s.name + " selected");
+  },
+
+  async remove(id) {
+    const s = State.students.find(x => x.id === id);
+    if (!s) return;
+    if (!confirm(s.name + " — ഈ student-ന്റെ മുഴുവൻ data delete ചെയ്യണോ?")) return;
+
+    const stores = ["students", "student_mushafs", "page_state", "lessons", "marks"];
+    for (const store of stores) {
+      const records = await DB.getAll(store);
+      for (const r of records) {
+        if (r.studentId === id || (store === "students" && r.id === id)) {
+          await DB.delete(store, r.id);
+        }
+      }
+    }
+    if (State.currentStudentId === id) {
+      State.currentStudentId = null;
+      State.currentMushaf = State.settings.reader.defaultMushaf;
+      State.currentPage = 1;
+    }
+    await App.reload();
+    U.toast("Student deleted");
+  }
+};
+
+/* ═══════════════════════════════════════════════════════════
+   11. MARKS
+   ═══════════════════════════════════════════════════════════ */
+const Marks = {
+  async load() {
+    State.marks = await DB.getAll("marks");
+  },
+
+  async word(wordNumber, verseKey, type) {
+    if (!State.currentStudentId) {
+      U.toast("ആദ്യം Student select ചെയ്യുക.");
+      return;
+    }
+    const existing = State.marks.find(m =>
+      m.studentId === State.currentStudentId &&
+      m.mushafId === State.currentMushaf &&
+      m.page === State.currentPage &&
+      m.wordNumberAll === wordNumber
+    );
+
+    if (existing) {
+      if (existing.type === type) {
+        await DB.delete("marks", existing.id);
+      } else {
+        existing.type = type;
+        existing.updatedAt = new Date().toISOString();
+        await DB.put("marks", existing);
+      }
+    } else {
+      await DB.put("marks", {
+        id: U.id("mark"),
+        studentId: State.currentStudentId,
+        mushafId: State.currentMushaf,
+        page: State.currentPage,
+        wordNumberAll: wordNumber,
+        verseKey,
+        type,
+        lessonId: State.currentLessonId || null,
+        createdAt: new Date().toISOString()
+      });
+    }
+    await this.load();
+    await Reader.render();
+  },
+
+  async ayah(verseKey) {
+    if (!State.currentStudentId) {
+      U.toast("ആദ്യം Student select ചെയ്യുക.");
+      return;
+    }
+    const existing = State.marks.find(m =>
+      m.studentId === State.currentStudentId &&
+      m.mushafId === State.currentMushaf &&
+      m.type === "ayah" &&
+      m.verseKey === verseKey
+    );
+    if (existing) {
+      await DB.delete("marks", existing.id);
+    } else {
+      await DB.put("marks", {
+        id: U.id("mark"),
+        studentId: State.currentStudentId,
+        mushafId: State.currentMushaf,
+        page: State.currentPage,
+        verseKey,
+        type: "ayah",
+        lessonId: State.currentLessonId || null,
+        createdAt: new Date().toISOString()
+      });
+    }
+    await this.load();
+    await Reader.render();
+  }
+};
+
+/* ═══════════════════════════════════════════════════════════
+   12. LESSONS
+   ═══════════════════════════════════════════════════════════ */
+const Lesson = {
+  async load() {
+    State.lessons = await DB.getAll("lessons");
+  },
+
+  fillTypes() {
+    document.getElementById("lessonType").innerHTML =
+      State.settings.categories.map(c =>
+        '<option value="' + c.id + '">' + U.escape(c.name) + " — " + U.escape(c.label) + "</option>"
+      ).join("");
+  },
+
+  fillMushafs() {
+    const s = Students.current();
+    const assigned = s ? Students.assignedMushafs(s.id) : [];
+    document.getElementById("lessonMushaf").innerHTML =
+      assigned.map(id =>
+        '<option value="' + id + '">' + U.escape(CONFIG[id]?.name || id) + "</option>"
+      ).join("");
+  },
+
+  currentVerse() {
+    const lines = State.pageLines
+      .filter(l => l.mushaf === State.currentMushaf && l.page === State.currentPage && l.type === "ayah")
+      .sort((a, b) => a.line - b.line);
+    // fallback: use last word on current page
+    return { surah: 1, ayah: 1 };
+  },
+
+  endDialog() {
+    const s = Students.current();
+    if (!s) {
+      U.toast("ആദ്യം Student select ചെയ്യുക.");
+      return;
+    }
+    this.fillTypes();
+    this.fillMushafs();
+    document.getElementById("lessonFromPage").value = State.currentPage;
+    document.getElementById("lessonToPage").value = State.currentPage;
+    if (document.getElementById("lessonMushaf").options.length) {
+      document.getElementById("lessonMushaf").value = State.currentMushaf;
+    }
+    const v = this.currentVerse();
+    document.getElementById("lessonFromSurah").value = v.surah || "";
+    document.getElementById("lessonToSurah").value = v.surah || "";
+    document.getElementById("lessonFromAyah").value = v.ayah || "";
+    document.getElementById("lessonToAyah").value = v.ayah || "";
+    document.getElementById("lessonModal").classList.add("open");
+  },
+
+  async saveEnd() {
+    const s = Students.current();
+    if (!s) return;
+    const categoryId = document.getElementById("lessonType").value;
+    const category = State.settings.categories.find(c => c.id === categoryId);
+    const lesson = {
+      id: U.id("lesson"),
+      studentId: s.id,
+      mushafId: document.getElementById("lessonMushaf").value || State.currentMushaf,
+      categoryId,
+      categoryName: category?.name || categoryId,
+      categoryLabel: category?.label || "",
+      lessonDate: U.today(),
+      fromPage: Number(document.getElementById("lessonFromPage").value) || null,
+      toPage: Number(document.getElementById("lessonToPage").value) || null,
+      fromSurah: document.getElementById("lessonFromSurah").value.trim(),
+      toSurah: document.getElementById("lessonToSurah").value.trim(),
+      fromAyah: Number(document.getElementById("lessonFromAyah").value) || null,
+      toAyah: Number(document.getElementById("lessonToAyah").value) || null,
+      startedAt: null,
+      endedAt: new Date().toISOString(),
+      createdAt: new Date().toISOString()
+    };
+    await DB.put("lessons", lesson);
+
+    if (State.currentLessonId) {
+      const old = await DB.get("lessons", State.currentLessonId);
+      if (old) {
+        old.endedAt = new Date().toISOString();
+        await DB.put("lessons", old);
+      }
+      State.currentLessonId = null;
+    }
+    await this.load();
+    UI.closeModal("lessonModal");
+    U.toast("Lesson End saved");
+  }
+};
+
+const Lessons = {
+  async open() {
+    await Lesson.load();
+    const s = Students.current();
+    document.getElementById("lessonHistoryTitle").textContent =
+      s ? s.name + " — Lesson History" : "No student selected";
+    const rows = State.lessons
+      .filter(l => l.studentId === State.currentStudentId)
+      .sort((a, b) => (b.lessonDate || "").localeCompare(a.lessonDate || ""));
+    document.getElementById("lessonHistoryBody").innerHTML = rows.map((l, i) =>
+      "<tr>" +
+      "<td>" + (i + 1) + "</td>" +
+      "<td>" + U.date(l.lessonDate) + "</td>" +
+      '<td><b dir="rtl">' + U.escape(l.categoryName) + "</b><br>" + U.escape(l.categoryLabel) + "</td>" +
+      "<td>" + U.escape(l.fromSurah || "-") + "<br>Ayah " + (l.fromAyah || "-") + "</td>" +
+      "<td>" + U.escape(l.toSurah || "-") + "<br>Ayah " + (l.toAyah || "-") + "</td>" +
+      "<td>" + (l.fromPage || "-") + (l.toPage && l.toPage !== l.fromPage ? " – " + l.toPage : "") + "</td>" +
+      "</tr>"
+    ).join("");
+    document.getElementById("lessonsPanel").style.display = "block";
+  },
+  close() {
+    document.getElementById("lessonsPanel").style.display = "none";
+  }
+};
+
+/* ═══════════════════════════════════════════════════════════
+   13. CANVAS OVERLAY
+   ═══════════════════════════════════════════════════════════ */
+const CanvasOverlay = {
+  selectTool(tool, color, size) {
+    State.canvasTool = tool;
+    if (color) State.canvasColor = color;
+    State.canvasWidth = size;
+    document.querySelectorAll(".tool-tile").forEach(b => b.classList.remove("active"));
+    const map = { pencil: "toolPencil", red: "toolRed", high: "toolHigh", eraser: "toolEraser" };
+    if (map[tool]) document.getElementById(map[tool]).classList.add("active");
+  },
+
+  init(side, pageNum, mushafId) {
+    State.canvasPageMap[side] = pageNum;
+    this.resizeCanvas(side);
+    this.loadAndRenderStrokes(side, pageNum, mushafId);
+    this.attachEvents(side);
+  },
+
+  resizeCanvas(side) {
+    const c = document.getElementById("canvas" + side);
+    const sheet = document.getElementById("sheet" + side);
+    if (!c || !sheet) return;
+    const r = sheet.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    c.width = Math.round(r.width * dpr);
+    c.height = Math.round(r.height * dpr);
+    const ctx = c.getContext("2d");
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    this.redrawStrokes(side);
+  },
+
+  async loadAndRenderStrokes(side, pageNum, mushafId) {
+    State.canvasStrokes[side] = [];
+    if (State.currentStudentId) {
+      const saved = await DB.loadDrawing(State.currentStudentId, mushafId, pageNum);
+      if (Array.isArray(saved)) State.canvasStrokes[side] = saved;
+    }
+    this.redrawStrokes(side);
+  },
+
+  redrawStrokes(side) {
+    const c = document.getElementById("canvas" + side);
+    if (!c) return;
+    const ctx = c.getContext("2d");
+    const sheet = document.getElementById("sheet" + side);
+    const r = sheet.getBoundingClientRect();
+    ctx.clearRect(0, 0, r.width, r.height);
+    const scaleX = r.width / 1000;
+    const scaleY = r.height / 1500;
+    (State.canvasStrokes[side] || []).forEach(st => {
+      if (!st.points || st.points.length < 2) return;
+      ctx.save();
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      if (st.tool === "eraser") {
+        ctx.globalCompositeOperation = "destination-out";
+        ctx.lineWidth = st.width * scaleX;
+      } else if (st.tool === "high") {
+        ctx.globalCompositeOperation = "multiply";
+        ctx.strokeStyle = st.color;
+        ctx.lineWidth = st.width * scaleX;
+      } else {
+        ctx.globalCompositeOperation = "source-over";
+        ctx.strokeStyle = st.color;
+        ctx.lineWidth = st.width * scaleX;
+      }
+      ctx.beginPath();
+      ctx.moveTo(st.points[0].x * scaleX, st.points[0].y * scaleY);
+      for (let i = 1; i < st.points.length; i++) {
+        ctx.lineTo(st.points[i].x * scaleX, st.points[i].y * scaleY);
+      }
+      ctx.stroke();
+      ctx.restore();
+    });
+  },
+
+  attachEvents(side) {
+    const c = document.getElementById("canvas" + side);
+    const sheet = document.getElementById("sheet" + side);
+    if (!c || !sheet) return;
+
+    c.onpointerdown = e => {
+      State.canvasDrawing = true;
+      State.canvasActiveSide = side;
+      c.setPointerCapture(e.pointerId);
+      const r = sheet.getBoundingClientRect();
+      const normX = ((e.clientX - r.left) / r.width) * 1000;
+      const normY = ((e.clientY - r.top) / r.height) * 1500;
+      State.canvasCurrentStroke = {
+        tool: State.canvasTool,
+        color: State.canvasColor,
+        width: State.canvasWidth,
+        points: [{ x: normX, y: normY }]
+      };
+      State.canvasStrokes[side].push(State.canvasCurrentStroke);
+    };
+
+    c.onpointermove = e => {
+      if (!State.canvasDrawing || State.canvasActiveSide !== side || !State.canvasCurrentStroke) return;
+      const r = sheet.getBoundingClientRect();
+      const normX = ((e.clientX - r.left) / r.width) * 1000;
+      const normY = ((e.clientY - r.top) / r.height) * 1500;
+      State.canvasCurrentStroke.points.push({ x: normX, y: normY });
+      this.redrawStrokes(side);
+    };
+
+    const stop = () => {
+      if (State.canvasDrawing && State.canvasActiveSide === side) {
+        State.canvasDrawing = false;
+        State.canvasCurrentStroke = null;
+        if (State.currentStudentId) {
+          DB.saveDrawing(
+            State.currentStudentId,
+            State.currentMushaf,
+            State.canvasPageMap[side],
+            State.canvasStrokes[side]
+          );
+        }
+      }
+    };
+    c.onpointerup = stop;
+    c.onpointercancel = stop;
+  },
+
+  clearActiveCanvas() {
+    if (!confirm("Clear evaluation markings for this page?")) return;
+    const side = State.canvasActiveSide;
+    State.canvasStrokes[side] = [];
+    this.redrawStrokes(side);
+    if (State.currentStudentId) {
+      DB.saveDrawing(State.currentStudentId, State.currentMushaf, State.canvasPageMap[side], []);
+    }
+  }
+};
+
+/* ═══════════════════════════════════════════════════════════
+   14. AUDIO
+   ═══════════════════════════════════════════════════════════ */
+const Audio = {
+  current: null,
+  async play(verseKey) {
+    const parts = String(verseKey).split(":");
+    if (parts.length !== 2) return;
+    const surah = Number(parts[0]);
+    const ayah = Number(parts[1]);
+    const url = "https://verses.quran.com/Alafasy/" +
+      String(surah).padStart(3, "0") +
+      String(ayah).padStart(3, "0") + ".mp3";
+    try {
+      if (this.current) this.current.pause();
+      this.current = new window.Audio(url);
+      await this.current.play();
+    } catch (e) {
+      console.warn("Audio unavailable", e);
+      U.toast("Audio unavailable");
+    }
+  }
+};
+
+/* ═══════════════════════════════════════════════════════════
+   15. READER (main Mushaf renderer)
+   ═══════════════════════════════════════════════════════════ */
+const Reader = {
+  isSpreadView() {
+    return window.innerWidth > 960 && window.innerWidth > window.innerHeight;
+  },
+
+  async changeMushaf(mushafId) {
+    const s = Students.current();
+    if (s) {
+      const assigned = Students.assignedMushafs(s.id);
+      if (!assigned.includes(mushafId)) {
+        U.toast("ഈ student-ന് ഈ Mushaf assigned ചെയ്തിട്ടില്ല.");
+        document.getElementById("mushafSelect").value = State.currentMushaf;
+        return;
+      }
+    }
+    State.currentMushaf = mushafId;
+    let state = null;
+    if (s) {
+      state = await DB.get("page_state", s.id + "_" + mushafId);
+    }
+    State.currentPage = state?.page || 1;
+    await this.savePageState();
+    this.sync();
+    await this.render();
+  },
+
+  toggleMushafMode() {
+    const next = State.currentMushaf === "madani" ? "indopak" : "madani";
+    this.changeMushaf(next);
+  },
+
+  async go(value) {
+    let page = Number(value);
+    if (!Number.isFinite(page)) page = 1;
+    const max = CONFIG[State.currentMushaf].pages;
+    page = Math.max(1, Math.min(max, Math.floor(page)));
+    State.currentPage = page;
+    await this.savePageState();
+    this.sync();
+    await this.render();
+  },
+
+  prev() {
+    if (State.currentPage > 1) return this.go(State.currentPage - 1);
+  },
+
+  next() {
+    const max = CONFIG[State.currentMushaf].pages;
+    if (State.currentPage < max) return this.go(State.currentPage + 1);
+  },
+
+  jumpPrompt() {
+    const val = prompt(
+      "Jump to " + CONFIG[State.currentMushaf].shortName + " Page (1 - " + CONFIG[State.currentMushaf].pages + "):",
+      State.currentPage
+    );
+    if (val !== null) this.go(val);
+  },
+
+  async savePageState() {
+    if (!State.currentStudentId) return;
+    await DB.put("page_state", {
+      id: State.currentStudentId + "_" + State.currentMushaf,
+      studentId: State.currentStudentId,
+      mushafId: State.currentMushaf,
+      page: State.currentPage,
+      updatedAt: new Date().toISOString()
+    });
+  },
+
+  sync() {
+    document.getElementById("pageBadge").textContent = "p. " + State.currentPage + " / " + CONFIG[State.currentMushaf].pages;
+    const pill = document.getElementById("mushafPillText");
+    if (pill) pill.textContent = CONFIG[State.currentMushaf].shortName;
+    const sel = document.getElementById("mushafSelect");
+    if (sel) sel.value = State.currentMushaf;
+  },
+
+  async renderWords(words, fontName, isIndoPak, isQcfV1) {
+    let html = "";
+    for (const word of words) {
+      if (!word) continue;
+      const text = isIndoPak
+        ? (word.dk_indopak || word.indopak || word.uthmani || "")
+        : (isQcfV1 ? (word.qpc_v1 || word.uthmani) : word.uthmani);
+      if (!text) continue;
+
+      const isDivine = U.isDivineName(word.uthmani || word.indopak || "");
+      const mark = State.marks.find(m =>
+        m.studentId === State.currentStudentId &&
+        m.mushafId === State.currentMushaf &&
+        m.page === State.currentPage &&
+        m.wordNumberAll === Number(word.id)
+      );
+      let cls = "mushaf-word";
+      if (isDivine) cls += " lafdh-jalalah";
+      if (mark?.type === "ghalat") cls += " ghalat";
+      if (mark?.type === "tajweed") cls += " tajweed";
+
+      let style = "";
+      if (isQcfV1) style = "font-family:'" + fontName + "', 'Amiri', serif;";
+
+      const verseKey = word.surah + ":" + word.ayah;
+      html += '<span class="' + cls + '" style="' + style + '" ' +
+        'data-word="' + word.id + '" ' +
+        'data-verse="' + verseKey + '" ' +
+        'onclick="Reader.wordClick(event, this)">' +
+        U.escape(text) + "</span>";
+    }
+    return html;
+  },
+
+  async renderSheet(pageNum, side) {
+    const container = document.getElementById("lines" + side);
+    if (!container) return;
+    container.innerHTML = "";
+
+    const isIndoPak = State.currentMushaf === "indopak";
+    const fontName = await FontManager.ensurePageFont(pageNum, isIndoPak);
+    const isQcfV1 = !isIndoPak && fontName.startsWith("QCF_P");
+
+    const lines = await DB.getLayoutLines(State.currentMushaf, pageNum);
+    const lineMap = new Map();
+    if (lines) lines.forEach(l => lineMap.set(l.line, l));
+
+    let detectedSurah = null;
+
+    for (let lineNo = 1; lineNo <= 15; lineNo++) {
+      const row = document.createElement("div");
+      row.className = "mushaf-line";
+      const l = lineMap.get(lineNo);
+
+      if (!l) {
+        row.innerHTML = "&nbsp;";
+      } else if (l.type === "surah_name") {
+        const sNum = l.start || 1;
+        detectedSurah = sNum;
+        row.classList.add("qul-centered-line");
+        row.innerHTML =
+          '<div class="surah-header-row">' +
+          '<span class="surah-meta">ترتيبها ' + U.arabicDigits(sNum) + "</span>" +
+          '<span class="surah-title">سُورَةُ ' + (SURAH_NAMES[sNum] || "") + "</span>" +
+          '<span class="surah-meta">١٥ سطر</span>' +
+          "</div>";
+      } else if (l.type === "basmallah") {
+        row.classList.add("qul-centered-line");
+        row.innerHTML = '<div class="bismillah-row">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>';
+      } else {
+        if (l.is_centered) row.classList.add("qul-centered-line");
+        if (l.start && l.end) {
+          const words = await DB.getWordsRange(l.start, l.end);
+          if (!l.is_centered && words.length <= 5) row.classList.add("qul-centered-line");
+          words.forEach(w => {
+            if (!detectedSurah && w.surah) detectedSurah = w.surah;
+          });
+          row.innerHTML = await this.renderWords(words, fontName, isIndoPak, isQcfV1);
+        } else {
+          row.innerHTML = "&nbsp;";
+        }
+      }
+      container.appendChild(row);
+    }
+
+    const prefix = side.toLowerCase();
+    const surahLabel = document.getElementById(prefix + "SurahLabel");
+    if (surahLabel) {
+      surahLabel.textContent = detectedSurah ? "سورة " + (SURAH_NAMES[detectedSurah] || "") : "سورة --";
+    }
+    const juzLabel = document.getElementById(prefix + "JuzLabel");
+    if (juzLabel) juzLabel.textContent = "الجزء --";
+    const pageNumEl = document.getElementById(prefix + "PageNum");
+    if (pageNumEl) pageNumEl.textContent = U.arabicDigits(pageNum);
+    const tagEl = document.getElementById(prefix + "MushafTag");
+    if (tagEl) tagEl.textContent = CONFIG[State.currentMushaf].shortName;
+
+    CanvasOverlay.init(side, pageNum, State.currentMushaf);
+  },
+
+  async render() {
+    const isDouble = this.isSpreadView();
+    let rightP = State.currentPage;
+    let leftP = null;
+
+    const stage = document.getElementById("mainStage");
+    stage.classList.toggle("qudratullah-mode", State.currentMushaf === "indopak");
+    stage.classList.toggle("madani-mode", State.currentMushaf === "madani");
+
+    if (isDouble) {
+      rightP = (State.currentPage % 2 === 1) ? State.currentPage : State.currentPage - 1;
+      leftP = rightP + 1;
+      const leftValid = leftP <= CONFIG[State.currentMushaf].pages;
+      document.getElementById("sheetLeft").style.display = leftValid ? "flex" : "none";
+    } else {
+      document.getElementById("sheetLeft").style.display = "none";
+    }
+
+    document.getElementById("pageBadge").textContent =
+      isDouble && leftP
+        ? "p. " + rightP + " – " + leftP + " / " + CONFIG[State.currentMushaf].pages
+        : "p. " + rightP + " / " + CONFIG[State.currentMushaf].pages;
+
+    await Promise.all([
+      this.renderSheet(rightP, "Right"),
+      (isDouble && leftP <= CONFIG[State.currentMushaf].pages)
+        ? this.renderSheet(leftP, "Left")
+        : Promise.resolve()
+    ]);
+  },
+
+  async wordClick(event, element) {
+    event.stopPropagation();
+    const wordId = Number(element.dataset.word);
+    const verse = element.dataset.verse;
+    State.currentAyah = verse;
+
+    if (State.currentTool === "none") {
+      await Audio.play(verse);
+      return;
+    }
+    if (State.currentTool === "ghalat" || State.currentTool === "tajweed") {
+      await Marks.word(wordId, verse, State.currentTool);
+    }
+  },
+
+  tool(tool, button) {
+    State.currentTool = tool;
+    document.querySelectorAll(".tool[data-tool]").forEach(el => el.classList.remove("active"));
+    if (button) button.classList.add("active");
+  },
+
+  async playAyah() {
+    if (State.currentAyah) {
+      await Audio.play(State.currentAyah);
+    } else {
+      U.toast("Select an Ayah first");
+    }
+  }
+};
+
+/* ═══════════════════════════════════════════════════════════
+   16. REPORT
+   ═══════════════════════════════════════════════════════════ */
+const Report = {
+  open() {
+    this.populateStudents();
+    document.getElementById("reportScreen").classList.add("open");
+    this.render();
+  },
+  close() {
+    document.getElementById("reportScreen").classList.remove("open");
+  },
+  populateStudents() {
+    const select = document.getElementById("reportStudent");
+    if (!select) return;
+    select.innerHTML = '<option value="all">All Students</option>' +
+      State.students.map(s => '<option value="' + s.id + '">' + U.escape(s.name) + "</option>").join("");
+    if (State.currentStudentId) select.value = State.currentStudentId;
+  },
+  range() {
+    const type = document.getElementById("reportRange").value;
+    if (type === "all") return { from: null, to: null };
+    if (type === "custom") {
+      return {
+        from: document.getElementById("reportFrom").value,
+        to: document.getElementById("reportTo").value
+      };
+    }
+    const now = new Date();
+    if (type === "month") {
+      const from = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().slice(0, 10);
+      const to = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString().slice(0, 10);
+      return { from, to };
+    }
+    const date = new Date(now);
+    const day = date.getDay();
+    const diff = day === 0 ? -6 : 1 - day;
+    date.setDate(date.getDate() + diff);
+    const from = date.toISOString().slice(0, 10);
+    date.setDate(date.getDate() + 6);
+    const to = date.toISOString().slice(0, 10);
+    return { from, to };
+  },
+  async render() {
+    const type = document.getElementById("reportRange").value;
+    document.getElementById("reportFrom").classList.toggle("hidden", type !== "custom");
+    document.getElementById("reportTo").classList.toggle("hidden", type !== "custom");
+
+    const selected = document.getElementById("reportStudent").value;
+    const range = this.range();
+    let lessons = State.lessons.slice();
+    if (selected !== "all") lessons = lessons.filter(l => l.studentId === selected);
+    if (range.from) lessons = lessons.filter(l => l.lessonDate >= range.from);
+    if (range.to) lessons = lessons.filter(l => l.lessonDate <= range.to);
+    lessons.sort((a, b) => (a.lessonDate || "").localeCompare(b.lessonDate || ""));
+
+    const student = State.students.find(s => s.id === selected);
+    const grouped = {};
+    lessons.forEach(l => {
+      if (!grouped[l.lessonDate]) grouped[l.lessonDate] = [];
+      grouped[l.lessonDate].push(l);
+    });
+    const dates = Object.keys(grouped).sort();
+    const categories = State.settings.categories;
+
+    const headerCells = categories.map(c =>
+      "<th><div dir='rtl'>" + U.escape(c.name) + "</div><div>(" + U.escape(c.label) + ")</div></th>"
+    ).join("");
+
+    const body = dates.map(date => {
+      const list = grouped[date];
+      const cells = categories.map(c => {
+        const entries = list.filter(l => l.categoryId === c.id);
+        if (!entries.length) return "<td>—</td>";
+        return "<td>" + entries.map(l =>
+          '<div class="report-entry">' +
+          '<div class="report-surah">' + U.escape(l.fromSurah || l.toSurah || "-") +
+          (l.toSurah && l.fromSurah && l.toSurah !== l.fromSurah ? " – " + U.escape(l.toSurah) : "") +
+          "</div>" +
+          "<div>Ayah " + (l.fromAyah || l.toAyah || "-") +
+          (l.toAyah && l.fromAyah && l.toAyah !== l.fromAyah ? " – " + l.toAyah : "") +
+          "</div>" +
+          '<span class="report-page">Page ' + (l.fromPage || "-") +
+          (l.toPage && l.toPage !== l.fromPage ? " – " + l.toPage : "") + "</span>" +
+          "</div>"
+        ).join("") + "</td>";
+      }).join("");
+      return "<tr><td>" + U.date(date) + "</td>" + cells + "</tr>";
+    }).join("");
+
+    const marks = State.marks.filter(m => selected === "all" ? true : m.studentId === selected);
+    const ghalat = marks.filter(m => m.type === "ghalat").length;
+    const tajweed = marks.filter(m => m.type === "tajweed").length;
+    const uniquePages = new Set(lessons.map(l => l.studentId + "_" + l.mushafId + "_" + l.toPage)).size;
+    const period = range.from ? U.date(range.from) + (range.to ? " — " + U.date(range.to) : "") : "All Records";
+    const inst = State.settings.institution;
+
+    document.getElementById("reportPaper").innerHTML =
+      '<div class="report-header">' +
+      '<div class="report-institution">' + U.escape(inst.name) + "</div>" +
+      (inst.runBy ? '<div class="report-runby">Run by : ' + U.escape(inst.runBy) + "</div>" : "") +
+      (State.settings.report.department && inst.department
+        ? '<div style="margin-top:4px;color:#666;font-size:11px;">' + U.escape(inst.department) + "</div>"
+        : "") +
+      '<div class="report-title">' + U.escape(State.settings.report.title) + "</div>" +
+      "</div>" +
+      '<div class="report-student-box">' +
+      "<div><b>Roll No :</b> " + (student ? U.escape(student.roll || "-") : "All") + "</div>" +
+      "<div><b>Name :</b> " + (student ? U.escape(student.name) : "All Students") + "</div>" +
+      "<div><b>Mushaf :</b> " + (student ? U.escape(CONFIG[student.mushafId]?.name || student.mushafId) : "All") + "</div>" +
+      "<div><b>Period :</b> " + period + "</div>" +
+      "</div>" +
+      '<table class="report-table"><thead><tr><th>Date</th>' + headerCells + "</tr></thead>" +
+      "<tbody>" + (body || '<tr><td colspan="' + (categories.length + 1) +
+        '" style="padding:28px;color:#888;">No lesson records</td></tr>') + "</tbody></table>" +
+      '<div class="report-summary">' +
+      '<div class="summary-box"><b>' + lessons.length + "</b><span>Lessons</span></div>" +
+      '<div class="summary-box"><b>' + uniquePages + "</b><span>Pages</span></div>" +
+      '<div class="summary-box"><b>' + ghalat + "</b><span>Ghalat</span></div>" +
+      '<div class="summary-box"><b>' + tajweed + "</b><span>Tajweed</span></div>" +
+      "</div>" +
+      (State.settings.report.teacherSignature
+        ? '<div class="signature-grid">' +
+          '<div class="signature">Teacher' + (inst.teacher ? "<br>" + U.escape(inst.teacher) : "") + "</div>" +
+          '<div class="signature">' + U.escape(inst.department || "Hifz Department") + "</div>" +
+          "</div>"
+        : "");
+  },
+  print() {
+    this.render();
+    setTimeout(() => window.print(), 150);
+  }
+};
+
+/* ═══════════════════════════════════════════════════════════
+   17. SYNC / BACKUP
+   ═══════════════════════════════════════════════════════════ */
+const Sync = {
+  open() {
+    App.openSheet("data");
+  },
+
+  async download() {
+    if (State.syncRunning) {
+      U.toast("Download already running");
+      return;
+    }
+    State.syncRunning = true;
+    try {
+      const splash = document.getElementById("splashOverlay");
+      splash.style.display = "flex";
+      await DB.clear("page_lines");
+      await DB.clear("words");
+      await DB.delete("meta", "csv_ready");
+      await BatchIngestion.run();
+      State.quranReady = true;
+      await Reader.render();
+      U.toast("Quran data ready");
+    } catch (e) {
+      console.error(e);
+      U.toast("Quran data download failed");
+    } finally {
+      State.syncRunning = false;
+    }
+  },
+
+  async clearQuran() {
+    if (!confirm("Quran CSV data IndexedDB-ൽ നിന്ന് clear ചെയ്യണോ?")) return;
+    await DB.clear("page_lines");
+    await DB.clear("words");
+    await DB.delete("meta", "csv_ready");
+    State.quranReady = false;
+    U.toast("Quran cache cleared");
+  },
+
+  async backup() {
+    const data = {
+      application: "Al-Halaqah",
+      version: 1,
+      exportedAt: new Date().toISOString(),
+      settings: State.settings,
+      students: await DB.getAll("students"),
+      student_mushafs: await DB.getAll("student_mushafs"),
+      page_state: await DB.getAll("page_state"),
+      lessons: await DB.getAll("lessons"),
+      marks: await DB.getAll("marks")
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "al-halaqah-backup-" + U.today() + ".json";
+    a.click();
+    URL.revokeObjectURL(url);
+    U.toast("Backup exported");
+  },
+
+  restore() {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = ".json";
+    input.onchange = async () => {
+      const file = input.files[0];
+      if (!file) return;
+      try {
+        const data = JSON.parse(await file.text());
+        if (data.settings) {
+          State.settings = Settings.merge(structuredClone(DEFAULT_SETTINGS), data.settings);
+          await Settings.save();
+        }
+        const stores = ["students", "student_mushafs", "page_state", "lessons", "marks"];
+        for (const store of stores) {
+          if (!Array.isArray(data[store])) continue;
+          await DB.clear(store);
+          await DB.putMany(store, data[store]);
+        }
+        await App.reload();
+        U.toast("Backup restored");
+      } catch (e) {
+        console.error(e);
+        alert("Backup restore failed:\n" + e.message);
+      }
+    };
+    input.click();
+  }
+};
+
+/* ═══════════════════════════════════════════════════════════
+   18. UI
+   ═══════════════════════════════════════════════════════════ */
+const UI = {
+  openDrawer() {
+    document.getElementById("drawer").style.transform = "translateX(0)";
+    document.getElementById("drawerBackdrop").classList.add("open");
+  },
+  closeDrawer() {
+    document.getElementById("drawer").style.transform = "translateX(-105%)";
+    document.getElementById("drawerBackdrop").classList.remove("open");
+  },
+  closeModal(id) {
+    document.getElementById(id).classList.remove("open");
+  }
+};
+
+/* ═══════════════════════════════════════════════════════════
+   19. APP COORDINATOR
+   ═══════════════════════════════════════════════════════════ */
+const App = {
+  async init() {
+    await DB.init();
+
+    // Run ingestion first; this also creates default student if needed
+    await BatchIngestion.run();
+
+    await Settings.load();
+    await Students.load();
+    await Lesson.load();
+    await Marks.load();
+
+    // Ensure default student exists
+    if (!State.students.length) {
+      const s = {
+        id: "std_default",
+        roll: "",
+        name: "Hafidh Student",
+        className: "",
+        notes: "",
+        mushafId: "madani",
+        createdAt: new Date().toISOString()
+      };
+      await DB.put("students", s);
+      await DB.put("student_mushafs", {
+        id: s.id + "_madani",
+        studentId: s.id,
+        mushafId: "madani",
+        primary: true,
+        assignedAt: new Date().toISOString()
+      });
+      await Students.load();
+    }
+
+    // Pick current student
+    const student = Students.current();
+    if (student) {
+      State.currentStudentId = student.id;
+      State.currentMushaf = student.mushafId || "madani";
+      const ps = await DB.get("page_state", student.id + "_" + State.currentMushaf);
+      State.currentPage = ps?.page || 1;
+    } else {
+      State.currentMushaf = State.settings.reader.defaultMushaf || "madani";
+      State.currentPage = State.settings.reader.defaultPage || 1;
+    }
+
+    document.getElementById("brandName").textContent =
+      State.settings.institution.name || "Al-Halaqah";
+
+    Reader.sync();
+    Students.updateBadgeUI();
+
+    if (State.quranReady) {
+      await Reader.render();
+    }
+
+    window.addEventListener("resize", () => {
+      CanvasOverlay.resizeCanvas("Right");
+      CanvasOverlay.resizeCanvas("Left");
+      Reader.render();
+    });
+
+    document.addEventListener("keydown", e => {
+      if (e.target.tagName === "INPUT" || e.target.tagName === "SELECT" || e.target.tagName === "TEXTAREA") return;
+      if (e.key === "ArrowLeft") Reader.prev();
+      if (e.key === "ArrowRight") Reader.next();
+    });
+  },
+
+  async reload() {
+    await Settings.load();
+    await Students.load();
+    await Lesson.load();
+    await Marks.load();
+
+    const student = Students.current();
+    if (student) {
+      State.currentMushaf = student.mushafId || State.settings.reader.defaultMushaf;
+      const ps = await DB.get("page_state", student.id + "_" + State.currentMushaf);
+      State.currentPage = ps?.page || 1;
+    } else {
+      State.currentMushaf = State.settings.reader.defaultMushaf;
+      State.currentPage = 1;
+    }
+    document.getElementById("brandName").textContent =
+      State.settings.institution.name || "Al-Halaqah";
+    Reader.sync();
+    if (State.quranReady) await Reader.render();
+  },
+
+  openSheet(tab) {
+    document.getElementById("sheetScrim").classList.add("open");
+    this.setTab(tab);
+    if (tab === "students") Students.renderList();
+  },
+
+  closeSheet(event) {
+    if (event && event.target !== event.currentTarget) return;
+    document.getElementById("sheetScrim").classList.remove("open");
+  },
+
+  setTab(tab) {
+    ["tools", "students", "institution", "packs", "data"].forEach(t => {
+      const cap = t.charAt(0).toUpperCase() + t.slice(1);
+      const head = document.getElementById("tabHead" + cap);
+      const body = document.getElementById("tabBody" + cap);
+      if (head) head.classList.toggle("active", t === tab);
+      if (body) body.classList.toggle("active", t === tab);
+    });
+    const titles = {
+      tools: "Evaluation Slate",
+      students: "Student Management",
+      institution: "Institution & Report",
+      packs: "Offline Fonts",
+      data: "Quran Data & Backup"
+    };
+    const titleEl = document.getElementById("panelTitle");
+    if (titleEl) titleEl.textContent = titles[tab] || "Settings";
+  }
+};
+
+/* ═══════════════════════════════════════════════════════════
+   20. START
+   ═══════════════════════════════════════════════════════════ */
+window.addEventListener("DOMContentLoaded", async () => {
+  try {
+    await App.init();
+  } catch (e) {
+    console.error(e);
+    const splash = document.getElementById("splashOverlay");
+    splash.style.display = "flex";
+    document.getElementById("splashStatus").textContent = "Init failed: " + e.message;
+    document.getElementById("splashActions").innerHTML =
+      '<button class="btn-action" onclick="location.reload()">Retry</button>';
+  }
 });
 </script>
+
 </body>
 </html>
