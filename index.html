@@ -5,22 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#0a0f0d">
 <title>Al-Halaqah — Hifz Quran</title>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Nastaliq+Urdu:wght@400;700&family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Malayalam:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-@font-face {
-  font-family: 'DigitalKhatt IndoPak';
-  src: url('./DigitalKhattIndoPak.otf') format('opentype');
-  font-display: swap;
-}
-@font-face {
-  font-family: 'DigitalKhatt Old Madina';
-  src: url('./DigitalKhattQuranic.otf') format('opentype');
-  font-display: swap;
-}
+@font-face { font-family: 'DigitalKhatt IndoPak'; src: url('./DigitalKhattIndoPak.otf') format('opentype'); font-display: swap; }
+@font-face { font-family: 'DigitalKhatt Old Madina'; src: url('./DigitalKhattQuranic.otf') format('opentype'); font-display: swap; }
 
 :root {
   --emerald-900: #04211a;
@@ -33,9 +24,7 @@
   --gold-400: #dfba73;
   --gold-300: #ecd49c;
   --paper: #fdfbf5;
-  --paper-edge: #d9d4c7;
   --ink: #14120e;
-  --ink-soft: #4a4436;
   --app-bg: #0a0f0d;
   --surface-1: #111814;
   --surface-2: #1a231e;
@@ -51,8 +40,6 @@
   --underline-blue: #2563eb;
   --success: #16a34a;
   --danger: #dc2626;
-  --warning: #f59e0b;
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
   --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
   --shadow-lg: 0 12px 40px rgba(0,0,0,0.6);
   --radius-sm: 6px;
@@ -60,349 +47,156 @@
   --radius-lg: 14px;
   --radius-xl: 20px;
 }
-
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
-html, body {
-  height: 100%;
-  background: var(--app-bg);
-  color: var(--text-1);
-  font-family: 'Inter', 'Noto Sans Malayalam', system-ui, sans-serif;
-  overflow: hidden;
-  font-size: 14px;
-  line-height: 1.5;
-}
-
+html, body { height: 100%; background: var(--app-bg); color: var(--text-1); font-family: 'Inter', 'Noto Sans Malayalam', system-ui, sans-serif; overflow: hidden; font-size: 14px; line-height: 1.5; }
 button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
 input, select, textarea { font: inherit; outline: none; }
 .hidden { display: none !important; }
 
-/* ═══════════════════════════════════════════════════
-   TOP BAR
-   ═══════════════════════════════════════════════════ */
+/* TOP BAR */
 .topbar {
-  height: 52px;
-  background: var(--surface-1);
-  border-bottom: 1px solid var(--border-1);
-  display: flex;
-  align-items: center;
-  padding: 0 12px;
-  gap: 10px;
-  position: relative;
-  z-index: 50;
-  direction: ltr;
+  height: 52px; background: var(--surface-1); border-bottom: 1px solid var(--border-1);
+  display: flex; align-items: center; padding: 0 10px; gap: 8px;
+  position: relative; z-index: 50; direction: ltr;
 }
-.topbar-left { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-.topbar-center { display: flex; align-items: center; gap: 8px; flex: 1; justify-content: center; }
-.topbar-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.tb-left { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.tb-center { display: flex; align-items: center; gap: 6px; flex: 1; justify-content: center; }
+.tb-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
 
 .brand-mark {
-  width: 36px; height: 36px;
-  border-radius: 10px;
+  width: 34px; height: 34px; border-radius: 9px;
   background: linear-gradient(135deg, var(--emerald-600), var(--emerald-800));
   display: flex; align-items: center; justify-content: center;
-  color: var(--gold-400);
-  font-family: 'Amiri', serif;
-  font-size: 20px;
-  font-weight: 700;
-  border: 1px solid var(--gold-500);
-  flex-shrink: 0;
+  color: var(--gold-400); font-family: 'Amiri', serif; font-size: 19px; font-weight: 700;
+  border: 1px solid var(--gold-500); flex-shrink: 0;
 }
 .brand-text { display: flex; flex-direction: column; line-height: 1.1; }
-.brand-text strong {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--gold-400);
-  letter-spacing: 0.02em;
-  max-width: 160px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.brand-text span { font-size: 9px; color: var(--text-3); letter-spacing: 0.08em; text-transform: uppercase; }
-
-.pill-select {
-  background: var(--surface-2);
-  border: 1px solid var(--border-2);
-  color: var(--text-1);
-  padding: 7px 12px;
-  border-radius: var(--radius-md);
-  font-size: 12px;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: all 0.15s;
-  max-width: 160px;
-}
-.pill-select:hover { border-color: var(--gold-500); }
-.pill-select:focus { border-color: var(--gold-500); box-shadow: 0 0 0 3px rgba(197,160,89,0.15); }
+.brand-text strong { font-size: 12px; font-weight: 700; color: var(--gold-400); max-width: 130px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.brand-text span { font-size: 8.5px; color: var(--text-3); letter-spacing: 0.08em; text-transform: uppercase; }
 
 .icon-btn {
-  width: 36px; height: 36px;
-  border-radius: var(--radius-md);
-  background: var(--surface-2);
-  border: 1px solid var(--border-2);
-  color: var(--text-1);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 15px;
-  transition: all 0.15s;
+  min-width: 36px; height: 36px; padding: 0 8px; border-radius: var(--radius-md);
+  background: var(--surface-2); border: 1px solid var(--border-2);
+  color: var(--text-1); display: flex; align-items: center; justify-content: center;
+  gap: 4px; font-size: 12px; font-weight: 600; transition: all 0.15s; white-space: nowrap;
 }
 .icon-btn:hover { background: var(--surface-3); border-color: var(--gold-500); }
 .icon-btn.active { background: var(--gold-500); color: var(--emerald-900); border-color: var(--gold-400); }
+.icon-btn.audio-on { background: var(--emerald-600); color: #fff; border-color: var(--emerald-500); }
 
-/* ═══════════════════════════════════════════════════
-   MAIN READING STAGE
-   ═══════════════════════════════════════════════════ */
+.page-indicator {
+  font-family: 'Amiri', serif; font-size: 14px; font-weight: 700; color: var(--gold-400);
+  padding: 7px 12px; background: var(--surface-2); border: 1px solid var(--border-2);
+  border-radius: var(--radius-md); cursor: pointer; white-space: nowrap;
+}
+.page-indicator:hover { border-color: var(--gold-500); }
+
+.pill-btn {
+  display: flex; align-items: center; gap: 5px;
+  padding: 7px 10px; background: var(--surface-2); border: 1px solid var(--border-2);
+  border-radius: var(--radius-md); font-size: 11.5px; font-weight: 600;
+  max-width: 150px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+  transition: all 0.15s; cursor: pointer;
+}
+.pill-btn:hover { border-color: var(--gold-500); background: var(--surface-3); }
+.pill-btn .ar { font-family: 'Amiri', serif; font-size: 13px; }
+.pill-btn .caret { font-size: 9px; opacity: 0.6; }
+
+/* STAGE */
 .stage {
-  height: calc(100vh - 52px - 62px);
-  height: calc(100dvh - 52px - 62px);
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 8px 6px;
-  background: radial-gradient(circle at 50% 40%, #14201a 0%, #060908 100%);
+  height: calc(100vh - 52px - 62px); height: calc(100dvh - 52px - 62px);
+  overflow: hidden; display: flex; justify-content: center; align-items: center;
+  padding: 6px 4px; background: radial-gradient(circle at 50% 40%, #14201a 0%, #060908 100%);
 }
+.book-spread { display: flex; direction: rtl; gap: 12px; align-items: center; justify-content: center; height: 100%; max-width: 100%; }
 
-.book-spread {
-  display: flex;
-  direction: rtl;
-  gap: 14px;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  max-width: 100%;
-}
-
-/* ═══════════════════════════════════════════════════
-   MUSHAF SHEET
-   ═══════════════════════════════════════════════════ */
+/* MUSHAF SHEET */
 .mushaf-sheet {
-  height: 100%;
-  aspect-ratio: 1 / 1.5;
-  max-width: 49vw;
-  background: var(--paper);
-  position: relative;
-  padding: 8px 18px 6px;
-  box-shadow: var(--shadow-lg);
-  border: 2px solid #2d2417;
-  outline: 2px solid var(--gold-500);
-  outline-offset: 3px;
-  border-radius: 3px;
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
+  height: 100%; aspect-ratio: 1/1.5; max-width: 49vw;
+  background: var(--paper); position: relative; padding: 8px 16px 6px;
+  box-shadow: var(--shadow-lg); border: 2px solid #2d2417;
+  outline: 2px solid var(--gold-500); outline-offset: 3px;
+  border-radius: 3px; display: flex; flex-direction: column; flex-shrink: 0;
 }
-.mushaf-sheet::before {
-  content: '';
-  position: absolute;
-  inset: 4px;
-  border: 1px solid rgba(166,137,76,0.45);
-  pointer-events: none;
-  border-radius: 1px;
-}
-
-.corner {
-  position: absolute;
-  width: 22px; height: 22px;
-  pointer-events: none;
-  z-index: 2;
-  opacity: 0.85;
-}
+.mushaf-sheet::before { content: ''; position: absolute; inset: 4px; border: 1px solid rgba(166,137,76,0.4); pointer-events: none; }
+.corner { position: absolute; width: 20px; height: 20px; pointer-events: none; z-index: 2; opacity: 0.85; }
 .c-tr { top: 6px; right: 6px; }
 .c-tl { top: 6px; left: 6px; transform: scaleX(-1); }
 .c-br { bottom: 6px; right: 6px; transform: scaleY(-1); }
 .c-bl { bottom: 6px; left: 6px; transform: scale(-1,-1); }
 
 .sheet-header {
-  height: 22px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: 'Amiri', serif;
-  font-size: 13px;
-  font-weight: 700;
-  color: #594017;
-  border-bottom: 1px solid #dfd4b7;
-  padding-bottom: 2px;
-  direction: rtl;
-  margin-bottom: 2px;
+  height: 22px; display: flex; justify-content: space-between; align-items: center;
+  font-family: 'Amiri', serif; font-size: 12px; font-weight: 700; color: #594017;
+  border-bottom: 1px solid #dfd4b7; padding-bottom: 2px; direction: rtl; margin-bottom: 2px;
 }
 .sheet-footer {
-  height: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 1px solid #dfd4b7;
-  padding-top: 2px;
-  direction: rtl;
-  margin-top: 2px;
+  height: 20px; display: flex; justify-content: space-between; align-items: center;
+  border-top: 1px solid #dfd4b7; padding-top: 2px; direction: rtl; margin-top: 2px;
 }
-.mushaf-tag {
-  font-family: 'Inter', sans-serif;
-  font-size: 9px;
-  font-weight: 700;
-  color: #8c734b;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-.page-num-display {
-  font-family: 'Amiri', serif;
-  font-size: 15px;
-  font-weight: 700;
-  color: #3b2c14;
-}
+.mushaf-tag { font-size: 8.5px; font-weight: 700; color: #8c734b; letter-spacing: 0.08em; text-transform: uppercase; }
+.page-num-display { font-family: 'Amiri', serif; font-size: 15px; font-weight: 700; color: #3b2c14; }
 
-/* ═══════════════════════════════════════════════════
-   15-LINE GRID
-   ═══════════════════════════════════════════════════ */
-.lines-grid {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  direction: rtl;
-  width: 100%;
-  margin: 1px 0;
-  position: relative;
-}
-.qline {
-  height: calc(100% / 15);
-  min-height: 5.8%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  white-space: nowrap;
-  direction: rtl;
-  position: relative;
-  width: 100%;
-  padding: 0 2px;
-}
+/* 15-LINE GRID */
+.lines-grid { flex: 1; display: flex; flex-direction: column; justify-content: space-between; direction: rtl; width: 100%; margin: 1px 0; position: relative; }
+.qline { height: calc(100%/15); min-height: 5.8%; display: flex; align-items: center; justify-content: space-between; white-space: nowrap; direction: rtl; position: relative; width: 100%; padding: 0 2px; }
 .qline.centered { justify-content: center; gap: 14px; }
-
 .madani-mode .qline { border-bottom: none; }
-.qudratullah-mode .qline { border-bottom: 1px solid rgba(70, 55, 35, 0.35); }
+.qudratullah-mode .qline { border-bottom: 1px solid rgba(70,55,35,0.35); }
 .qudratullah-mode .qline:last-child { border-bottom: none; }
 
 .word {
-  font-size: clamp(17px, 2.4vh, 28px);
-  line-height: 1.1;
-  color: var(--ink);
-  display: inline-block;
-  font-family: 'Amiri', serif;
-  cursor: pointer;
-  padding: 0 1.5px;
-  border-radius: 3px;
-  transition: background 0.12s;
-  position: relative;
+  font-size: clamp(17px, 2.4vh, 28px); line-height: 1.1; color: var(--ink);
+  display: inline-block; font-family: 'Amiri', serif; cursor: pointer;
+  padding: 0 1.5px; border-radius: 4px; transition: all 0.12s; position: relative;
 }
-.word:hover { background: rgba(0,107,84,0.1); }
-
-/* Lafdh al-Jalalah */
+.word:hover { background: rgba(0,107,84,0.08); }
 .word.jalalah { color: var(--jalalah-red) !important; font-weight: 700; }
-
-/* Mark styles */
-.word.mark-ghalat {
-  background: rgba(212,34,34,0.12);
-  box-shadow: inset 0 -2px 0 var(--ghalat-red);
-}
-.word.mark-tajweed {
-  background: rgba(244,196,48,0.30);
-  box-shadow: inset 0 -2px 0 var(--tajweed-yellow);
-}
-.word.mark-underline {
-  box-shadow: inset 0 -2px 0 var(--underline-blue);
-}
+.word.mark-underline { box-shadow: inset 0 -3px 0 var(--underline-blue); }
+.word.mark-ghalat { background: rgba(212,34,34,0.14); box-shadow: inset 0 -3px 0 var(--ghalat-red); }
+.word.mark-tajweed { background: rgba(244,196,48,0.35); box-shadow: inset 0 -3px 0 var(--tajweed-yellow); }
+.word.tapped { background: rgba(0,0,0,0.12); }
 
 .qudratullah-mode .word {
-  font-family: 'DigitalKhatt IndoPak', 'Noto Nastaliq Urdu', 'Amiri', serif !important;
-  font-size: clamp(15px, 2.15vh, 25px);
-  line-height: 1.9;
+  font-family: 'DigitalKhatt IndoPak','Noto Nastaliq Urdu','Amiri',serif !important;
+  font-size: clamp(15px, 2.15vh, 25px); line-height: 1.9;
 }
 
-/* Surah header cartouche */
 .surah-head {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: linear-gradient(180deg, #fefbf2 0%, #f4e7c3 50%, #fefbf2 100%);
-  border: 1.5px solid #2d2417;
-  outline: 1px solid var(--gold-500);
-  outline-offset: -3px;
-  padding: 0 12px;
-  border-radius: 2px;
+  width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+  gap: 12px; background: linear-gradient(180deg, #fefbf2 0%, #f4e7c3 50%, #fefbf2 100%);
+  border: 1.5px solid #2d2417; outline: 1px solid var(--gold-500); outline-offset: -3px;
+  padding: 0 14px; border-radius: 2px;
 }
-.surah-head .side { font-family: 'Amiri', serif; font-size: 10px; font-weight: 700; color: #5c4118; min-width: 55px; text-align: center; }
-.surah-head .title { font-family: 'Amiri', serif; font-size: 17px; font-weight: 700; color: #16291e; flex: 1; text-align: center; }
+.surah-head .sep { color: #8c734b; font-size: 10px; }
+.surah-head .meta { font-family: 'Amiri', serif; font-size: 11px; font-weight: 700; color: #5c4118; white-space: nowrap; }
+.surah-head .title { font-family: 'Amiri', serif; font-size: 17px; font-weight: 700; color: #16291e; white-space: nowrap; }
 
 .bismillah {
-  height: 100%;
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Amiri', serif;
-  font-size: 18px;
-  color: #172d21;
-  direction: rtl;
+  height: 100%; display: flex; align-items: center; justify-content: center;
+  font-family: 'Amiri', serif; font-size: 18px; color: #172d21; direction: rtl;
 }
 
-/* Ayah marker (clickable) */
 .ayah-mark {
-  display: inline-block;
-  cursor: pointer;
-  padding: 0 2px;
-  border-radius: 50%;
-  transition: all 0.15s;
-  font-family: 'Amiri', serif;
+  display: inline-block; cursor: pointer; padding: 0 2px; border-radius: 6px;
+  transition: all 0.15s; font-family: 'Amiri', serif;
 }
 .ayah-mark:hover { background: rgba(197,160,89,0.25); }
-.ayah-mark.lesson-start { background: rgba(22,163,74,0.22); box-shadow: 0 0 0 1.5px var(--success); }
-.ayah-mark.lesson-end { background: rgba(220,38,38,0.22); box-shadow: 0 0 0 1.5px var(--danger); }
-.ayah-mark.lesson-boundary { background: rgba(197,160,89,0.30); box-shadow: 0 0 0 1.5px var(--gold-500); }
+.ayah-mark.lesson-start { background: rgba(22,163,74,0.25); box-shadow: 0 0 0 1.5px var(--success); }
+.ayah-mark.lesson-end { background: rgba(220,38,38,0.25); box-shadow: 0 0 0 1.5px var(--danger); }
 
-/* ═══════════════════════════════════════════════════
-   BOTTOM DOCK
-   ═══════════════════════════════════════════════════ */
+/* DOCK */
 .dock {
-  height: 62px;
-  background: var(--surface-1);
-  border-top: 1px solid var(--border-1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 0 10px;
-  overflow-x: auto;
-  direction: ltr;
-  position: relative;
-  z-index: 40;
+  height: 62px; background: var(--surface-1); border-top: 1px solid var(--border-1);
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+  padding: 0 8px; overflow-x: auto; direction: ltr; position: relative; z-index: 40;
 }
 .dock::-webkit-scrollbar { height: 0; }
-
-.dock-group {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 4px;
-  background: var(--surface-2);
-  border: 1px solid var(--border-1);
-  border-radius: var(--radius-lg);
-}
+.dock-group { display: flex; align-items: center; gap: 3px; padding: 3px; background: var(--surface-2); border: 1px solid var(--border-1); border-radius: var(--radius-lg); }
 .dock-btn {
-  min-width: 40px;
-  height: 40px;
-  padding: 0 10px;
-  border-radius: var(--radius-md);
-  background: transparent;
-  color: var(--text-1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  font-size: 12px;
-  font-weight: 600;
-  transition: all 0.15s;
+  min-width: 40px; height: 40px; padding: 0 10px; border-radius: var(--radius-md);
+  background: transparent; color: var(--text-1); display: flex; align-items: center;
+  justify-content: center; gap: 4px; font-size: 13px; font-weight: 600; transition: all 0.15s;
   white-space: nowrap;
 }
 .dock-btn:hover { background: var(--surface-3); }
@@ -411,144 +205,57 @@ input, select, textarea { font: inherit; outline: none; }
 .dock-btn.primary:hover { background: var(--emerald-500); }
 .dock-btn.danger { color: #ff8a8a; }
 .dock-btn.danger:hover { background: rgba(220,38,38,0.15); }
+.dock-btn .label { font-size: 11px; }
 
-.page-indicator {
-  font-family: 'Amiri', serif;
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--gold-400);
-  padding: 6px 12px;
-  background: var(--surface-2);
-  border: 1px solid var(--border-2);
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  white-space: nowrap;
+/* DROPDOWN MENUS */
+.menu {
+  position: fixed; z-index: 600; background: var(--surface-2); border: 1px solid var(--gold-500);
+  border-radius: var(--radius-md); box-shadow: var(--shadow-lg); padding: 5px;
+  min-width: 220px; display: none; direction: ltr;
+  max-height: 70vh; overflow-y: auto;
 }
-.page-indicator:hover { border-color: var(--gold-500); }
+.menu.open { display: block; }
+.menu-item {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  padding: 9px 12px; border-radius: var(--radius-sm); color: var(--text-1);
+  font-size: 12.5px; font-weight: 500; text-align: left; transition: background 0.12s;
+}
+.menu-item:hover { background: var(--surface-3); }
+.menu-item.active { background: rgba(197,160,89,0.15); color: var(--gold-400); }
+.menu-item .ico { font-size: 15px; width: 22px; text-align: center; flex-shrink: 0; }
+.menu-item .meta { color: var(--text-3); font-size: 10.5px; margin-left: auto; }
+.menu-divider { height: 1px; background: var(--border-1); margin: 4px 6px; }
+.menu-header { padding: 8px 12px 4px; font-size: 10px; font-weight: 800; color: var(--text-3); letter-spacing: 0.1em; text-transform: uppercase; }
 
-/* ═══════════════════════════════════════════════════
-   POPUP MENU (Ayah click)
-   ═══════════════════════════════════════════════════ */
-.popup-menu {
-  position: fixed;
-  z-index: 600;
-  background: var(--surface-2);
-  border: 1px solid var(--gold-500);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-lg);
-  padding: 6px;
-  min-width: 220px;
-  display: none;
-  direction: ltr;
-}
-.popup-menu.open { display: block; }
-.popup-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  padding: 9px 12px;
-  border-radius: var(--radius-sm);
-  color: var(--text-1);
-  font-size: 12.5px;
-  font-weight: 500;
-  text-align: left;
-  transition: background 0.12s;
-}
-.popup-item:hover { background: var(--surface-3); }
-.popup-item .ico { font-size: 15px; width: 20px; text-align: center; }
-.popup-item .meta { color: var(--text-3); font-size: 10.5px; margin-left: auto; }
-.popup-divider { height: 1px; background: var(--border-1); margin: 4px 6px; }
-
-/* ═══════════════════════════════════════════════════
-   MODAL
-   ═══════════════════════════════════════════════════ */
-.modal {
-  position: fixed;
-  inset: 0;
-  z-index: 700;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-  background: rgba(0,0,0,0.7);
-  backdrop-filter: blur(4px);
-}
+/* MODAL */
+.modal { position: fixed; inset: 0; z-index: 700; display: none; align-items: center; justify-content: center; padding: 16px; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); }
 .modal.open { display: flex; }
 .modal-card {
-  width: min(640px, 100%);
-  max-height: 90vh;
-  overflow-y: auto;
-  background: var(--surface-1);
-  border: 1px solid var(--gold-500);
-  border-radius: var(--radius-xl);
-  padding: 22px;
-  box-shadow: var(--shadow-lg);
+  width: min(620px, 100%); max-height: 90vh; overflow-y: auto;
+  background: var(--surface-1); border: 1px solid var(--gold-500);
+  border-radius: var(--radius-xl); padding: 22px; box-shadow: var(--shadow-lg);
 }
-.modal-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 18px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--border-1);
-}
-.modal-head h3 {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--gold-400);
-  letter-spacing: 0.02em;
-}
-.close-x {
-  width: 32px; height: 32px;
-  border-radius: var(--radius-md);
-  background: var(--surface-2);
-  color: var(--text-2);
-  font-size: 18px;
-  display: flex; align-items: center; justify-content: center;
-}
+.modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border-1); }
+.modal-head h3 { font-size: 16px; font-weight: 700; color: var(--gold-400); }
+.close-x { width: 32px; height: 32px; border-radius: var(--radius-md); background: var(--surface-2); color: var(--text-2); font-size: 18px; display: flex; align-items: center; justify-content: center; }
 .close-x:hover { background: var(--surface-3); color: var(--text-1); }
 
-/* ═══════════════════════════════════════════════════
-   FORM
-   ═══════════════════════════════════════════════════ */
-.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 11px; }
 .field { display: flex; flex-direction: column; gap: 5px; }
-.field.full { grid-column: 1 / -1; }
-.field label {
-  font-size: 10.5px;
-  font-weight: 700;
-  color: var(--text-3);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
+.field.full { grid-column: 1/-1; }
+.field label { font-size: 10.5px; font-weight: 700; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.05em; }
 .field input, .field select, .field textarea {
-  width: 100%;
-  padding: 10px 12px;
-  background: var(--surface-2);
-  border: 1px solid var(--border-2);
-  border-radius: var(--radius-md);
-  color: var(--text-1);
-  font-size: 13px;
-  transition: all 0.15s;
+  width: 100%; padding: 10px 12px; background: var(--surface-2);
+  border: 1px solid var(--border-2); border-radius: var(--radius-md);
+  color: var(--text-1); font-size: 13px; transition: all 0.15s;
 }
-.field input:focus, .field select:focus, .field textarea:focus {
-  border-color: var(--gold-500);
-  box-shadow: 0 0 0 3px rgba(197,160,89,0.12);
-}
-.field textarea { min-height: 70px; resize: vertical; font-family: inherit; }
+.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--gold-500); box-shadow: 0 0 0 3px rgba(197,160,89,0.12); }
+.field textarea { min-height: 70px; resize: vertical; }
 
 .btn {
-  padding: 10px 18px;
-  border-radius: var(--radius-md);
-  font-size: 12.5px;
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  transition: all 0.15s;
-  border: 1px solid transparent;
+  padding: 10px 18px; border-radius: var(--radius-md); font-size: 12.5px; font-weight: 600;
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  transition: all 0.15s; border: 1px solid transparent;
 }
 .btn-primary { background: var(--emerald-600); color: #fff; }
 .btn-primary:hover { background: var(--emerald-500); }
@@ -560,562 +267,165 @@ input, select, textarea { font: inherit; outline: none; }
 .btn-danger:hover { background: rgba(220,38,38,0.25); }
 .btn-block { width: 100%; }
 
-/* ═══════════════════════════════════════════════════
-   DRAWER / SIDE PANEL
-   ═══════════════════════════════════════════════════ */
-.drawer-scrim {
-  position: fixed;
-  inset: 0;
-  z-index: 800;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(3px);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s;
-}
+/* DRAWER */
+.drawer-scrim { position: fixed; inset: 0; z-index: 800; background: rgba(0,0,0,0.6); backdrop-filter: blur(3px); opacity: 0; pointer-events: none; transition: opacity 0.2s; }
 .drawer-scrim.open { opacity: 1; pointer-events: auto; }
-
 .drawer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  z-index: 810;
-  width: min(400px, 92vw);
-  background: var(--surface-1);
-  border-right: 1px solid var(--border-2);
-  box-shadow: var(--shadow-lg);
-  transform: translateX(-105%);
-  transition: transform 0.28s cubic-bezier(0.1, 0.9, 0.2, 1);
-  display: flex;
-  flex-direction: column;
-  direction: ltr;
+  position: fixed; top: 0; left: 0; bottom: 0; z-index: 810; width: min(380px, 92vw);
+  background: var(--surface-1); border-right: 1px solid var(--border-2);
+  box-shadow: var(--shadow-lg); transform: translateX(-105%);
+  transition: transform 0.28s cubic-bezier(0.1,0.9,0.2,1);
+  display: flex; flex-direction: column; direction: ltr;
 }
 .drawer.open { transform: translateX(0); }
-
-.drawer-head {
-  padding: 22px;
-  background: linear-gradient(135deg, var(--emerald-700), var(--emerald-900));
-  border-bottom: 1px solid var(--gold-500);
-}
-.drawer-head .logo {
-  display: flex; align-items: center; gap: 12px;
-  margin-bottom: 4px;
-}
-.drawer-head .logo-mark {
-  width: 44px; height: 44px;
-  border-radius: 12px;
-  background: var(--gold-500);
-  color: var(--emerald-900);
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Amiri', serif;
-  font-size: 24px;
-  font-weight: 700;
-  border: 2px solid var(--gold-300);
-}
-.drawer-head h2 {
-  font-size: 17px;
-  font-weight: 800;
-  color: var(--gold-400);
-  letter-spacing: 0.02em;
-}
-.drawer-head small {
-  font-size: 10.5px;
-  color: var(--text-3);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
+.drawer-head { padding: 20px; background: linear-gradient(135deg, var(--emerald-700), var(--emerald-900)); border-bottom: 1px solid var(--gold-500); }
+.drawer-head .logo { display: flex; align-items: center; gap: 12px; }
+.drawer-head .logo-mark { width: 42px; height: 42px; border-radius: 11px; background: var(--gold-500); color: var(--emerald-900); display: flex; align-items: center; justify-content: center; font-family: 'Amiri', serif; font-size: 22px; font-weight: 700; border: 2px solid var(--gold-300); }
+.drawer-head h2 { font-size: 16px; font-weight: 800; color: var(--gold-400); }
+.drawer-head small { font-size: 10px; color: var(--text-3); letter-spacing: 0.08em; text-transform: uppercase; }
 .drawer-body { flex: 1; overflow-y: auto; padding: 12px; }
-
-.drawer-section {
-  margin-bottom: 8px;
-}
-.drawer-label {
-  padding: 8px 12px 6px;
-  font-size: 10px;
-  font-weight: 800;
-  color: var(--text-3);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-.drawer-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: var(--radius-md);
-  color: var(--text-1);
-  font-size: 13px;
-  font-weight: 500;
-  text-align: left;
-  transition: all 0.12s;
-}
+.drawer-label { padding: 10px 12px 6px; font-size: 10px; font-weight: 800; color: var(--text-3); letter-spacing: 0.12em; text-transform: uppercase; }
+.drawer-item { display: flex; align-items: center; gap: 12px; width: 100%; padding: 12px 14px; border-radius: var(--radius-md); color: var(--text-1); font-size: 13px; font-weight: 500; text-align: left; transition: all 0.12s; }
 .drawer-item:hover { background: var(--surface-2); color: var(--gold-400); }
-.drawer-item .ico { font-size: 17px; width: 22px; text-align: center; flex-shrink: 0; }
+.drawer-item .ico { font-size: 16px; width: 22px; text-align: center; flex-shrink: 0; }
 
-/* ═══════════════════════════════════════════════════
-   SETTINGS SHEET (bottom)
-   ═══════════════════════════════════════════════════ */
-.sheet-scrim {
-  position: fixed;
-  inset: 0;
-  z-index: 800;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(3px);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s;
-}
+/* SETTINGS SHEET */
+.sheet-scrim { position: fixed; inset: 0; z-index: 800; background: rgba(0,0,0,0.6); backdrop-filter: blur(3px); opacity: 0; pointer-events: none; transition: opacity 0.2s; }
 .sheet-scrim.open { opacity: 1; pointer-events: auto; }
-
 .sheet-panel {
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%) translateY(100%);
-  width: min(720px, 100%);
-  max-height: 88vh;
-  background: var(--surface-1);
-  border: 1px solid var(--gold-500);
-  border-bottom: none;
-  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-  z-index: 810;
-  transition: transform 0.3s cubic-bezier(0.1, 0.9, 0.2, 1);
+  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%) translateY(100%);
+  width: min(720px, 100%); max-height: 88vh; background: var(--surface-1);
+  border: 1px solid var(--gold-500); border-bottom: none;
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0; z-index: 810;
+  transition: transform 0.3s cubic-bezier(0.1,0.9,0.2,1);
   box-shadow: 0 -12px 40px rgba(0,0,0,0.7);
-  display: flex;
-  flex-direction: column;
-  direction: ltr;
+  display: flex; flex-direction: column; direction: ltr;
 }
 .sheet-scrim.open .sheet-panel { transform: translateX(-50%) translateY(0); }
-
-.sheet-head {
-  padding: 16px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid var(--border-1);
-}
-.sheet-head h3 {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--gold-400);
-}
-.sheet-tabs {
-  display: flex;
-  gap: 4px;
-  padding: 10px 14px;
-  border-bottom: 1px solid var(--border-1);
-  overflow-x: auto;
-}
+.sheet-head { padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-1); }
+.sheet-head h3 { font-size: 15px; font-weight: 700; color: var(--gold-400); }
+.sheet-tabs { display: flex; gap: 4px; padding: 10px 14px; border-bottom: 1px solid var(--border-1); overflow-x: auto; }
 .sheet-tabs::-webkit-scrollbar { height: 0; }
-.sheet-tab {
-  padding: 8px 14px;
-  border-radius: var(--radius-md);
-  background: transparent;
-  color: var(--text-3);
-  font-size: 11.5px;
-  font-weight: 700;
-  white-space: nowrap;
-  transition: all 0.12s;
-}
+.sheet-tab { padding: 8px 14px; border-radius: var(--radius-md); background: transparent; color: var(--text-3); font-size: 11.5px; font-weight: 700; white-space: nowrap; transition: all 0.12s; }
 .sheet-tab:hover { color: var(--text-1); background: var(--surface-2); }
 .sheet-tab.active { background: var(--gold-500); color: var(--emerald-900); }
-
-.sheet-body {
-  flex: 1;
-  overflow-y: auto;
-  padding: 18px 20px 26px;
-}
+.sheet-body { flex: 1; overflow-y: auto; padding: 18px 20px 26px; }
 .tab-pane { display: none; }
 .tab-pane.active { display: block; }
+.section-title { font-size: 11px; font-weight: 800; color: var(--gold-400); text-transform: uppercase; letter-spacing: 0.1em; margin: 4px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border-1); }
 
-.section-title {
-  font-size: 11px;
-  font-weight: 800;
-  color: var(--gold-400);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin: 4px 0 12px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--border-1);
-}
-
-/* Student card list */
 .student-list { display: flex; flex-direction: column; gap: 8px; }
 .student-card {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 14px;
-  background: var(--surface-2);
-  border: 1px solid var(--border-2);
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  transition: all 0.15s;
-  direction: ltr;
+  display: flex; align-items: center; gap: 12px; padding: 12px 14px;
+  background: var(--surface-2); border: 1px solid var(--border-2);
+  border-radius: var(--radius-md); cursor: pointer; transition: all 0.15s; direction: ltr;
 }
 .student-card:hover { border-color: var(--gold-500); background: var(--surface-3); }
 .student-card.active { border-color: var(--gold-500); background: rgba(197,160,89,0.08); }
-.student-avatar {
-  width: 38px; height: 38px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, var(--emerald-600), var(--emerald-800));
-  color: var(--gold-300);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 15px;
-  font-weight: 700;
-  flex-shrink: 0;
-}
+.student-avatar { width: 38px; height: 38px; border-radius: 10px; background: linear-gradient(135deg, var(--emerald-600), var(--emerald-800)); color: var(--gold-300); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; flex-shrink: 0; }
 .student-info { flex: 1; min-width: 0; }
 .student-info b { font-size: 13.5px; display: block; }
 .student-info small { font-size: 11px; color: var(--text-3); }
 .student-actions { display: flex; gap: 5px; flex-shrink: 0; }
 
-/* Progress bars */
-.progress-bar {
-  height: 8px;
-  background: var(--surface-3);
-  border-radius: 4px;
-  overflow: hidden;
-  margin: 8px 0;
-}
-.progress-fill {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, var(--emerald-500), var(--gold-500));
-  border-radius: 4px;
-  transition: width 0.2s;
-}
+.progress-bar { height: 8px; background: var(--surface-3); border-radius: 4px; overflow: hidden; margin: 8px 0; }
+.progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--emerald-500), var(--gold-500)); border-radius: 4px; transition: width 0.2s; }
 
-/* Category list */
-.cat-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 14px;
-  background: var(--surface-2);
-  border: 1px solid var(--border-2);
-  border-radius: var(--radius-md);
-  margin-bottom: 6px;
-}
+.cat-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: var(--surface-2); border: 1px solid var(--border-2); border-radius: var(--radius-md); margin-bottom: 6px; }
 .cat-item .name { font-family: 'Amiri', serif; font-size: 15px; font-weight: 700; }
 .cat-item .label { font-size: 12px; color: var(--text-3); margin-left: 8px; }
 
-/* ═══════════════════════════════════════════════════
-   REPORT SCREEN
-   ═══════════════════════════════════════════════════ */
-.report-screen {
-  position: fixed;
-  inset: 0;
-  z-index: 900;
-  display: none;
-  flex-direction: column;
-  background: #e5e7e5;
-  direction: ltr;
-}
+/* REPORT */
+.report-screen { position: fixed; inset: 0; z-index: 900; display: none; flex-direction: column; background: #e5e7e5; direction: ltr; }
 .report-screen.open { display: flex; }
-
-.report-toolbar {
-  height: 56px;
-  background: var(--surface-1);
-  border-bottom: 1px solid var(--border-1);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 0 14px;
-  overflow-x: auto;
-}
+.report-toolbar { height: 56px; background: var(--surface-1); border-bottom: 1px solid var(--border-1); display: flex; align-items: center; gap: 8px; padding: 0 14px; overflow-x: auto; }
 .report-toolbar::-webkit-scrollbar { height: 0; }
-.report-toolbar select, .report-toolbar input {
-  background: var(--surface-2);
-  border: 1px solid var(--border-2);
-  color: var(--text-1);
-  padding: 7px 10px;
-  border-radius: var(--radius-md);
-  font-size: 12px;
-}
-.report-body {
-  flex: 1;
-  overflow-y: auto;
-  padding: 20px;
-  display: flex;
-  justify-content: center;
-}
-
-/* PDF-style paper */
+.report-toolbar select, .report-toolbar input { background: var(--surface-2); border: 1px solid var(--border-2); color: var(--text-1); padding: 7px 10px; border-radius: var(--radius-md); font-size: 12px; }
+.report-body { flex: 1; overflow-y: auto; padding: 20px; display: flex; justify-content: center; }
 .paper {
-  width: 210mm;
-  min-height: 297mm;
-  background: #fff;
-  color: #1a1a1a;
-  padding: 14mm;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.15);
-  font-family: 'Inter', sans-serif;
-  direction: ltr;
-  align-self: flex-start;
+  width: 210mm; min-height: 297mm; background: #fff; color: #1a1a1a;
+  padding: 14mm; box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+  font-family: 'Inter', sans-serif; direction: ltr; align-self: flex-start;
 }
-.paper .r-header {
-  text-align: center;
-  border-bottom: 3px double var(--emerald-600);
-  padding-bottom: 12px;
-  margin-bottom: 16px;
-}
-.paper .r-inst {
-  font-size: 20px;
-  font-weight: 800;
-  color: var(--emerald-700);
-  letter-spacing: 0.02em;
-}
-.paper .r-run {
-  font-size: 11.5px;
-  color: #555;
-  margin-top: 3px;
-  font-weight: 600;
-}
-.paper .r-dept {
-  font-size: 10.5px;
-  color: #777;
-  margin-top: 2px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-.paper .r-title {
-  font-size: 15px;
-  font-weight: 800;
-  margin-top: 10px;
-  color: #1a1a1a;
-  letter-spacing: 0.05em;
-}
-.paper .r-info {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px 22px;
-  padding: 12px 14px;
-  background: #f7f7f4;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  margin-bottom: 16px;
-  font-size: 11.5px;
-}
-.paper .r-info b { color: #555; font-weight: 600; }
-.paper table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 10.5px;
-}
-.paper thead th {
-  background: var(--emerald-700);
-  color: #fff;
-  padding: 9px 6px;
-  text-align: center;
-  font-weight: 700;
-  border: 1px solid var(--emerald-700);
-  font-size: 10px;
-}
-.paper thead th .ar { font-family: 'Amiri', serif; font-size: 13px; font-weight: 700; }
+.paper .r-header { text-align: center; border-bottom: 3px double var(--emerald-600); padding-bottom: 12px; margin-bottom: 16px; }
+.paper .r-inst { font-size: 20px; font-weight: 800; color: var(--emerald-700); letter-spacing: 0.02em; }
+.paper .r-run { font-size: 11.5px; color: #555; margin-top: 3px; font-weight: 600; }
+.paper .r-dept { font-size: 10.5px; color: #777; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.1em; }
+.paper .r-title { font-size: 15px; font-weight: 800; margin-top: 10px; color: #1a1a1a; letter-spacing: 0.05em; }
+.paper .r-info { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 22px; padding: 12px 14px; background: #f7f7f4; border: 1px solid #ddd; border-radius: 6px; margin-bottom: 16px; font-size: 11.5px; }
+.paper table { width: 100%; border-collapse: collapse; font-size: 10.5px; }
+.paper thead th { background: var(--emerald-700); color: #fff; padding: 9px 6px; text-align: center; font-weight: 700; border: 1px solid var(--emerald-700); }
+.paper thead th .ar { font-family: 'Amiri', serif; font-size: 13px; }
 .paper thead th .ml { font-size: 9px; opacity: 0.85; font-weight: 500; }
-.paper tbody td {
-  padding: 8px 6px;
-  border: 1px solid #ccc;
-  text-align: center;
-  vertical-align: top;
-  font-size: 10px;
-}
+.paper tbody td { padding: 8px 6px; border: 1px solid #ccc; text-align: center; vertical-align: top; }
 .paper tbody tr:nth-child(even) { background: #fafaf7; }
 .paper .entry { padding: 4px 0; border-bottom: 1px dashed #bbb; }
 .paper .entry:last-child { border-bottom: none; }
-.paper .entry-surah {
-  font-family: 'Amiri', serif;
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--emerald-700);
-  direction: rtl;
-}
-.paper .entry-ayah { font-size: 9.5px; color: #444; }
-.paper .entry-page {
-  display: inline-block;
-  padding: 1px 5px;
-  background: #e8f0ec;
-  color: var(--emerald-700);
-  border-radius: 3px;
-  font-size: 8.5px;
-  font-weight: 700;
-  margin-top: 2px;
-}
-.paper .summary {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-  margin-top: 18px;
-}
-.paper .sum-box {
-  padding: 10px;
-  background: #f7f7f4;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  text-align: center;
-}
-.paper .sum-box b {
-  display: block;
-  font-size: 18px;
-  color: var(--emerald-700);
-  font-weight: 800;
-}
-.paper .sum-box span {
-  font-size: 9px;
-  color: #777;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-weight: 600;
-}
-.paper .signs {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  margin-top: 50px;
-}
-.paper .sign {
-  padding-top: 8px;
-  border-top: 1px solid #555;
-  text-align: center;
-  font-size: 10px;
-  color: #555;
-  font-weight: 600;
-}
+.paper .entry-surah { font-family: 'Amiri', serif; font-size: 12px; font-weight: 700; color: var(--emerald-700); direction: rtl; }
+.paper .entry-page { display: inline-block; padding: 1px 5px; background: #e8f0ec; color: var(--emerald-700); border-radius: 3px; font-size: 8.5px; font-weight: 700; margin-top: 2px; }
+.paper .summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 18px; }
+.paper .sum-box { padding: 10px; background: #f7f7f4; border: 1px solid #ddd; border-radius: 6px; text-align: center; }
+.paper .sum-box b { display: block; font-size: 18px; color: var(--emerald-700); font-weight: 800; }
+.paper .sum-box span { font-size: 9px; color: #777; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+.paper .signs { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 50px; }
+.paper .sign { padding-top: 8px; border-top: 1px solid #555; text-align: center; font-size: 10px; color: #555; font-weight: 600; }
 
-/* ═══════════════════════════════════════════════════
-   TOAST
-   ═══════════════════════════════════════════════════ */
+/* TOAST */
 .toast {
-  position: fixed;
-  left: 50%;
-  bottom: 80px;
-  z-index: 1000;
-  padding: 11px 18px;
-  background: var(--surface-2);
-  border: 1px solid var(--gold-500);
-  color: var(--text-1);
-  border-radius: var(--radius-md);
-  font-size: 12.5px;
-  font-weight: 600;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateX(-50%) translateY(12px);
-  transition: all 0.22s;
-  box-shadow: var(--shadow-lg);
-  direction: ltr;
+  position: fixed; left: 50%; bottom: 80px; z-index: 1000; padding: 11px 18px;
+  background: var(--surface-2); border: 1px solid var(--gold-500); color: var(--text-1);
+  border-radius: var(--radius-md); font-size: 12.5px; font-weight: 600;
+  opacity: 0; pointer-events: none; transform: translateX(-50%) translateY(12px);
+  transition: all 0.22s; box-shadow: var(--shadow-lg); direction: ltr;
 }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-/* ═══════════════════════════════════════════════════
-   SPLASH
-   ═══════════════════════════════════════════════════ */
-.splash {
-  position: fixed;
-  inset: 0;
-  z-index: 2000;
-  background: radial-gradient(circle at 50% 40%, #14201a 0%, #060908 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  direction: ltr;
-}
-.splash-card {
-  width: min(480px, 100%);
-  background: var(--surface-1);
-  border: 1px solid var(--gold-500);
-  border-radius: var(--radius-xl);
-  padding: 28px 26px;
-  text-align: center;
-  box-shadow: var(--shadow-lg);
-}
-.splash-mark {
-  width: 64px; height: 64px;
-  margin: 0 auto 14px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, var(--gold-500), var(--gold-600));
-  color: var(--emerald-900);
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Amiri', serif;
-  font-size: 34px;
-  font-weight: 700;
-  border: 2px solid var(--gold-300);
-}
-.splash-card h1 {
-  font-size: 19px;
-  font-weight: 800;
-  color: var(--gold-400);
-  margin-bottom: 6px;
-  letter-spacing: 0.02em;
-}
-.splash-card p {
-  font-size: 12px;
-  color: var(--text-3);
-  line-height: 1.7;
-  margin-bottom: 16px;
-}
-.splash-status {
-  font-size: 11px;
-  color: var(--gold-400);
-  font-weight: 600;
-  min-height: 16px;
-  margin-top: 10px;
-}
+/* SPLASH */
+.splash { position: fixed; inset: 0; z-index: 2000; background: radial-gradient(circle at 50% 40%, #14201a 0%, #060908 100%); display: flex; align-items: center; justify-content: center; padding: 20px; direction: ltr; }
+.splash-card { width: min(460px, 100%); background: var(--surface-1); border: 1px solid var(--gold-500); border-radius: var(--radius-xl); padding: 28px 26px; text-align: center; box-shadow: var(--shadow-lg); }
+.splash-mark { width: 62px; height: 62px; margin: 0 auto 14px; border-radius: 16px; background: linear-gradient(135deg, var(--gold-500), var(--gold-600)); color: var(--emerald-900); display: flex; align-items: center; justify-content: center; font-family: 'Amiri', serif; font-size: 32px; font-weight: 700; border: 2px solid var(--gold-300); }
+.splash-card h1 { font-size: 19px; font-weight: 800; color: var(--gold-400); margin-bottom: 6px; }
+.splash-card p { font-size: 12px; color: var(--text-3); line-height: 1.7; margin-bottom: 14px; }
+.splash-status { font-size: 11px; color: var(--gold-400); font-weight: 600; min-height: 16px; margin-top: 10px; }
 
-/* ═══════════════════════════════════════════════════
-   RESPONSIVE
-   ═══════════════════════════════════════════════════ */
+/* RESPONSIVE */
 @media (max-width: 1000px), (orientation: portrait) {
   .mushaf-sheet.left-sheet { display: none !important; }
-  .mushaf-sheet {
-    width: 100vw;
-    max-width: 100vw;
-    aspect-ratio: auto;
-    height: 100%;
-    border-left: none;
-    border-right: none;
-    outline-offset: 1px;
-  }
+  .mushaf-sheet { width: 100vw; max-width: 100vw; aspect-ratio: auto; height: 100%; border-left: none; border-right: none; outline-offset: 1px; padding: 6px 10px 4px; }
   .stage { padding: 4px 2px; }
-  .brand-text strong { max-width: 90px; font-size: 11px; }
+  .brand-text strong { max-width: 70px; font-size: 10.5px; }
   .brand-text span { display: none; }
-  .pill-select { padding: 6px 8px; font-size: 11px; max-width: 100px; }
-  .dock { padding: 0 4px; gap: 3px; height: 56px; }
-  .dock-btn { min-width: 36px; height: 36px; padding: 0 8px; font-size: 11px; }
-  .stage { height: calc(100vh - 52px - 56px); height: calc(100dvh - 52px - 56px); }
+  .brand-mark { width: 30px; height: 30px; font-size: 16px; }
+  .dock { padding: 0 4px; gap: 3px; height: 58px; }
+  .dock-btn { min-width: 38px; height: 38px; padding: 0 8px; font-size: 12px; }
+  .stage { height: calc(100vh - 52px - 58px); height: calc(100dvh - 52px - 58px); }
   .form-grid { grid-template-columns: 1fr; }
   .field.full { grid-column: auto; }
   .paper { width: 100%; min-height: auto; padding: 12px; }
   .paper .summary { grid-template-columns: 1fr 1fr; }
   .paper .r-info { grid-template-columns: 1fr; }
+  .pill-btn { padding: 6px 8px; font-size: 10.5px; max-width: 110px; }
+}
+@media (max-width: 420px) {
+  .tb-center .page-indicator { padding: 6px 8px; font-size: 12px; }
+  .icon-btn { min-width: 32px; height: 32px; padding: 0 6px; }
 }
 
-/* ═══════════════════════════════════════════════════
-   PRINT
-   ═══════════════════════════════════════════════════ */
+/* PRINT */
 @media print {
   body * { visibility: hidden; }
   .report-screen, .report-screen * { visibility: visible; }
   .report-screen { position: absolute; inset: 0; background: #fff; }
   .report-toolbar { display: none !important; }
   .report-body { padding: 0; display: block; overflow: visible; }
-  .paper {
-    width: 210mm;
-    min-height: 297mm;
-    box-shadow: none;
-    padding: 14mm;
-    margin: 0;
-  }
+  .paper { width: 210mm; min-height: 297mm; box-shadow: none; padding: 14mm; margin: 0; }
   @page { size: A4; margin: 0; }
 }
 </style>
 </head>
 <body>
 
-<!-- ═══════════════════ SPLASH ═══════════════════ -->
+<!-- SPLASH -->
 <div class="splash" id="splash">
   <div class="splash-card">
     <div class="splash-mark">ﷲ</div>
@@ -1127,9 +437,9 @@ input, select, textarea { font: inherit; outline: none; }
   </div>
 </div>
 
-<!-- ═══════════════════ TOP BAR ═══════════════════ -->
+<!-- TOP BAR -->
 <header class="topbar">
-  <div class="topbar-left">
+  <div class="tb-left">
     <button class="icon-btn" onclick="UI.openDrawer()">☰</button>
     <div class="brand-mark">ح</div>
     <div class="brand-text">
@@ -1137,25 +447,22 @@ input, select, textarea { font: inherit; outline: none; }
       <span>Hifz Quran</span>
     </div>
   </div>
-
-  <div class="topbar-center">
+  <div class="tb-center">
     <button class="icon-btn" onclick="Reader.prev()">‹</button>
     <div class="page-indicator" id="pageIndicator" onclick="Reader.jump()">1 / 604</div>
     <button class="icon-btn" onclick="Reader.next()">›</button>
   </div>
-
-  <div class="topbar-right">
-    <select class="pill-select" id="studentSelect" onchange="Students.select(this.value)">
-      <option value="">Student</option>
-    </select>
-    <select class="pill-select" id="mushafSelect" onchange="Reader.changeMushaf(this.value)">
-      <option value="madani">Madani</option>
-      <option value="indopak">Indo-Pak</option>
-    </select>
+  <div class="tb-right">
+    <button class="pill-btn" id="studentPill" onclick="Menus.toggleStudent(event)">
+      <span>👤</span><span id="studentPillText">Student</span><span class="caret">▼</span>
+    </button>
+    <button class="pill-btn" id="lessonPill" onclick="Menus.toggleLesson(event)">
+      <span class="ar" id="lessonPillAr">سبق</span><span class="caret">▼</span>
+    </button>
   </div>
 </header>
 
-<!-- ═══════════════════ STAGE ═══════════════════ -->
+<!-- STAGE -->
 <main class="stage" id="stage">
   <div class="book-spread" id="bookSpread">
     <article class="mushaf-sheet right-sheet" id="sheetRight">
@@ -1165,7 +472,7 @@ input, select, textarea { font: inherit; outline: none; }
       <svg class="corner c-bl" viewBox="0 0 40 40"><path d="M0,8 L32,8 L32,40" fill="none" stroke="#7a5e27" stroke-width="2"/><circle cx="24" cy="24" r="5" fill="#c5a059"/></svg>
       <header class="sheet-header">
         <span id="rightJuz">الجزء --</span>
-        <span id="rightSurah">سورة --</span>
+        <span id="rightSurahLbl">سورة --</span>
       </header>
       <section class="lines-grid" id="linesRight"></section>
       <footer class="sheet-footer">
@@ -1173,7 +480,6 @@ input, select, textarea { font: inherit; outline: none; }
         <span class="page-num-display" id="rightPageNum">١</span>
       </footer>
     </article>
-
     <article class="mushaf-sheet left-sheet" id="sheetLeft">
       <svg class="corner c-tr" viewBox="0 0 40 40"><path d="M0,8 L32,8 L32,40" fill="none" stroke="#7a5e27" stroke-width="2"/><circle cx="24" cy="24" r="5" fill="#c5a059"/></svg>
       <svg class="corner c-tl" viewBox="0 0 40 40"><path d="M0,8 L32,8 L32,40" fill="none" stroke="#7a5e27" stroke-width="2"/><circle cx="24" cy="24" r="5" fill="#c5a059"/></svg>
@@ -1181,7 +487,7 @@ input, select, textarea { font: inherit; outline: none; }
       <svg class="corner c-bl" viewBox="0 0 40 40"><path d="M0,8 L32,8 L32,40" fill="none" stroke="#7a5e27" stroke-width="2"/><circle cx="24" cy="24" r="5" fill="#c5a059"/></svg>
       <header class="sheet-header">
         <span id="leftJuz">الجزء --</span>
-        <span id="leftSurah">سورة --</span>
+        <span id="leftSurahLbl">سورة --</span>
       </header>
       <section class="lines-grid" id="linesLeft"></section>
       <footer class="sheet-footer">
@@ -1192,50 +498,92 @@ input, select, textarea { font: inherit; outline: none; }
   </div>
 </main>
 
-<!-- ═══════════════════ DOCK ═══════════════════ -->
+<!-- DOCK -->
 <nav class="dock">
   <div class="dock-group">
-    <button class="dock-btn" id="toolNone" onclick="Marks.setTool('none')" title="Select / Play">👆</button>
-    <button class="dock-btn" id="toolUnderline" onclick="Marks.setTool('underline')" title="Underline">_</button>
-    <button class="dock-btn" id="toolGhalat" onclick="Marks.setTool('ghalat')" title="Ghalat (error)">🔴</button>
+    <button class="dock-btn primary" onclick="Lesson.startDialog()">▶ <span class="label">Start</span></button>
+    <button class="dock-btn primary" onclick="Lesson.endDialog()">✓ <span class="label">End</span></button>
+  </div>
+  <div class="dock-group">
+    <button class="dock-btn active" id="toolUnderline" onclick="Marks.setTool('underline')" title="Underline">_</button>
+    <button class="dock-btn" id="toolGhalat" onclick="Marks.setTool('ghalat')" title="Ghalat">🔴</button>
     <button class="dock-btn" id="toolTajweed" onclick="Marks.setTool('tajweed')" title="Tajweed">🟡</button>
   </div>
-
   <div class="dock-group">
-    <button class="dock-btn primary" onclick="Lesson.endDialog()">✓ End Lesson</button>
-    <button class="dock-btn" onclick="Report.open()">📊 Report</button>
-  </div>
-
-  <div class="dock-group">
-    <button class="dock-btn" onclick="Lesson.startDialog()">▶ Start</button>
-    <button class="dock-btn danger" onclick="Marks.clearPage()">🗑 Clear</button>
+    <button class="dock-btn" id="audioBtn" onclick="AudioPlayer.toggle()" title="Audio">🔇</button>
+    <button class="dock-btn" id="moreBtn" onclick="Menus.toggleMore(event)" title="More">⋮</button>
   </div>
 </nav>
 
-<!-- ═══════════════════ POPUP MENU (Ayah click) ═══════════════════ -->
-<div class="popup-menu" id="popupMenu">
-  <button class="popup-item" onclick="AyahAction.play()">
-    <span class="ico">🔊</span>
-    <span>Play this Ayah</span>
+<!-- STUDENT MENU -->
+<div class="menu" id="studentMenu">
+  <div class="menu-header">Switch Student</div>
+  <div id="studentMenuList"></div>
+  <div class="menu-divider"></div>
+  <button class="menu-item" onclick="Menus.closeAll(); Students.openAdd()">
+    <span class="ico">➕</span><span>Add New Student</span>
   </button>
-  <button class="popup-item" onclick="AyahAction.startFrom()">
-    <span class="ico">▶</span>
-    <span>Start lesson from here</span>
-    <span class="meta" id="popupStartMeta"></span>
-  </button>
-  <button class="popup-item" onclick="AyahAction.endAt()">
-    <span class="ico">🎯</span>
-    <span>End lesson here (last read)</span>
-    <span class="meta" id="popupEndMeta"></span>
-  </button>
-  <div class="popup-divider"></div>
-  <button class="popup-item" onclick="AyahAction.markBoundary()">
-    <span class="ico">📍</span>
-    <span>Mark as boundary</span>
+  <button class="menu-item" onclick="Menus.closeAll(); Settings.open('students')">
+    <span class="ico">⚙️</span><span>Manage Students</span>
   </button>
 </div>
 
-<!-- ═══════════════════ DRAWER ═══════════════════ -->
+<!-- LESSON MENU -->
+<div class="menu" id="lessonMenu">
+  <div class="menu-header">Lesson Category</div>
+  <div id="lessonMenuList"></div>
+  <div class="menu-divider"></div>
+  <button class="menu-item" onclick="Menus.closeAll(); Settings.open('categories')">
+    <span class="ico">➕</span><span>Add / Edit Categories</span>
+  </button>
+</div>
+
+<!-- MORE MENU -->
+<div class="menu" id="moreMenu">
+  <button class="menu-item" onclick="Menus.closeAll(); Report.open()">
+    <span class="ico">📊</span><span>Progress Report</span>
+  </button>
+  <button class="menu-item" onclick="Menus.closeAll(); Lessons.open()">
+    <span class="ico">📋</span><span>Lesson History</span>
+  </button>
+  <div class="menu-divider"></div>
+  <button class="menu-item" onclick="Menus.closeAll(); Marks.setTool('eraser')">
+    <span class="ico">🧹</span><span>Eraser Tool</span>
+  </button>
+  <button class="menu-item" onclick="Menus.closeAll(); Marks.undo()">
+    <span class="ico">↶</span><span>Undo Last Mark</span>
+  </button>
+  <button class="menu-item" onclick="Menus.closeAll(); Marks.clearPage()">
+    <span class="ico">🗑</span><span>Clear Page Marks</span>
+  </button>
+  <div class="menu-divider"></div>
+  <button class="menu-item" onclick="Menus.closeAll(); Settings.open('institution')">
+    <span class="ico">🏛</span><span>Institution</span>
+  </button>
+  <button class="menu-item" onclick="Menus.closeAll(); Settings.open('report')">
+    <span class="ico">📄</span><span>Report Settings</span>
+  </button>
+  <button class="menu-item" onclick="Menus.closeAll(); Settings.open('data')">
+    <span class="ico">⬇</span><span>Batch Download / Sync</span>
+  </button>
+</div>
+
+<!-- AYAH POPUP -->
+<div class="menu" id="ayahMenu" style="min-width:240px;">
+  <button class="menu-item" onclick="AyahAction.play()">
+    <span class="ico">🔊</span><span>Play this Ayah</span>
+  </button>
+  <button class="menu-item" onclick="AyahAction.startFrom()">
+    <span class="ico">▶</span><span>Start lesson here</span>
+    <span class="meta" id="ayahStartMeta"></span>
+  </button>
+  <button class="menu-item" onclick="AyahAction.endAt()">
+    <span class="ico">🎯</span><span>End lesson here</span>
+    <span class="meta" id="ayahEndMeta"></span>
+  </button>
+</div>
+
+<!-- DRAWER -->
 <div class="drawer-scrim" id="drawerScrim" onclick="UI.closeDrawer()"></div>
 <aside class="drawer" id="drawer">
   <div class="drawer-head">
@@ -1248,66 +596,60 @@ input, select, textarea { font: inherit; outline: none; }
     </div>
   </div>
   <div class="drawer-body">
-    <div class="drawer-section">
-      <div class="drawer-label">Current Student</div>
-      <div style="padding:12px 14px; background:var(--surface-2); border-radius:10px; font-size:12px; line-height:1.7;" id="drawerStudent">No student</div>
-    </div>
+    <div class="drawer-label">Current Student</div>
+    <div style="padding:12px 14px; background:var(--surface-2); border-radius:10px; font-size:12px; line-height:1.7;" id="drawerStudent">No student</div>
 
-    <div class="drawer-section">
-      <div class="drawer-label">Quran</div>
-      <button class="drawer-item" onclick="UI.closeDrawer(); Reader.go(1)">
-        <span class="ico">📖</span> First Page
-      </button>
-      <button class="drawer-item" onclick="UI.closeDrawer(); Reader.jump()">
-        <span class="ico">🔢</span> Go to Page
-      </button>
-    </div>
+    <div class="drawer-label">Quran</div>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Reader.go(1)">
+      <span class="ico">📖</span><span>First Page</span>
+    </button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Reader.jump()">
+      <span class="ico">🔢</span><span>Go to Page</span>
+    </button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Reader.changeMushaf(State.currentMushaf === 'madani' ? 'indopak' : 'madani')">
+      <span class="ico">🔄</span><span>Switch Mushaf</span>
+    </button>
 
-    <div class="drawer-section">
-      <div class="drawer-label">Management</div>
-      <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('students')">
-        <span class="ico">🎓</span> Students
-      </button>
-      <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('institution')">
-        <span class="ico">🏛</span> Institution
-      </button>
-      <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('categories')">
-        <span class="ico">📚</span> Lesson Categories
-      </button>
-      <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('report')">
-        <span class="ico">📄</span> Report Settings
-      </button>
-      <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('audio')">
-        <span class="ico">🔊</span> Audio Settings
-      </button>
-      <button class="drawer-item" onclick="UI.closeDrawer(); Lessons.open()">
-        <span class="ico">📋</span> Lesson History
-      </button>
-    </div>
+    <div class="drawer-label">Management</div>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('students')">
+      <span class="ico">🎓</span><span>Students</span>
+    </button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('institution')">
+      <span class="ico">🏛</span><span>Institution</span>
+    </button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('categories')">
+      <span class="ico">📚</span><span>Lesson Categories</span>
+    </button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('report')">
+      <span class="ico">📄</span><span>Report Settings</span>
+    </button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('audio')">
+      <span class="ico">🔊</span><span>Audio Settings</span>
+    </button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Lessons.open()">
+      <span class="ico">📋</span><span>Lesson History</span>
+    </button>
 
-    <div class="drawer-section">
-      <div class="drawer-label">Data</div>
-      <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('data')">
-        <span class="ico">⬇</span> Batch Download / Sync
-      </button>
-      <button class="drawer-item" onclick="UI.closeDrawer(); Sync.backup()">
-        <span class="ico">💾</span> Backup
-      </button>
-      <button class="drawer-item" onclick="UI.closeDrawer(); Sync.restore()">
-        <span class="ico">📥</span> Restore
-      </button>
-    </div>
+    <div class="drawer-label">Data</div>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('data')">
+      <span class="ico">⬇</span><span>Batch Download / Sync</span>
+    </button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Sync.backup()">
+      <span class="ico">💾</span><span>Backup</span>
+    </button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Sync.restore()">
+      <span class="ico">📥</span><span>Restore</span>
+    </button>
   </div>
 </aside>
 
-<!-- ═══════════════════ SETTINGS SHEET ═══════════════════ -->
+<!-- SETTINGS SHEET -->
 <div class="sheet-scrim" id="sheetScrim" onclick="Settings.closeSheet(event)">
   <div class="sheet-panel" onclick="event.stopPropagation()">
     <div class="sheet-head">
       <h3 id="sheetTitle">Settings</h3>
       <button class="close-x" onclick="Settings.closeSheet()">×</button>
     </div>
-
     <div class="sheet-tabs">
       <button class="sheet-tab active" data-tab="students" onclick="Settings.tab('students')">🎓 Students</button>
       <button class="sheet-tab" data-tab="institution" onclick="Settings.tab('institution')">🏛 Institution</button>
@@ -1316,16 +658,12 @@ input, select, textarea { font: inherit; outline: none; }
       <button class="sheet-tab" data-tab="audio" onclick="Settings.tab('audio')">🔊 Audio</button>
       <button class="sheet-tab" data-tab="data" onclick="Settings.tab('data')">⬇ Data</button>
     </div>
-
     <div class="sheet-body">
-      <!-- STUDENTS TAB -->
       <div class="tab-pane active" data-pane="students">
         <div class="section-title">Student Management</div>
         <button class="btn btn-gold btn-block" onclick="Students.openAdd()" style="margin-bottom:14px;">+ Add New Student</button>
         <div class="student-list" id="studentList"></div>
       </div>
-
-      <!-- INSTITUTION TAB -->
       <div class="tab-pane" data-pane="institution">
         <div class="section-title">Institution Information</div>
         <div class="form-grid">
@@ -1338,106 +676,71 @@ input, select, textarea { font: inherit; outline: none; }
         </div>
         <button class="btn btn-primary btn-block" style="margin-top:14px;" onclick="Settings.saveInstitution()">Save Institution</button>
       </div>
-
-      <!-- CATEGORIES TAB -->
       <div class="tab-pane" data-pane="categories">
         <div class="section-title">Lesson Categories</div>
-        <p style="font-size:11.5px; color:var(--text-3); line-height:1.7; margin-bottom:14px;">
-          Add as many lesson categories as needed. Each student can have 1–10+ lessons.
-        </p>
+        <p style="font-size:11.5px; color:var(--text-3); line-height:1.7; margin-bottom:14px;">Add as many as needed. Each student can have 1–10+ lessons.</p>
         <div id="categoryList"></div>
         <div class="form-grid" style="margin-top:14px;">
           <div class="field"><label>Arabic Name</label><input id="newCatArabic" placeholder="سبق"></div>
           <div class="field"><label>Display Label</label><input id="newCatLabel" placeholder="New Lesson"></div>
         </div>
         <button class="btn btn-gold btn-block" style="margin-top:10px;" onclick="Settings.addCategory()">+ Add Category</button>
-
         <div class="section-title" style="margin-top:24px;">Lesson Behaviour</div>
         <div class="form-grid">
-          <div class="field">
-            <label>Lesson Start</label>
+          <div class="field"><label>Lesson Start</label>
             <select id="lessonStartMode">
               <option value="optional">Optional</option>
               <option value="enabled">Enabled</option>
               <option value="disabled">Disabled</option>
             </select>
           </div>
-          <div class="field">
-            <label>Lesson End</label>
-            <select id="lessonEndMode">
-              <option value="required">Required</option>
-            </select>
+          <div class="field"><label>Lesson End</label>
+            <select id="lessonEndMode"><option value="required">Required</option></select>
           </div>
         </div>
         <button class="btn btn-primary btn-block" style="margin-top:14px;" onclick="Settings.saveLessonSettings()">Save Lesson Settings</button>
       </div>
-
-      <!-- REPORT TAB -->
       <div class="tab-pane" data-pane="report">
         <div class="section-title">Report Settings</div>
         <div class="form-grid">
           <div class="field full"><label>Report Title</label><input id="repTitle"></div>
-          <div class="field">
-            <label>Date Format</label>
-            <select id="repDateFormat">
-              <option value="DD-MM-YYYY">DD-MM-YYYY</option>
-              <option value="YYYY-MM-DD">YYYY-MM-DD</option>
-            </select>
+          <div class="field"><label>Date Format</label>
+            <select id="repDateFormat"><option value="DD-MM-YYYY">DD-MM-YYYY</option><option value="YYYY-MM-DD">YYYY-MM-DD</option></select>
           </div>
-          <div class="field">
-            <label>Teacher Signature</label>
-            <select id="repTeacherSig">
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
-            </select>
+          <div class="field"><label>Teacher Signature</label>
+            <select id="repTeacherSig"><option value="yes">Yes</option><option value="no">No</option></select>
           </div>
         </div>
         <button class="btn btn-primary btn-block" style="margin-top:14px;" onclick="Settings.saveReport()">Save Report Settings</button>
       </div>
-
-      <!-- AUDIO TAB -->
       <div class="tab-pane" data-pane="audio">
         <div class="section-title">Audio Settings</div>
         <div class="form-grid">
-          <div class="field full">
-            <label>Default Reciter</label>
+          <div class="field full"><label>Reciter</label>
             <select id="audioReciter">
               <option value="Alafasy_128kbps">Mishary Alafasy</option>
               <option value="Husary_128kbps">Mahmoud Khalil Al-Husary</option>
               <option value="Minshawy_Murattal_128kbps">Al-Minshawi (Murattal)</option>
-              <option value="Abdul_Basit_Murattal_192kbps">Abdul Basit (Murattal)</option>
+              <option value="Abdul_Basit_Murattal_192kbps">Abdul Basit</option>
               <option value="Ghamadi_40kbps">Saad Al-Ghamdi</option>
-            </select>
-          </div>
-          <div class="field">
-            <label>Auto-play on word tap</label>
-            <select id="audioAutoPlay">
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
             </select>
           </div>
         </div>
         <button class="btn btn-primary btn-block" style="margin-top:14px;" onclick="Settings.saveAudio()">Save Audio Settings</button>
       </div>
-
-      <!-- DATA TAB -->
       <div class="tab-pane" data-pane="data">
         <div class="section-title">Quran Data — Batch Sync</div>
-        <p style="font-size:11.5px; color:var(--text-3); line-height:1.7; margin-bottom:12px;">
-          Download Quran CSV data from GitHub into IndexedDB. One-time operation. Fast batch writes.
-        </p>
+        <p style="font-size:11.5px; color:var(--text-3); line-height:1.7; margin-bottom:12px;">Download Quran CSV data from GitHub into IndexedDB. Fast batch writes.</p>
         <div class="progress-bar"><div class="progress-fill" id="syncBar"></div></div>
         <div style="font-size:11px; color:var(--gold-400); font-weight:600; margin:8px 0;" id="syncStatus">Ready</div>
         <div style="display:flex; gap:8px; margin-bottom:20px;">
           <button class="btn btn-primary" onclick="Sync.download()">⬇ Batch Download</button>
           <button class="btn btn-danger" onclick="Sync.clearQuran()">Clear Cache</button>
         </div>
-
         <div class="section-title">QPC Fonts (604 pages)</div>
         <div class="progress-bar"><div class="progress-fill" id="fontBar"></div></div>
         <div style="font-size:11px; color:var(--gold-400); font-weight:600; margin:8px 0;" id="fontCount">0 / 604</div>
         <button class="btn btn-gold btn-block" style="margin-bottom:20px;" id="btnFonts" onclick="Sync.downloadFonts()">⬇ Download All Fonts (Resumable)</button>
-
         <div class="section-title">Backup & Restore</div>
         <div style="display:flex; gap:8px;">
           <button class="btn btn-ghost" style="flex:1;" onclick="Sync.backup()">💾 Export Backup</button>
@@ -1448,7 +751,7 @@ input, select, textarea { font: inherit; outline: none; }
   </div>
 </div>
 
-<!-- ═══════════════════ STUDENT MODAL ═══════════════════ -->
+<!-- STUDENT MODAL -->
 <div class="modal" id="studentModal">
   <div class="modal-card">
     <div class="modal-head">
@@ -1459,15 +762,13 @@ input, select, textarea { font: inherit; outline: none; }
       <div class="field"><label>Roll No</label><input id="stuRoll"></div>
       <div class="field"><label>Name *</label><input id="stuName"></div>
       <div class="field"><label>Class / Batch</label><input id="stuClass"></div>
-      <div class="field">
-        <label>Primary Mushaf</label>
+      <div class="field"><label>Primary Mushaf</label>
         <select id="stuMushaf">
           <option value="madani">Madani 1405H (604p)</option>
           <option value="indopak">Indo-Pak Qudratullah (610p)</option>
         </select>
       </div>
-      <div class="field full">
-        <label>Optional Second Mushaf</label>
+      <div class="field full"><label>Optional Second Mushaf</label>
         <select id="stuMushaf2">
           <option value="">None</option>
           <option value="madani">Madani 1405H</option>
@@ -1483,7 +784,7 @@ input, select, textarea { font: inherit; outline: none; }
   </div>
 </div>
 
-<!-- ═══════════════════ LESSON END MODAL ═══════════════════ -->
+<!-- LESSON END MODAL -->
 <div class="modal" id="lessonModal">
   <div class="modal-card">
     <div class="modal-head">
@@ -1491,17 +792,11 @@ input, select, textarea { font: inherit; outline: none; }
       <button class="close-x" onclick="UI.closeModal('lessonModal')">×</button>
     </div>
     <div style="padding:12px; background:rgba(197,160,89,0.1); border-left:3px solid var(--gold-500); border-radius:6px; font-size:11.5px; line-height:1.7; margin-bottom:16px;">
-      Last read point is auto-filled from the last Ayah marker clicked. Adjust if needed.
+      Last read point is auto-filled from the last Ayah marker tapped. Adjust if needed.
     </div>
     <div class="form-grid">
-      <div class="field">
-        <label>Lesson Category *</label>
-        <select id="lesCategory"></select>
-      </div>
-      <div class="field">
-        <label>Mushaf</label>
-        <select id="lesMushaf"></select>
-      </div>
+      <div class="field"><label>Lesson Category *</label><select id="lesCategory"></select></div>
+      <div class="field"><label>Mushaf</label><select id="lesMushaf"></select></div>
       <div class="field"><label>From Surah</label><input id="lesFromSurah"></div>
       <div class="field"><label>From Ayah</label><input id="lesFromAyah" type="number" min="1"></div>
       <div class="field"><label>From Page</label><input id="lesFromPage" type="number" min="1"></div>
@@ -1516,7 +811,7 @@ input, select, textarea { font: inherit; outline: none; }
   </div>
 </div>
 
-<!-- ═══════════════════ LESSON START MODAL ═══════════════════ -->
+<!-- LESSON START MODAL -->
 <div class="modal" id="lessonStartModal">
   <div class="modal-card">
     <div class="modal-head">
@@ -1524,10 +819,7 @@ input, select, textarea { font: inherit; outline: none; }
       <button class="close-x" onclick="UI.closeModal('lessonStartModal')">×</button>
     </div>
     <div class="form-grid">
-      <div class="field full">
-        <label>Lesson Category</label>
-        <select id="lesStartCategory"></select>
-      </div>
+      <div class="field full"><label>Lesson Category</label><select id="lesStartCategory"></select></div>
       <div class="field"><label>From Surah</label><input id="lesStartSurah"></div>
       <div class="field"><label>From Ayah</label><input id="lesStartAyah" type="number"></div>
       <div class="field full"><label>From Page</label><input id="lesStartPage" type="number"></div>
@@ -1539,7 +831,7 @@ input, select, textarea { font: inherit; outline: none; }
   </div>
 </div>
 
-<!-- ═══════════════════ LESSON HISTORY PANEL ═══════════════════ -->
+<!-- HISTORY MODAL -->
 <div class="modal" id="historyModal">
   <div class="modal-card" style="width:min(900px,100%);">
     <div class="modal-head">
@@ -1550,7 +842,7 @@ input, select, textarea { font: inherit; outline: none; }
   </div>
 </div>
 
-<!-- ═══════════════════ REPORT SCREEN ═══════════════════ -->
+<!-- REPORT SCREEN -->
 <div class="report-screen" id="reportScreen">
   <div class="report-toolbar">
     <button class="btn btn-ghost" onclick="Report.close()">← Back</button>
@@ -1570,7 +862,6 @@ input, select, textarea { font: inherit; outline: none; }
   </div>
 </div>
 
-<!-- ═══════════════════ TOAST ═══════════════════ -->
 <div class="toast" id="toast"></div>
 
 <script>
@@ -1580,102 +871,62 @@ input, select, textarea { font: inherit; outline: none; }
    CONFIG
    ═══════════════════════════════════════════════════════════ */
 const CONFIG = {
-  madani: {
-    id: "madani", name: "Madinah 1405H", shortName: "Madani 1405H",
-    pages: 604, lines: 15, file: "./qpcv1-35.csv"
-  },
-  indopak: {
-    id: "indopak", name: "Indo-Pak Qudratullah", shortName: "Qudratullah 15L",
-    pages: 610, lines: 15, file: "./indpak-20.csv"
-  }
+  madani: { id:"madani", name:"Madinah 1405H", shortName:"Madani 1405H", pages:604, lines:15, file:"./qpcv1-35.csv" },
+  indopak: { id:"indopak", name:"Indo-Pak Qudratullah", shortName:"Qudratullah 15L", pages:610, lines:15, file:"./indpak-20.csv" }
 };
 
 const SURAH_NAMES = [
-  "", "الفاتحة", "البقرة", "آل عمران", "النساء", "المائدة", "الأنعام", "الأعراف",
-  "الأنفال", "التوبة", "يونس", "هود", "يوسف", "الرعد", "إبراهيم", "الحجر",
-  "النحل", "الإسراء", "الكهف", "مريم", "طه", "الأنبياء", "الحج", "المؤمنون",
-  "النور", "الفرقان", "الشعراء", "النمل", "القصص", "العنكبوت", "الروم", "لقمان",
-  "السجدة", "الأحزاب", "سبأ", "فاطر", "يس", "الصافات", "ص", "الزمر",
-  "غافر", "فصلت", "الشورى", "الزخرف", "الدخان", "الجاثية", "الأحقاف", "محمد",
-  "الفتح", "الحجرات", "ق", "الذاريات", "الطور", "النجم", "القمر", "الرحمن",
-  "الواقعة", "الحديد", "المجادلة", "الحشر", "الممتحنة", "الصف", "الجمعة", "المنافقون",
-  "التغابن", "الطلاق", "التحريم", "الملك", "القلم", "الحاقة", "المعارج", "نوح",
-  "الجن", "المزمل", "المدثر", "القيامة", "الإنسان", "المرسلات", "النبأ", "النازعات",
-  "عبس", "التكوير", "الانفطار", "المطففين", "الانشقاق", "البروج", "الطارق", "الأعلى",
-  "الغاشية", "الفجر", "البلد", "الشمس", "الليل", "الضحى", "الشرح", "التين",
-  "العلق", "القدر", "البينة", "الزلزلة", "العاديات", "القارعة", "التكاثر", "العصر",
-  "الهمزة", "الفيل", "قريش", "الماعون", "الكوثر", "الكافرون", "النصر", "المسد",
-  "الإخلاص", "الفلق", "الناس"
+  "","الفاتحة","البقرة","آل عمران","النساء","المائدة","الأنعام","الأعراف","الأنفال","التوبة","يونس","هود","يوسف","الرعد","إبراهيم","الحجر","النحل","الإسراء","الكهف","مريم","طه","الأنبياء","الحج","المؤمنون","النور","الفرقان","الشعراء","النمل","القصص","العنكبوت","الروم","لقمان","السجدة","الأحزاب","سبأ","فاطر","يس","الصافات","ص","الزمر","غافر","فصلت","الشورى","الزخرف","الدخان","الجاثية","الأحقاف","محمد","الفتح","الحجرات","ق","الذاريات","الطور","النجم","القمر","الرحمن","الواقعة","الحديد","المجادلة","الحشر","الممتحنة","الصف","الجمعة","المنافقون","التغابن","الطلاق","التحريم","الملك","القلم","الحاقة","المعارج","نوح","الجن","المزمل","المدثر","القيامة","الإنسان","المرسلات","النبأ","النازعات","عبس","التكوير","الانفطار","المطففين","الانشقاق","البروج","الطارق","الأعلى","الغاشية","الفجر","البلد","الشمس","الليل","الضحى","الشرح","التين","العلق","القدر","البينة","الزلزلة","العاديات","القارعة","التكاثر","العصر","الهمزة","الفيل","قريش","الماعون","الكوثر","الكافرون","النصر","المسد","الإخلاص","الفلق","الناس"
 ];
 
+// Total ayah count per surah (1-114)
+const SURAH_AYAH_COUNT = [0,7,286,200,176,120,165,206,75,129,109,123,111,43,52,99,128,111,110,98,135,112,78,118,64,77,227,93,88,69,60,34,30,73,54,45,83,182,88,75,85,54,53,89,59,37,35,38,29,18,45,60,49,62,55,78,96,29,22,24,13,14,11,11,18,12,12,30,52,52,44,28,28,20,56,40,31,50,40,46,42,29,19,36,25,22,17,19,26,30,20,15,21,11,8,8,19,5,8,8,11,11,8,3,9,5,4,7,3,6,3,5,4,5,6];
+function surahAyahCount(n) { return SURAH_AYAH_COUNT[n] || 0; }
+
 const DEFAULT_SETTINGS = {
-  institution: {
-    name: "NOORUL HIDAYA HIFZUL QURAN COLLEGE",
-    runBy: "Noorul Hidaya Islamic Center",
-    address: "", phone: "", teacher: "", department: "Hifz Department"
-  },
-  reader: { defaultMushaf: "madani", defaultPage: 1 },
-  lesson: { start: "optional", end: "required" },
+  institution: { name:"NOORUL HIDAYA HIFZUL QURAN COLLEGE", runBy:"Noorul Hidaya Islamic Center", address:"", phone:"", teacher:"", department:"Hifz Department" },
+  reader: { defaultMushaf:"madani", defaultPage:1 },
+  lesson: { start:"optional", end:"required" },
   categories: [
-    { id: "sabaq", name: "سبق", label: "New Lesson" },
-    { id: "juz", name: "جزء سبق", label: "Juz" },
-    { id: "amokhta", name: "أموخته سبق", label: "Old Lesson" }
+    { id:"sabaq", name:"سبق", label:"New Lesson" },
+    { id:"juz", name:"جزء سبق", label:"Juz" },
+    { id:"amokhta", name:"أموخته سبق", label:"Old Lesson" }
   ],
-  report: {
-    title: "HIFZ PROGRESS REPORT",
-    dateFormat: "DD-MM-YYYY",
-    teacherSignature: true
-  },
-  audio: {
-    reciter: "Alafasy_128kbps",
-    autoPlay: true
-  }
+  report: { title:"HIFZ PROGRESS REPORT", dateFormat:"DD-MM-YYYY", teacherSignature:true },
+  audio: { reciter:"Alafasy_128kbps", enabled:false }
 };
 
-/* ═══════════════════════════════════════════════════════════
-   STATE
-   ═══════════════════════════════════════════════════════════ */
+/* STATE */
 const State = {
   settings: structuredClone(DEFAULT_SETTINGS),
-  students: [],
-  assignments: [],
-  pageStates: [],
-  lessons: [],
-  marks: [],
-  currentStudentId: null,
-  currentMushaf: "madani",
-  currentPage: 1,
-  currentTool: "none",
-  currentLessonId: null,
-  lastBoundary: null,     // { surah, ayah, page, mushaf }
-  currentAyah: null,      // "2:5"
-  quranReady: false,
-  syncRunning: false,
-  fontLoadCount: 0,
-  defaultCategoryId: null
+  students: [], assignments: [], lessons: [], marks: [],
+  currentStudentId: null, currentMushaf: "madani", currentPage: 1,
+  currentTool: "underline", currentLessonId: null,
+  lastBoundary: null, currentAyah: null,
+  quranReady: false, syncRunning: false,
+  defaultCategoryId: null,
+  undoStack: []
 };
 
-/* ═══════════════════════════════════════════════════════════
-   UTILITIES
-   ═══════════════════════════════════════════════════════════ */
+/* UTILITIES */
 const U = {
-  id: p => p + "_" + Date.now() + "_" + Math.random().toString(36).slice(2, 9),
-  today: () => new Date().toISOString().slice(0, 10),
+  id: p => p + "_" + Date.now() + "_" + Math.random().toString(36).slice(2,9),
+  today: () => new Date().toISOString().slice(0,10),
   ar: n => String(n).replace(/\d/g, d => "٠١٢٣٤٥٦٧٨٩"[d]),
-  esc: v => String(v ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"),
+  esc: v => String(v ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"),
   sleep: () => new Promise(r => setTimeout(r, 0)),
-  isJalalah(text) {
-    if (!text) return false;
-    let t = text.replace(/[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED\u0640\u06E5\u06E6]/g, "").trim();
-    t = t.replace(/[ٱإأآء]/g, "ا");
-    t = t.replace(/^(و|ف|ب|ت|ك|ل|لل)?(الله|لله|اللهم)$/, "$2");
-    return t === "الله" || t === "لله" || t === "اللهم";
+  isJalalah(t) {
+    if (!t) return false;
+    let x = t.replace(/[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED\u0640\u06E5\u06E6]/g,"").trim();
+    x = x.replace(/[ٱإأآء]/g,"ا");
+    x = x.replace(/^(و|ف|ب|ت|ك|ل|لل)?(الله|لله|اللهم)$/,"$2");
+    return x === "الله" || x === "لله" || x === "اللهم";
   },
   date(v) {
     if (!v) return "";
     if (State.settings.report.dateFormat === "YYYY-MM-DD") return v;
     const p = v.split("-");
-    return p.length === 3 ? p[2] + "-" + p[1] + "-" + p[0] : v;
+    return p.length === 3 ? p[2]+"-"+p[1]+"-"+p[0] : v;
   },
   toast(msg) {
     const t = document.getElementById("toast");
@@ -1687,182 +938,86 @@ const U = {
   }
 };
 
-/* ═══════════════════════════════════════════════════════════
-   DB
-   ═══════════════════════════════════════════════════════════ */
+/* ═══ DB ═══ */
 const DB = {
-  db: null,
-  name: "AlHalaqah_Pro_v1",
+  db: null, name: "AlHalaqah_Pro_v2",
   init() {
     return new Promise((res, rej) => {
       const r = indexedDB.open(this.name, 1);
       r.onupgradeneeded = e => {
         const d = e.target.result;
         if (!d.objectStoreNames.contains("page_lines")) {
-          const s = d.createObjectStore("page_lines", { keyPath: ["mushaf", "page", "line"] });
-          s.createIndex("mp", ["mushaf", "page"]);
+          const s = d.createObjectStore("page_lines", { keyPath:["mushaf","page","line"] });
+          s.createIndex("mp",["mushaf","page"]);
         }
-        if (!d.objectStoreNames.contains("words")) d.createObjectStore("words", { keyPath: "id" });
-        if (!d.objectStoreNames.contains("fonts")) d.createObjectStore("fonts", { keyPath: "name" });
-        if (!d.objectStoreNames.contains("students")) d.createObjectStore("students", { keyPath: "id" });
-        if (!d.objectStoreNames.contains("assignments")) {
-          const s = d.createObjectStore("assignments", { keyPath: "id" });
-          s.createIndex("student", "studentId");
-        }
-        if (!d.objectStoreNames.contains("page_states")) {
-          d.createObjectStore("page_states", { keyPath: "id" });
-        }
-        if (!d.objectStoreNames.contains("lessons")) {
-          const s = d.createObjectStore("lessons", { keyPath: "id" });
-          s.createIndex("student", "studentId");
-        }
-        if (!d.objectStoreNames.contains("marks")) {
-          const s = d.createObjectStore("marks", { keyPath: "id" });
-          s.createIndex("smw", ["studentId", "mushafId", "wordNumberAll"]);
-          s.createIndex("smp", ["studentId", "mushafId", "page"]);
-        }
-        if (!d.objectStoreNames.contains("settings")) d.createObjectStore("settings", { keyPath: "id" });
-        if (!d.objectStoreNames.contains("meta")) d.createObjectStore("meta", { keyPath: "key" });
+        if (!d.objectStoreNames.contains("words")) d.createObjectStore("words", { keyPath:"id" });
+        if (!d.objectStoreNames.contains("fonts")) d.createObjectStore("fonts", { keyPath:"name" });
+        if (!d.objectStoreNames.contains("students")) d.createObjectStore("students", { keyPath:"id" });
+        if (!d.objectStoreNames.contains("assignments")) d.createObjectStore("assignments", { keyPath:"id" });
+        if (!d.objectStoreNames.contains("page_states")) d.createObjectStore("page_states", { keyPath:"id" });
+        if (!d.objectStoreNames.contains("lessons")) d.createObjectStore("lessons", { keyPath:"id" });
+        if (!d.objectStoreNames.contains("marks")) d.createObjectStore("marks", { keyPath:"id" });
+        if (!d.objectStoreNames.contains("settings")) d.createObjectStore("settings", { keyPath:"id" });
+        if (!d.objectStoreNames.contains("meta")) d.createObjectStore("meta", { keyPath:"key" });
       };
       r.onsuccess = () => { this.db = r.result; res(); };
       r.onerror = () => rej(r.error);
     });
   },
-  get(s, k) {
-    return new Promise(res => {
-      try {
-        const tx = this.db.transaction(s, "readonly");
-        const r = tx.objectStore(s).get(k);
-        r.onsuccess = () => res(r.result || null);
-        r.onerror = () => res(null);
-      } catch (e) { res(null); }
-    });
-  },
-  put(s, v) {
-    return new Promise((res, rej) => {
-      try {
-        const tx = this.db.transaction(s, "readwrite");
-        tx.objectStore(s).put(v);
-        tx.oncomplete = res;
-        tx.onerror = () => rej(tx.error);
-      } catch (e) { rej(e); }
-    });
-  },
-  putMany(s, arr) {
-    if (!arr?.length) return Promise.resolve();
-    return new Promise((res, rej) => {
-      try {
-        const tx = this.db.transaction(s, "readwrite");
-        const st = tx.objectStore(s);
-        for (const v of arr) st.put(v);
-        tx.oncomplete = res;
-        tx.onerror = () => rej(tx.error);
-      } catch (e) { rej(e); }
-    });
-  },
-  del(s, k) {
-    return new Promise(res => {
-      try {
-        const tx = this.db.transaction(s, "readwrite");
-        tx.objectStore(s).delete(k);
-        tx.oncomplete = res;
-        tx.onerror = res;
-      } catch (e) { res(); }
-    });
-  },
-  all(s) {
-    return new Promise(res => {
-      try {
-        const tx = this.db.transaction(s, "readonly");
-        const r = tx.objectStore(s).getAll();
-        r.onsuccess = () => res(r.result || []);
-        r.onerror = () => res([]);
-      } catch (e) { res([]); }
-    });
-  },
-  clear(s) {
-    return new Promise(res => {
-      try {
-        const tx = this.db.transaction(s, "readwrite");
-        tx.objectStore(s).clear();
-        tx.oncomplete = res;
-        tx.onerror = res;
-      } catch (e) { res(); }
-    });
-  },
-  async wordsRange(first, last) {
-    if (!first || !last || first > last) return [];
-    return new Promise((res, rej) => {
-      const tx = this.db.transaction("words", "readonly");
+  get(s,k) { return new Promise(res => { try { const tx = this.db.transaction(s,"readonly"); const r = tx.objectStore(s).get(k); r.onsuccess = () => res(r.result || null); r.onerror = () => res(null); } catch(e){ res(null);} }); },
+  put(s,v) { return new Promise((res,rej) => { try { const tx = this.db.transaction(s,"readwrite"); tx.objectStore(s).put(v); tx.oncomplete = res; tx.onerror = () => rej(tx.error); } catch(e){ rej(e);} }); },
+  putMany(s,arr) { if (!arr?.length) return Promise.resolve(); return new Promise((res,rej) => { try { const tx = this.db.transaction(s,"readwrite"); const st = tx.objectStore(s); for (const v of arr) st.put(v); tx.oncomplete = res; tx.onerror = () => rej(tx.error); } catch(e){ rej(e);} }); },
+  del(s,k) { return new Promise(res => { try { const tx = this.db.transaction(s,"readwrite"); tx.objectStore(s).delete(k); tx.oncomplete = res; tx.onerror = res; } catch(e){ res();} }); },
+  all(s) { return new Promise(res => { try { const tx = this.db.transaction(s,"readonly"); const r = tx.objectStore(s).getAll(); r.onsuccess = () => res(r.result || []); r.onerror = () => res([]); } catch(e){ res([]);} }); },
+  clear(s) { return new Promise(res => { try { const tx = this.db.transaction(s,"readwrite"); tx.objectStore(s).clear(); tx.oncomplete = res; tx.onerror = res; } catch(e){ res();} }); },
+  wordsRange(first,last) {
+    if (!first || !last || first > last) return Promise.resolve([]);
+    return new Promise((res,rej) => {
+      const tx = this.db.transaction("words","readonly");
       const st = tx.objectStore("words");
-      const range = IDBKeyRange.bound(first, last);
+      const range = IDBKeyRange.bound(first,last);
       const out = [];
       const r = st.openCursor(range);
-      r.onsuccess = e => {
-        const c = e.target.result;
-        if (!c) { out.sort((a, b) => a.id - b.id); res(out); return; }
-        out.push(c.value); c.continue();
-      };
+      r.onsuccess = e => { const c = e.target.result; if (!c) { out.sort((a,b)=>a.id-b.id); res(out); return; } out.push(c.value); c.continue(); };
       r.onerror = () => rej(r.error);
     });
   },
-  async layoutLines(mushaf, page) {
+  layoutLines(mushaf,page) {
     return new Promise(res => {
-      const tx = this.db.transaction("page_lines", "readonly");
-      const r = tx.objectStore("page_lines").index("mp").getAll(IDBKeyRange.only([mushaf, page]));
-      r.onsuccess = () => {
-        const a = r.result || [];
-        a.sort((x, y) => x.line - y.line);
-        res(a);
-      };
+      const tx = this.db.transaction("page_lines","readonly");
+      const r = tx.objectStore("page_lines").index("mp").getAll(IDBKeyRange.only([mushaf,page]));
+      r.onsuccess = () => { const a = r.result || []; a.sort((x,y)=>x.line-y.line); res(a); };
       r.onerror = () => res([]);
     });
   }
 };
 
-/* ═══════════════════════════════════════════════════════════
-   CSV PARSER
-   ═══════════════════════════════════════════════════════════ */
-function clean(v) {
-  let t = String(v ?? "").trim();
-  if (t.length >= 2 && ((t[0] === "'" && t.endsWith("'")) || (t[0] === '"' && t.endsWith('"')))) {
-    t = t.slice(1, -1);
-  }
-  return t;
-}
+/* CSV */
+function clean(v) { let t = String(v ?? "").trim(); if (t.length >= 2 && ((t[0]==="'" && t.endsWith("'")) || (t[0]==='"' && t.endsWith('"')))) t = t.slice(1,-1); return t; }
 function parseCSV(text) {
-  const rows = []; let cur = [], val = "", inQ = false;
+  const rows=[]; let cur=[], val="", inQ=false;
   for (let i = 0; i < text.length; i++) {
     const c = text[i];
-    if (c === '"') {
-      if (inQ && text[i + 1] === '"') { val += '"'; i++; } else inQ = !inQ;
-      continue;
-    }
-    if (c === "," && !inQ) { cur.push(val); val = ""; continue; }
+    if (c === '"') { if (inQ && text[i+1] === '"') { val += '"'; i++; } else inQ = !inQ; continue; }
+    if (c === "," && !inQ) { cur.push(val); val=""; continue; }
     if ((c === "\n" || c === "\r") && !inQ) {
-      if (c === "\r" && text[i + 1] === "\n") i++;
-      cur.push(val); val = "";
-      if (cur.some(x => x !== "")) rows.push(cur);
-      cur = []; continue;
+      if (c === "\r" && text[i+1] === "\n") i++;
+      cur.push(val); val="";
+      if (cur.some(x=>x!=="")) rows.push(cur);
+      cur=[]; continue;
     }
     val += c;
   }
-  if (val !== "" || cur.length) { cur.push(val); if (cur.some(x => x !== "")) rows.push(cur); }
+  if (val !== "" || cur.length) { cur.push(val); if (cur.some(x=>x!=="")) rows.push(cur); }
   if (!rows.length) return [];
   const h = rows[0].map(clean);
-  return rows.slice(1).map(r => {
-    const o = {};
-    h.forEach((k, i) => o[k] = clean(r[i] ?? ""));
-    return o;
-  });
+  return rows.slice(1).map(r => { const o={}; h.forEach((k,i)=>o[k]=clean(r[i]??"")); return o; });
 }
 
-/* ═══════════════════════════════════════════════════════════
-   INGESTION (Fast batch)
-   ═══════════════════════════════════════════════════════════ */
+/* ═══ INGESTION ═══ */
 const Ingest = {
   async run() {
-    const meta = await DB.get("meta", "csv_ready");
+    const meta = await DB.get("meta","csv_ready");
     if (meta?.val) {
       document.getElementById("splash").style.display = "none";
       State.quranReady = true;
@@ -1878,13 +1033,10 @@ const Ingest = {
       status.textContent = "Ingesting Indo-Pak layout…"; bar.style.width = "35%";
       await this.layout("indopak", CONFIG.indopak.file);
       status.textContent = "Ingesting word registry…"; bar.style.width = "55%";
-      await this.words(p => {
-        bar.style.width = (55 + p * 0.4) + "%";
-        status.textContent = "Writing words: " + Math.round(p) + "%";
-      });
+      await this.words(p => { bar.style.width = (55 + p*0.4) + "%"; status.textContent = "Writing words: " + Math.round(p) + "%"; });
       status.textContent = "Preparing fonts…";
       await this.font("indopak", "https://static.qurancdn.com/fonts/quran/indopak/woff2/indopak.woff2");
-      await DB.put("meta", { key: "csv_ready", val: true });
+      await DB.put("meta", { key:"csv_ready", val:true });
       bar.style.width = "100%";
       status.textContent = "Ready — offline mode";
       State.quranReady = true;
@@ -1894,65 +1046,52 @@ const Ingest = {
     } catch (e) {
       console.error(e);
       status.textContent = "Error: " + e.message;
-      document.getElementById("splashActions").innerHTML =
-        '<button class="btn btn-gold" onclick="location.reload()">Retry</button>';
+      document.getElementById("splashActions").innerHTML = '<button class="btn btn-gold" onclick="location.reload()">Retry</button>';
     }
   },
-
   async layout(mushaf, url) {
-    const res = await fetch(url);
-    const text = await res.text();
+    const r = await fetch(url);
+    const text = await r.text();
     const lines = text.split(/\r?\n/);
     const recs = [];
     for (const l of lines) {
       const s = l.trim();
       if (!s || s.startsWith("page,") || s.startsWith("!") || s.includes("drive.google")) continue;
-      const p = s.split(",").map(x => x.trim().replace(/^['"]|['"]$/g, ""));
+      const p = s.split(",").map(x=>x.trim().replace(/^['"]|['"]$/g,""));
       if (p.length < 5) continue;
       const pg = Number(p[0]), ln = Number(p[1]);
       if (!pg || !ln) continue;
-      recs.push({
-        mushaf, page: pg, line: ln,
-        type: p[2], is_centered: p[3] === "1",
-        start: p[4] ? Number(p[4]) : null,
-        end: p[5] ? Number(p[5]) : null
-      });
+      recs.push({ mushaf, page:pg, line:ln, type:p[2], is_centered:p[3]==="1", start:p[4]?Number(p[4]):null, end:p[5]?Number(p[5]):null });
     }
     await DB.putMany("page_lines", recs);
   },
-
   async words(onProgress) {
-    const res = await fetch("./word.csv");
-    const text = await res.text();
+    const r = await fetch("./word.csv");
+    const text = await r.text();
     const lines = text.split(/\r?\n/);
     const total = lines.length;
     let batch = [], done = 0;
     for (const l of lines) {
       const s = l.trim();
       if (!s || !/^\d+,/.test(s)) continue;
-      const p = s.split(",").map(x => x.trim().replace(/^['"]|['"]$/g, ""));
+      const p = s.split(",").map(x=>x.trim().replace(/^['"]|['"]$/g,""));
       if (p.length < 8) continue;
       const id = Number(p[3]);
       if (!id) continue;
       batch.push({
-        id,
-        surah: Number(p[0]), ayah: Number(p[1]),
-        uthmani: p[4] || "",
-        indopak: p[6] || p[5] || p[4] || "",
-        dk_indopak: p[7] || p[6] || p[4] || "",
-        qpc_v1: p[8] || p[4] || ""
+        id, surah:Number(p[0]), ayah:Number(p[1]),
+        uthmani:p[4]||"", indopak:p[6]||p[5]||p[4]||"",
+        dk_indopak:p[7]||p[6]||p[4]||"", qpc_v1:p[8]||p[4]||""
       });
       if (batch.length >= 4000) {
         await DB.putMany("words", batch);
-        done += batch.length;
-        batch = [];
-        onProgress?.(done / total * 100);
+        done += batch.length; batch = [];
+        onProgress?.(done/total*100);
         await U.sleep();
       }
     }
     if (batch.length) await DB.putMany("words", batch);
   },
-
   async font(name, url) {
     const ex = await DB.get("fonts", name);
     if (ex?.data) return;
@@ -1960,28 +1099,26 @@ const Ingest = {
       const r = await fetch(url);
       if (r.ok) {
         const buf = await r.arrayBuffer();
-        await DB.put("fonts", { name, data: buf });
+        await DB.put("fonts", { name, data:buf });
       }
-    } catch (e) { console.warn("Font fail", name); }
+    } catch (e) {}
   },
-
   async updateFontUI() {
     const all = await DB.all("fonts");
     const n = all.filter(f => f.name.startsWith("p")).length;
-    const pct = Math.round(n / 604 * 100);
+    const pct = Math.round(n/604*100);
     const b = document.getElementById("fontBar");
     const c = document.getElementById("fontCount");
     if (b) b.style.width = pct + "%";
     if (c) c.textContent = n + " / 604 (" + pct + "%)";
   },
-
   async autoResumeFonts() {
     if (!navigator.onLine) return;
     const all = await DB.all("fonts");
     const have = new Set(all.filter(f => f.name.startsWith("p")).map(f => f.name));
     if (have.size >= 604) return;
     const queue = [];
-    for (let p = 1; p <= 604; p++) if (!have.has("p" + p)) queue.push(p);
+    for (let p = 1; p <= 604; p++) if (!have.has("p"+p)) queue.push(p);
     let done = 604 - queue.length;
     const workers = 6;
     let idx = 0;
@@ -1993,21 +1130,19 @@ const Ingest = {
           const r = await fetch(url);
           if (r.ok) {
             const buf = await r.arrayBuffer();
-            await DB.put("fonts", { name: "p" + p, data: buf });
+            await DB.put("fonts", { name:"p"+p, data:buf });
             done++;
             if (done % 20 === 0) this.updateFontUI();
           }
         } catch (e) {}
       }
     };
-    await Promise.all(Array.from({ length: workers }, worker));
+    await Promise.all(Array.from({ length:workers }, worker));
     this.updateFontUI();
   }
 };
 
-/* ═══════════════════════════════════════════════════════════
-   FONT MANAGER
-   ═══════════════════════════════════════════════════════════ */
+/* ═══ FONTS ═══ */
 const Fonts = {
   loaded: new Set(),
   async page(pageNum, isIndo) {
@@ -2016,13 +1151,7 @@ const Fonts = {
     if (this.loaded.has(name)) return name;
     const rec = await DB.get("fonts", "p" + pageNum);
     if (rec?.data) {
-      try {
-        const f = new FontFace(name, rec.data);
-        await f.load();
-        document.fonts.add(f);
-        this.loaded.add(name);
-        return name;
-      } catch (e) {}
+      try { const f = new FontFace(name, rec.data); await f.load(); document.fonts.add(f); this.loaded.add(name); return name; } catch (e) {}
     }
     if (navigator.onLine) {
       try {
@@ -2030,11 +1159,8 @@ const Fonts = {
         const r = await fetch(url);
         if (r.ok) {
           const buf = await r.arrayBuffer();
-          await DB.put("fonts", { name: "p" + pageNum, data: buf });
-          const f = new FontFace(name, buf);
-          await f.load();
-          document.fonts.add(f);
-          this.loaded.add(name);
+          await DB.put("fonts", { name:"p"+pageNum, data:buf });
+          const f = new FontFace(name, buf); await f.load(); document.fonts.add(f); this.loaded.add(name);
           return name;
         }
       } catch (e) {}
@@ -2043,26 +1169,22 @@ const Fonts = {
   }
 };
 
-/* ═══════════════════════════════════════════════════════════
-   SETTINGS
-   ═══════════════════════════════════════════════════════════ */
+/* ═══ SETTINGS ═══ */
 const Settings = {
   async load() {
-    const s = await DB.get("settings", "app");
+    const s = await DB.get("settings","app");
     if (s?.value) State.settings = this.merge(structuredClone(DEFAULT_SETTINGS), s.value);
     this.render();
   },
   merge(base, custom) {
     const out = structuredClone(base);
     for (const k of Object.keys(custom || {})) {
-      if (custom[k] && typeof custom[k] === "object" && !Array.isArray(custom[k])) {
-        out[k] = this.merge(out[k] || {}, custom[k]);
-      } else out[k] = custom[k];
+      if (custom[k] && typeof custom[k] === "object" && !Array.isArray(custom[k])) out[k] = this.merge(out[k] || {}, custom[k]);
+      else out[k] = custom[k];
     }
     return out;
   },
-  async save() { await DB.put("settings", { id: "app", value: State.settings }); },
-
+  async save() { await DB.put("settings", { id:"app", value:State.settings }); },
   open(tab = "students") {
     document.getElementById("sheetScrim").classList.add("open");
     this.tab(tab);
@@ -2075,13 +1197,9 @@ const Settings = {
   tab(name) {
     document.querySelectorAll(".sheet-tab").forEach(t => t.classList.toggle("active", t.dataset.tab === name));
     document.querySelectorAll(".tab-pane").forEach(p => p.classList.toggle("active", p.dataset.pane === name));
-    const titles = {
-      students: "Students", institution: "Institution", categories: "Lesson Categories",
-      report: "Report Settings", audio: "Audio Settings", data: "Data & Sync"
-    };
+    const titles = { students:"Students", institution:"Institution", categories:"Lesson Categories", report:"Report Settings", audio:"Audio Settings", data:"Data & Sync" };
     document.getElementById("sheetTitle").textContent = titles[name] || "Settings";
   },
-
   render() {
     const s = State.settings;
     const $ = id => document.getElementById(id);
@@ -2097,36 +1215,23 @@ const Settings = {
     if ($("lessonStartMode")) $("lessonStartMode").value = s.lesson.start || "optional";
     if ($("lessonEndMode")) $("lessonEndMode").value = s.lesson.end || "required";
     if ($("audioReciter")) $("audioReciter").value = s.audio.reciter || "Alafasy_128kbps";
-    if ($("audioAutoPlay")) $("audioAutoPlay").value = s.audio.autoPlay ? "yes" : "no";
     this.renderCategories();
   },
-
   renderCategories() {
     const box = document.getElementById("categoryList");
     if (!box) return;
     box.innerHTML = State.settings.categories.map(c =>
-      '<div class="cat-item">' +
-      '<div><span class="name">' + U.esc(c.name) + '</span><span class="label">' + U.esc(c.label) + '</span></div>' +
-      '<button class="btn btn-danger" style="padding:5px 10px;font-size:11px;" onclick="Settings.removeCategory(\'' + c.id + '\')">Remove</button>' +
-      '</div>'
+      '<div class="cat-item"><div><span class="name">' + U.esc(c.name) + '</span><span class="label">' + U.esc(c.label) + '</span></div>' +
+      '<button class="btn btn-danger" style="padding:5px 10px;font-size:11px;" onclick="Settings.removeCategory(\'' + c.id + '\')">Remove</button></div>'
     ).join("");
   },
-
   async saveInstitution() {
     const $ = id => document.getElementById(id);
-    State.settings.institution = {
-      name: $("instName").value.trim(),
-      runBy: $("instRunBy").value.trim(),
-      address: $("instAddress").value.trim(),
-      phone: $("instPhone").value.trim(),
-      teacher: $("instTeacher").value.trim(),
-      department: $("instDepartment").value.trim()
-    };
+    State.settings.institution = { name:$("instName").value.trim(), runBy:$("instRunBy").value.trim(), address:$("instAddress").value.trim(), phone:$("instPhone").value.trim(), teacher:$("instTeacher").value.trim(), department:$("instDepartment").value.trim() };
     await this.save();
     document.getElementById("brandName").textContent = State.settings.institution.name || "Al-Halaqah";
     U.toast("Institution saved");
   },
-
   async saveReport() {
     const $ = id => document.getElementById(id);
     State.settings.report.title = $("repTitle").value.trim();
@@ -2135,44 +1240,130 @@ const Settings = {
     await this.save();
     U.toast("Report settings saved");
   },
-
   async saveLessonSettings() {
     State.settings.lesson.start = document.getElementById("lessonStartMode").value;
     State.settings.lesson.end = document.getElementById("lessonEndMode").value;
     await this.save();
     U.toast("Lesson settings saved");
   },
-
   async saveAudio() {
     State.settings.audio.reciter = document.getElementById("audioReciter").value;
-    State.settings.audio.autoPlay = document.getElementById("audioAutoPlay").value === "yes";
     await this.save();
     U.toast("Audio settings saved");
   },
-
   async addCategory() {
     const ar = document.getElementById("newCatArabic").value.trim();
     const lb = document.getElementById("newCatLabel").value.trim();
     if (!ar) { U.toast("Arabic name required"); return; }
-    State.settings.categories.push({ id: U.id("cat"), name: ar, label: lb || ar });
+    State.settings.categories.push({ id:U.id("cat"), name:ar, label:lb || ar });
     await this.save();
     document.getElementById("newCatArabic").value = "";
     document.getElementById("newCatLabel").value = "";
     this.renderCategories();
+    Menus.buildLessonMenu();
     U.toast("Category added");
   },
-
   async removeCategory(id) {
     if (State.settings.categories.length <= 1) { U.toast("At least one required"); return; }
     State.settings.categories = State.settings.categories.filter(c => c.id !== id);
     await this.save();
     this.renderCategories();
+    Menus.buildLessonMenu();
   }
 };
 
-/* ═══════════════════════════════════════════════════════════
-   STUDENTS
-   ═══════════════════════════════════════════════════════════ */
+/* ═══ MENUS ═══ */
+const Menus = {
+  closeAll() {
+    document.querySelectorAll(".menu").forEach(m => m.classList.remove("open"));
+  },
+  positionAt(menu, anchor, align = "left") {
+    const r = anchor.getBoundingClientRect();
+    menu.style.left = "auto"; menu.style.right = "auto";
+    let x = align === "right" ? (r.right - 240) : r.left;
+    if (x + 240 > window.innerWidth) x = window.innerWidth - 250;
+    if (x < 8) x = 8;
+    let y = r.bottom + 6;
+    if (y + 320 > window.innerHeight) y = Math.max(8, r.top - 320);
+    menu.style.left = x + "px";
+    menu.style.top = y + "px";
+  },
+  toggleStudent(e) {
+    e.stopPropagation();
+    const m = document.getElementById("studentMenu");
+    const wasOpen = m.classList.contains("open");
+    this.closeAll();
+    if (wasOpen) return;
+    this.buildStudentMenu();
+    m.classList.add("open");
+    this.positionAt(m, e.currentTarget, "right");
+  },
+  toggleLesson(e) {
+    e.stopPropagation();
+    const m = document.getElementById("lessonMenu");
+    const wasOpen = m.classList.contains("open");
+    this.closeAll();
+    if (wasOpen) return;
+    this.buildLessonMenu();
+    m.classList.add("open");
+    this.positionAt(m, e.currentTarget, "right");
+  },
+  toggleMore(e) {
+    e.stopPropagation();
+    const m = document.getElementById("moreMenu");
+    const wasOpen = m.classList.contains("open");
+    this.closeAll();
+    if (wasOpen) return;
+    m.classList.add("open");
+    this.positionAt(m, e.currentTarget, "right");
+  },
+  toggleAyah(e, el, verseKey) {
+    AyahAction.open(e, el, verseKey);
+  },
+  buildStudentMenu() {
+    const list = document.getElementById("studentMenuList");
+    list.innerHTML = State.students.map(s => {
+      const active = s.id === State.currentStudentId;
+      return '<button class="menu-item ' + (active ? "active" : "") + '" onclick="Menus.closeAll(); Students.select(\'' + s.id + '\')">' +
+        '<span class="ico">' + (active ? "✓" : "👤") + '</span>' +
+        '<span>' + U.esc(s.name) + '</span>' +
+        '<span class="meta">' + U.esc(s.roll || "") + '</span>' +
+        '</button>';
+    }).join("");
+  },
+  buildLessonMenu() {
+    const list = document.getElementById("lessonMenuList");
+    const cur = Students.current();
+    const activeId = cur?.defaultCategoryId || State.defaultCategoryId || State.settings.categories[0]?.id;
+    list.innerHTML = State.settings.categories.map(c => {
+      const active = c.id === activeId;
+      return '<button class="menu-item ' + (active ? "active" : "") + '" onclick="Menus.closeAll(); Students.setDefaultCategory(\'' + c.id + '\')">' +
+        '<span class="ico">' + (active ? "✓" : "○") + '</span>' +
+        '<span class="ar" style="font-family:Amiri,serif;font-size:15px;">' + U.esc(c.name) + '</span>' +
+        '<span class="meta">' + U.esc(c.label) + '</span>' +
+        '</button>';
+    }).join("");
+  },
+  updateLessonPill() {
+    const cur = Students.current();
+    const activeId = cur?.defaultCategoryId || State.defaultCategoryId || State.settings.categories[0]?.id;
+    const cat = State.settings.categories.find(c => c.id === activeId);
+    const el = document.getElementById("lessonPillAr");
+    if (el) el.textContent = cat ? cat.name : "—";
+  },
+  updateStudentPill() {
+    const s = Students.current();
+    const el = document.getElementById("studentPillText");
+    if (el) el.textContent = s ? s.name : "Student";
+  }
+};
+document.addEventListener("click", e => {
+  if (!e.target.closest(".menu") && !e.target.closest(".pill-btn") && !e.target.closest(".dock-btn")) {
+    Menus.closeAll();
+  }
+});
+
+/* ═══ STUDENTS ═══ */
 const Students = {
   async load() {
     State.students = await DB.all("students");
@@ -2180,25 +1371,13 @@ const Students = {
     const saved = localStorage.getItem("alh_student");
     if (saved && State.students.some(s => s.id === saved)) State.currentStudentId = saved;
     else if (State.students.length) State.currentStudentId = State.students[0].id;
-    this.renderSelect();
     this.renderList();
     this.updateBadge();
+    Menus.updateStudentPill();
+    Menus.updateLessonPill();
   },
-
   current() { return State.students.find(s => s.id === State.currentStudentId); },
-
-  assignedMushafs(id) {
-    return State.assignments.filter(a => a.studentId === id).map(a => a.mushafId);
-  },
-
-  renderSelect() {
-    const sel = document.getElementById("studentSelect");
-    if (!sel) return;
-    sel.innerHTML = '<option value="">Student</option>' +
-      State.students.map(s => '<option value="' + s.id + '">' + U.esc(s.name) + "</option>").join("");
-    sel.value = State.currentStudentId || "";
-  },
-
+  assignedMushafs(id) { return State.assignments.filter(a => a.studentId === id).map(a => a.mushafId); },
   renderList() {
     const box = document.getElementById("studentList");
     if (!box) return;
@@ -2209,27 +1388,24 @@ const Students = {
     box.innerHTML = State.students.map(s => {
       const active = s.id === State.currentStudentId;
       return '<div class="student-card ' + (active ? "active" : "") + '" onclick="Students.select(\'' + s.id + '\')">' +
-        '<div class="student-avatar">' + U.esc((s.name || "?")[0].toUpperCase()) + '</div>' +
+        '<div class="student-avatar">' + U.esc((s.name||"?")[0].toUpperCase()) + '</div>' +
         '<div class="student-info"><b>' + U.esc(s.name) + '</b>' +
-        '<small>Roll ' + U.esc(s.roll || "-") + ' · ' + U.esc(CONFIG[s.mushafId]?.shortName || "-") + '</small></div>' +
+        '<small>Roll ' + U.esc(s.roll||"-") + ' · ' + U.esc(CONFIG[s.mushafId]?.shortName || "-") + '</small></div>' +
         '<div class="student-actions">' +
         '<button class="btn btn-ghost" style="padding:5px 8px;font-size:11px;" onclick="event.stopPropagation();Students.edit(\'' + s.id + '\')">✎</button>' +
         '<button class="btn btn-danger" style="padding:5px 8px;font-size:11px;" onclick="event.stopPropagation();Students.remove(\'' + s.id + '\')">🗑</button>' +
         '</div></div>';
     }).join("");
   },
-
   updateBadge() {
     const c = this.current();
     const d = document.getElementById("drawerStudent");
     if (d) {
       d.innerHTML = c
-        ? '<b style="color:var(--gold-400);">' + U.esc(c.name) + '</b><br>Roll: ' + U.esc(c.roll || "-") +
-          '<br>Mushaf: ' + U.esc(CONFIG[c.mushafId]?.shortName || "-")
+        ? '<b style="color:var(--gold-400);">' + U.esc(c.name) + '</b><br>Roll: ' + U.esc(c.roll||"-") + '<br>Mushaf: ' + U.esc(CONFIG[c.mushafId]?.shortName || "-")
         : "No student selected";
     }
   },
-
   openAdd() {
     document.getElementById("studentModalTitle").textContent = "Add Student";
     delete document.getElementById("studentModal").dataset.editId;
@@ -2241,7 +1417,6 @@ const Students = {
     document.getElementById("stuNotes").value = "";
     document.getElementById("studentModal").classList.add("open");
   },
-
   edit(id) {
     const s = State.students.find(x => x.id === id);
     if (!s) return;
@@ -2257,7 +1432,6 @@ const Students = {
     document.getElementById("stuNotes").value = s.notes || "";
     document.getElementById("studentModal").classList.add("open");
   },
-
   async save() {
     const m = document.getElementById("studentModal");
     const editId = m.dataset.editId || null;
@@ -2266,7 +1440,6 @@ const Students = {
     const primary = document.getElementById("stuMushaf").value;
     const second = document.getElementById("stuMushaf2").value;
     const old = editId ? State.students.find(s => s.id === editId) : null;
-
     const stu = {
       id: editId || U.id("stu"),
       roll: document.getElementById("stuRoll").value.trim(),
@@ -2278,54 +1451,42 @@ const Students = {
       createdAt: old?.createdAt || new Date().toISOString()
     };
     await DB.put("students", stu);
-
     const oldA = State.assignments.filter(a => a.studentId === stu.id);
     for (const a of oldA) await DB.del("assignments", a.id);
-
-    const arr = [{ id: stu.id + "_" + primary, studentId: stu.id, mushafId: primary, primary: true }];
-    if (second && second !== primary) {
-      arr.push({ id: stu.id + "_" + second, studentId: stu.id, mushafId: second, primary: false });
-    }
+    const arr = [{ id:stu.id + "_" + primary, studentId:stu.id, mushafId:primary, primary:true }];
+    if (second && second !== primary) arr.push({ id:stu.id + "_" + second, studentId:stu.id, mushafId:second, primary:false });
     await DB.putMany("assignments", arr);
-
     await this.load();
     UI.closeModal("studentModal");
     if (!editId) await this.select(stu.id);
     U.toast("Student saved");
   },
-
   async select(id) {
     const s = State.students.find(x => x.id === id);
     if (!s) return;
     State.currentStudentId = id;
     localStorage.setItem("alh_student", id);
     State.currentMushaf = s.mushafId || "madani";
-    // Restore page state (student + mushaf isolated)
     const ps = await DB.get("page_states", id + "_" + State.currentMushaf);
     State.currentPage = ps?.page || 1;
-    // Restore default category
     State.defaultCategoryId = s.defaultCategoryId || State.settings.categories[0]?.id || null;
     await Marks.load();
-    this.renderSelect();
     this.renderList();
     this.updateBadge();
+    Menus.updateStudentPill();
+    Menus.updateLessonPill();
     Reader.sync();
     await Reader.render();
     Settings.closeSheet();
     U.toast(s.name + " selected");
   },
-
   async remove(id) {
     const s = State.students.find(x => x.id === id);
     if (!s) return;
     if (!confirm("Delete " + s.name + " and all their data?")) return;
-    for (const store of ["students", "assignments", "page_states", "lessons", "marks"]) {
+    for (const store of ["students","assignments","page_states","lessons","marks"]) {
       const recs = await DB.all(store);
-      for (const r of recs) {
-        if (r.studentId === id || (store === "students" && r.id === id)) {
-          await DB.del(store, r.id);
-        }
-      }
+      for (const r of recs) if (r.studentId === id || (store === "students" && r.id === id)) await DB.del(store, r.id);
     }
     if (State.currentStudentId === id) {
       State.currentStudentId = null;
@@ -2336,75 +1497,87 @@ const Students = {
     await Reader.render();
     U.toast("Student deleted");
   },
-
   async setDefaultCategory(catId) {
     const s = this.current();
     if (!s) return;
     s.defaultCategoryId = catId;
     await DB.put("students", s);
     State.defaultCategoryId = catId;
-    U.toast("Default lesson category saved");
+    Menus.updateLessonPill();
+    U.toast("Lesson category set");
   }
 };
 
-/* ═══════════════════════════════════════════════════════════
-   MARKS (lesson-independent)
-   ═══════════════════════════════════════════════════════════ */
+/* ═══ MARKS ═══ */
 const Marks = {
   async load() { State.marks = await DB.all("marks"); },
-
   setTool(t) {
     State.currentTool = t;
-    ["toolNone", "toolUnderline", "toolGhalat", "toolTajweed"].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.classList.remove("active");
-    });
-    const map = { none: "toolNone", underline: "toolUnderline", ghalat: "toolGhalat", tajweed: "toolTajweed" };
+    ["toolUnderline","toolGhalat","toolTajweed"].forEach(id => document.getElementById(id)?.classList.remove("active"));
+    const map = { underline:"toolUnderline", ghalat:"toolGhalat", tajweed:"toolTajweed" };
     if (map[t]) document.getElementById(map[t])?.classList.add("active");
   },
-
-  // Mark is stored with (studentId, mushafId, page, wordNumberAll) → same across all lessons
-  async toggle(wordId, verseKey) {
+  // Mark stored by (studentId, mushafId, wordNumberAll) → visible in all lessons
+  async toggle(wordId, verseKey, page) {
     if (!State.currentStudentId) { U.toast("Select a student first"); return; }
-    if (State.currentTool === "none") return;
+    if (State.currentTool === "eraser") {
+      const ex = State.marks.filter(m => m.studentId === State.currentStudentId && m.mushafId === State.currentMushaf && m.wordNumberAll === wordId);
+      for (const m of ex) await DB.del("marks", m.id);
+      await this.load(); await Reader.render();
+      return;
+    }
     const existing = State.marks.find(m =>
       m.studentId === State.currentStudentId &&
       m.mushafId === State.currentMushaf &&
       m.wordNumberAll === wordId
     );
     if (existing) {
+      // Undo stack
+      State.undoStack.push({ kind:"mark-replace", id:existing.id, prev: { ...existing } });
       if (existing.type === State.currentTool) {
         await DB.del("marks", existing.id);
+        State.undoStack[State.undoStack.length-1].kind = "mark-remove";
       } else {
         existing.type = State.currentTool;
         existing.updatedAt = new Date().toISOString();
         await DB.put("marks", existing);
       }
     } else {
-      await DB.put("marks", {
+      const rec = {
         id: U.id("mark"),
         studentId: State.currentStudentId,
         mushafId: State.currentMushaf,
-        page: State.currentPage,
+        page: page || State.currentPage,
         wordNumberAll: wordId,
         verseKey,
-        type: State.currentTool,       // underline | ghalat | tajweed
+        type: State.currentTool,
         lessonId: State.currentLessonId || null,
         createdAt: new Date().toISOString()
-      });
+      };
+      await DB.put("marks", rec);
+      State.undoStack.push({ kind:"mark-add", id:rec.id });
     }
     await this.load();
     await Reader.render();
   },
-
+  async undo() {
+    const last = State.undoStack.pop();
+    if (!last) { U.toast("Nothing to undo"); return; }
+    try {
+      if (last.kind === "mark-add") {
+        await DB.del("marks", last.id);
+      } else if (last.kind === "mark-remove" || last.kind === "mark-replace") {
+        await DB.put("marks", last.prev);
+      }
+      await this.load();
+      await Reader.render();
+      U.toast("Undone");
+    } catch (e) { U.toast("Undo failed"); }
+  },
   async clearPage() {
     if (!State.currentStudentId) return;
     if (!confirm("Clear all marks on this page?")) return;
-    const list = State.marks.filter(m =>
-      m.studentId === State.currentStudentId &&
-      m.mushafId === State.currentMushaf &&
-      m.page === State.currentPage
-    );
+    const list = State.marks.filter(m => m.studentId === State.currentStudentId && m.mushafId === State.currentMushaf && m.page === State.currentPage);
     for (const m of list) await DB.del("marks", m.id);
     await this.load();
     await Reader.render();
@@ -2412,33 +1585,25 @@ const Marks = {
   }
 };
 
-/* ═══════════════════════════════════════════════════════════
-   LESSONS
-   ═══════════════════════════════════════════════════════════ */
+/* ═══ LESSON ═══ */
 const Lesson = {
   async load() { State.lessons = await DB.all("lessons"); },
-
   fillCategories(sel) {
     if (!sel) return;
     sel.innerHTML = State.settings.categories.map(c =>
-      '<option value="' + c.id + '">' + U.esc(c.name) + " — " + U.esc(c.label) + "</option>"
+      '<option value="' + c.id + '">' + U.esc(c.name) + ' — ' + U.esc(c.label) + '</option>'
     ).join("");
   },
-
   fillMushafs(sel) {
     if (!sel) return;
     const s = Students.current();
     const assigned = s ? Students.assignedMushafs(s.id) : [];
     sel.innerHTML = assigned.map(m =>
-      '<option value="' + m + '">' + U.esc(CONFIG[m]?.name || m) + "</option>"
+      '<option value="' + m + '">' + U.esc(CONFIG[m]?.name || m) + '</option>'
     ).join("");
   },
-
   startDialog() {
-    if (State.settings.lesson.start === "disabled") {
-      U.toast("Lesson Start is disabled in settings");
-      return;
-    }
+    if (State.settings.lesson.start === "disabled") { U.toast("Lesson Start is disabled"); return; }
     const s = Students.current();
     if (!s) { U.toast("Select a student first"); return; }
     this.fillCategories(document.getElementById("lesStartCategory"));
@@ -2448,7 +1613,6 @@ const Lesson = {
     document.getElementById("lesStartPage").value = State.currentPage;
     document.getElementById("lessonStartModal").classList.add("open");
   },
-
   async saveStart() {
     const s = Students.current();
     if (!s) return;
@@ -2473,16 +1637,15 @@ const Lesson = {
     await DB.put("lessons", lesson);
     State.currentLessonId = lesson.id;
     await this.load();
-    // Save as default category for this student (so next students inherit)
     if (s.defaultCategoryId !== catId) {
       s.defaultCategoryId = catId;
       await DB.put("students", s);
       State.defaultCategoryId = catId;
+      Menus.updateLessonPill();
     }
     UI.closeModal("lessonStartModal");
     U.toast("Lesson started");
   },
-
   endDialog() {
     const s = Students.current();
     if (!s) { U.toast("Select a student first"); return; }
@@ -2491,7 +1654,6 @@ const Lesson = {
     document.getElementById("lesCategory").value = State.defaultCategoryId || State.settings.categories[0].id;
     document.getElementById("lesMushaf").value = State.currentMushaf;
 
-    // Auto-fill from last boundary (if ayah marker clicked "End here")
     const b = State.lastBoundary;
     document.getElementById("lesFromSurah").value = b?.surah || "";
     document.getElementById("lesFromAyah").value = b?.ayah || "";
@@ -2502,13 +1664,11 @@ const Lesson = {
 
     document.getElementById("lessonModal").classList.add("open");
   },
-
   async saveEnd() {
     const s = Students.current();
     if (!s) return;
     const catId = document.getElementById("lesCategory").value;
     const cat = State.settings.categories.find(c => c.id === catId);
-
     const lesson = {
       id: State.currentLessonId || U.id("lesson"),
       studentId: s.id,
@@ -2531,11 +1691,11 @@ const Lesson = {
     State.currentLessonId = null;
     State.lastBoundary = null;
     await this.load();
-    // Save category as default for future
     if (s.defaultCategoryId !== catId) {
       s.defaultCategoryId = catId;
       await DB.put("students", s);
       State.defaultCategoryId = catId;
+      Menus.updateLessonPill();
     }
     UI.closeModal("lessonModal");
     U.toast("Lesson saved");
@@ -2547,9 +1707,7 @@ const Lessons = {
     await Lesson.load();
     const s = Students.current();
     document.getElementById("historyTitle").textContent = s ? s.name + " — Lesson History" : "Lesson History";
-    const rows = State.lessons
-      .filter(l => l.studentId === State.currentStudentId)
-      .sort((a, b) => (b.lessonDate || "").localeCompare(a.lessonDate || ""));
+    const rows = State.lessons.filter(l => l.studentId === State.currentStudentId).sort((a,b) => (b.lessonDate||"").localeCompare(a.lessonDate||""));
     document.getElementById("historyBody").innerHTML = rows.length
       ? '<table style="width:100%;border-collapse:collapse;font-size:12px;">' +
         '<thead><tr style="background:var(--surface-2);">' +
@@ -2570,112 +1728,93 @@ const Lessons = {
   }
 };
 
-/* ═══════════════════════════════════════════════════════════
-   AUDIO
-   ═══════════════════════════════════════════════════════════ */
+/* ═══ AUDIO ═══ */
 const AudioPlayer = {
   el: null,
   play(verseKey) {
-    const [s, a] = String(verseKey).split(":").map(Number);
+    const [s,a] = String(verseKey).split(":").map(Number);
     if (!s || !a) return;
-    const reciter = State.settings.audio.reciter || "Alafasy_128kbps";
-    const url = "https://everyayah.com/data/" + reciter + "/" +
-      String(s).padStart(3, "0") + String(a).padStart(3, "0") + ".mp3";
+    const rec = State.settings.audio.reciter || "Alafasy_128kbps";
+    const url = "https://everyayah.com/data/" + rec + "/" + String(s).padStart(3,"0") + String(a).padStart(3,"0") + ".mp3";
     try {
       if (this.el) this.el.pause();
       this.el = new Audio(url);
       this.el.play().catch(() => U.toast("Audio unavailable"));
     } catch (e) { U.toast("Audio unavailable"); }
+  },
+  toggle() {
+    State.settings.audio.enabled = !State.settings.audio.enabled;
+    Settings.save();
+    const btn = document.getElementById("audioBtn");
+    if (btn) {
+      btn.textContent = State.settings.audio.enabled ? "🔊" : "🔇";
+      btn.classList.toggle("audio-on", State.settings.audio.enabled);
+    }
+    U.toast("Audio " + (State.settings.audio.enabled ? "ON" : "OFF"));
+  },
+  syncUI() {
+    const btn = document.getElementById("audioBtn");
+    if (btn) {
+      btn.textContent = State.settings.audio.enabled ? "🔊" : "🔇";
+      btn.classList.toggle("audio-on", State.settings.audio.enabled);
+    }
   }
 };
 
-/* ═══════════════════════════════════════════════════════════
-   AYAH ACTION (popup menu)
-   ═══════════════════════════════════════════════════════════ */
+/* ═══ AYAH ACTION ═══ */
 const AyahAction = {
-  current: null,   // { verseKey, surah, ayah, page, el }
-
-  open(event, el, verseKey) {
-    event.stopPropagation();
-    const [s, a] = verseKey.split(":").map(Number);
-    this.current = {
-      verseKey, surah: s, ayah: a,
-      page: State.currentPage, el
-    };
+  current: null,
+  open(e, el, verseKey) {
+    e.stopPropagation();
+    const [s,a] = verseKey.split(":").map(Number);
+    this.current = { verseKey, surah:s, ayah:a, page:State.currentPage, el };
     State.currentAyah = verseKey;
 
-    document.getElementById("popupStartMeta").textContent = SURAH_NAMES[s] + " · " + a;
-    document.getElementById("popupEndMeta").textContent = SURAH_NAMES[s] + " · " + a;
+    const el1 = document.getElementById("ayahStartMeta");
+    const el2 = document.getElementById("ayahEndMeta");
+    if (el1) el1.textContent = SURAH_NAMES[s] + " · " + a;
+    if (el2) el2.textContent = SURAH_NAMES[s] + " · " + a;
 
-    const menu = document.getElementById("popupMenu");
-    menu.classList.add("open");
-    const rect = el.getBoundingClientRect();
-    let x = rect.left, y = rect.bottom + 6;
-    if (x + 240 > window.innerWidth) x = window.innerWidth - 250;
-    if (y + 260 > window.innerHeight) y = rect.top - 260;
-    menu.style.left = x + "px";
-    menu.style.top = y + "px";
+    const m = document.getElementById("ayahMenu");
+    Menus.closeAll();
+    m.classList.add("open");
+    Menus.positionAt(m, el, "left");
   },
-
-  close() { document.getElementById("popupMenu").classList.remove("open"); },
-
+  close() { document.getElementById("ayahMenu").classList.remove("open"); },
   play() {
     if (this.current) AudioPlayer.play(this.current.verseKey);
     this.close();
   },
-
   startFrom() {
     if (!this.current) return;
     const c = this.current;
-    State.lastBoundary = { surah: SURAH_NAMES[c.surah], ayah: c.ayah, page: c.page };
-    // highlight ayah marker
+    State.lastBoundary = { surah:SURAH_NAMES[c.surah], ayah:c.ayah, page:c.page };
     document.querySelectorAll(".ayah-mark").forEach(el => el.classList.remove("lesson-start"));
     c.el.classList.add("lesson-start");
-    U.toast("Lesson start: " + SURAH_NAMES[c.surah] + " · " + c.ayah);
+    U.toast("Start: " + SURAH_NAMES[c.surah] + " · " + c.ayah);
     this.close();
   },
-
   endAt() {
     if (!this.current) return;
     const c = this.current;
-    State.lastBoundary = { surah: SURAH_NAMES[c.surah], ayah: c.ayah, page: c.page };
+    State.lastBoundary = { surah:SURAH_NAMES[c.surah], ayah:c.ayah, page:c.page };
     document.querySelectorAll(".ayah-mark").forEach(el => el.classList.remove("lesson-end"));
     c.el.classList.add("lesson-end");
-    U.toast("Lesson end: " + SURAH_NAMES[c.surah] + " · " + c.ayah);
+    U.toast("End: " + SURAH_NAMES[c.surah] + " · " + c.ayah);
     this.close();
-    // Open end dialog with prefilled data
-    Lesson.endDialog();
-  },
-
-  markBoundary() {
-    if (!this.current) return;
-    const c = this.current;
-    c.el.classList.toggle("lesson-boundary");
-    U.toast("Boundary toggled");
-    this.close();
+    setTimeout(() => Lesson.endDialog(), 250);
   }
 };
 
-document.addEventListener("click", e => {
-  const menu = document.getElementById("popupMenu");
-  if (menu?.classList.contains("open") && !menu.contains(e.target)) {
-    menu.classList.remove("open");
-  }
-});
-
-/* ═══════════════════════════════════════════════════════════
-   READER
-   ═══════════════════════════════════════════════════════════ */
+/* ═══ READER ═══ */
 const Reader = {
   isSpread() { return window.innerWidth > 1000 && window.innerWidth > window.innerHeight; },
-
   async changeMushaf(id) {
     const s = Students.current();
     if (s) {
       const assigned = Students.assignedMushafs(s.id);
       if (!assigned.includes(id)) {
         U.toast("Not assigned to this student");
-        document.getElementById("mushafSelect").value = State.currentMushaf;
         return;
       }
     }
@@ -2686,7 +1825,6 @@ const Reader = {
     this.sync();
     await this.render();
   },
-
   async go(v) {
     let p = Number(v);
     if (!Number.isFinite(p)) p = 1;
@@ -2697,16 +1835,13 @@ const Reader = {
     this.sync();
     await this.render();
   },
-
   prev() { if (State.currentPage > 1) this.go(State.currentPage - 1); },
   next() { if (State.currentPage < CONFIG[State.currentMushaf].pages) this.go(State.currentPage + 1); },
-
   jump() {
     const max = CONFIG[State.currentMushaf].pages;
     const v = prompt("Page (1 - " + max + ")", State.currentPage);
     if (v !== null) this.go(v);
   },
-
   async saveState() {
     if (!State.currentStudentId) return;
     await DB.put("page_states", {
@@ -2717,13 +1852,10 @@ const Reader = {
       updatedAt: new Date().toISOString()
     });
   },
-
   sync() {
-    document.getElementById("pageIndicator").textContent = State.currentPage + " / " + CONFIG[State.currentMushaf].pages;
-    const sel = document.getElementById("mushafSelect");
-    if (sel) sel.value = State.currentMushaf;
+    const el = document.getElementById("pageIndicator");
+    if (el) el.textContent = State.currentPage + " / " + CONFIG[State.currentMushaf].pages;
   },
-
   async renderWords(words, fontName, isIndo, isQcf) {
     let html = "";
     for (const w of words) {
@@ -2732,11 +1864,8 @@ const Reader = {
         ? (w.dk_indopak || w.indopak || w.uthmani || "")
         : (isQcf ? (w.qpc_v1 || w.uthmani) : w.uthmani);
       if (!text) continue;
-
       const isJ = U.isJalalah(w.uthmani || w.indopak || "");
       const verseKey = w.surah + ":" + w.ayah;
-
-      // Marks check — lesson-independent
       const mark = State.marks.find(m =>
         m.studentId === State.currentStudentId &&
         m.mushafId === State.currentMushaf &&
@@ -2747,26 +1876,20 @@ const Reader = {
       if (mark?.type === "ghalat") cls += " mark-ghalat";
       if (mark?.type === "tajweed") cls += " mark-tajweed";
       if (mark?.type === "underline") cls += " mark-underline";
-
-      let style = isQcf ? "font-family:'" + fontName + "','Amiri',serif;" : "";
-
+      const style = isQcf ? "font-family:'" + fontName + "','Amiri',serif;" : "";
       html += '<span class="' + cls + '" style="' + style + '" ' +
-        'data-word="' + w.id + '" data-verse="' + verseKey + '" ' +
-        'onclick="Reader.wordClick(event, this)">' +
-        U.esc(text) + '</span>';
+        'data-word="' + w.id + '" data-verse="' + verseKey + '" data-surah="' + w.surah + '" data-ayah="' + w.ayah + '" ' +
+        'onclick="Reader.wordClick(event, this)">' + U.esc(text) + '</span>';
     }
     return html;
   },
-
   async renderSheet(pageNum, side) {
     const box = document.getElementById("lines" + side);
     if (!box) return;
     box.innerHTML = "";
-
     const isIndo = State.currentMushaf === "indopak";
     const fontName = await Fonts.page(pageNum, isIndo);
     const isQcf = !isIndo && fontName.startsWith("QCF_P");
-
     const lines = await DB.layoutLines(State.currentMushaf, pageNum);
     const map = new Map(lines.map(l => [l.line, l]));
     let detectedSurah = null;
@@ -2781,11 +1904,14 @@ const Reader = {
         const sn = l.start || 1;
         detectedSurah = sn;
         row.classList.add("centered");
+        const ayahCount = surahAyahCount(sn);
         row.innerHTML =
           '<div class="surah-head">' +
-          '<span class="side">ترتيبها ' + U.ar(sn) + '</span>' +
+          '<span class="meta">ترتيبها ' + U.ar(sn) + '</span>' +
+          '<span class="sep">·</span>' +
           '<span class="title">سُورَةُ ' + (SURAH_NAMES[sn] || "") + '</span>' +
-          '<span class="side">١٥ سطر</span>' +
+          '<span class="sep">·</span>' +
+          '<span class="meta">' + U.ar(ayahCount) + ' آية</span>' +
           '</div>';
       } else if (l.type === "basmallah") {
         row.classList.add("centered");
@@ -2803,23 +1929,19 @@ const Reader = {
       }
       box.appendChild(row);
     }
-
-    // Header / footer
     const pre = side.toLowerCase();
-    const sLabel = document.getElementById(pre + "Surah");
-    if (sLabel) sLabel.textContent = detectedSurah ? "سورة " + (SURAH_NAMES[detectedSurah] || "") : "سورة --";
+    const sLbl = document.getElementById(pre + "SurahLbl");
+    if (sLbl) sLbl.textContent = detectedSurah ? "سورة " + (SURAH_NAMES[detectedSurah] || "") : "سورة --";
     const pEl = document.getElementById(pre + "PageNum");
     if (pEl) pEl.textContent = U.ar(pageNum);
     const tEl = document.getElementById(pre + "Tag");
     if (tEl) tEl.textContent = CONFIG[State.currentMushaf].shortName;
   },
-
   async render() {
     const spread = this.isSpread();
     const stage = document.getElementById("stage");
     stage.classList.toggle("qudratullah-mode", State.currentMushaf === "indopak");
     stage.classList.toggle("madani-mode", State.currentMushaf === "madani");
-
     let r = State.currentPage, l = null;
     if (spread) {
       r = State.currentPage % 2 === 1 ? State.currentPage : State.currentPage - 1;
@@ -2829,37 +1951,43 @@ const Reader = {
     } else {
       document.getElementById("sheetLeft").style.display = "none";
     }
-
     document.getElementById("pageIndicator").textContent = spread && l
       ? r + " – " + l + " / " + CONFIG[State.currentMushaf].pages
       : r + " / " + CONFIG[State.currentMushaf].pages;
-
     await Promise.all([
       this.renderSheet(r, "Right"),
       (spread && l <= CONFIG[State.currentMushaf].pages) ? this.renderSheet(l, "Left") : Promise.resolve()
     ]);
   },
-
-  async wordClick(event, el) {
-    event.stopPropagation();
+  async wordClick(e, el) {
+    e.stopPropagation();
     const wordId = Number(el.dataset.word);
     const verse = el.dataset.verse;
     State.currentAyah = verse;
 
-    if (State.currentTool === "none") {
-      // Play ayah audio
-      if (State.settings.audio.autoPlay) AudioPlayer.play(verse);
-      // Also open popup for lesson boundary actions
-      AyahAction.open(event, el, verse);
+    // If audio enabled AND tool is underline/ghalat/tajweed, we still mark; else mark
+    if (State.currentTool === "underline" || State.currentTool === "ghalat" || State.currentTool === "tajweed") {
+      await Marks.toggle(wordId, verse, State.currentPage);
       return;
     }
-    await Marks.toggle(wordId, verse);
+    if (State.currentTool === "eraser") {
+      await Marks.toggle(wordId, verse, State.currentPage);
+      return;
+    }
+    // Tool none → popup
+    if (State.settings.audio.enabled) AudioPlayer.play(verse);
+    AyahAction.open(e, el, verse);
+  },
+  // Ayah marker tap (called from ayah-mark span)
+  async ayahMarkerClick(e, el, verseKey) {
+    e.stopPropagation();
+    State.currentAyah = verseKey;
+    if (State.settings.audio.enabled) AudioPlayer.play(verseKey);
+    AyahAction.open(e, el, verseKey);
   }
 };
 
-/* ═══════════════════════════════════════════════════════════
-   REPORT
-   ═══════════════════════════════════════════════════════════ */
+/* ═══ REPORT ═══ */
 const Report = {
   open() {
     this.populateStudents();
@@ -2867,54 +1995,45 @@ const Report = {
     this.render();
   },
   close() { document.getElementById("reportScreen").classList.remove("open"); },
-
   populateStudents() {
     const sel = document.getElementById("repStudent");
     sel.innerHTML = '<option value="all">All Students</option>' +
-      State.students.map(s => '<option value="' + s.id + '">' + U.esc(s.name) + "</option>").join("");
+      State.students.map(s => '<option value="' + s.id + '">' + U.esc(s.name) + '</option>').join("");
     if (State.currentStudentId) sel.value = State.currentStudentId;
   },
-
   range() {
     const t = document.getElementById("repRange").value;
-    if (t === "all") return { from: null, to: null };
-    if (t === "custom") return {
-      from: document.getElementById("repFrom").value,
-      to: document.getElementById("repTo").value
-    };
+    if (t === "all") return { from:null, to:null };
+    if (t === "custom") return { from: document.getElementById("repFrom").value, to: document.getElementById("repTo").value };
     const now = new Date();
     if (t === "month") {
       return {
-        from: new Date(now.getFullYear(), now.getMonth(), 1).toISOString().slice(0, 10),
-        to: new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString().slice(0, 10)
+        from: new Date(now.getFullYear(), now.getMonth(), 1).toISOString().slice(0,10),
+        to: new Date(now.getFullYear(), now.getMonth()+1, 0).toISOString().slice(0,10)
       };
     }
     const d = new Date(now);
     const day = d.getDay();
     d.setDate(d.getDate() + (day === 0 ? -6 : 1 - day));
-    const from = d.toISOString().slice(0, 10);
+    const from = d.toISOString().slice(0,10);
     d.setDate(d.getDate() + 6);
-    return { from, to: d.toISOString().slice(0, 10) };
+    return { from, to: d.toISOString().slice(0,10) };
   },
-
   async render() {
     const t = document.getElementById("repRange").value;
     document.getElementById("repFrom").classList.toggle("hidden", t !== "custom");
     document.getElementById("repTo").classList.toggle("hidden", t !== "custom");
-
     const selId = document.getElementById("repStudent").value;
     const rng = this.range();
     let lessons = State.lessons.slice();
     if (selId !== "all") lessons = lessons.filter(l => l.studentId === selId);
     if (rng.from) lessons = lessons.filter(l => l.lessonDate >= rng.from);
     if (rng.to) lessons = lessons.filter(l => l.lessonDate <= rng.to);
-    lessons.sort((a, b) => (a.lessonDate || "").localeCompare(b.lessonDate || ""));
+    lessons.sort((a,b) => (a.lessonDate||"").localeCompare(b.lessonDate||""));
 
     const student = State.students.find(s => s.id === selId);
     const grouped = {};
-    lessons.forEach(l => {
-      (grouped[l.lessonDate] = grouped[l.lessonDate] || []).push(l);
-    });
+    lessons.forEach(l => { (grouped[l.lessonDate] = grouped[l.lessonDate] || []).push(l); });
     const dates = Object.keys(grouped).sort();
     const cats = State.settings.categories;
 
@@ -2951,7 +2070,6 @@ const Report = {
       (inst.department ? '<div class="r-dept">' + U.esc(inst.department) + '</div>' : "") +
       '<div class="r-title">' + U.esc(State.settings.report.title) + '</div>' +
       '</div>' +
-
       '<div class="r-info">' +
       '<div><b>Roll No:</b> ' + (student ? U.esc(student.roll || "-") : "All") + '</div>' +
       '<div><b>Name:</b> ' + (student ? U.esc(student.name) : "All Students") + '</div>' +
@@ -2960,33 +2078,27 @@ const Report = {
       '<div><b>Period:</b> ' + period + '</div>' +
       '<div><b>Generated:</b> ' + U.date(U.today()) + '</div>' +
       '</div>' +
-
       '<table><thead><tr><th>Date</th>' + headerCells + '</tr></thead>' +
-      '<tbody>' + (body || '<tr><td colspan="' + (cats.length + 1) + '" style="padding:30px;color:#888;">No lesson records found for this period.</td></tr>') + '</tbody></table>' +
-
+      '<tbody>' + (body || '<tr><td colspan="' + (cats.length + 1) + '" style="padding:30px;color:#888;">No lesson records found.</td></tr>') + '</tbody></table>' +
       '<div class="summary">' +
       '<div class="sum-box"><b>' + lessons.length + '</b><span>Lessons</span></div>' +
       '<div class="sum-box"><b>' + pages + '</b><span>Pages</span></div>' +
       '<div class="sum-box"><b>' + ghalat + '</b><span>Ghalat</span></div>' +
       '<div class="sum-box"><b>' + tajweed + '</b><span>Tajweed</span></div>' +
       '</div>' +
-
       (State.settings.report.teacherSignature ?
         '<div class="signs">' +
         '<div class="sign">Teacher' + (inst.teacher ? '<br>' + U.esc(inst.teacher) : "") + '</div>' +
         '<div class="sign">' + U.esc(inst.department || "Hifz Department") + '</div>' +
         '</div>' : "");
   },
-
   print() {
     this.render();
     setTimeout(() => window.print(), 200);
   }
 };
 
-/* ═══════════════════════════════════════════════════════════
-   SYNC / BACKUP
-   ═══════════════════════════════════════════════════════════ */
+/* ═══ SYNC / BACKUP ═══ */
 const Sync = {
   async download() {
     if (State.syncRunning) { U.toast("Already running"); return; }
@@ -2998,14 +2110,9 @@ const Sync = {
       await DB.del("meta", "csv_ready");
       await Ingest.run();
       await Reader.render();
-    } catch (e) {
-      console.error(e);
-      U.toast("Download failed");
-    } finally {
-      State.syncRunning = false;
-    }
+    } catch (e) { console.error(e); U.toast("Download failed"); }
+    finally { State.syncRunning = false; }
   },
-
   async clearQuran() {
     if (!confirm("Clear Quran data from IndexedDB?")) return;
     await DB.clear("page_lines");
@@ -3014,7 +2121,6 @@ const Sync = {
     State.quranReady = false;
     U.toast("Quran cache cleared");
   },
-
   async downloadFonts() {
     const btn = document.getElementById("btnFonts");
     if (btn) { btn.disabled = true; btn.textContent = "Downloading…"; }
@@ -3022,10 +2128,9 @@ const Sync = {
     if (btn) { btn.disabled = false; btn.textContent = "⬇ Download All Fonts (Resumable)"; }
     U.toast("Font download complete");
   },
-
   async backup() {
     const data = {
-      app: "Al-Halaqah", version: 1, exportedAt: new Date().toISOString(),
+      app:"Al-Halaqah", version:2, exportedAt: new Date().toISOString(),
       settings: State.settings,
       students: await DB.all("students"),
       assignments: await DB.all("assignments"),
@@ -3033,14 +2138,13 @@ const Sync = {
       lessons: await DB.all("lessons"),
       marks: await DB.all("marks")
     };
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type:"application/json" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url; a.download = "al-halaqah-backup-" + U.today() + ".json";
     a.click(); URL.revokeObjectURL(url);
     U.toast("Backup exported");
   },
-
   restore() {
     const inp = document.createElement("input");
     inp.type = "file"; inp.accept = ".json";
@@ -3053,25 +2157,20 @@ const Sync = {
           State.settings = Settings.merge(structuredClone(DEFAULT_SETTINGS), data.settings);
           await Settings.save();
         }
-        for (const st of ["students", "assignments", "page_states", "lessons", "marks"]) {
+        for (const st of ["students","assignments","page_states","lessons","marks"]) {
           if (!Array.isArray(data[st])) continue;
           await DB.clear(st);
           await DB.putMany(st, data[st]);
         }
         await App.reload();
         U.toast("Backup restored");
-      } catch (e) {
-        console.error(e);
-        alert("Restore failed: " + e.message);
-      }
+      } catch (e) { console.error(e); alert("Restore failed: " + e.message); }
     };
     inp.click();
   }
 };
 
-/* ═══════════════════════════════════════════════════════════
-   UI
-   ═══════════════════════════════════════════════════════════ */
+/* ═══ UI ═══ */
 const UI = {
   openDrawer() {
     document.getElementById("drawer").classList.add("open");
@@ -3081,14 +2180,10 @@ const UI = {
     document.getElementById("drawer").classList.remove("open");
     document.getElementById("drawerScrim").classList.remove("open");
   },
-  closeModal(id) {
-    document.getElementById(id).classList.remove("open");
-  }
+  closeModal(id) { document.getElementById(id).classList.remove("open"); }
 };
 
-/* ═══════════════════════════════════════════════════════════
-   APP
-   ═══════════════════════════════════════════════════════════ */
+/* ═══ APP ═══ */
 const App = {
   async init() {
     await DB.init();
@@ -3100,12 +2195,12 @@ const App = {
 
     if (!State.students.length) {
       const s = {
-        id: "stu_default", roll: "", name: "Hafidh Student", className: "", notes: "",
-        mushafId: "madani", defaultCategoryId: State.settings.categories[0]?.id || null,
-        createdAt: new Date().toISOString()
+        id:"stu_default", roll:"", name:"Hafidh Student", className:"", notes:"",
+        mushafId:"madani", defaultCategoryId:State.settings.categories[0]?.id || null,
+        createdAt:new Date().toISOString()
       };
       await DB.put("students", s);
-      await DB.put("assignments", { id: s.id + "_madani", studentId: s.id, mushafId: "madani", primary: true });
+      await DB.put("assignments", { id:s.id + "_madani", studentId:s.id, mushafId:"madani", primary:true });
       await Students.load();
     }
 
@@ -3121,21 +2216,22 @@ const App = {
     document.getElementById("brandName").textContent = State.settings.institution.name || "Al-Halaqah";
     Reader.sync();
     Students.updateBadge();
+    Menus.updateStudentPill();
+    Menus.updateLessonPill();
+    AudioPlayer.syncUI();
+    Marks.setTool("underline");
+
     if (State.quranReady) await Reader.render();
 
-    window.addEventListener("resize", () => {
-      if (State.quranReady) Reader.render();
-    });
-
+    window.addEventListener("resize", () => { if (State.quranReady) Reader.render(); });
     document.addEventListener("keydown", e => {
       const tag = e.target.tagName;
       if (tag === "INPUT" || tag === "SELECT" || tag === "TEXTAREA") return;
       if (e.key === "ArrowLeft") Reader.prev();
       if (e.key === "ArrowRight") Reader.next();
-      if (e.key === "Escape") AyahAction.close();
+      if (e.key === "Escape") { Menus.closeAll(); }
     });
   },
-
   async reload() {
     await Settings.load();
     await Students.load();
@@ -3149,25 +2245,22 @@ const App = {
     }
     document.getElementById("brandName").textContent = State.settings.institution.name || "Al-Halaqah";
     Reader.sync();
+    Menus.updateStudentPill();
+    Menus.updateLessonPill();
+    AudioPlayer.syncUI();
     if (State.quranReady) await Reader.render();
   }
 };
 
-/* ═══════════════════════════════════════════════════════════
-   BOOT
-   ═══════════════════════════════════════════════════════════ */
 window.addEventListener("DOMContentLoaded", async () => {
-  try {
-    await App.init();
-  } catch (e) {
+  try { await App.init(); }
+  catch (e) {
     console.error(e);
     document.getElementById("splash").style.display = "flex";
     document.getElementById("splashStatus").textContent = "Init failed: " + e.message;
-    document.getElementById("splashActions").innerHTML =
-      '<button class="btn btn-gold" onclick="location.reload()">Retry</button>';
+    document.getElementById("splashActions").innerHTML = '<button class="btn btn-gold" onclick="location.reload()">Retry</button>';
   }
 });
 </script>
-
 </body>
 </html>
