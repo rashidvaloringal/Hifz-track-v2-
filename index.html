@@ -22,358 +22,363 @@
   --text-1:#e8e4dc; --text-2:#a8a89e; --text-3:#6b7570;
   --jalalah-red:#c81e1e; --ghalat-red:#d42222; --tajweed-yellow:#f4c430; --underline-blue:#2563eb;
   --success:#16a34a; --danger:#dc2626;
-  --shadow-md:0 4px 16px rgba(0,0,0,0.4); --shadow-lg:0 12px 40px rgba(0,0,0,0.6);
+  --shadow-md:0 4px 16px rgba(0,0,0,0.4);
+  --shadow-lg:0 12px 40px rgba(0,0,0,0.6);
   --radius-sm:6px; --radius-md:10px; --radius-lg:14px; --radius-xl:20px;
 }
-* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-html, body { height: 100%; background: var(--app-bg); color: var(--text-1); font-family:'Inter','Noto Sans Malayalam',system-ui,sans-serif; overflow: hidden; font-size: 14px; line-height: 1.5; }
-button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
-input, select, textarea { font: inherit; outline: none; }
-.hidden { display: none !important; }
+* { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+html, body { height:100%; background:var(--app-bg); color:var(--text-1); font-family:'Inter','Noto Sans Malayalam',system-ui,sans-serif; overflow:hidden; font-size:14px; line-height:1.5; }
+button { font:inherit; cursor:pointer; border:none; background:none; color:inherit; }
+input, select, textarea { font:inherit; outline:none; }
+.hidden { display:none !important; }
 
-/* ═══ TOP BAR ═══ */
+/* TOP BAR */
 .topbar {
-  height: 52px; background: var(--surface-1); border-bottom: 1px solid var(--border-1);
-  display: flex; align-items: center; padding: 0 8px; gap: 6px;
-  position: relative; z-index: 50; direction: ltr;
+  height:52px; background:var(--surface-1); border-bottom:1px solid var(--border-1);
+  display:flex; align-items:center; padding:0 8px; gap:6px;
+  position:relative; z-index:50; direction:ltr;
 }
-.tb-left { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-.tb-center { display: flex; align-items: center; gap: 4px; flex: 1; justify-content: center; min-width: 0; }
-.tb-right { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
-
+.tb-left { display:flex; align-items:center; gap:6px; flex-shrink:0; }
+.tb-center { display:flex; align-items:center; gap:4px; flex:1; justify-content:center; min-width:0; }
+.tb-right { display:flex; align-items:center; gap:5px; flex-shrink:0; }
 .brand-mark {
-  width: 34px; height: 34px; border-radius: 9px;
-  background: linear-gradient(135deg, var(--emerald-600), var(--emerald-800));
-  display: flex; align-items: center; justify-content: center;
-  color: var(--gold-400); font-size: 18px;
-  border: 1px solid var(--gold-500); flex-shrink: 0;
+  width:32px; height:32px; border-radius:8px;
+  background:linear-gradient(135deg,var(--emerald-600),var(--emerald-800));
+  display:flex; align-items:center; justify-content:center;
+  color:var(--gold-400); font-size:16px;
+  border:1px solid var(--gold-500); flex-shrink:0;
 }
-.brand-text { display: flex; flex-direction: column; line-height: 1.1; }
-.brand-text strong { font-size: 12px; font-weight: 700; color: var(--gold-400); max-width: 130px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.brand-text span { font-size: 8.5px; color: var(--text-3); letter-spacing: 0.08em; text-transform: uppercase; }
-
+.brand-text { display:flex; flex-direction:column; line-height:1.1; }
+.brand-text strong { font-size:12px; font-weight:700; color:var(--gold-400); max-width:120px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.brand-text span { font-size:8px; color:var(--text-3); letter-spacing:0.08em; text-transform:uppercase; }
 .icon-btn {
-  min-width: 34px; height: 34px; padding: 0 7px; border-radius: var(--radius-md);
-  background: var(--surface-2); border: 1px solid var(--border-2);
-  color: var(--text-1); display: flex; align-items: center; justify-content: center;
-  gap: 4px; font-size: 13px; font-weight: 700; transition: all 0.15s; white-space: nowrap;
+  min-width:32px; height:32px; padding:0 8px; border-radius:8px;
+  background:transparent; color:var(--text-1);
+  display:flex; align-items:center; justify-content:center;
+  font-size:14px; font-weight:600; transition:all 0.15s;
 }
-.icon-btn:hover { background: var(--surface-3); border-color: var(--gold-500); }
-.icon-btn.active { background: var(--gold-500); color: var(--emerald-900); border-color: var(--gold-400); }
-.icon-btn.audio-on { background: var(--emerald-600); color: #fff; border-color: var(--emerald-500); }
-
+.icon-btn:hover { background:var(--surface-2); }
 .page-indicator {
-  font-family: 'Amiri', serif; font-size: 14px; font-weight: 700; color: var(--gold-400);
-  padding: 6px 10px; background: var(--surface-2); border: 1px solid var(--border-2);
-  border-radius: var(--radius-md); cursor: pointer; white-space: nowrap;
+  font-family:'Amiri',serif; font-size:13px; font-weight:700; color:var(--gold-400);
+  padding:6px 10px; background:var(--surface-2); border:1px solid var(--border-2);
+  border-radius:8px; cursor:pointer; white-space:nowrap;
 }
-.page-indicator:hover { border-color: var(--gold-500); }
-
+.page-indicator:hover { border-color:var(--gold-500); }
 .pill-btn {
-  display: flex; align-items: center; gap: 4px;
-  padding: 6px 9px; background: var(--surface-2); border: 1px solid var(--border-2);
-  border-radius: var(--radius-md); font-size: 11.5px; font-weight: 600;
-  max-width: 140px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
-  transition: all 0.15s; cursor: pointer;
+  display:flex; align-items:center; gap:4px;
+  padding:6px 9px; background:var(--surface-2); border:1px solid var(--border-2);
+  border-radius:8px; font-size:11px; font-weight:600;
+  max-width:140px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;
+  transition:all 0.15s; cursor:pointer;
 }
-.pill-btn:hover { border-color: var(--gold-500); background: var(--surface-3); }
-.pill-btn .ar { font-family: 'Amiri', serif; font-size: 13px; }
-.pill-btn .caret { font-size: 9px; opacity: 0.6; flex-shrink: 0; }
-.pill-btn .name { overflow: hidden; text-overflow: ellipsis; }
+.pill-btn:hover { border-color:var(--gold-500); background:var(--surface-3); }
+.pill-btn .ar { font-family:'Amiri',serif; font-size:13px; }
+.pill-btn .caret { font-size:8px; opacity:0.6; }
 
-/* ═══ STAGE ═══ */
+/* STAGE */
 .stage {
-  height: calc(100vh - 52px - 62px); height: calc(100dvh - 52px - 62px);
-  overflow: hidden; display: flex; justify-content: center; align-items: center;
-  padding: 6px 4px; background: radial-gradient(circle at 50% 40%, #14201a 0%, #060908 100%);
+  height:calc(100vh - 52px - 58px); height:calc(100dvh - 52px - 58px);
+  overflow:hidden; display:flex; justify-content:center; align-items:center;
+  padding:5px 3px;
+  background:radial-gradient(circle at 50% 40%,#14201a 0%,#060908 100%);
 }
-.book-spread { display: flex; direction: rtl; gap: 12px; align-items: center; justify-content: center; height: 100%; max-width: 100%; }
+.book-spread { display:flex; direction:rtl; gap:10px; align-items:center; justify-content:center; height:100%; max-width:100%; }
 
-/* ═══ MUSHAF SHEET ═══ */
+/* MUSHAF SHEET */
 .mushaf-sheet {
-  height: 100%; aspect-ratio: 1/1.5; max-width: 49vw;
-  background: var(--paper); position: relative; padding: 8px 16px 6px;
-  box-shadow: var(--shadow-lg); border: 2px solid #2d2417;
-  outline: 2px solid var(--gold-500); outline-offset: 3px;
-  border-radius: 3px; display: flex; flex-direction: column; flex-shrink: 0;
+  height:100%; aspect-ratio:1/1.5; max-width:49vw;
+  background:var(--paper); position:relative; padding:6px 14px 5px;
+  box-shadow:var(--shadow-lg); border:2px solid #2d2417;
+  outline:2px solid var(--gold-500); outline-offset:2px;
+  border-radius:3px; display:flex; flex-direction:column; flex-shrink:0;
 }
-.mushaf-sheet::before { content: ''; position: absolute; inset: 4px; border: 1px solid rgba(166,137,76,0.4); pointer-events: none; }
-.corner { position: absolute; width: 20px; height: 20px; pointer-events: none; z-index: 2; opacity: 0.85; }
-.c-tr { top: 6px; right: 6px; }
-.c-tl { top: 6px; left: 6px; transform: scaleX(-1); }
-.c-br { bottom: 6px; right: 6px; transform: scaleY(-1); }
-.c-bl { bottom: 6px; left: 6px; transform: scale(-1,-1); }
-
+.mushaf-sheet::before { content:''; position:absolute; inset:3px; border:1px solid rgba(166,137,76,0.4); pointer-events:none; }
+.corner { position:absolute; width:18px; height:18px; pointer-events:none; z-index:2; opacity:0.85; }
+.c-tr { top:5px; right:5px; } .c-tl { top:5px; left:5px; transform:scaleX(-1); }
+.c-br { bottom:5px; right:5px; transform:scaleY(-1); } .c-bl { bottom:5px; left:5px; transform:scale(-1,-1); }
 .sheet-header {
-  height: 22px; display: flex; justify-content: space-between; align-items: center;
-  font-family: 'Amiri', serif; font-size: 12px; font-weight: 700; color: #594017;
-  border-bottom: 1px solid #dfd4b7; padding-bottom: 2px; direction: rtl; margin-bottom: 2px;
+  height:20px; display:flex; justify-content:space-between; align-items:center;
+  font-family:'Amiri',serif; font-size:11px; font-weight:700; color:#594017;
+  border-bottom:1px solid #dfd4b7; padding-bottom:2px; direction:rtl; margin-bottom:1px;
 }
 .sheet-footer {
-  height: 20px; display: flex; justify-content: space-between; align-items: center;
-  border-top: 1px solid #dfd4b7; padding-top: 2px; direction: rtl; margin-top: 2px;
+  height:18px; display:flex; justify-content:space-between; align-items:center;
+  border-top:1px solid #dfd4b7; padding-top:2px; direction:rtl; margin-top:1px;
 }
-.mushaf-tag { font-size: 8.5px; font-weight: 700; color: #8c734b; letter-spacing: 0.08em; text-transform: uppercase; }
-.page-num-display { font-family: 'Amiri', serif; font-size: 15px; font-weight: 700; color: #3b2c14; }
+.mushaf-tag { font-size:8px; font-weight:700; color:#8c734b; letter-spacing:0.08em; text-transform:uppercase; }
+.page-num-display { font-family:'Amiri',serif; font-size:14px; font-weight:700; color:#3b2c14; }
 
-/* ═══ 15-LINE GRID ═══ */
-.lines-grid { flex: 1; display: flex; flex-direction: column; justify-content: space-between; direction: rtl; width: 100%; margin: 1px 0; position: relative; }
-.qline { height: calc(100%/15); min-height: 5.8%; display: flex; align-items: center; justify-content: space-between; white-space: nowrap; direction: rtl; position: relative; width: 100%; padding: 0 2px; }
-.qline.centered { justify-content: center; gap: 14px; }
-.madani-mode .qline { border-bottom: none; }
-.qudratullah-mode .qline { border-bottom: 1px solid rgba(70,55,35,0.35); }
-.qudratullah-mode .qline:last-child { border-bottom: none; }
+/* 15-LINE GRID */
+.lines-grid { flex:1; display:flex; flex-direction:column; justify-content:space-between; direction:rtl; width:100%; margin:1px 0; position:relative; }
+.qline { height:calc(100%/15); min-height:5.8%; display:flex; align-items:center; justify-content:space-between; white-space:nowrap; direction:rtl; position:relative; width:100%; padding:0 1px; }
+.qline.centered { justify-content:center; gap:10px; }
+.madani-mode .qline { border-bottom:none; }
+.qudratullah-mode .qline { border-bottom:1px solid rgba(70,55,35,0.35); }
+.qudratullah-mode .qline:last-child { border-bottom:none; }
 
 .word {
-  font-size: clamp(17px, 2.4vh, 28px); line-height: 1.1; color: var(--ink);
-  display: inline-block; font-family: 'Amiri', serif; cursor: pointer;
-  padding: 0 1.5px; border-radius: 4px; transition: all 0.12s; position: relative;
+  font-size:clamp(16px, 2.35vh, 27px); line-height:1.1; color:var(--ink);
+  display:inline-block; font-family:'Amiri',serif; cursor:pointer;
+  padding:0 1.5px; border-radius:3px; transition:all 0.12s; position:relative;
 }
-.word:hover { background: rgba(0,107,84,0.08); }
-.word.jalalah { color: var(--jalalah-red) !important; font-weight: 700; }
-.word.mark-underline { box-shadow: inset 0 -3px 0 var(--underline-blue); }
-.word.mark-ghalat { background: rgba(212,34,34,0.14); box-shadow: inset 0 -3px 0 var(--ghalat-red); }
-.word.mark-tajweed { background: rgba(244,196,48,0.35); box-shadow: inset 0 -3px 0 var(--tajweed-yellow); }
+.word:hover { background:rgba(0,107,84,0.08); }
+.word.jalalah { color:var(--jalalah-red) !important; font-weight:700; }
+.word.mark-underline { box-shadow:inset 0 -3px 0 var(--underline-blue); }
+.word.mark-ghalat { background:rgba(212,34,34,0.14); box-shadow:inset 0 -3px 0 var(--ghalat-red); }
+.word.mark-tajweed { background:rgba(244,196,48,0.35); box-shadow:inset 0 -3px 0 var(--tajweed-yellow); }
+
 .qudratullah-mode .word {
-  font-family: 'DigitalKhatt IndoPak','Noto Nastaliq Urdu','Amiri',serif !important;
-  font-size: clamp(15px, 2.15vh, 25px); line-height: 1.9;
+  font-family:'DigitalKhatt IndoPak','Noto Nastaliq Urdu','Amiri',serif !important;
+  font-size:clamp(14px, 2.1vh, 24px); line-height:1.9;
 }
+
 .surah-head {
-  width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
-  gap: 10px; background: linear-gradient(180deg,#fefbf2 0%,#f4e7c3 50%,#fefbf2 100%);
-  border: 1.5px solid #2d2417; outline: 1px solid var(--gold-500); outline-offset: -3px;
-  padding: 0 12px; border-radius: 2px;
+  width:100%; height:100%; display:flex; align-items:center; justify-content:center;
+  gap:8px; background:linear-gradient(180deg,#fefbf2 0%,#f4e7c3 50%,#fefbf2 100%);
+  border:1.5px solid #2d2417; outline:1px solid var(--gold-500); outline-offset:-3px;
+  padding:0 8px; border-radius:2px;
 }
-.surah-head .sep { color: #8c734b; font-size: 10px; }
-.surah-head .meta { font-family: 'Amiri', serif; font-size: 11px; font-weight: 700; color: #5c4118; white-space: nowrap; }
-.surah-head .title { font-family: 'Amiri', serif; font-size: 17px; font-weight: 700; color: #16291e; white-space: nowrap; }
-.bismillah {
-  height: 100%; display: flex; align-items: center; justify-content: center;
-  font-family: 'Amiri', serif; font-size: 18px; color: #172d21; direction: rtl;
-}
+.surah-head .sep { color:#8c734b; font-size:9px; }
+.surah-head .meta { font-family:'Amiri',serif; font-size:10px; font-weight:700; color:#5c4118; white-space:nowrap; }
+.surah-head .title { font-family:'Amiri',serif; font-size:15px; font-weight:700; color:#16291e; white-space:nowrap; }
+
+.bismillah { height:100%; display:flex; align-items:center; justify-content:center; font-family:'Amiri',serif; font-size:17px; color:#172d21; }
+
 .ayah-mark {
-  display: inline-block; cursor: pointer; padding: 0 2px; border-radius: 6px;
-  transition: all 0.15s; font-family: 'Amiri', serif;
+  display:inline-block; cursor:pointer; padding:0 2px; border-radius:5px;
+  transition:all 0.15s; font-family:'Amiri',serif;
 }
-.ayah-mark:hover { background: rgba(197,160,89,0.25); }
-.ayah-mark.lesson-start { background: rgba(22,163,74,0.25); box-shadow: 0 0 0 1.5px var(--success); }
-.ayah-mark.lesson-end { background: rgba(220,38,38,0.25); box-shadow: 0 0 0 1.5px var(--danger); }
+.ayah-mark:hover { background:rgba(197,160,89,0.25); }
+.ayah-mark.lesson-start { background:rgba(22,163,74,0.25); box-shadow:0 0 0 1.5px var(--success); }
+.ayah-mark.lesson-end { background:rgba(220,38,38,0.25); box-shadow:0 0 0 1.5px var(--danger); }
 
-/* ═══ DOCK ═══ */
+/* DOCK */
 .dock {
-  height: 62px; background: var(--surface-1); border-top: 1px solid var(--border-1);
-  display: flex; align-items: center; justify-content: center; gap: 4px;
-  padding: 0 6px; overflow-x: auto; direction: ltr; position: relative; z-index: 40;
+  height:58px; background:var(--surface-1); border-top:1px solid var(--border-1);
+  display:flex; align-items:center; justify-content:center; gap:5px;
+  padding:0 8px; overflow-x:auto; direction:ltr; position:relative; z-index:40;
 }
-.dock::-webkit-scrollbar { height: 0; }
-.dock-group { display: flex; align-items: center; gap: 3px; padding: 3px; background: var(--surface-2); border: 1px solid var(--border-1); border-radius: var(--radius-lg); }
+.dock::-webkit-scrollbar { height:0; }
 .dock-btn {
-  min-width: 40px; height: 40px; padding: 0 10px; border-radius: var(--radius-md);
-  background: transparent; color: var(--text-1); display: flex; align-items: center;
-  justify-content: center; gap: 4px; font-size: 13px; font-weight: 600; transition: all 0.15s; white-space: nowrap;
+  min-width:42px; height:42px; padding:0 10px; border-radius:10px;
+  background:var(--surface-2); border:1px solid var(--border-2);
+  color:var(--text-1); display:flex; align-items:center; justify-content:center;
+  gap:5px; font-size:13px; font-weight:600; transition:all 0.15s;
+  white-space:nowrap;
 }
-.dock-btn:hover { background: var(--surface-3); }
-.dock-btn.active { background: var(--gold-500); color: var(--emerald-900); }
-.dock-btn.primary { background: var(--emerald-600); color: #fff; }
-.dock-btn.primary:hover { background: var(--emerald-500); }
-.dock-btn .label { font-size: 11px; }
+.dock-btn:hover { background:var(--surface-3); border-color:var(--gold-500); }
+.dock-btn.active { background:var(--gold-500); color:var(--emerald-900); border-color:var(--gold-400); }
+.dock-btn.audio-on { background:var(--emerald-600); color:#fff; border-color:var(--emerald-500); }
+.dock-btn.danger-on { background:rgba(220,38,38,0.15); border-color:var(--danger); color:#ff8a8a; }
+.dock-btn .label { font-size:11px; }
 
-/* ═══ MENUS ═══ */
+/* MENUS */
 .menu {
-  position: fixed; z-index: 600; background: var(--surface-2); border: 1px solid var(--gold-500);
-  border-radius: var(--radius-md); box-shadow: var(--shadow-lg); padding: 5px;
-  min-width: 220px; display: none; direction: ltr;
-  max-height: 70vh; overflow-y: auto;
+  position:fixed; z-index:600; background:var(--surface-2); border:1px solid var(--gold-500);
+  border-radius:10px; box-shadow:var(--shadow-lg); padding:5px;
+  min-width:200px; display:none; direction:ltr;
+  max-height:70vh; overflow-y:auto;
 }
-.menu.open { display: block; }
+.menu.open { display:block; }
+.menu-header { padding:8px 12px 4px; font-size:10px; font-weight:800; color:var(--text-3); letter-spacing:0.1em; text-transform:uppercase; }
 .menu-item {
-  display: flex; align-items: center; gap: 10px; width: 100%;
-  padding: 9px 12px; border-radius: var(--radius-sm); color: var(--text-1);
-  font-size: 12.5px; font-weight: 500; text-align: left; transition: background 0.12s;
+  display:flex; align-items:center; gap:10px; width:100%;
+  padding:9px 12px; border-radius:6px; color:var(--text-1);
+  font-size:12.5px; font-weight:500; text-align:left; transition:background 0.12s;
 }
-.menu-item:hover { background: var(--surface-3); }
-.menu-item.active { background: rgba(197,160,89,0.15); color: var(--gold-400); }
-.menu-item .ico { font-size: 15px; width: 22px; text-align: center; flex-shrink: 0; }
-.menu-item .meta { color: var(--text-3); font-size: 10.5px; margin-left: auto; }
-.menu-divider { height: 1px; background: var(--border-1); margin: 4px 6px; }
-.menu-header { padding: 8px 12px 4px; font-size: 10px; font-weight: 800; color: var(--text-3); letter-spacing: 0.1em; text-transform: uppercase; }
+.menu-item:hover { background:var(--surface-3); }
+.menu-item.active { background:rgba(197,160,89,0.15); color:var(--gold-400); }
+.menu-item .ico { font-size:14px; width:20px; text-align:center; flex-shrink:0; }
+.menu-item .meta { color:var(--text-3); font-size:10px; margin-left:auto; }
+.menu-divider { height:1px; background:var(--border-1); margin:4px 6px; }
 
-/* ═══ MODAL ═══ */
-.modal { position: fixed; inset: 0; z-index: 700; display: none; align-items: center; justify-content: center; padding: 16px; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); }
-.modal.open { display: flex; }
+/* MODAL */
+.modal { position:fixed; inset:0; z-index:700; display:none; align-items:center; justify-content:center; padding:14px; background:rgba(0,0,0,0.75); backdrop-filter:blur(4px); }
+.modal.open { display:flex; }
 .modal-card {
-  width: min(620px, 100%); max-height: 90vh; overflow-y: auto;
-  background: var(--surface-1); border: 1px solid var(--gold-500);
-  border-radius: var(--radius-xl); padding: 22px; box-shadow: var(--shadow-lg);
+  width:min(600px,100%); max-height:90vh; overflow-y:auto;
+  background:var(--surface-1); border:1px solid var(--gold-500);
+  border-radius:16px; padding:20px; box-shadow:var(--shadow-lg);
 }
-.modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border-1); }
-.modal-head h3 { font-size: 16px; font-weight: 700; color: var(--gold-400); }
-.close-x { width: 32px; height: 32px; border-radius: var(--radius-md); background: var(--surface-2); color: var(--text-2); font-size: 18px; display: flex; align-items: center; justify-content: center; }
-.close-x:hover { background: var(--surface-3); color: var(--text-1); }
-.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 11px; }
-.field { display: flex; flex-direction: column; gap: 5px; }
-.field.full { grid-column: 1/-1; }
-.field label { font-size: 10.5px; font-weight: 700; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.05em; }
+.modal-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; padding-bottom:12px; border-bottom:1px solid var(--border-1); }
+.modal-head h3 { font-size:15px; font-weight:700; color:var(--gold-400); }
+.close-x { width:30px; height:30px; border-radius:8px; background:var(--surface-2); color:var(--text-2); font-size:17px; display:flex; align-items:center; justify-content:center; }
+.close-x:hover { background:var(--surface-3); }
+
+.form-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.field { display:flex; flex-direction:column; gap:4px; }
+.field.full { grid-column:1/-1; }
+.field label { font-size:10px; font-weight:700; color:var(--text-3); text-transform:uppercase; letter-spacing:0.05em; }
 .field input, .field select, .field textarea {
-  width: 100%; padding: 10px 12px; background: var(--surface-2);
-  border: 1px solid var(--border-2); border-radius: var(--radius-md);
-  color: var(--text-1); font-size: 13px; transition: all 0.15s;
+  width:100%; padding:9px 11px; background:var(--surface-2);
+  border:1px solid var(--border-2); border-radius:8px;
+  color:var(--text-1); font-size:13px; transition:all 0.15s;
 }
-.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--gold-500); box-shadow: 0 0 0 3px rgba(197,160,89,0.12); }
-.field textarea { min-height: 70px; resize: vertical; }
-.btn { padding: 10px 18px; border-radius: var(--radius-md); font-size: 12.5px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; gap: 6px; transition: all 0.15s; border: 1px solid transparent; }
-.btn-primary { background: var(--emerald-600); color: #fff; }
-.btn-primary:hover { background: var(--emerald-500); }
-.btn-gold { background: var(--gold-500); color: var(--emerald-900); }
-.btn-gold:hover { background: var(--gold-400); }
-.btn-ghost { background: var(--surface-2); color: var(--text-1); border-color: var(--border-2); }
-.btn-ghost:hover { background: var(--surface-3); border-color: var(--gold-500); }
-.btn-danger { background: rgba(220,38,38,0.15); color: #ff8a8a; border-color: rgba(220,38,38,0.3); }
-.btn-danger:hover { background: rgba(220,38,38,0.25); }
-.btn-block { width: 100%; }
+.field input:focus, .field select:focus, .field textarea:focus { border-color:var(--gold-500); box-shadow:0 0 0 3px rgba(197,160,89,0.12); }
+.field textarea { min-height:60px; resize:vertical; }
 
-/* ═══ DRAWER ═══ */
-.drawer-scrim { position: fixed; inset: 0; z-index: 800; background: rgba(0,0,0,0.6); backdrop-filter: blur(3px); opacity: 0; pointer-events: none; transition: opacity 0.2s; }
-.drawer-scrim.open { opacity: 1; pointer-events: auto; }
+.btn {
+  padding:10px 16px; border-radius:9px; font-size:12.5px; font-weight:600;
+  display:inline-flex; align-items:center; justify-content:center; gap:6px;
+  transition:all 0.15s; border:1px solid transparent;
+}
+.btn-primary { background:var(--emerald-600); color:#fff; }
+.btn-primary:hover { background:var(--emerald-500); }
+.btn-gold { background:var(--gold-500); color:var(--emerald-900); }
+.btn-gold:hover { background:var(--gold-400); }
+.btn-ghost { background:var(--surface-2); color:var(--text-1); border-color:var(--border-2); }
+.btn-ghost:hover { background:var(--surface-3); border-color:var(--gold-500); }
+.btn-danger { background:rgba(220,38,38,0.15); color:#ff8a8a; border-color:rgba(220,38,38,0.3); }
+.btn-danger:hover { background:rgba(220,38,38,0.25); }
+.btn-block { width:100%; }
+
+/* DRAWER */
+.drawer-scrim { position:fixed; inset:0; z-index:800; background:rgba(0,0,0,0.6); backdrop-filter:blur(3px); opacity:0; pointer-events:none; transition:opacity 0.2s; }
+.drawer-scrim.open { opacity:1; pointer-events:auto; }
 .drawer {
-  position: fixed; top: 0; left: 0; bottom: 0; z-index: 810; width: min(380px, 92vw);
-  background: var(--surface-1); border-right: 1px solid var(--border-2);
-  box-shadow: var(--shadow-lg); transform: translateX(-105%);
-  transition: transform 0.28s cubic-bezier(0.1,0.9,0.2,1);
-  display: flex; flex-direction: column; direction: ltr;
+  position:fixed; top:0; left:0; bottom:0; z-index:810; width:min(360px,90vw);
+  background:var(--surface-1); border-right:1px solid var(--border-2);
+  box-shadow:var(--shadow-lg); transform:translateX(-105%);
+  transition:transform 0.28s cubic-bezier(0.1,0.9,0.2,1);
+  display:flex; flex-direction:column; direction:ltr;
 }
-.drawer.open { transform: translateX(0); }
-.drawer-head { padding: 20px; background: linear-gradient(135deg, var(--emerald-700), var(--emerald-900)); border-bottom: 1px solid var(--gold-500); }
-.drawer-head .logo { display: flex; align-items: center; gap: 12px; }
-.drawer-head .logo-mark { width: 42px; height: 42px; border-radius: 11px; background: var(--gold-500); color: var(--emerald-900); display: flex; align-items: center; justify-content: center; font-size: 22px; border: 2px solid var(--gold-300); }
-.drawer-head h2 { font-size: 16px; font-weight: 800; color: var(--gold-400); }
-.drawer-head small { font-size: 10px; color: var(--text-3); letter-spacing: 0.08em; text-transform: uppercase; }
-.drawer-body { flex: 1; overflow-y: auto; padding: 12px; }
-.drawer-label { padding: 10px 12px 6px; font-size: 10px; font-weight: 800; color: var(--text-3); letter-spacing: 0.12em; text-transform: uppercase; }
-.drawer-item { display: flex; align-items: center; gap: 12px; width: 100%; padding: 12px 14px; border-radius: var(--radius-md); color: var(--text-1); font-size: 13px; font-weight: 500; text-align: left; transition: all 0.12s; }
-.drawer-item:hover { background: var(--surface-2); color: var(--gold-400); }
-.drawer-item .ico { font-size: 16px; width: 22px; text-align: center; flex-shrink: 0; }
+.drawer.open { transform:translateX(0); }
+.drawer-head { padding:18px; background:linear-gradient(135deg,var(--emerald-700),var(--emerald-900)); border-bottom:1px solid var(--gold-500); }
+.drawer-head .logo { display:flex; align-items:center; gap:12px; }
+.drawer-head .logo-mark { width:40px; height:40px; border-radius:10px; background:var(--gold-500); color:var(--emerald-900); display:flex; align-items:center; justify-content:center; font-size:20px; border:2px solid var(--gold-300); }
+.drawer-head h2 { font-size:15px; font-weight:800; color:var(--gold-400); }
+.drawer-head small { font-size:10px; color:var(--text-3); letter-spacing:0.08em; text-transform:uppercase; }
+.drawer-body { flex:1; overflow-y:auto; padding:12px; }
+.drawer-label { padding:10px 12px 6px; font-size:10px; font-weight:800; color:var(--text-3); letter-spacing:0.12em; text-transform:uppercase; }
+.drawer-item { display:flex; align-items:center; gap:12px; width:100%; padding:11px 14px; border-radius:9px; color:var(--text-1); font-size:13px; font-weight:500; text-align:left; transition:all 0.12s; }
+.drawer-item:hover { background:var(--surface-2); color:var(--gold-400); }
+.drawer-item .ico { font-size:15px; width:20px; text-align:center; flex-shrink:0; }
 
-/* ═══ SETTINGS SHEET ═══ */
-.sheet-scrim { position: fixed; inset: 0; z-index: 800; background: rgba(0,0,0,0.6); backdrop-filter: blur(3px); opacity: 0; pointer-events: none; transition: opacity 0.2s; }
-.sheet-scrim.open { opacity: 1; pointer-events: auto; }
+/* SETTINGS SHEET */
+.sheet-scrim { position:fixed; inset:0; z-index:800; background:rgba(0,0,0,0.6); backdrop-filter:blur(3px); opacity:0; pointer-events:none; transition:opacity 0.2s; }
+.sheet-scrim.open { opacity:1; pointer-events:auto; }
 .sheet-panel {
-  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%) translateY(100%);
-  width: min(720px, 100%); max-height: 88vh; background: var(--surface-1);
-  border: 1px solid var(--gold-500); border-bottom: none;
-  border-radius: var(--radius-xl) var(--radius-xl) 0 0; z-index: 810;
-  transition: transform 0.3s cubic-bezier(0.1,0.9,0.2,1);
-  box-shadow: 0 -12px 40px rgba(0,0,0,0.7);
-  display: flex; flex-direction: column; direction: ltr;
+  position:fixed; bottom:0; left:50%; transform:translateX(-50%) translateY(100%);
+  width:min(720px,100%); max-height:88vh; background:var(--surface-1);
+  border:1px solid var(--gold-500); border-bottom:none;
+  border-radius:18px 18px 0 0; z-index:810;
+  transition:transform 0.3s cubic-bezier(0.1,0.9,0.2,1);
+  box-shadow:0 -12px 40px rgba(0,0,0,0.7);
+  display:flex; flex-direction:column; direction:ltr;
 }
-.sheet-scrim.open .sheet-panel { transform: translateX(-50%) translateY(0); }
-.sheet-head { padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-1); }
-.sheet-head h3 { font-size: 15px; font-weight: 700; color: var(--gold-400); }
-.sheet-tabs { display: flex; gap: 4px; padding: 10px 14px; border-bottom: 1px solid var(--border-1); overflow-x: auto; }
-.sheet-tabs::-webkit-scrollbar { height: 0; }
-.sheet-tab { padding: 8px 14px; border-radius: var(--radius-md); background: transparent; color: var(--text-3); font-size: 11.5px; font-weight: 700; white-space: nowrap; transition: all 0.12s; }
-.sheet-tab:hover { color: var(--text-1); background: var(--surface-2); }
-.sheet-tab.active { background: var(--gold-500); color: var(--emerald-900); }
-.sheet-body { flex: 1; overflow-y: auto; padding: 18px 20px 26px; }
-.tab-pane { display: none; }
-.tab-pane.active { display: block; }
-.section-title { font-size: 11px; font-weight: 800; color: var(--gold-400); text-transform: uppercase; letter-spacing: 0.1em; margin: 4px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border-1); }
-.student-list { display: flex; flex-direction: column; gap: 8px; }
-.student-card { display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: var(--surface-2); border: 1px solid var(--border-2); border-radius: var(--radius-md); cursor: pointer; transition: all 0.15s; direction: ltr; }
-.student-card:hover { border-color: var(--gold-500); background: var(--surface-3); }
-.student-card.active { border-color: var(--gold-500); background: rgba(197,160,89,0.08); }
-.student-avatar { width: 38px; height: 38px; border-radius: 10px; background: linear-gradient(135deg, var(--emerald-600), var(--emerald-800)); color: var(--gold-300); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; flex-shrink: 0; }
-.student-info { flex: 1; min-width: 0; }
-.student-info b { font-size: 13.5px; display: block; }
-.student-info small { font-size: 11px; color: var(--text-3); }
-.student-actions { display: flex; gap: 5px; flex-shrink: 0; }
-.progress-bar { height: 8px; background: var(--surface-3); border-radius: 4px; overflow: hidden; margin: 8px 0; }
-.progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--emerald-500), var(--gold-500)); border-radius: 4px; transition: width 0.2s; }
-.cat-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: var(--surface-2); border: 1px solid var(--border-2); border-radius: var(--radius-md); margin-bottom: 6px; }
-.cat-item .name { font-family: 'Amiri', serif; font-size: 15px; font-weight: 700; }
-.cat-item .label { font-size: 12px; color: var(--text-3); margin-left: 8px; }
+.sheet-scrim.open .sheet-panel { transform:translateX(-50%) translateY(0); }
+.sheet-head { padding:14px 18px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-1); }
+.sheet-head h3 { font-size:14px; font-weight:700; color:var(--gold-400); }
+.sheet-tabs { display:flex; gap:4px; padding:9px 12px; border-bottom:1px solid var(--border-1); overflow-x:auto; }
+.sheet-tabs::-webkit-scrollbar { height:0; }
+.sheet-tab { padding:7px 12px; border-radius:8px; background:transparent; color:var(--text-3); font-size:11px; font-weight:700; white-space:nowrap; transition:all 0.12s; }
+.sheet-tab:hover { color:var(--text-1); background:var(--surface-2); }
+.sheet-tab.active { background:var(--gold-500); color:var(--emerald-900); }
+.sheet-body { flex:1; overflow-y:auto; padding:16px 18px 24px; }
+.tab-pane { display:none; }
+.tab-pane.active { display:block; }
+.section-title { font-size:10.5px; font-weight:800; color:var(--gold-400); text-transform:uppercase; letter-spacing:0.1em; margin:4px 0 10px; padding-bottom:7px; border-bottom:1px solid var(--border-1); }
 
-/* ═══ REPORT ═══ */
-.report-screen { position: fixed; inset: 0; z-index: 900; display: none; flex-direction: column; background: #e5e7e5; direction: ltr; }
-.report-screen.open { display: flex; }
-.report-toolbar { height: 56px; background: var(--surface-1); border-bottom: 1px solid var(--border-1); display: flex; align-items: center; gap: 8px; padding: 0 14px; overflow-x: auto; }
-.report-toolbar::-webkit-scrollbar { height: 0; }
-.report-toolbar select, .report-toolbar input { background: var(--surface-2); border: 1px solid var(--border-2); color: var(--text-1); padding: 7px 10px; border-radius: var(--radius-md); font-size: 12px; }
-.report-body { flex: 1; overflow-y: auto; padding: 20px; display: flex; justify-content: center; }
-.paper { width: 210mm; min-height: 297mm; background: #fff; color: #1a1a1a; padding: 14mm; box-shadow: 0 4px 24px rgba(0,0,0,0.15); font-family: 'Inter', sans-serif; direction: ltr; align-self: flex-start; }
-.paper .r-header { text-align: center; border-bottom: 3px double var(--emerald-600); padding-bottom: 12px; margin-bottom: 16px; }
-.paper .r-inst { font-size: 20px; font-weight: 800; color: var(--emerald-700); letter-spacing: 0.02em; }
-.paper .r-run { font-size: 11.5px; color: #555; margin-top: 3px; font-weight: 600; }
-.paper .r-dept { font-size: 10.5px; color: #777; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.1em; }
-.paper .r-title { font-size: 15px; font-weight: 800; margin-top: 10px; color: #1a1a1a; letter-spacing: 0.05em; }
-.paper .r-info { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 22px; padding: 12px 14px; background: #f7f7f4; border: 1px solid #ddd; border-radius: 6px; margin-bottom: 16px; font-size: 11.5px; }
-.paper table { width: 100%; border-collapse: collapse; font-size: 10.5px; }
-.paper thead th { background: var(--emerald-700); color: #fff; padding: 9px 6px; text-align: center; font-weight: 700; border: 1px solid var(--emerald-700); }
-.paper thead th .ar { font-family: 'Amiri', serif; font-size: 13px; }
-.paper thead th .ml { font-size: 9px; opacity: 0.85; font-weight: 500; }
-.paper tbody td { padding: 8px 6px; border: 1px solid #ccc; text-align: center; vertical-align: top; }
-.paper tbody tr:nth-child(even) { background: #fafaf7; }
-.paper .entry { padding: 4px 0; border-bottom: 1px dashed #bbb; }
-.paper .entry:last-child { border-bottom: none; }
-.paper .entry-surah { font-family: 'Amiri', serif; font-size: 12px; font-weight: 700; color: var(--emerald-700); direction: rtl; }
-.paper .entry-page { display: inline-block; padding: 1px 5px; background: #e8f0ec; color: var(--emerald-700); border-radius: 3px; font-size: 8.5px; font-weight: 700; margin-top: 2px; }
-.paper .summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 18px; }
-.paper .sum-box { padding: 10px; background: #f7f7f4; border: 1px solid #ddd; border-radius: 6px; text-align: center; }
-.paper .sum-box b { display: block; font-size: 18px; color: var(--emerald-700); font-weight: 800; }
-.paper .sum-box span { font-size: 9px; color: #777; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
-.paper .signs { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 50px; }
-.paper .sign { padding-top: 8px; border-top: 1px solid #555; text-align: center; font-size: 10px; color: #555; font-weight: 600; }
-
-/* ═══ TOAST ═══ */
-.toast { position: fixed; left: 50%; bottom: 80px; z-index: 1000; padding: 11px 18px; background: var(--surface-2); border: 1px solid var(--gold-500); color: var(--text-1); border-radius: var(--radius-md); font-size: 12.5px; font-weight: 600; opacity: 0; pointer-events: none; transform: translateX(-50%) translateY(12px); transition: all 0.22s; box-shadow: var(--shadow-lg); direction: ltr; }
-.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-/* ═══ SPLASH ═══ */
-.splash { position: fixed; inset: 0; z-index: 2000; background: radial-gradient(circle at 50% 40%, #14201a 0%, #060908 100%); display: flex; align-items: center; justify-content: center; padding: 20px; direction: ltr; }
-.splash-card { width: min(460px, 100%); background: var(--surface-1); border: 1px solid var(--gold-500); border-radius: var(--radius-xl); padding: 28px 26px; text-align: center; box-shadow: var(--shadow-lg); }
-.splash-mark { width: 64px; height: 64px; margin: 0 auto 16px; border-radius: 16px; background: linear-gradient(135deg, var(--emerald-600), var(--emerald-800)); color: var(--gold-300); display: flex; align-items: center; justify-content: center; font-size: 32px; border: 2px solid var(--gold-500); }
-.splash-card h1 { font-size: 20px; font-weight: 800; color: var(--gold-400); margin-bottom: 6px; letter-spacing: 0.02em; }
-.splash-card .subtitle { font-size: 11px; color: var(--text-3); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; font-weight: 600; }
-.splash-card p { font-size: 12px; color: var(--text-3); line-height: 1.7; margin-bottom: 14px; }
-.splash-status { font-size: 11px; color: var(--gold-400); font-weight: 600; min-height: 16px; margin-top: 10px; }
-
-/* ═══ RESPONSIVE ═══ */
-@media (max-width: 1000px), (orientation: portrait) {
-  .mushaf-sheet.left-sheet { display: none !important; }
-  .mushaf-sheet { width: 100vw; max-width: 100vw; aspect-ratio: auto; height: 100%; border-left: none; border-right: none; outline-offset: 1px; padding: 6px 10px 4px; }
-  .stage { padding: 4px 2px; }
-  /* Mobile: hide brand on mobile */
-  .brand-mark, .brand-text { display: none !important; }
-  .topbar { padding: 0 6px; gap: 4px; }
-  .icon-btn { min-width: 32px; height: 32px; padding: 0 6px; font-size: 12px; }
-  .page-indicator { padding: 6px 8px; font-size: 12.5px; }
-  .pill-btn { padding: 6px 8px; font-size: 11px; max-width: 100px; }
-  .pill-btn .ar { font-size: 12px; }
-  .dock { padding: 0 4px; gap: 3px; height: 58px; }
-  .dock-btn { min-width: 38px; height: 38px; padding: 0 8px; font-size: 12px; }
-  .stage { height: calc(100vh - 52px - 58px); height: calc(100dvh - 52px - 58px); }
-  .form-grid { grid-template-columns: 1fr; }
-  .field.full { grid-column: auto; }
-  .paper { width: 100%; min-height: auto; padding: 12px; }
-  .paper .summary { grid-template-columns: 1fr 1fr; }
-  .paper .r-info { grid-template-columns: 1fr; }
+.student-list { display:flex; flex-direction:column; gap:7px; }
+.student-card {
+  display:flex; align-items:center; gap:11px; padding:11px 13px;
+  background:var(--surface-2); border:1px solid var(--border-2);
+  border-radius:10px; cursor:pointer; transition:all 0.15s; direction:ltr;
 }
-@media (max-width: 380px) {
-  .icon-btn { min-width: 30px; height: 30px; padding: 0 5px; }
-  .page-indicator { padding: 5px 6px; font-size: 11.5px; }
-  .pill-btn { padding: 5px 6px; font-size: 10.5px; max-width: 85px; }
-  .dock-btn { min-width: 36px; height: 36px; padding: 0 6px; }
+.student-card:hover { border-color:var(--gold-500); background:var(--surface-3); }
+.student-card.active { border-color:var(--gold-500); background:rgba(197,160,89,0.08); }
+.student-avatar { width:36px; height:36px; border-radius:9px; background:linear-gradient(135deg,var(--emerald-600),var(--emerald-800)); color:var(--gold-300); display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; flex-shrink:0; }
+.student-info { flex:1; min-width:0; }
+.student-info b { font-size:13px; display:block; }
+.student-info small { font-size:10.5px; color:var(--text-3); }
+.student-actions { display:flex; gap:4px; flex-shrink:0; }
+
+.progress-bar { height:7px; background:var(--surface-3); border-radius:4px; overflow:hidden; margin:7px 0; }
+.progress-fill { height:100%; width:0%; background:linear-gradient(90deg,var(--emerald-500),var(--gold-500)); border-radius:4px; transition:width 0.2s; }
+
+.cat-item { display:flex; align-items:center; justify-content:space-between; padding:9px 12px; background:var(--surface-2); border:1px solid var(--border-2); border-radius:8px; margin-bottom:5px; }
+.cat-item .name { font-family:'Amiri',serif; font-size:14px; font-weight:700; }
+.cat-item .label { font-size:11px; color:var(--text-3); margin-left:8px; }
+
+/* REPORT */
+.report-screen { position:fixed; inset:0; z-index:900; display:none; flex-direction:column; background:#e5e7e5; direction:ltr; }
+.report-screen.open { display:flex; }
+.report-toolbar { height:52px; background:var(--surface-1); border-bottom:1px solid var(--border-1); display:flex; align-items:center; gap:6px; padding:0 12px; overflow-x:auto; flex-shrink:0; }
+.report-toolbar::-webkit-scrollbar { height:0; }
+.report-toolbar select, .report-toolbar input { background:var(--surface-2); border:1px solid var(--border-2); color:var(--text-1); padding:7px 9px; border-radius:8px; font-size:11.5px; }
+.report-body { flex:1; overflow-y:auto; padding:16px; display:flex; justify-content:center; }
+.paper {
+  width:210mm; min-height:297mm; background:#fff; color:#1a1a1a;
+  padding:14mm; box-shadow:0 4px 24px rgba(0,0,0,0.15);
+  font-family:'Inter',sans-serif; direction:ltr; align-self:flex-start;
+}
+.paper .r-header { text-align:center; border-bottom:3px double var(--emerald-600); padding-bottom:12px; margin-bottom:16px; }
+.paper .r-inst { font-size:20px; font-weight:800; color:var(--emerald-700); }
+.paper .r-run { font-size:11.5px; color:#555; margin-top:3px; font-weight:600; }
+.paper .r-dept { font-size:10.5px; color:#777; margin-top:2px; text-transform:uppercase; letter-spacing:0.1em; }
+.paper .r-title { font-size:15px; font-weight:800; margin-top:10px; }
+.paper .r-info { display:grid; grid-template-columns:1fr 1fr; gap:8px 22px; padding:12px 14px; background:#f7f7f4; border:1px solid #ddd; border-radius:6px; margin-bottom:16px; font-size:11.5px; }
+.paper table { width:100%; border-collapse:collapse; font-size:10.5px; }
+.paper thead th { background:var(--emerald-700); color:#fff; padding:9px 6px; text-align:center; font-weight:700; border:1px solid var(--emerald-700); }
+.paper thead th .ar { font-family:'Amiri',serif; font-size:13px; }
+.paper thead th .ml { font-size:9px; opacity:0.85; font-weight:500; }
+.paper tbody td { padding:8px 6px; border:1px solid #ccc; text-align:center; vertical-align:top; }
+.paper tbody tr:nth-child(even) { background:#fafaf7; }
+.paper .entry { padding:4px 0; border-bottom:1px dashed #bbb; }
+.paper .entry:last-child { border-bottom:none; }
+.paper .entry-surah { font-family:'Amiri',serif; font-size:12px; font-weight:700; color:var(--emerald-700); direction:rtl; }
+.paper .entry-page { display:inline-block; padding:1px 5px; background:#e8f0ec; color:var(--emerald-700); border-radius:3px; font-size:8.5px; font-weight:700; margin-top:2px; }
+.paper .summary { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:18px; }
+.paper .sum-box { padding:10px; background:#f7f7f4; border:1px solid #ddd; border-radius:6px; text-align:center; }
+.paper .sum-box b { display:block; font-size:18px; color:var(--emerald-700); font-weight:800; }
+.paper .sum-box span { font-size:9px; color:#777; text-transform:uppercase; font-weight:600; }
+.paper .signs { display:grid; grid-template-columns:1fr 1fr; gap:40px; margin-top:50px; }
+.paper .sign { padding-top:8px; border-top:1px solid #555; text-align:center; font-size:10px; color:#555; font-weight:600; }
+
+/* TOAST */
+.toast {
+  position:fixed; left:50%; bottom:75px; z-index:1000; padding:10px 16px;
+  background:var(--surface-2); border:1px solid var(--gold-500); color:var(--text-1);
+  border-radius:9px; font-size:12.5px; font-weight:600;
+  opacity:0; pointer-events:none; transform:translateX(-50%) translateY(12px);
+  transition:all 0.22s; box-shadow:var(--shadow-lg); direction:ltr;
+  max-width:90vw; text-align:center;
+}
+.toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+/* SPLASH */
+.splash { position:fixed; inset:0; z-index:2000; background:radial-gradient(circle at 50% 40%,#14201a 0%,#060908 100%); display:flex; align-items:center; justify-content:center; padding:20px; direction:ltr; }
+.splash-card { width:min(420px,100%); background:var(--surface-1); border:1px solid var(--gold-500); border-radius:18px; padding:26px 24px; text-align:center; box-shadow:var(--shadow-lg); }
+.splash-mark { width:60px; height:60px; margin:0 auto 14px; border-radius:15px; background:linear-gradient(135deg,var(--emerald-600),var(--emerald-800)); display:flex; align-items:center; justify-content:center; font-size:30px; border:2px solid var(--gold-500); }
+.splash-card h1 { font-size:19px; font-weight:800; color:var(--gold-400); margin-bottom:4px; }
+.splash-card p { font-size:11.5px; color:var(--text-3); line-height:1.6; margin-bottom:14px; }
+.splash-status { font-size:11px; color:var(--gold-400); font-weight:600; min-height:16px; margin-top:9px; }
+
+/* RESPONSIVE */
+@media (max-width:1000px), (orientation:portrait) {
+  .mushaf-sheet.left-sheet { display:none !important; }
+  .mushaf-sheet { width:100vw; max-width:100vw; aspect-ratio:auto; height:100%; border-left:none; border-right:none; outline-offset:1px; padding:6px 10px 4px; }
+  .stage { padding:4px 2px; }
+  .brand-mark, .brand-text { display:none; }
+  .form-grid { grid-template-columns:1fr; }
+  .field.full { grid-column:auto; }
+  .paper { width:100%; min-height:auto; padding:12px; }
+  .paper .summary { grid-template-columns:1fr 1fr; }
+  .paper .r-info { grid-template-columns:1fr; }
+}
+@media (max-width:400px) {
+  .page-indicator { font-size:12px; padding:5px 8px; }
+  .pill-btn { padding:5px 7px; font-size:10.5px; max-width:110px; }
 }
 
-/* ═══ PRINT ═══ */
 @media print {
-  body * { visibility: hidden; }
-  .report-screen, .report-screen * { visibility: visible; }
-  .report-screen { position: absolute; inset: 0; background: #fff; }
-  .report-toolbar { display: none !important; }
-  .report-body { padding: 0; display: block; overflow: visible; }
-  .paper { width: 210mm; min-height: 297mm; box-shadow: none; padding: 14mm; margin: 0; }
-  @page { size: A4; margin: 0; }
+  body * { visibility:hidden; }
+  .report-screen, .report-screen * { visibility:visible; }
+  .report-screen { position:absolute; inset:0; background:#fff; }
+  .report-toolbar { display:none !important; }
+  .report-body { padding:0; display:block; overflow:visible; }
+  .paper { width:210mm; min-height:297mm; box-shadow:none; padding:14mm; margin:0; }
+  @page { size:A4; margin:0; }
 }
 </style>
 </head>
@@ -384,18 +389,17 @@ input, select, textarea { font: inherit; outline: none; }
   <div class="splash-card">
     <div class="splash-mark">📖</div>
     <h1>Al-Halaqah</h1>
-    <div class="subtitle">Hifz Quran Management</div>
-    <p id="splashDesc">Preparing Quran data for offline use…</p>
+    <p id="splashDesc">Hifz Quran Management<br>Preparing offline data…</p>
     <div class="progress-bar"><div class="progress-fill" id="splashBar"></div></div>
     <div class="splash-status" id="splashStatus">Initializing…</div>
-    <div id="splashActions" style="margin-top:16px;"></div>
+    <div id="splashActions" style="margin-top:14px;"></div>
   </div>
 </div>
 
 <!-- TOP BAR -->
 <header class="topbar">
   <div class="tb-left">
-    <button class="icon-btn" onclick="UI.openDrawer()">☰</button>
+    <button class="icon-btn" onclick="UI.openDrawer()" title="Menu">☰</button>
     <div class="brand-mark">📖</div>
     <div class="brand-text">
       <strong id="brandName">Al-Halaqah</strong>
@@ -409,7 +413,7 @@ input, select, textarea { font: inherit; outline: none; }
   </div>
   <div class="tb-right">
     <button class="pill-btn" id="studentPill" onclick="Menus.toggleStudent(event)">
-      <span>👤</span><span class="name" id="studentPillText">Student</span><span class="caret">▼</span>
+      <span>👤</span><span id="studentPillText">Student</span><span class="caret">▼</span>
     </button>
     <button class="pill-btn" id="lessonPill" onclick="Menus.toggleLesson(event)">
       <span class="ar" id="lessonPillAr">سبق</span><span class="caret">▼</span>
@@ -455,20 +459,36 @@ input, select, textarea { font: inherit; outline: none; }
 
 <!-- DOCK -->
 <nav class="dock">
-  <div class="dock-group">
-    <button class="dock-btn primary" onclick="Lesson.startDialog()">▶ <span class="label">Start</span></button>
-    <button class="dock-btn primary" onclick="Lesson.endDialog()">✓ <span class="label">End</span></button>
-  </div>
-  <div class="dock-group">
-    <button class="dock-btn active" id="toolUnderline" onclick="Marks.setTool('underline')" title="Underline">_</button>
-    <button class="dock-btn" id="toolGhalat" onclick="Marks.setTool('ghalat')" title="Ghalat">🔴</button>
-    <button class="dock-btn" id="toolTajweed" onclick="Marks.setTool('tajweed')" title="Tajweed">🟡</button>
-  </div>
-  <div class="dock-group">
-    <button class="dock-btn" id="audioBtn" onclick="AudioPlayer.toggle()" title="Audio">🔇</button>
-    <button class="dock-btn" id="moreBtn" onclick="Menus.toggleMore(event)" title="More">⋮</button>
-  </div>
+  <button class="dock-btn" id="toolBtn" onclick="Menus.toggleTools(event)">
+    <span id="toolBtnIcon">_</span>
+    <span class="label" id="toolBtnLabel">Underline</span>
+    <span class="caret" style="font-size:8px;opacity:0.6;">▼</span>
+  </button>
+  <button class="dock-btn" id="eraserBtn" onclick="Marks.setTool('eraser')" title="Eraser">🧹</button>
+  <button class="dock-btn" id="audioBtn" onclick="AudioPlayer.toggle()" title="Audio">🔇</button>
+  <button class="dock-btn" id="moreBtn" onclick="Menus.toggleMore(event)" title="More">⋮</button>
 </nav>
+
+<!-- TOOLS MENU -->
+<div class="menu" id="toolsMenu">
+  <div class="menu-header">Marking Tool</div>
+  <button class="menu-item" id="tm-underline" onclick="Marks.setTool('underline')">
+    <span class="ico">_</span><span>Underline</span>
+  </button>
+  <button class="menu-item" id="tm-highlight" onclick="Marks.setTool('highlight')">
+    <span class="ico">🖍</span><span>Highlight</span>
+  </button>
+  <button class="menu-item" id="tm-ghalat" onclick="Marks.setTool('ghalat')">
+    <span class="ico">🔴</span><span>Ghalat (Error)</span>
+  </button>
+  <button class="menu-item" id="tm-tajweed" onclick="Marks.setTool('tajweed')">
+    <span class="ico">🟡</span><span>Tajweed</span>
+  </button>
+  <div class="menu-divider"></div>
+  <button class="menu-item" id="tm-select" onclick="Marks.setTool('select')">
+    <span class="ico">👆</span><span>Select (Play / Lesson)</span>
+  </button>
+</div>
 
 <!-- STUDENT MENU -->
 <div class="menu" id="studentMenu">
@@ -502,9 +522,6 @@ input, select, textarea { font: inherit; outline: none; }
     <span class="ico">📋</span><span>Lesson History</span>
   </button>
   <div class="menu-divider"></div>
-  <button class="menu-item" onclick="Menus.closeAll(); Marks.setTool('eraser')">
-    <span class="ico">🧹</span><span>Eraser Tool</span>
-  </button>
   <button class="menu-item" onclick="Menus.closeAll(); Marks.undo()">
     <span class="ico">↶</span><span>Undo Last Mark</span>
   </button>
@@ -524,17 +541,15 @@ input, select, textarea { font: inherit; outline: none; }
 </div>
 
 <!-- AYAH POPUP -->
-<div class="menu" id="ayahMenu" style="min-width:240px;">
+<div class="menu" id="ayahMenu" style="min-width:220px;">
   <button class="menu-item" onclick="AyahAction.play()">
     <span class="ico">🔊</span><span>Play this Ayah</span>
   </button>
   <button class="menu-item" onclick="AyahAction.startFrom()">
     <span class="ico">▶</span><span>Start lesson here</span>
-    <span class="meta" id="ayahStartMeta"></span>
   </button>
   <button class="menu-item" onclick="AyahAction.endAt()">
     <span class="ico">🎯</span><span>End lesson here</span>
-    <span class="meta" id="ayahEndMeta"></span>
   </button>
 </div>
 
@@ -552,22 +567,49 @@ input, select, textarea { font: inherit; outline: none; }
   </div>
   <div class="drawer-body">
     <div class="drawer-label">Current Student</div>
-    <div style="padding:12px 14px; background:var(--surface-2); border-radius:10px; font-size:12px; line-height:1.7;" id="drawerStudent">No student</div>
+    <div style="padding:11px 13px; background:var(--surface-2); border-radius:9px; font-size:12px; line-height:1.7;" id="drawerStudent">No student</div>
+
     <div class="drawer-label">Quran</div>
-    <button class="drawer-item" onclick="UI.closeDrawer(); Reader.go(1)"><span class="ico">📖</span><span>First Page</span></button>
-    <button class="drawer-item" onclick="UI.closeDrawer(); Reader.jump()"><span class="ico">🔢</span><span>Go to Page</span></button>
-    <button class="drawer-item" onclick="UI.closeDrawer(); Reader.changeMushaf(State.currentMushaf === 'madani' ? 'indopak' : 'madani')"><span class="ico">🔄</span><span>Switch Mushaf</span></button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Reader.go(1)">
+      <span class="ico">📖</span><span>First Page</span>
+    </button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Reader.jump()">
+      <span class="ico">🔢</span><span>Go to Page</span>
+    </button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Reader.changeMushaf(State.currentMushaf === 'madani' ? 'indopak' : 'madani')">
+      <span class="ico">🔄</span><span>Switch Mushaf</span>
+    </button>
+
     <div class="drawer-label">Management</div>
-    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('students')"><span class="ico">🎓</span><span>Students</span></button>
-    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('institution')"><span class="ico">🏛</span><span>Institution</span></button>
-    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('categories')"><span class="ico">📚</span><span>Lesson Categories</span></button>
-    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('report')"><span class="ico">📄</span><span>Report Settings</span></button>
-    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('audio')"><span class="ico">🔊</span><span>Audio Settings</span></button>
-    <button class="drawer-item" onclick="UI.closeDrawer(); Lessons.open()"><span class="ico">📋</span><span>Lesson History</span></button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('students')">
+      <span class="ico">🎓</span><span>Students</span>
+    </button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('institution')">
+      <span class="ico">🏛</span><span>Institution</span>
+    </button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('categories')">
+      <span class="ico">📚</span><span>Lesson Categories</span>
+    </button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('report')">
+      <span class="ico">📄</span><span>Report Settings</span>
+    </button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('audio')">
+      <span class="ico">🔊</span><span>Audio Settings</span>
+    </button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Lessons.open()">
+      <span class="ico">📋</span><span>Lesson History</span>
+    </button>
+
     <div class="drawer-label">Data</div>
-    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('data')"><span class="ico">⬇</span><span>Batch Download / Sync</span></button>
-    <button class="drawer-item" onclick="UI.closeDrawer(); Sync.backup()"><span class="ico">💾</span><span>Backup</span></button>
-    <button class="drawer-item" onclick="UI.closeDrawer(); Sync.restore()"><span class="ico">📥</span><span>Restore</span></button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('data')">
+      <span class="ico">⬇</span><span>Batch Download / Sync</span>
+    </button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Sync.backup()">
+      <span class="ico">💾</span><span>Backup</span>
+    </button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Sync.restore()">
+      <span class="ico">📥</span><span>Restore</span>
+    </button>
   </div>
 </aside>
 
@@ -589,7 +631,7 @@ input, select, textarea { font: inherit; outline: none; }
     <div class="sheet-body">
       <div class="tab-pane active" data-pane="students">
         <div class="section-title">Student Management</div>
-        <button class="btn btn-gold btn-block" onclick="Students.openAdd()" style="margin-bottom:14px;">+ Add New Student</button>
+        <button class="btn btn-gold btn-block" onclick="Students.openAdd()" style="margin-bottom:12px;">+ Add New Student</button>
         <div class="student-list" id="studentList"></div>
       </div>
       <div class="tab-pane" data-pane="institution">
@@ -602,18 +644,18 @@ input, select, textarea { font: inherit; outline: none; }
           <div class="field"><label>Teacher</label><input id="instTeacher"></div>
           <div class="field"><label>Department</label><input id="instDepartment"></div>
         </div>
-        <button class="btn btn-primary btn-block" style="margin-top:14px;" onclick="Settings.saveInstitution()">Save Institution</button>
+        <button class="btn btn-primary btn-block" style="margin-top:12px;" onclick="Settings.saveInstitution()">Save Institution</button>
       </div>
       <div class="tab-pane" data-pane="categories">
         <div class="section-title">Lesson Categories</div>
-        <p style="font-size:11.5px; color:var(--text-3); line-height:1.7; margin-bottom:14px;">Add as many as needed. Each student can have 1–10+ lessons.</p>
+        <p style="font-size:11px;color:var(--text-3);line-height:1.6;margin-bottom:12px;">Add as many as needed. Each student can have 1–10+ lessons.</p>
         <div id="categoryList"></div>
-        <div class="form-grid" style="margin-top:14px;">
+        <div class="form-grid" style="margin-top:12px;">
           <div class="field"><label>Arabic Name</label><input id="newCatArabic" placeholder="سبق"></div>
           <div class="field"><label>Display Label</label><input id="newCatLabel" placeholder="New Lesson"></div>
         </div>
-        <button class="btn btn-gold btn-block" style="margin-top:10px;" onclick="Settings.addCategory()">+ Add Category</button>
-        <div class="section-title" style="margin-top:24px;">Lesson Behaviour</div>
+        <button class="btn btn-gold btn-block" style="margin-top:9px;" onclick="Settings.addCategory()">+ Add Category</button>
+        <div class="section-title" style="margin-top:22px;">Lesson Behaviour</div>
         <div class="form-grid">
           <div class="field"><label>Lesson Start</label>
             <select id="lessonStartMode">
@@ -626,7 +668,7 @@ input, select, textarea { font: inherit; outline: none; }
             <select id="lessonEndMode"><option value="required">Required</option></select>
           </div>
         </div>
-        <button class="btn btn-primary btn-block" style="margin-top:14px;" onclick="Settings.saveLessonSettings()">Save Lesson Settings</button>
+        <button class="btn btn-primary btn-block" style="margin-top:12px;" onclick="Settings.saveLessonSettings()">Save Lesson Settings</button>
       </div>
       <div class="tab-pane" data-pane="report">
         <div class="section-title">Report Settings</div>
@@ -639,7 +681,7 @@ input, select, textarea { font: inherit; outline: none; }
             <select id="repTeacherSig"><option value="yes">Yes</option><option value="no">No</option></select>
           </div>
         </div>
-        <button class="btn btn-primary btn-block" style="margin-top:14px;" onclick="Settings.saveReport()">Save Report Settings</button>
+        <button class="btn btn-primary btn-block" style="margin-top:12px;" onclick="Settings.saveReport()">Save Report Settings</button>
       </div>
       <div class="tab-pane" data-pane="audio">
         <div class="section-title">Audio Settings</div>
@@ -654,25 +696,25 @@ input, select, textarea { font: inherit; outline: none; }
             </select>
           </div>
         </div>
-        <button class="btn btn-primary btn-block" style="margin-top:14px;" onclick="Settings.saveAudio()">Save Audio Settings</button>
+        <button class="btn btn-primary btn-block" style="margin-top:12px;" onclick="Settings.saveAudio()">Save Audio Settings</button>
       </div>
       <div class="tab-pane" data-pane="data">
         <div class="section-title">Quran Data — Batch Sync</div>
-        <p style="font-size:11.5px; color:var(--text-3); line-height:1.7; margin-bottom:12px;">Download Quran CSV data from GitHub into IndexedDB. Fast batch writes.</p>
+        <p style="font-size:11px;color:var(--text-3);line-height:1.6;margin-bottom:10px;">Download Quran CSV data from GitHub into IndexedDB. Fast batch writes.</p>
         <div class="progress-bar"><div class="progress-fill" id="syncBar"></div></div>
-        <div style="font-size:11px; color:var(--gold-400); font-weight:600; margin:8px 0;" id="syncStatus">Ready</div>
-        <div style="display:flex; gap:8px; margin-bottom:20px;">
+        <div style="font-size:11px;color:var(--gold-400);font-weight:600;margin:7px 0;" id="syncStatus">Ready</div>
+        <div style="display:flex;gap:8px;margin-bottom:18px;">
           <button class="btn btn-primary" onclick="Sync.download()">⬇ Batch Download</button>
           <button class="btn btn-danger" onclick="Sync.clearQuran()">Clear Cache</button>
         </div>
         <div class="section-title">QPC Fonts (604 pages)</div>
         <div class="progress-bar"><div class="progress-fill" id="fontBar"></div></div>
-        <div style="font-size:11px; color:var(--gold-400); font-weight:600; margin:8px 0;" id="fontCount">0 / 604</div>
-        <button class="btn btn-gold btn-block" style="margin-bottom:20px;" id="btnFonts" onclick="Sync.downloadFonts()">⬇ Download All Fonts (Resumable)</button>
+        <div style="font-size:11px;color:var(--gold-400);font-weight:600;margin:7px 0;" id="fontCount">0 / 604</div>
+        <button class="btn btn-gold btn-block" style="margin-bottom:18px;" id="btnFonts" onclick="Sync.downloadFonts()">⬇ Download All Fonts (Resumable)</button>
         <div class="section-title">Backup & Restore</div>
-        <div style="display:flex; gap:8px;">
-          <button class="btn btn-ghost" style="flex:1;" onclick="Sync.backup()">💾 Export Backup</button>
-          <button class="btn btn-ghost" style="flex:1;" onclick="Sync.restore()">📥 Import Backup</button>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-ghost" style="flex:1;" onclick="Sync.backup()">💾 Export</button>
+          <button class="btn btn-ghost" style="flex:1;" onclick="Sync.restore()">📥 Import</button>
         </div>
       </div>
     </div>
@@ -705,7 +747,7 @@ input, select, textarea { font: inherit; outline: none; }
       </div>
       <div class="field full"><label>Notes</label><textarea id="stuNotes"></textarea></div>
     </div>
-    <div style="display:flex; gap:8px; margin-top:16px;">
+    <div style="display:flex;gap:8px;margin-top:14px;">
       <button class="btn btn-primary" style="flex:1;" onclick="Students.save()">Save Student</button>
       <button class="btn btn-ghost" onclick="UI.closeModal('studentModal')">Cancel</button>
     </div>
@@ -719,7 +761,7 @@ input, select, textarea { font: inherit; outline: none; }
       <h3>End Lesson — Record</h3>
       <button class="close-x" onclick="UI.closeModal('lessonModal')">×</button>
     </div>
-    <div style="padding:12px; background:rgba(197,160,89,0.1); border-left:3px solid var(--gold-500); border-radius:6px; font-size:11.5px; line-height:1.7; margin-bottom:16px;">
+    <div style="padding:10px;background:rgba(197,160,89,0.1);border-left:3px solid var(--gold-500);border-radius:6px;font-size:11px;line-height:1.6;margin-bottom:14px;">
       Last read point is auto-filled from the last Ayah marker tapped. Adjust if needed.
     </div>
     <div class="form-grid">
@@ -732,7 +774,7 @@ input, select, textarea { font: inherit; outline: none; }
       <div class="field"><label>To Ayah</label><input id="lesToAyah" type="number" min="1"></div>
       <div class="field"><label>To Page</label><input id="lesToPage" type="number" min="1"></div>
     </div>
-    <div style="display:flex; gap:8px; margin-top:16px;">
+    <div style="display:flex;gap:8px;margin-top:14px;">
       <button class="btn btn-primary" style="flex:1;" onclick="Lesson.saveEnd()">Save Lesson</button>
       <button class="btn btn-ghost" onclick="UI.closeModal('lessonModal')">Cancel</button>
     </div>
@@ -752,7 +794,7 @@ input, select, textarea { font: inherit; outline: none; }
       <div class="field"><label>From Ayah</label><input id="lesStartAyah" type="number"></div>
       <div class="field full"><label>From Page</label><input id="lesStartPage" type="number"></div>
     </div>
-    <div style="display:flex; gap:8px; margin-top:16px;">
+    <div style="display:flex;gap:8px;margin-top:14px;">
       <button class="btn btn-primary" style="flex:1;" onclick="Lesson.saveStart()">Start Lesson</button>
       <button class="btn btn-ghost" onclick="UI.closeModal('lessonStartModal')">Cancel</button>
     </div>
@@ -795,14 +837,13 @@ input, select, textarea { font: inherit; outline: none; }
 <script>
 "use strict";
 
-/* ═══ CONFIG ═══ */
+/* CONFIG */
 const CONFIG = {
-  madani: { id:"madani", name:"Madinah 1405H", shortName:"Madani 1405H", pages:604, lines:15, file:"./qpcv1-35.csv" },
-  indopak: { id:"indopak", name:"Indo-Pak Qudratullah", shortName:"Qudratullah 15L", pages:610, lines:15, file:"./indpak-20.csv" }
+  madani: { id:"madani", name:"Madinah 1405H", shortName:"Madani 1405H", pages:604, file:"./qpcv1-35.csv" },
+  indopak: { id:"indopak", name:"Indo-Pak Qudratullah", shortName:"Qudratullah 15L", pages:610, file:"./indpak-20.csv" }
 };
 
 const SURAH_NAMES = ["","الفاتحة","البقرة","آل عمران","النساء","المائدة","الأنعام","الأعراف","الأنفال","التوبة","يونس","هود","يوسف","الرعد","إبراهيم","الحجر","النحل","الإسراء","الكهف","مريم","طه","الأنبياء","الحج","المؤمنون","النور","الفرقان","الشعراء","النمل","القصص","العنكبوت","الروم","لقمان","السجدة","الأحزاب","سبأ","فاطر","يس","الصافات","ص","الزمر","غافر","فصلت","الشورى","الزخرف","الدخان","الجاثية","الأحقاف","محمد","الفتح","الحجرات","ق","الذاريات","الطور","النجم","القمر","الرحمن","الواقعة","الحديد","المجادلة","الحشر","الممتحنة","الصف","الجمعة","المنافقون","التغابن","الطلاق","التحريم","الملك","القلم","الحاقة","المعارج","نوح","الجن","المزمل","المدثر","القيامة","الإنسان","المرسلات","النبأ","النازعات","عبس","التكوير","الانفطار","المطففين","الانشقاق","البروج","الطارق","الأعلى","الغاشية","الفجر","البلد","الشمس","الليل","الضحى","الشرح","التين","العلق","القدر","البينة","الزلزلة","العاديات","القارعة","التكاثر","العصر","الهمزة","الفيل","قريش","الماعون","الكوثر","الكافرون","النصر","المسد","الإخلاص","الفلق","الناس"];
-
 const SURAH_AYAH_COUNT = [0,7,286,200,176,120,165,206,75,129,109,123,111,43,52,99,128,111,110,98,135,112,78,118,64,77,227,93,88,69,60,34,30,73,54,45,83,182,88,75,85,54,53,89,59,37,35,38,29,18,45,60,49,62,55,78,96,29,22,24,13,14,11,11,18,12,12,30,52,52,44,28,28,20,56,40,31,50,40,46,42,29,19,36,25,22,17,19,26,30,20,15,21,11,8,8,19,5,8,8,11,11,8,3,9,5,4,7,3,6,3,5,4,5,6];
 function surahAyahCount(n) { return SURAH_AYAH_COUNT[n] || 0; }
 
@@ -830,7 +871,6 @@ const State = {
   undoStack: []
 };
 
-/* ═══ UTILS ═══ */
 const U = {
   id: p => p + "_" + Date.now() + "_" + Math.random().toString(36).slice(2,9),
   today: () => new Date().toISOString().slice(0,10),
@@ -856,11 +896,11 @@ const U = {
     t.textContent = msg;
     t.classList.add("show");
     clearTimeout(this._t);
-    this._t = setTimeout(() => t.classList.remove("show"), 2400);
+    this._t = setTimeout(() => t.classList.remove("show"), 2300);
   }
 };
 
-/* ═══ DB ═══ */
+/* DB */
 const DB = {
   db: null, name: "AlHalaqah_Pro_v3",
   init() {
@@ -914,7 +954,24 @@ const DB = {
   }
 };
 
-/* ═══ INGESTION ═══ */
+/* CSV */
+function clean(v) { let t = String(v ?? "").trim(); if (t.length >= 2 && ((t[0]==="'" && t.endsWith("'")) || (t[0]==='"' && t.endsWith('"')))) t = t.slice(1,-1); return t; }
+function parseCSV(text) {
+  const rows=[]; let cur=[], val="", inQ=false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (c === '"') { if (inQ && text[i+1] === '"') { val += '"'; i++; } else inQ = !inQ; continue; }
+    if (c === "," && !inQ) { cur.push(val); val=""; continue; }
+    if ((c === "\n" || c === "\r") && !inQ) { if (c === "\r" && text[i+1] === "\n") i++; cur.push(val); val=""; if (cur.some(x=>x!=="")) rows.push(cur); cur=[]; continue; }
+    val += c;
+  }
+  if (val !== "" || cur.length) { cur.push(val); if (cur.some(x=>x!=="")) rows.push(cur); }
+  if (!rows.length) return [];
+  const h = rows[0].map(clean);
+  return rows.slice(1).map(r => { const o={}; h.forEach((k,i)=>o[k]=clean(r[i]??"")); return o; });
+}
+
+/* INGESTION */
 const Ingest = {
   async run() {
     const meta = await DB.get("meta","csv_ready");
@@ -978,30 +1035,15 @@ const Ingest = {
       if (p.length < 8) continue;
       const id = Number(p[3]);
       if (!id) continue;
-      batch.push({
-        id, surah:Number(p[0]), ayah:Number(p[1]),
-        uthmani:p[4]||"", indopak:p[6]||p[5]||p[4]||"",
-        dk_indopak:p[7]||p[6]||p[4]||"", qpc_v1:p[8]||p[4]||""
-      });
-      if (batch.length >= 4000) {
-        await DB.putMany("words", batch);
-        done += batch.length; batch = [];
-        onProgress?.(done/total*100);
-        await U.sleep();
-      }
+      batch.push({ id, surah:Number(p[0]), ayah:Number(p[1]), uthmani:p[4]||"", indopak:p[6]||p[5]||p[4]||"", dk_indopak:p[7]||p[6]||p[4]||"", qpc_v1:p[8]||p[4]||"" });
+      if (batch.length >= 4000) { await DB.putMany("words", batch); done += batch.length; batch = []; onProgress?.(done/total*100); await U.sleep(); }
     }
     if (batch.length) await DB.putMany("words", batch);
   },
   async font(name, url) {
     const ex = await DB.get("fonts", name);
     if (ex?.data) return;
-    try {
-      const r = await fetch(url);
-      if (r.ok) {
-        const buf = await r.arrayBuffer();
-        await DB.put("fonts", { name, data:buf });
-      }
-    } catch (e) {}
+    try { const r = await fetch(url); if (r.ok) { const buf = await r.arrayBuffer(); await DB.put("fonts", { name, data:buf }); } } catch (e) {}
   },
   async updateFontUI() {
     const all = await DB.all("fonts");
@@ -1026,15 +1068,7 @@ const Ingest = {
       while (idx < queue.length && navigator.onLine) {
         const p = queue[idx++];
         const url = "https://verses.quran.foundation/fonts/quran/hafs/v1/woff2/p" + p + ".woff2";
-        try {
-          const r = await fetch(url);
-          if (r.ok) {
-            const buf = await r.arrayBuffer();
-            await DB.put("fonts", { name:"p"+p, data:buf });
-            done++;
-            if (done % 20 === 0) this.updateFontUI();
-          }
-        } catch (e) {}
+        try { const r = await fetch(url); if (r.ok) { const buf = await r.arrayBuffer(); await DB.put("fonts", { name:"p"+p, data:buf }); done++; if (done % 20 === 0) this.updateFontUI(); } } catch (e) {}
       }
     };
     await Promise.all(Array.from({ length:workers }, worker));
@@ -1042,7 +1076,6 @@ const Ingest = {
   }
 };
 
-/* ═══ FONTS ═══ */
 const Fonts = {
   loaded: new Set(),
   async page(pageNum, isIndo) {
@@ -1050,26 +1083,19 @@ const Fonts = {
     const name = "QCF_P" + pageNum;
     if (this.loaded.has(name)) return name;
     const rec = await DB.get("fonts", "p" + pageNum);
-    if (rec?.data) {
-      try { const f = new FontFace(name, rec.data); await f.load(); document.fonts.add(f); this.loaded.add(name); return name; } catch (e) {}
-    }
+    if (rec?.data) { try { const f = new FontFace(name, rec.data); await f.load(); document.fonts.add(f); this.loaded.add(name); return name; } catch (e) {} }
     if (navigator.onLine) {
       try {
         const url = "https://verses.quran.foundation/fonts/quran/hafs/v1/woff2/p" + pageNum + ".woff2";
         const r = await fetch(url);
-        if (r.ok) {
-          const buf = await r.arrayBuffer();
-          await DB.put("fonts", { name:"p"+pageNum, data:buf });
-          const f = new FontFace(name, buf); await f.load(); document.fonts.add(f); this.loaded.add(name);
-          return name;
-        }
+        if (r.ok) { const buf = await r.arrayBuffer(); await DB.put("fonts", { name:"p"+pageNum, data:buf }); const f = new FontFace(name, buf); await f.load(); document.fonts.add(f); this.loaded.add(name); return name; }
       } catch (e) {}
     }
     return "'DigitalKhatt Old Madina','Amiri',serif";
   }
 };
 
-/* ═══ SETTINGS ═══ */
+/* SETTINGS */
 const Settings = {
   async load() {
     const s = await DB.get("settings","app");
@@ -1090,10 +1116,7 @@ const Settings = {
     this.tab(tab);
     if (tab === "students") Students.renderList();
   },
-  closeSheet(e) {
-    if (e && e.target !== e.currentTarget) return;
-    document.getElementById("sheetScrim").classList.remove("open");
-  },
+  closeSheet(e) { if (e && e.target !== e.currentTarget) return; document.getElementById("sheetScrim").classList.remove("open"); },
   tab(name) {
     document.querySelectorAll(".sheet-tab").forEach(t => t.classList.toggle("active", t.dataset.tab === name));
     document.querySelectorAll(".tab-pane").forEach(p => p.classList.toggle("active", p.dataset.pane === name));
@@ -1122,7 +1145,7 @@ const Settings = {
     if (!box) return;
     box.innerHTML = State.settings.categories.map(c =>
       '<div class="cat-item"><div><span class="name">' + U.esc(c.name) + '</span><span class="label">' + U.esc(c.label) + '</span></div>' +
-      '<button class="btn btn-danger" style="padding:5px 10px;font-size:11px;" onclick="Settings.removeCategory(\'' + c.id + '\')">Remove</button></div>'
+      '<button class="btn btn-danger" style="padding:5px 9px;font-size:11px;" onclick="Settings.removeCategory(\'' + c.id + '\')">Remove</button></div>'
     ).join("");
   },
   async saveInstitution() {
@@ -1172,20 +1195,29 @@ const Settings = {
   }
 };
 
-/* ═══ MENUS ═══ */
+/* MENUS */
 const Menus = {
   closeAll() { document.querySelectorAll(".menu").forEach(m => m.classList.remove("open")); },
   positionAt(menu, anchor, align = "left") {
     const r = anchor.getBoundingClientRect();
     menu.style.left = "auto"; menu.style.right = "auto";
-    const mw = Math.min(280, window.innerWidth - 16);
-    let x = align === "right" ? (r.right - mw) : r.left;
-    if (x + mw > window.innerWidth - 8) x = window.innerWidth - mw - 8;
+    let x = align === "right" ? (r.right - 220) : r.left;
+    if (x + 220 > window.innerWidth) x = window.innerWidth - 230;
     if (x < 8) x = 8;
     let y = r.bottom + 6;
-    if (y + 340 > window.innerHeight) y = Math.max(8, r.top - 340);
+    if (y + 300 > window.innerHeight) y = Math.max(8, r.top - 300);
     menu.style.left = x + "px";
     menu.style.top = y + "px";
+  },
+  toggleTools(e) {
+    e.stopPropagation();
+    const m = document.getElementById("toolsMenu");
+    const wasOpen = m.classList.contains("open");
+    this.closeAll();
+    if (wasOpen) return;
+    this.updateToolMenu();
+    m.classList.add("open");
+    this.positionAt(m, e.currentTarget, "left");
   },
   toggleStudent(e) {
     e.stopPropagation();
@@ -1216,6 +1248,12 @@ const Menus = {
     m.classList.add("open");
     this.positionAt(m, e.currentTarget, "right");
   },
+  updateToolMenu() {
+    const t = State.currentTool;
+    ["tm-underline","tm-highlight","tm-ghalat","tm-tajweed","tm-select"].forEach(id => document.getElementById(id)?.classList.remove("active"));
+    const map = { underline:"tm-underline", highlight:"tm-highlight", ghalat:"tm-ghalat", tajweed:"tm-tajweed", select:"tm-select" };
+    if (map[t]) document.getElementById(map[t])?.classList.add("active");
+  },
   buildStudentMenu() {
     const list = document.getElementById("studentMenuList");
     list.innerHTML = State.students.map(s => {
@@ -1223,8 +1261,7 @@ const Menus = {
       return '<button class="menu-item ' + (active ? "active" : "") + '" onclick="Menus.closeAll(); Students.select(\'' + s.id + '\')">' +
         '<span class="ico">' + (active ? "✓" : "👤") + '</span>' +
         '<span>' + U.esc(s.name) + '</span>' +
-        '<span class="meta">' + U.esc(s.roll || "") + '</span>' +
-        '</button>';
+        '<span class="meta">' + U.esc(s.roll || "") + '</span></button>';
     }).join("");
   },
   buildLessonMenu() {
@@ -1235,9 +1272,8 @@ const Menus = {
       const active = c.id === activeId;
       return '<button class="menu-item ' + (active ? "active" : "") + '" onclick="Menus.closeAll(); Students.setDefaultCategory(\'' + c.id + '\')">' +
         '<span class="ico">' + (active ? "✓" : "○") + '</span>' +
-        '<span class="ar" style="font-family:Amiri,serif;font-size:15px;">' + U.esc(c.name) + '</span>' +
-        '<span class="meta">' + U.esc(c.label) + '</span>' +
-        '</button>';
+        '<span class="ar" style="font-family:Amiri,serif;font-size:14px;">' + U.esc(c.name) + '</span>' +
+        '<span class="meta">' + U.esc(c.label) + '</span></button>';
     }).join("");
   },
   updateLessonPill() {
@@ -1254,12 +1290,10 @@ const Menus = {
   }
 };
 document.addEventListener("click", e => {
-  if (!e.target.closest(".menu") && !e.target.closest(".pill-btn") && !e.target.closest(".dock-btn")) {
-    Menus.closeAll();
-  }
+  if (!e.target.closest(".menu") && !e.target.closest(".pill-btn") && !e.target.closest(".dock-btn")) this?.Menus?.closeAll?.();
 });
 
-/* ═══ STUDENTS ═══ */
+/* STUDENTS */
 const Students = {
   async load() {
     State.students = await DB.all("students");
@@ -1278,7 +1312,7 @@ const Students = {
     const box = document.getElementById("studentList");
     if (!box) return;
     if (!State.students.length) {
-      box.innerHTML = '<div style="padding:14px;color:var(--text-3);font-size:12px;">No students. Click above to add.</div>';
+      box.innerHTML = '<div style="padding:12px;color:var(--text-3);font-size:12px;">No students yet. Click above to add.</div>';
       return;
     }
     box.innerHTML = State.students.map(s => {
@@ -1296,11 +1330,9 @@ const Students = {
   updateBadge() {
     const c = this.current();
     const d = document.getElementById("drawerStudent");
-    if (d) {
-      d.innerHTML = c
-        ? '<b style="color:var(--gold-400);">' + U.esc(c.name) + '</b><br>Roll: ' + U.esc(c.roll||"-") + '<br>Mushaf: ' + U.esc(CONFIG[c.mushafId]?.shortName || "-")
-        : "No student selected";
-    }
+    if (d) d.innerHTML = c
+      ? '<b style="color:var(--gold-400);">' + U.esc(c.name) + '</b><br>Roll: ' + U.esc(c.roll||"-") + '<br>Mushaf: ' + U.esc(CONFIG[c.mushafId]?.shortName || "-")
+      : "No student selected";
   },
   openAdd() {
     document.getElementById("studentModalTitle").textContent = "Add Student";
@@ -1384,11 +1416,7 @@ const Students = {
       const recs = await DB.all(store);
       for (const r of recs) if (r.studentId === id || (store === "students" && r.id === id)) await DB.del(store, r.id);
     }
-    if (State.currentStudentId === id) {
-      State.currentStudentId = null;
-      State.currentMushaf = State.settings.reader.defaultMushaf;
-      State.currentPage = 1;
-    }
+    if (State.currentStudentId === id) { State.currentStudentId = null; State.currentMushaf = State.settings.reader.defaultMushaf; State.currentPage = 1; }
     await this.load();
     await Reader.render();
     U.toast("Student deleted");
@@ -1404,34 +1432,53 @@ const Students = {
   }
 };
 
-/* ═══ MARKS ═══ */
+/* MARKS */
 const Marks = {
   async load() { State.marks = await DB.all("marks"); },
   setTool(t) {
     State.currentTool = t;
-    ["toolUnderline","toolGhalat","toolTajweed"].forEach(id => document.getElementById(id)?.classList.remove("active"));
-    const map = { underline:"toolUnderline", ghalat:"toolGhalat", tajweed:"toolTajweed" };
-    if (map[t]) document.getElementById(map[t])?.classList.add("active");
+    // Update dock button
+    const btn = document.getElementById("toolBtn");
+    const icon = document.getElementById("toolBtnIcon");
+    const label = document.getElementById("toolBtnLabel");
+    const eraserBtn = document.getElementById("eraserBtn");
+    const map = {
+      underline:{ icon:"_", label:"Underline" },
+      highlight:{ icon:"🖍", label:"Highlight" },
+      ghalat:{ icon:"🔴", label:"Ghalat" },
+      tajweed:{ icon:"🟡", label:"Tajweed" },
+      select:{ icon:"👆", label:"Select" },
+      eraser:{ icon:"🧹", label:"Eraser" }
+    };
+    if (map[t]) {
+      if (icon) icon.textContent = map[t].icon;
+      if (label) label.textContent = map[t].label;
+    }
+    btn?.classList.toggle("active", t !== "eraser");
+    eraserBtn?.classList.toggle("danger-on", t === "eraser");
+    Menus.updateToolMenu();
+    Menus.closeAll();
   },
   async toggle(wordId, verseKey, page) {
     if (!State.currentStudentId) { U.toast("Select a student first"); return; }
     if (State.currentTool === "eraser") {
       const ex = State.marks.filter(m => m.studentId === State.currentStudentId && m.mushafId === State.currentMushaf && m.wordNumberAll === wordId);
-      for (const m of ex) await DB.del("marks", m.id);
+      if (!ex.length) return;
+      for (const m of ex) {
+        State.undoStack.push({ kind:"restore", rec:{ ...m } });
+        await DB.del("marks", m.id);
+      }
       await this.load(); await Reader.render();
       return;
     }
-    const existing = State.marks.find(m =>
-      m.studentId === State.currentStudentId &&
-      m.mushafId === State.currentMushaf &&
-      m.wordNumberAll === wordId
-    );
+    if (State.currentTool === "select") return;
+    const existing = State.marks.find(m => m.studentId === State.currentStudentId && m.mushafId === State.currentMushaf && m.wordNumberAll === wordId);
     if (existing) {
-      State.undoStack.push({ kind:"mark-replace", id:existing.id, prev: { ...existing } });
       if (existing.type === State.currentTool) {
+        State.undoStack.push({ kind:"restore", rec:{ ...existing } });
         await DB.del("marks", existing.id);
-        State.undoStack[State.undoStack.length-1].kind = "mark-remove";
       } else {
+        State.undoStack.push({ kind:"restore", rec:{ ...existing } });
         existing.type = State.currentTool;
         existing.updatedAt = new Date().toISOString();
         await DB.put("marks", existing);
@@ -1449,7 +1496,7 @@ const Marks = {
         createdAt: new Date().toISOString()
       };
       await DB.put("marks", rec);
-      State.undoStack.push({ kind:"mark-add", id:rec.id });
+      State.undoStack.push({ kind:"delete", id:rec.id });
     }
     await this.load();
     await Reader.render();
@@ -1458,10 +1505,9 @@ const Marks = {
     const last = State.undoStack.pop();
     if (!last) { U.toast("Nothing to undo"); return; }
     try {
-      if (last.kind === "mark-add") await DB.del("marks", last.id);
-      else if (last.kind === "mark-remove" || last.kind === "mark-replace") await DB.put("marks", last.prev);
-      await this.load();
-      await Reader.render();
+      if (last.kind === "delete") await DB.del("marks", last.id);
+      else if (last.kind === "restore") await DB.put("marks", last.rec);
+      await this.load(); await Reader.render();
       U.toast("Undone");
     } catch (e) { U.toast("Undo failed"); }
   },
@@ -1470,28 +1516,23 @@ const Marks = {
     if (!confirm("Clear all marks on this page?")) return;
     const list = State.marks.filter(m => m.studentId === State.currentStudentId && m.mushafId === State.currentMushaf && m.page === State.currentPage);
     for (const m of list) await DB.del("marks", m.id);
-    await this.load();
-    await Reader.render();
+    await this.load(); await Reader.render();
     U.toast("Page marks cleared");
   }
 };
 
-/* ═══ LESSON ═══ */
+/* LESSON */
 const Lesson = {
   async load() { State.lessons = await DB.all("lessons"); },
   fillCategories(sel) {
     if (!sel) return;
-    sel.innerHTML = State.settings.categories.map(c =>
-      '<option value="' + c.id + '">' + U.esc(c.name) + ' — ' + U.esc(c.label) + '</option>'
-    ).join("");
+    sel.innerHTML = State.settings.categories.map(c => '<option value="' + c.id + '">' + U.esc(c.name) + ' — ' + U.esc(c.label) + '</option>').join("");
   },
   fillMushafs(sel) {
     if (!sel) return;
     const s = Students.current();
     const assigned = s ? Students.assignedMushafs(s.id) : [];
-    sel.innerHTML = assigned.map(m =>
-      '<option value="' + m + '">' + U.esc(CONFIG[m]?.name || m) + '</option>'
-    ).join("");
+    sel.innerHTML = assigned.map(m => '<option value="' + m + '">' + U.esc(CONFIG[m]?.name || m) + '</option>').join("");
   },
   startDialog() {
     if (State.settings.lesson.start === "disabled") { U.toast("Lesson Start is disabled"); return; }
@@ -1528,12 +1569,7 @@ const Lesson = {
     await DB.put("lessons", lesson);
     State.currentLessonId = lesson.id;
     await this.load();
-    if (s.defaultCategoryId !== catId) {
-      s.defaultCategoryId = catId;
-      await DB.put("students", s);
-      State.defaultCategoryId = catId;
-      Menus.updateLessonPill();
-    }
+    if (s.defaultCategoryId !== catId) { s.defaultCategoryId = catId; await DB.put("students", s); State.defaultCategoryId = catId; Menus.updateLessonPill(); }
     UI.closeModal("lessonStartModal");
     U.toast("Lesson started");
   },
@@ -1544,7 +1580,6 @@ const Lesson = {
     this.fillMushafs(document.getElementById("lesMushaf"));
     document.getElementById("lesCategory").value = State.defaultCategoryId || State.settings.categories[0].id;
     document.getElementById("lesMushaf").value = State.currentMushaf;
-
     const b = State.lastBoundary;
     document.getElementById("lesFromSurah").value = b?.surah || "";
     document.getElementById("lesFromAyah").value = b?.ayah || "";
@@ -1552,7 +1587,6 @@ const Lesson = {
     document.getElementById("lesToSurah").value = b?.surah || "";
     document.getElementById("lesToAyah").value = b?.ayah || "";
     document.getElementById("lesToPage").value = b?.page || State.currentPage;
-
     document.getElementById("lessonModal").classList.add("open");
   },
   async saveEnd() {
@@ -1582,12 +1616,7 @@ const Lesson = {
     State.currentLessonId = null;
     State.lastBoundary = null;
     await this.load();
-    if (s.defaultCategoryId !== catId) {
-      s.defaultCategoryId = catId;
-      await DB.put("students", s);
-      State.defaultCategoryId = catId;
-      Menus.updateLessonPill();
-    }
+    if (s.defaultCategoryId !== catId) { s.defaultCategoryId = catId; await DB.put("students", s); State.defaultCategoryId = catId; Menus.updateLessonPill(); }
     UI.closeModal("lessonModal");
     U.toast("Lesson saved");
   }
@@ -1614,12 +1643,12 @@ const Lessons = {
           '<td style="padding:10px;">' + U.esc(l.toSurah || "-") + ' ' + (l.toAyah ? "Ayah " + l.toAyah : "") + '<br><small>Page ' + (l.toPage || "-") + '</small></td>' +
           '</tr>').join("") +
         '</tbody></table>'
-      : '<div style="padding:24px;text-align:center;color:var(--text-3);">No lessons recorded yet.</div>';
+      : '<div style="padding:22px;text-align:center;color:var(--text-3);">No lessons recorded yet.</div>';
     document.getElementById("historyModal").classList.add("open");
   }
 };
 
-/* ═══ AUDIO ═══ */
+/* AUDIO */
 const AudioPlayer = {
   el: null,
   play(verseKey) {
@@ -1648,7 +1677,7 @@ const AudioPlayer = {
   }
 };
 
-/* ═══ AYAH ACTION ═══ */
+/* AYAH ACTION */
 const AyahAction = {
   current: null,
   open(e, el, verseKey) {
@@ -1656,10 +1685,6 @@ const AyahAction = {
     const [s,a] = verseKey.split(":").map(Number);
     this.current = { verseKey, surah:s, ayah:a, page:State.currentPage, el };
     State.currentAyah = verseKey;
-    const el1 = document.getElementById("ayahStartMeta");
-    const el2 = document.getElementById("ayahEndMeta");
-    if (el1) el1.textContent = SURAH_NAMES[s] + " · " + a;
-    if (el2) el2.textContent = SURAH_NAMES[s] + " · " + a;
     const m = document.getElementById("ayahMenu");
     Menus.closeAll();
     m.classList.add("open");
@@ -1672,6 +1697,7 @@ const AyahAction = {
     const c = this.current;
     State.lastBoundary = { surah:SURAH_NAMES[c.surah], ayah:c.ayah, page:c.page };
     document.querySelectorAll(".ayah-mark").forEach(el => el.classList.remove("lesson-start"));
+    c.el.classList.add("lesson-start");
     U.toast("Start: " + SURAH_NAMES[c.surah] + " · " + c.ayah);
     this.close();
   },
@@ -1680,20 +1706,21 @@ const AyahAction = {
     const c = this.current;
     State.lastBoundary = { surah:SURAH_NAMES[c.surah], ayah:c.ayah, page:c.page };
     document.querySelectorAll(".ayah-mark").forEach(el => el.classList.remove("lesson-end"));
+    c.el.classList.add("lesson-end");
     U.toast("End: " + SURAH_NAMES[c.surah] + " · " + c.ayah);
     this.close();
     setTimeout(() => Lesson.endDialog(), 250);
   }
 };
 
-/* ═══ READER ═══ */
+/* READER */
 const Reader = {
   isSpread() { return window.innerWidth > 1000 && window.innerWidth > window.innerHeight; },
   async changeMushaf(id) {
     const s = Students.current();
     if (s) {
       const assigned = Students.assignedMushafs(s.id);
-      if (!assigned.includes(id)) { U.toast("Not assigned"); return; }
+      if (!assigned.includes(id)) { U.toast("Not assigned to this student"); return; }
     }
     State.currentMushaf = id;
     const ps = s ? await DB.get("page_states", s.id + "_" + id) : null;
@@ -1721,13 +1748,7 @@ const Reader = {
   },
   async saveState() {
     if (!State.currentStudentId) return;
-    await DB.put("page_states", {
-      id: State.currentStudentId + "_" + State.currentMushaf,
-      studentId: State.currentStudentId,
-      mushafId: State.currentMushaf,
-      page: State.currentPage,
-      updatedAt: new Date().toISOString()
-    });
+    await DB.put("page_states", { id:State.currentStudentId + "_" + State.currentMushaf, studentId:State.currentStudentId, mushafId:State.currentMushaf, page:State.currentPage, updatedAt:new Date().toISOString() });
   },
   sync() {
     const el = document.getElementById("pageIndicator");
@@ -1737,24 +1758,19 @@ const Reader = {
     let html = "";
     for (const w of words) {
       if (!w) continue;
-      const text = isIndo
-        ? (w.dk_indopak || w.indopak || w.uthmani || "")
-        : (isQcf ? (w.qpc_v1 || w.uthmani) : w.uthmani);
+      const text = isIndo ? (w.dk_indopak || w.indopak || w.uthmani || "") : (isQcf ? (w.qpc_v1 || w.uthmani) : w.uthmani);
       if (!text) continue;
       const isJ = U.isJalalah(w.uthmani || w.indopak || "");
       const verseKey = w.surah + ":" + w.ayah;
-      const mark = State.marks.find(m =>
-        m.studentId === State.currentStudentId &&
-        m.mushafId === State.currentMushaf &&
-        m.wordNumberAll === Number(w.id)
-      );
+      const mark = State.marks.find(m => m.studentId === State.currentStudentId && m.mushafId === State.currentMushaf && m.wordNumberAll === Number(w.id));
       let cls = "word";
       if (isJ) cls += " jalalah";
       if (mark?.type === "ghalat") cls += " mark-ghalat";
       if (mark?.type === "tajweed") cls += " mark-tajweed";
-      if (mark?.type === "underline") cls += " mark-underline";
+      if (mark?.type === "underline" || mark?.type === "highlight") cls += " mark-underline";
       const style = isQcf ? "font-family:'" + fontName + "','Amiri',serif;" : "";
-      html += '<span class="' + cls + '" style="' + style + '" ' +
+      const wordStyle = mark?.type === "highlight" ? "background:rgba(244,196,48,0.5);box-shadow:none;" : "";
+      html += '<span class="' + cls + '" style="' + style + wordStyle + '" ' +
         'data-word="' + w.id + '" data-verse="' + verseKey + '" ' +
         'onclick="Reader.wordClick(event, this)">' + U.esc(text) + '</span>';
     }
@@ -1775,20 +1791,19 @@ const Reader = {
       const row = document.createElement("div");
       row.className = "qline";
       const l = map.get(n);
-
       if (!l) { row.innerHTML = "&nbsp;"; }
       else if (l.type === "surah_name") {
         const sn = l.start || 1;
         detectedSurah = sn;
         row.classList.add("centered");
-        const ac = surahAyahCount(sn);
+        const ayahCount = surahAyahCount(sn);
         row.innerHTML =
           '<div class="surah-head">' +
           '<span class="meta">ترتيبها ' + U.ar(sn) + '</span>' +
           '<span class="sep">·</span>' +
           '<span class="title">سُورَةُ ' + (SURAH_NAMES[sn] || "") + '</span>' +
           '<span class="sep">·</span>' +
-          '<span class="meta">' + U.ar(ac) + ' آية</span>' +
+          '<span class="meta">' + U.ar(ayahCount) + ' آية</span>' +
           '</div>';
       } else if (l.type === "basmallah") {
         row.classList.add("centered");
@@ -1841,46 +1856,39 @@ const Reader = {
     const wordId = Number(el.dataset.word);
     const verse = el.dataset.verse;
     State.currentAyah = verse;
-    if (State.currentTool === "underline" || State.currentTool === "ghalat" || State.currentTool === "tajweed" || State.currentTool === "eraser") {
+
+    const tool = State.currentTool;
+    if (tool === "underline" || tool === "ghalat" || tool === "tajweed" || tool === "highlight" || tool === "eraser") {
       await Marks.toggle(wordId, verse, State.currentPage);
       return;
     }
+    // Select tool → show popup (Start/End/Play)
     if (State.settings.audio.enabled) AudioPlayer.play(verse);
     AyahAction.open(e, el, verse);
   }
 };
 
-/* ═══ REPORT ═══ */
+/* REPORT */
 const Report = {
-  open() {
-    this.populateStudents();
-    document.getElementById("reportScreen").classList.add("open");
-    this.render();
-  },
+  open() { this.populateStudents(); document.getElementById("reportScreen").classList.add("open"); this.render(); },
   close() { document.getElementById("reportScreen").classList.remove("open"); },
   populateStudents() {
     const sel = document.getElementById("repStudent");
-    sel.innerHTML = '<option value="all">All Students</option>' +
-      State.students.map(s => '<option value="' + s.id + '">' + U.esc(s.name) + '</option>').join("");
+    sel.innerHTML = '<option value="all">All Students</option>' + State.students.map(s => '<option value="' + s.id + '">' + U.esc(s.name) + '</option>').join("");
     if (State.currentStudentId) sel.value = State.currentStudentId;
   },
   range() {
     const t = document.getElementById("repRange").value;
     if (t === "all") return { from:null, to:null };
-    if (t === "custom") return { from: document.getElementById("repFrom").value, to: document.getElementById("repTo").value };
+    if (t === "custom") return { from:document.getElementById("repFrom").value, to:document.getElementById("repTo").value };
     const now = new Date();
-    if (t === "month") {
-      return {
-        from: new Date(now.getFullYear(), now.getMonth(), 1).toISOString().slice(0,10),
-        to: new Date(now.getFullYear(), now.getMonth()+1, 0).toISOString().slice(0,10)
-      };
-    }
+    if (t === "month") return { from:new Date(now.getFullYear(), now.getMonth(), 1).toISOString().slice(0,10), to:new Date(now.getFullYear(), now.getMonth()+1, 0).toISOString().slice(0,10) };
     const d = new Date(now);
     const day = d.getDay();
     d.setDate(d.getDate() + (day === 0 ? -6 : 1 - day));
     const from = d.toISOString().slice(0,10);
     d.setDate(d.getDate() + 6);
-    return { from, to: d.toISOString().slice(0,10) };
+    return { from, to:d.toISOString().slice(0,10) };
   },
   async render() {
     const t = document.getElementById("repRange").value;
@@ -1893,32 +1901,24 @@ const Report = {
     if (rng.from) lessons = lessons.filter(l => l.lessonDate >= rng.from);
     if (rng.to) lessons = lessons.filter(l => l.lessonDate <= rng.to);
     lessons.sort((a,b) => (a.lessonDate||"").localeCompare(b.lessonDate||""));
-
     const student = State.students.find(s => s.id === selId);
     const grouped = {};
     lessons.forEach(l => { (grouped[l.lessonDate] = grouped[l.lessonDate] || []).push(l); });
     const dates = Object.keys(grouped).sort();
     const cats = State.settings.categories;
-
-    const headerCells = cats.map(c =>
-      '<th><div class="ar">' + U.esc(c.name) + '</div><div class="ml">' + U.esc(c.label) + '</div></th>'
-    ).join("");
-
+    const headerCells = cats.map(c => '<th><div class="ar">' + U.esc(c.name) + '</div><div class="ml">' + U.esc(c.label) + '</div></th>').join("");
     const body = dates.map(date => {
       const cells = cats.map(c => {
         const ent = grouped[date].filter(l => l.categoryId === c.id);
         if (!ent.length) return "<td>—</td>";
         return "<td>" + ent.map(l =>
           '<div class="entry">' +
-          '<div class="entry-surah">' + U.esc(l.toSurah || l.fromSurah || "-") +
-          (l.toAyah || l.fromAyah ? " · " + (l.toAyah || l.fromAyah) : "") + '</div>' +
-          '<span class="entry-page">Page ' + (l.toPage || l.fromPage || "-") + '</span>' +
-          '</div>'
+          '<div class="entry-surah">' + U.esc(l.toSurah || l.fromSurah || "-") + (l.toAyah || l.fromAyah ? " · " + (l.toAyah || l.fromAyah) : "") + '</div>' +
+          '<span class="entry-page">Page ' + (l.toPage || l.fromPage || "-") + '</span></div>'
         ).join("") + "</td>";
       }).join("");
       return "<tr><td>" + U.date(date) + "</td>" + cells + "</tr>";
     }).join("");
-
     const marks = State.marks.filter(m => selId === "all" ? true : m.studentId === selId);
     const ghalat = marks.filter(m => m.type === "ghalat").length;
     const tajweed = marks.filter(m => m.type === "tajweed").length;
@@ -1931,34 +1931,31 @@ const Report = {
       '<div class="r-inst">' + U.esc(inst.name) + '</div>' +
       (inst.runBy ? '<div class="r-run">Run by: ' + U.esc(inst.runBy) + '</div>' : "") +
       (inst.department ? '<div class="r-dept">' + U.esc(inst.department) + '</div>' : "") +
-      '<div class="r-title">' + U.esc(State.settings.report.title) + '</div>' +
-      '</div>' +
+      '<div class="r-title">' + U.esc(State.settings.report.title) + '</div></div>' +
       '<div class="r-info">' +
       '<div><b>Roll No:</b> ' + (student ? U.esc(student.roll || "-") : "All") + '</div>' +
       '<div><b>Name:</b> ' + (student ? U.esc(student.name) : "All Students") + '</div>' +
       '<div><b>Class:</b> ' + (student ? U.esc(student.className || "-") : "-") + '</div>' +
       '<div><b>Mushaf:</b> ' + (student ? U.esc(CONFIG[student.mushafId]?.name || "-") : "All") + '</div>' +
       '<div><b>Period:</b> ' + period + '</div>' +
-      '<div><b>Generated:</b> ' + U.date(U.today()) + '</div>' +
-      '</div>' +
-      '<table><thead><tr><th>Date</th>' + headerCells + '</tr></thead>' +
-      '<tbody>' + (body || '<tr><td colspan="' + (cats.length + 1) + '" style="padding:30px;color:#888;">No lesson records found.</td></tr>') + '</tbody></table>' +
+      '<div><b>Generated:</b> ' + U.date(U.today()) + '</div></div>' +
+      '<table><thead><tr><th>Date</th>' + headerCells + '</tr></thead><tbody>' +
+      (body || '<tr><td colspan="' + (cats.length + 1) + '" style="padding:30px;color:#888;">No lesson records found.</td></tr>') +
+      '</tbody></table>' +
       '<div class="summary">' +
       '<div class="sum-box"><b>' + lessons.length + '</b><span>Lessons</span></div>' +
       '<div class="sum-box"><b>' + pages + '</b><span>Pages</span></div>' +
       '<div class="sum-box"><b>' + ghalat + '</b><span>Ghalat</span></div>' +
-      '<div class="sum-box"><b>' + tajweed + '</b><span>Tajweed</span></div>' +
-      '</div>' +
+      '<div class="sum-box"><b>' + tajweed + '</b><span>Tajweed</span></div></div>' +
       (State.settings.report.teacherSignature ?
         '<div class="signs">' +
         '<div class="sign">Teacher' + (inst.teacher ? '<br>' + U.esc(inst.teacher) : "") + '</div>' +
-        '<div class="sign">' + U.esc(inst.department || "Hifz Department") + '</div>' +
-        '</div>' : "");
+        '<div class="sign">' + U.esc(inst.department || "Hifz Department") + '</div></div>' : "");
   },
   print() { this.render(); setTimeout(() => window.print(), 200); }
 };
 
-/* ═══ SYNC ═══ */
+/* SYNC / BACKUP */
 const Sync = {
   async download() {
     if (State.syncRunning) { U.toast("Already running"); return; }
@@ -1974,7 +1971,7 @@ const Sync = {
     finally { State.syncRunning = false; }
   },
   async clearQuran() {
-    if (!confirm("Clear Quran data from IndexedDB?")) return;
+    if (!confirm("Clear Quran data?")) return;
     await DB.clear("page_lines");
     await DB.clear("words");
     await DB.del("meta", "csv_ready");
@@ -1990,13 +1987,13 @@ const Sync = {
   },
   async backup() {
     const data = {
-      app:"Al-Halaqah", version:3, exportedAt: new Date().toISOString(),
-      settings: State.settings,
-      students: await DB.all("students"),
-      assignments: await DB.all("assignments"),
-      page_states: await DB.all("page_states"),
-      lessons: await DB.all("lessons"),
-      marks: await DB.all("marks")
+      app:"Al-Halaqah", version:3, exportedAt:new Date().toISOString(),
+      settings:State.settings,
+      students:await DB.all("students"),
+      assignments:await DB.all("assignments"),
+      page_states:await DB.all("page_states"),
+      lessons:await DB.all("lessons"),
+      marks:await DB.all("marks")
     };
     const blob = new Blob([JSON.stringify(data, null, 2)], { type:"application/json" });
     const url = URL.createObjectURL(blob);
@@ -2013,10 +2010,7 @@ const Sync = {
       if (!file) return;
       try {
         const data = JSON.parse(await file.text());
-        if (data.settings) {
-          State.settings = Settings.merge(structuredClone(DEFAULT_SETTINGS), data.settings);
-          await Settings.save();
-        }
+        if (data.settings) { State.settings = Settings.merge(structuredClone(DEFAULT_SETTINGS), data.settings); await Settings.save(); }
         for (const st of ["students","assignments","page_states","lessons","marks"]) {
           if (!Array.isArray(data[st])) continue;
           await DB.clear(st);
@@ -2030,20 +2024,14 @@ const Sync = {
   }
 };
 
-/* ═══ UI ═══ */
+/* UI */
 const UI = {
-  openDrawer() {
-    document.getElementById("drawer").classList.add("open");
-    document.getElementById("drawerScrim").classList.add("open");
-  },
-  closeDrawer() {
-    document.getElementById("drawer").classList.remove("open");
-    document.getElementById("drawerScrim").classList.remove("open");
-  },
+  openDrawer() { document.getElementById("drawer").classList.add("open"); document.getElementById("drawerScrim").classList.add("open"); },
+  closeDrawer() { document.getElementById("drawer").classList.remove("open"); document.getElementById("drawerScrim").classList.remove("open"); },
   closeModal(id) { document.getElementById(id).classList.remove("open"); }
 };
 
-/* ═══ APP ═══ */
+/* APP */
 const App = {
   async init() {
     await DB.init();
@@ -2054,11 +2042,7 @@ const App = {
     await Marks.load();
 
     if (!State.students.length) {
-      const s = {
-        id:"stu_default", roll:"", name:"Hafidh Student", className:"", notes:"",
-        mushafId:"madani", defaultCategoryId:State.settings.categories[0]?.id || null,
-        createdAt:new Date().toISOString()
-      };
+      const s = { id:"stu_default", roll:"", name:"Hafidh Student", className:"", notes:"", mushafId:"madani", defaultCategoryId:State.settings.categories[0]?.id || null, createdAt:new Date().toISOString() };
       await DB.put("students", s);
       await DB.put("assignments", { id:s.id + "_madani", studentId:s.id, mushafId:"madani", primary:true });
       await Students.load();
