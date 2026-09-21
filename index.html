@@ -4,7 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#0a0f0d">
+<meta name="description" content="Al-Halaqah — Hifz Quran Management PWA">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Al-Halaqah">
+
 <title>Al-Halaqah — Hifz Quran</title>
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="apple-touch-icon" href="icon.svg">
+
+<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Nastaliq+Urdu:wght@400;700&family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Malayalam:wght@400;600;700&display=swap" rel="stylesheet">
@@ -31,6 +44,47 @@ html, body { height:100%; background:var(--app-bg); color:var(--text-1); font-fa
 button { font:inherit; cursor:pointer; border:none; background:none; color:inherit; }
 input, select, textarea { font:inherit; outline:none; }
 .hidden { display:none !important; }
+
+/* INSTALL BANNER */
+#pwaInstallBanner {
+  position:fixed; bottom:70px; left:12px; right:12px; z-index:950;
+  background:linear-gradient(135deg,var(--emerald-700),var(--emerald-900));
+  border:1px solid var(--gold-500); border-radius:14px;
+  padding:12px 14px; display:none; align-items:center; gap:12px;
+  box-shadow:var(--shadow-lg); direction:ltr;
+  animation:slideUp 0.35s cubic-bezier(0.1,0.9,0.2,1);
+}
+#pwaInstallBanner.show { display:flex; }
+#pwaInstallBanner img { width:44px; height:44px; border-radius:10px; flex-shrink:0; }
+#pwaInstallBanner .txt { flex:1; min-width:0; }
+#pwaInstallBanner .txt b { color:var(--gold-400); font-size:13px; display:block; }
+#pwaInstallBanner .txt small { color:var(--text-2); font-size:11px; }
+#pwaInstallBanner .btns { display:flex; gap:6px; flex-shrink:0; }
+#pwaInstallBanner button { padding:8px 14px; border-radius:8px; font-size:12px; font-weight:600; }
+#pwaInstallBanner .install { background:var(--gold-500); color:var(--emerald-900); }
+#pwaInstallBanner .dismiss { background:transparent; color:var(--text-3); padding:8px; }
+@keyframes slideUp { from { transform:translateY(100%); opacity:0; } to { transform:translateY(0); opacity:1; } }
+
+/* OFFLINE BADGE */
+#offlineBadge {
+  position:fixed; top:60px; left:50%; transform:translateX(-50%);
+  background:var(--danger); color:#fff; padding:6px 14px; border-radius:20px;
+  font-size:11px; font-weight:700; z-index:940;
+  display:none; align-items:center; gap:6px;
+  box-shadow:var(--shadow-md);
+}
+#offlineBadge.show { display:flex; }
+
+/* UPDATE TOAST */
+#updateToast {
+  position:fixed; top:60px; right:12px; z-index:960;
+  background:var(--surface-2); border:1px solid var(--gold-500);
+  padding:10px 14px; border-radius:10px; font-size:12px;
+  color:var(--text-1); display:none; align-items:center; gap:10px;
+  box-shadow:var(--shadow-lg);
+}
+#updateToast.show { display:flex; }
+#updateToast button { background:var(--gold-500); color:var(--emerald-900); padding:6px 12px; border-radius:6px; font-weight:700; font-size:11px; }
 
 /* TOP BAR */
 .topbar {
@@ -84,7 +138,6 @@ input, select, textarea { font:inherit; outline:none; }
 }
 .book-spread { display:flex; direction:rtl; gap:10px; align-items:center; justify-content:center; height:100%; max-width:100%; }
 
-/* MUSHAF SHEET */
 .mushaf-sheet {
   height:100%; aspect-ratio:1/1.5; max-width:49vw;
   background:var(--paper); position:relative; padding:6px 14px 5px;
@@ -108,7 +161,6 @@ input, select, textarea { font:inherit; outline:none; }
 .mushaf-tag { font-size:8px; font-weight:700; color:#8c734b; letter-spacing:0.08em; text-transform:uppercase; }
 .page-num-display { font-family:'Amiri',serif; font-size:14px; font-weight:700; color:#3b2c14; }
 
-/* 15-LINE GRID */
 .lines-grid { flex:1; display:flex; flex-direction:column; justify-content:space-between; direction:rtl; width:100%; margin:1px 0; position:relative; }
 .qline { height:calc(100%/15); min-height:5.8%; display:flex; align-items:center; justify-content:space-between; white-space:nowrap; direction:rtl; position:relative; width:100%; padding:0 1px; }
 .qline.centered { justify-content:center; gap:10px; }
@@ -144,10 +196,7 @@ input, select, textarea { font:inherit; outline:none; }
 
 .bismillah { height:100%; display:flex; align-items:center; justify-content:center; font-family:'Amiri',serif; font-size:17px; color:#172d21; }
 
-.ayah-mark {
-  display:inline-block; cursor:pointer; padding:0 2px; border-radius:5px;
-  transition:all 0.15s; font-family:'Amiri',serif;
-}
+.ayah-mark { display:inline-block; cursor:pointer; padding:0 2px; border-radius:5px; transition:all 0.15s; font-family:'Amiri',serif; }
 .ayah-mark:hover { background:rgba(197,160,89,0.25); }
 .ayah-mark.lesson-start { background:rgba(22,163,74,0.25); box-shadow:0 0 0 1.5px var(--success); }
 .ayah-mark.lesson-end { background:rgba(220,38,38,0.25); box-shadow:0 0 0 1.5px var(--danger); }
@@ -163,8 +212,7 @@ input, select, textarea { font:inherit; outline:none; }
   min-width:42px; height:42px; padding:0 10px; border-radius:10px;
   background:var(--surface-2); border:1px solid var(--border-2);
   color:var(--text-1); display:flex; align-items:center; justify-content:center;
-  gap:5px; font-size:13px; font-weight:600; transition:all 0.15s;
-  white-space:nowrap;
+  gap:5px; font-size:13px; font-weight:600; transition:all 0.15s; white-space:nowrap;
 }
 .dock-btn:hover { background:var(--surface-3); border-color:var(--gold-500); }
 .dock-btn.active { background:var(--gold-500); color:var(--emerald-900); border-color:var(--gold-400); }
@@ -173,19 +221,10 @@ input, select, textarea { font:inherit; outline:none; }
 .dock-btn .label { font-size:11px; }
 
 /* MENUS */
-.menu {
-  position:fixed; z-index:600; background:var(--surface-2); border:1px solid var(--gold-500);
-  border-radius:10px; box-shadow:var(--shadow-lg); padding:5px;
-  min-width:200px; display:none; direction:ltr;
-  max-height:70vh; overflow-y:auto;
-}
+.menu { position:fixed; z-index:600; background:var(--surface-2); border:1px solid var(--gold-500); border-radius:10px; box-shadow:var(--shadow-lg); padding:5px; min-width:200px; display:none; direction:ltr; max-height:70vh; overflow-y:auto; }
 .menu.open { display:block; }
 .menu-header { padding:8px 12px 4px; font-size:10px; font-weight:800; color:var(--text-3); letter-spacing:0.1em; text-transform:uppercase; }
-.menu-item {
-  display:flex; align-items:center; gap:10px; width:100%;
-  padding:9px 12px; border-radius:6px; color:var(--text-1);
-  font-size:12.5px; font-weight:500; text-align:left; transition:background 0.12s;
-}
+.menu-item { display:flex; align-items:center; gap:10px; width:100%; padding:9px 12px; border-radius:6px; color:var(--text-1); font-size:12.5px; font-weight:500; text-align:left; transition:background 0.12s; }
 .menu-item:hover { background:var(--surface-3); }
 .menu-item.active { background:rgba(197,160,89,0.15); color:var(--gold-400); }
 .menu-item .ico { font-size:14px; width:20px; text-align:center; flex-shrink:0; }
@@ -195,11 +234,7 @@ input, select, textarea { font:inherit; outline:none; }
 /* MODAL */
 .modal { position:fixed; inset:0; z-index:700; display:none; align-items:center; justify-content:center; padding:14px; background:rgba(0,0,0,0.75); backdrop-filter:blur(4px); }
 .modal.open { display:flex; }
-.modal-card {
-  width:min(600px,100%); max-height:90vh; overflow-y:auto;
-  background:var(--surface-1); border:1px solid var(--gold-500);
-  border-radius:16px; padding:20px; box-shadow:var(--shadow-lg);
-}
+.modal-card { width:min(600px,100%); max-height:90vh; overflow-y:auto; background:var(--surface-1); border:1px solid var(--gold-500); border-radius:16px; padding:20px; box-shadow:var(--shadow-lg); }
 .modal-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; padding-bottom:12px; border-bottom:1px solid var(--border-1); }
 .modal-head h3 { font-size:15px; font-weight:700; color:var(--gold-400); }
 .close-x { width:30px; height:30px; border-radius:8px; background:var(--surface-2); color:var(--text-2); font-size:17px; display:flex; align-items:center; justify-content:center; }
@@ -209,19 +244,11 @@ input, select, textarea { font:inherit; outline:none; }
 .field { display:flex; flex-direction:column; gap:4px; }
 .field.full { grid-column:1/-1; }
 .field label { font-size:10px; font-weight:700; color:var(--text-3); text-transform:uppercase; letter-spacing:0.05em; }
-.field input, .field select, .field textarea {
-  width:100%; padding:9px 11px; background:var(--surface-2);
-  border:1px solid var(--border-2); border-radius:8px;
-  color:var(--text-1); font-size:13px; transition:all 0.15s;
-}
+.field input, .field select, .field textarea { width:100%; padding:9px 11px; background:var(--surface-2); border:1px solid var(--border-2); border-radius:8px; color:var(--text-1); font-size:13px; transition:all 0.15s; }
 .field input:focus, .field select:focus, .field textarea:focus { border-color:var(--gold-500); box-shadow:0 0 0 3px rgba(197,160,89,0.12); }
 .field textarea { min-height:60px; resize:vertical; }
 
-.btn {
-  padding:10px 16px; border-radius:9px; font-size:12.5px; font-weight:600;
-  display:inline-flex; align-items:center; justify-content:center; gap:6px;
-  transition:all 0.15s; border:1px solid transparent;
-}
+.btn { padding:10px 16px; border-radius:9px; font-size:12.5px; font-weight:600; display:inline-flex; align-items:center; justify-content:center; gap:6px; transition:all 0.15s; border:1px solid transparent; }
 .btn-primary { background:var(--emerald-600); color:#fff; }
 .btn-primary:hover { background:var(--emerald-500); }
 .btn-gold { background:var(--gold-500); color:var(--emerald-900); }
@@ -235,13 +262,7 @@ input, select, textarea { font:inherit; outline:none; }
 /* DRAWER */
 .drawer-scrim { position:fixed; inset:0; z-index:800; background:rgba(0,0,0,0.6); backdrop-filter:blur(3px); opacity:0; pointer-events:none; transition:opacity 0.2s; }
 .drawer-scrim.open { opacity:1; pointer-events:auto; }
-.drawer {
-  position:fixed; top:0; left:0; bottom:0; z-index:810; width:min(360px,90vw);
-  background:var(--surface-1); border-right:1px solid var(--border-2);
-  box-shadow:var(--shadow-lg); transform:translateX(-105%);
-  transition:transform 0.28s cubic-bezier(0.1,0.9,0.2,1);
-  display:flex; flex-direction:column; direction:ltr;
-}
+.drawer { position:fixed; top:0; left:0; bottom:0; z-index:810; width:min(360px,90vw); background:var(--surface-1); border-right:1px solid var(--border-2); box-shadow:var(--shadow-lg); transform:translateX(-105%); transition:transform 0.28s cubic-bezier(0.1,0.9,0.2,1); display:flex; flex-direction:column; direction:ltr; }
 .drawer.open { transform:translateX(0); }
 .drawer-head { padding:18px; background:linear-gradient(135deg,var(--emerald-700),var(--emerald-900)); border-bottom:1px solid var(--gold-500); }
 .drawer-head .logo { display:flex; align-items:center; gap:12px; }
@@ -257,15 +278,7 @@ input, select, textarea { font:inherit; outline:none; }
 /* SETTINGS SHEET */
 .sheet-scrim { position:fixed; inset:0; z-index:800; background:rgba(0,0,0,0.6); backdrop-filter:blur(3px); opacity:0; pointer-events:none; transition:opacity 0.2s; }
 .sheet-scrim.open { opacity:1; pointer-events:auto; }
-.sheet-panel {
-  position:fixed; bottom:0; left:50%; transform:translateX(-50%) translateY(100%);
-  width:min(720px,100%); max-height:88vh; background:var(--surface-1);
-  border:1px solid var(--gold-500); border-bottom:none;
-  border-radius:18px 18px 0 0; z-index:810;
-  transition:transform 0.3s cubic-bezier(0.1,0.9,0.2,1);
-  box-shadow:0 -12px 40px rgba(0,0,0,0.7);
-  display:flex; flex-direction:column; direction:ltr;
-}
+.sheet-panel { position:fixed; bottom:0; left:50%; transform:translateX(-50%) translateY(100%); width:min(720px,100%); max-height:88vh; background:var(--surface-1); border:1px solid var(--gold-500); border-bottom:none; border-radius:18px 18px 0 0; z-index:810; transition:transform 0.3s cubic-bezier(0.1,0.9,0.2,1); box-shadow:0 -12px 40px rgba(0,0,0,0.7); display:flex; flex-direction:column; direction:ltr; }
 .sheet-scrim.open .sheet-panel { transform:translateX(-50%) translateY(0); }
 .sheet-head { padding:14px 18px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-1); }
 .sheet-head h3 { font-size:14px; font-weight:700; color:var(--gold-400); }
@@ -280,11 +293,7 @@ input, select, textarea { font:inherit; outline:none; }
 .section-title { font-size:10.5px; font-weight:800; color:var(--gold-400); text-transform:uppercase; letter-spacing:0.1em; margin:4px 0 10px; padding-bottom:7px; border-bottom:1px solid var(--border-1); }
 
 .student-list { display:flex; flex-direction:column; gap:7px; }
-.student-card {
-  display:flex; align-items:center; gap:11px; padding:11px 13px;
-  background:var(--surface-2); border:1px solid var(--border-2);
-  border-radius:10px; cursor:pointer; transition:all 0.15s; direction:ltr;
-}
+.student-card { display:flex; align-items:center; gap:11px; padding:11px 13px; background:var(--surface-2); border:1px solid var(--border-2); border-radius:10px; cursor:pointer; transition:all 0.15s; direction:ltr; }
 .student-card:hover { border-color:var(--gold-500); background:var(--surface-3); }
 .student-card.active { border-color:var(--gold-500); background:rgba(197,160,89,0.08); }
 .student-avatar { width:36px; height:36px; border-radius:9px; background:linear-gradient(135deg,var(--emerald-600),var(--emerald-800)); color:var(--gold-300); display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; flex-shrink:0; }
@@ -307,11 +316,7 @@ input, select, textarea { font:inherit; outline:none; }
 .report-toolbar::-webkit-scrollbar { height:0; }
 .report-toolbar select, .report-toolbar input { background:var(--surface-2); border:1px solid var(--border-2); color:var(--text-1); padding:7px 9px; border-radius:8px; font-size:11.5px; }
 .report-body { flex:1; overflow-y:auto; padding:16px; display:flex; justify-content:center; }
-.paper {
-  width:210mm; min-height:297mm; background:#fff; color:#1a1a1a;
-  padding:14mm; box-shadow:0 4px 24px rgba(0,0,0,0.15);
-  font-family:'Inter',sans-serif; direction:ltr; align-self:flex-start;
-}
+.paper { width:210mm; min-height:297mm; background:#fff; color:#1a1a1a; padding:14mm; box-shadow:0 4px 24px rgba(0,0,0,0.15); font-family:'Inter',sans-serif; direction:ltr; align-self:flex-start; }
 .paper .r-header { text-align:center; border-bottom:3px double var(--emerald-600); padding-bottom:12px; margin-bottom:16px; }
 .paper .r-inst { font-size:20px; font-weight:800; color:var(--emerald-700); }
 .paper .r-run { font-size:11.5px; color:#555; margin-top:3px; font-weight:600; }
@@ -336,14 +341,7 @@ input, select, textarea { font:inherit; outline:none; }
 .paper .sign { padding-top:8px; border-top:1px solid #555; text-align:center; font-size:10px; color:#555; font-weight:600; }
 
 /* TOAST */
-.toast {
-  position:fixed; left:50%; bottom:75px; z-index:1000; padding:10px 16px;
-  background:var(--surface-2); border:1px solid var(--gold-500); color:var(--text-1);
-  border-radius:9px; font-size:12.5px; font-weight:600;
-  opacity:0; pointer-events:none; transform:translateX(-50%) translateY(12px);
-  transition:all 0.22s; box-shadow:var(--shadow-lg); direction:ltr;
-  max-width:90vw; text-align:center;
-}
+.toast { position:fixed; left:50%; bottom:75px; z-index:1000; padding:10px 16px; background:var(--surface-2); border:1px solid var(--gold-500); color:var(--text-1); border-radius:9px; font-size:12.5px; font-weight:600; opacity:0; pointer-events:none; transform:translateX(-50%) translateY(12px); transition:all 0.22s; box-shadow:var(--shadow-lg); direction:ltr; max-width:90vw; text-align:center; }
 .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 
 /* SPLASH */
@@ -370,7 +368,6 @@ input, select, textarea { font:inherit; outline:none; }
   .page-indicator { font-size:12px; padding:5px 8px; }
   .pill-btn { padding:5px 7px; font-size:10.5px; max-width:110px; }
 }
-
 @media print {
   body * { visibility:hidden; }
   .report-screen, .report-screen * { visibility:visible; }
@@ -393,6 +390,28 @@ input, select, textarea { font:inherit; outline:none; }
     <div class="progress-bar"><div class="progress-fill" id="splashBar"></div></div>
     <div class="splash-status" id="splashStatus">Initializing…</div>
     <div id="splashActions" style="margin-top:14px;"></div>
+  </div>
+</div>
+
+<!-- OFFLINE BADGE -->
+<div id="offlineBadge">📴 <span>Offline Mode</span></div>
+
+<!-- UPDATE TOAST -->
+<div id="updateToast">
+  <span>🔄 New version available</span>
+  <button onclick="window.PWA.applyUpdate()">Update</button>
+</div>
+
+<!-- PWA INSTALL BANNER -->
+<div id="pwaInstallBanner">
+  <img src="icon.svg" alt="Al-Halaqah">
+  <div class="txt">
+    <b>Al-Halaqah App</b>
+    <small>Home screen-ൽ ചേർത്ത് app പോലെ ഉപയോഗിക്കുക</small>
+  </div>
+  <div class="btns">
+    <button class="install" onclick="window.PWA.triggerInstall()">Install</button>
+    <button class="dismiss" onclick="window.PWA.dismissBanner()" title="Later">✕</button>
   </div>
 </div>
 
@@ -472,22 +491,12 @@ input, select, textarea { font:inherit; outline:none; }
 <!-- TOOLS MENU -->
 <div class="menu" id="toolsMenu">
   <div class="menu-header">Marking Tool</div>
-  <button class="menu-item" id="tm-underline" onclick="Marks.setTool('underline')">
-    <span class="ico">_</span><span>Underline</span>
-  </button>
-  <button class="menu-item" id="tm-highlight" onclick="Marks.setTool('highlight')">
-    <span class="ico">🖍</span><span>Highlight</span>
-  </button>
-  <button class="menu-item" id="tm-ghalat" onclick="Marks.setTool('ghalat')">
-    <span class="ico">🔴</span><span>Ghalat (Error)</span>
-  </button>
-  <button class="menu-item" id="tm-tajweed" onclick="Marks.setTool('tajweed')">
-    <span class="ico">🟡</span><span>Tajweed</span>
-  </button>
+  <button class="menu-item" id="tm-underline" onclick="Marks.setTool('underline')"><span class="ico">_</span><span>Underline</span></button>
+  <button class="menu-item" id="tm-highlight" onclick="Marks.setTool('highlight')"><span class="ico">🖍</span><span>Highlight</span></button>
+  <button class="menu-item" id="tm-ghalat" onclick="Marks.setTool('ghalat')"><span class="ico">🔴</span><span>Ghalat (Error)</span></button>
+  <button class="menu-item" id="tm-tajweed" onclick="Marks.setTool('tajweed')"><span class="ico">🟡</span><span>Tajweed</span></button>
   <div class="menu-divider"></div>
-  <button class="menu-item" id="tm-select" onclick="Marks.setTool('select')">
-    <span class="ico">👆</span><span>Select (Play / Lesson)</span>
-  </button>
+  <button class="menu-item" id="tm-select" onclick="Marks.setTool('select')"><span class="ico">👆</span><span>Select (Play / Lesson)</span></button>
 </div>
 
 <!-- STUDENT MENU -->
@@ -495,12 +504,8 @@ input, select, textarea { font:inherit; outline:none; }
   <div class="menu-header">Switch Student</div>
   <div id="studentMenuList"></div>
   <div class="menu-divider"></div>
-  <button class="menu-item" onclick="Menus.closeAll(); Students.openAdd()">
-    <span class="ico">➕</span><span>Add New Student</span>
-  </button>
-  <button class="menu-item" onclick="Menus.closeAll(); Settings.open('students')">
-    <span class="ico">⚙️</span><span>Manage Students</span>
-  </button>
+  <button class="menu-item" onclick="Menus.closeAll(); Students.openAdd()"><span class="ico">➕</span><span>Add New Student</span></button>
+  <button class="menu-item" onclick="Menus.closeAll(); Settings.open('students')"><span class="ico">⚙️</span><span>Manage Students</span></button>
 </div>
 
 <!-- LESSON MENU -->
@@ -508,49 +513,29 @@ input, select, textarea { font:inherit; outline:none; }
   <div class="menu-header">Lesson Category</div>
   <div id="lessonMenuList"></div>
   <div class="menu-divider"></div>
-  <button class="menu-item" onclick="Menus.closeAll(); Settings.open('categories')">
-    <span class="ico">➕</span><span>Add / Edit Categories</span>
-  </button>
+  <button class="menu-item" onclick="Menus.closeAll(); Settings.open('categories')"><span class="ico">➕</span><span>Add / Edit Categories</span></button>
 </div>
 
 <!-- MORE MENU -->
 <div class="menu" id="moreMenu">
-  <button class="menu-item" onclick="Menus.closeAll(); Report.open()">
-    <span class="ico">📊</span><span>Progress Report</span>
-  </button>
-  <button class="menu-item" onclick="Menus.closeAll(); Lessons.open()">
-    <span class="ico">📋</span><span>Lesson History</span>
-  </button>
+  <button class="menu-item" onclick="Menus.closeAll(); Report.open()"><span class="ico">📊</span><span>Progress Report</span></button>
+  <button class="menu-item" onclick="Menus.closeAll(); Lessons.open()"><span class="ico">📋</span><span>Lesson History</span></button>
   <div class="menu-divider"></div>
-  <button class="menu-item" onclick="Menus.closeAll(); Marks.undo()">
-    <span class="ico">↶</span><span>Undo Last Mark</span>
-  </button>
-  <button class="menu-item" onclick="Menus.closeAll(); Marks.clearPage()">
-    <span class="ico">🗑</span><span>Clear Page Marks</span>
-  </button>
+  <button class="menu-item" onclick="Menus.closeAll(); Marks.undo()"><span class="ico">↶</span><span>Undo Last Mark</span></button>
+  <button class="menu-item" onclick="Menus.closeAll(); Marks.clearPage()"><span class="ico">🗑</span><span>Clear Page Marks</span></button>
   <div class="menu-divider"></div>
-  <button class="menu-item" onclick="Menus.closeAll(); Settings.open('institution')">
-    <span class="ico">🏛</span><span>Institution</span>
-  </button>
-  <button class="menu-item" onclick="Menus.closeAll(); Settings.open('report')">
-    <span class="ico">📄</span><span>Report Settings</span>
-  </button>
-  <button class="menu-item" onclick="Menus.closeAll(); Settings.open('data')">
-    <span class="ico">⬇</span><span>Batch Download / Sync</span>
-  </button>
+  <button class="menu-item" onclick="Menus.closeAll(); Settings.open('institution')"><span class="ico">🏛</span><span>Institution</span></button>
+  <button class="menu-item" onclick="Menus.closeAll(); Settings.open('report')"><span class="ico">📄</span><span>Report Settings</span></button>
+  <button class="menu-item" onclick="Menus.closeAll(); Settings.open('data')"><span class="ico">⬇</span><span>Batch Download / Sync</span></button>
+  <div class="menu-divider"></div>
+  <button class="menu-item" onclick="Menus.closeAll(); PWA.showInstall()"><span class="ico">📲</span><span>Install App</span></button>
 </div>
 
 <!-- AYAH POPUP -->
 <div class="menu" id="ayahMenu" style="min-width:220px;">
-  <button class="menu-item" onclick="AyahAction.play()">
-    <span class="ico">🔊</span><span>Play this Ayah</span>
-  </button>
-  <button class="menu-item" onclick="AyahAction.startFrom()">
-    <span class="ico">▶</span><span>Start lesson here</span>
-  </button>
-  <button class="menu-item" onclick="AyahAction.endAt()">
-    <span class="ico">🎯</span><span>End lesson here</span>
-  </button>
+  <button class="menu-item" onclick="AyahAction.play()"><span class="ico">🔊</span><span>Play this Ayah</span></button>
+  <button class="menu-item" onclick="AyahAction.startFrom()"><span class="ico">▶</span><span>Start lesson here</span></button>
+  <button class="menu-item" onclick="AyahAction.endAt()"><span class="ico">🎯</span><span>End lesson here</span></button>
 </div>
 
 <!-- DRAWER -->
@@ -570,46 +555,26 @@ input, select, textarea { font:inherit; outline:none; }
     <div style="padding:11px 13px; background:var(--surface-2); border-radius:9px; font-size:12px; line-height:1.7;" id="drawerStudent">No student</div>
 
     <div class="drawer-label">Quran</div>
-    <button class="drawer-item" onclick="UI.closeDrawer(); Reader.go(1)">
-      <span class="ico">📖</span><span>First Page</span>
-    </button>
-    <button class="drawer-item" onclick="UI.closeDrawer(); Reader.jump()">
-      <span class="ico">🔢</span><span>Go to Page</span>
-    </button>
-    <button class="drawer-item" onclick="UI.closeDrawer(); Reader.changeMushaf(State.currentMushaf === 'madani' ? 'indopak' : 'madani')">
-      <span class="ico">🔄</span><span>Switch Mushaf</span>
-    </button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Reader.go(1)"><span class="ico">📖</span><span>First Page</span></button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Reader.jump()"><span class="ico">🔢</span><span>Go to Page</span></button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Reader.changeMushaf(State.currentMushaf === 'madani' ? 'indopak' : 'madani')"><span class="ico">🔄</span><span>Switch Mushaf</span></button>
 
     <div class="drawer-label">Management</div>
-    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('students')">
-      <span class="ico">🎓</span><span>Students</span>
-    </button>
-    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('institution')">
-      <span class="ico">🏛</span><span>Institution</span>
-    </button>
-    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('categories')">
-      <span class="ico">📚</span><span>Lesson Categories</span>
-    </button>
-    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('report')">
-      <span class="ico">📄</span><span>Report Settings</span>
-    </button>
-    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('audio')">
-      <span class="ico">🔊</span><span>Audio Settings</span>
-    </button>
-    <button class="drawer-item" onclick="UI.closeDrawer(); Lessons.open()">
-      <span class="ico">📋</span><span>Lesson History</span>
-    </button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('students')"><span class="ico">🎓</span><span>Students</span></button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('institution')"><span class="ico">🏛</span><span>Institution</span></button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('categories')"><span class="ico">📚</span><span>Lesson Categories</span></button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('report')"><span class="ico">📄</span><span>Report Settings</span></button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('audio')"><span class="ico">🔊</span><span>Audio Settings</span></button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Lessons.open()"><span class="ico">📋</span><span>Lesson History</span></button>
 
     <div class="drawer-label">Data</div>
-    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('data')">
-      <span class="ico">⬇</span><span>Batch Download / Sync</span>
-    </button>
-    <button class="drawer-item" onclick="UI.closeDrawer(); Sync.backup()">
-      <span class="ico">💾</span><span>Backup</span>
-    </button>
-    <button class="drawer-item" onclick="UI.closeDrawer(); Sync.restore()">
-      <span class="ico">📥</span><span>Restore</span>
-    </button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('data')"><span class="ico">⬇</span><span>Batch Download / Sync</span></button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Sync.backup()"><span class="ico">💾</span><span>Backup</span></button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Sync.restore()"><span class="ico">📥</span><span>Restore</span></button>
+
+    <div class="drawer-label">App</div>
+    <button class="drawer-item" onclick="UI.closeDrawer(); PWA.showInstall()"><span class="ico">📲</span><span>Install App</span></button>
+    <button class="drawer-item" id="drawerInstallState"><span class="ico">✅</span><span id="installStateText">Install Status</span></button>
   </div>
 </aside>
 
@@ -715,6 +680,17 @@ input, select, textarea { font:inherit; outline:none; }
         <div style="display:flex;gap:8px;">
           <button class="btn btn-ghost" style="flex:1;" onclick="Sync.backup()">💾 Export</button>
           <button class="btn btn-ghost" style="flex:1;" onclick="Sync.restore()">📥 Import</button>
+        </div>
+        <div class="section-title" style="margin-top:22px;">App / PWA</div>
+        <div style="font-size:11.5px;color:var(--text-2);line-height:1.9;margin-bottom:10px;" id="pwaInfoBox">
+          <div>Display: <b id="pwaDisplayMode">Browser</b></div>
+          <div>Install: <b id="pwaInstallState">Not Installed</b></div>
+          <div>Service Worker: <b id="pwaSwState">Checking…</b></div>
+          <div>Cache: <b id="pwaCacheState">—</b></div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-gold" style="flex:1;" onclick="PWA.showInstall()">📲 Install</button>
+          <button class="btn btn-danger" style="flex:1;" onclick="PWA.clearAppCache()">🗑 Clear App Cache</button>
         </div>
       </div>
     </div>
@@ -837,7 +813,8 @@ input, select, textarea { font:inherit; outline:none; }
 <script>
 "use strict";
 
-/* CONFIG */
+/* =====================================================
+   CONFIG===================================================== */
 const CONFIG = {
   madani: { id:"madani", name:"Madinah 1405H", shortName:"Madani 1405H", pages:604, file:"./qpcv1-35.csv" },
   indopak: { id:"indopak", name:"Indo-Pak Qudratullah", shortName:"Qudratullah 15L", pages:610, file:"./indpak-20.csv" }
@@ -900,7 +877,9 @@ const U = {
   }
 };
 
-/* DB */
+/* =====================================================
+   INDEXEDDB
+===================================================== */
 const DB = {
   db: null, name: "AlHalaqah_Pro_v3",
   init() {
@@ -954,7 +933,9 @@ const DB = {
   }
 };
 
-/* CSV */
+/* =====================================================
+   CSV / INGESTION / FONTS
+===================================================== */
 function clean(v) { let t = String(v ?? "").trim(); if (t.length >= 2 && ((t[0]==="'" && t.endsWith("'")) || (t[0]==='"' && t.endsWith('"')))) t = t.slice(1,-1); return t; }
 function parseCSV(text) {
   const rows=[]; let cur=[], val="", inQ=false;
@@ -971,7 +952,6 @@ function parseCSV(text) {
   return rows.slice(1).map(r => { const o={}; h.forEach((k,i)=>o[k]=clean(r[i]??"")); return o; });
 }
 
-/* INGESTION */
 const Ingest = {
   async run() {
     const meta = await DB.get("meta","csv_ready");
@@ -1095,7 +1075,207 @@ const Fonts = {
   }
 };
 
-/* SETTINGS */
+/* =====================================================
+   PWA HELPERS
+===================================================== */
+const PWA = {
+  deferredPrompt: null,
+  swRegistration: null,
+  initialized: false,
+
+  async init() {
+    if (this.initialized) return;
+    this.initialized = true;
+
+    // 1) Register service worker
+    if ('serviceWorker' in navigator) {
+      try {
+        this.swRegistration = await navigator.serviceWorker.register('sw.js', { scope: './' });
+        console.log('✅ SW registered:', this.swRegistration.scope);
+        this.updateSwState('Active ✅');
+        this.watchForUpdates();
+      } catch (err) {
+        console.warn('⚠ SW registration failed:', err);
+        this.updateSwState('Failed ❌');
+      }
+    } else {
+      this.updateSwState('Not Supported');
+    }
+
+    // 2) beforeinstallprompt
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      this.deferredPrompt = e;
+      console.log('📲 Install prompt available');
+      // Auto-show banner if not previously dismissed
+      if (!localStorage.getItem('pwa_banner_dismissed')) {
+        setTimeout(() => this.showBanner(), 1500);
+      }
+      this.updateInstallState('Ready to Install');
+    });
+
+    // 3) appinstalled
+    window.addEventListener('appinstalled', () => {
+      console.log('✅ Al-Halaqah installed!');
+      this.deferredPrompt = null;
+      this.hideBanner();
+      this.updateInstallState('Installed ✅');
+      U.toast('App installed successfully 🎉');
+    });
+
+    // 4) Standalone display mode
+    const standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    this.updateDisplayMode(standalone ? 'Standalone 📱' : 'Browser 🌐');
+    this.updateInstallState(standalone ? 'Installed ✅' : 'Not Installed');
+
+    window.matchMedia('(display-mode: standalone)').addEventListener('change', (e) => {
+      this.updateDisplayMode(e.matches ? 'Standalone 📱' : 'Browser 🌐');
+      this.updateInstallState(e.matches ? 'Installed ✅' : 'Not Installed');
+    });
+
+    // 5) Online / Offline
+    const updateNet = () => {
+      const badge = document.getElementById('offlineBadge');
+      if (!navigator.onLine) badge?.classList.add('show');
+      else badge?.classList.remove('show');
+    };
+    window.addEventListener('online', updateNet);
+    window.addEventListener('offline', updateNet);
+    updateNet();
+
+    // 6) Cache info (async)
+    setTimeout(() => this.updateCacheInfo(), 2000);
+  },
+
+  showBanner() {
+    const b = document.getElementById('pwaInstallBanner');
+    if (!b) return;
+    if (window.matchMedia('(display-mode: standalone)').matches) return;
+    b.classList.add('show');
+  },
+
+  hideBanner() {
+    document.getElementById('pwaInstallBanner')?.classList.remove('show');
+  },
+
+  dismissBanner() {
+    this.hideBanner();
+    localStorage.setItem('pwa_banner_dismissed', '1');
+  },
+
+  async triggerInstall() {
+    if (!this.deferredPrompt) {
+      // Fallback — show manual instructions
+      this.hideBanner();
+      alert(
+        'ഇൻസ്റ്റാൾ ചെയ്യാൻ:\n\n' +
+        '1. Chrome menu (⋮) തുറക്കുക\n' +
+        '2. "Install app" അല്ലെങ്കിൽ "Add to Home screen" tap ചെയ്യുക\n' +
+        '3. Install confirm ചെയ്യുക'
+      );
+      return;
+    }
+    try {
+      this.deferredPrompt.prompt();
+      const { outcome } = await this.deferredPrompt.userChoice;
+      console.log('Install outcome:', outcome);
+      if (outcome === 'accepted') {
+        this.hideBanner();
+        U.toast('Installing…');
+      }
+      this.deferredPrompt = null;
+    } catch (e) {
+      console.warn('Install error:', e);
+    }
+  },
+
+  showInstall() {
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      U.toast('Already installed ✅');
+      return;
+    }
+    if (this.deferredPrompt) {
+      this.triggerInstall();
+    } else {
+      // Show manual instructions
+      alert(
+        'ഇൻസ്റ്റാൾ ചെയ്യാൻ:\n\n' +
+        '1. Chrome menu (⋮) തുറക്കുക\n' +
+        '2. "Install app" അല്ലെങ്കിൽ "Add to Home screen" tap ചെയ്യുക\n' +
+        '3. Install confirm ചെയ്യുക'
+      );
+    }
+  },
+
+  updateSwState(txt) { const el = document.getElementById('pwaSwState'); if (el) el.textContent = txt; },
+  updateInstallState(txt) {
+    const e1 = document.getElementById('pwaInstallState');
+    const e2 = document.getElementById('installStateText');
+    if (e1) e1.textContent = txt;
+    if (e2) e2.textContent = txt;
+  },
+  updateDisplayMode(txt) { const el = document.getElementById('pwaDisplayMode'); if (el) el.textContent = txt; },
+
+  async updateCacheInfo() {
+    try {
+      const keys = await caches.keys();
+      const sizes = await Promise.all(keys.map(async k => {
+        const c = await caches.open(k);
+        const rs = await c.keys();
+        return { name: k, count: rs.length };
+      }));
+      const total = sizes.reduce((a, s) => a + s.count, 0);
+      const el = document.getElementById('pwaCacheState');
+      if (el) el.textContent = total + ' files · ' + keys.length + ' caches';
+    } catch (e) {}
+  },
+
+  watchForUpdates() {
+    if (!this.swRegistration) return;
+    this.swRegistration.addEventListener('updatefound', () => {
+      const nw = this.swRegistration.installing;
+      if (!nw) return;
+      nw.addEventListener('statechange', () => {
+        if (nw.state === 'installed' && navigator.serviceWorker.controller) {
+          document.getElementById('updateToast')?.classList.add('show');
+        }
+      });
+    });
+    let refreshing = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (refreshing) return;
+      refreshing = true;
+      window.location.reload();
+    });
+  },
+
+  applyUpdate() {
+    document.getElementById('updateToast')?.classList.remove('show');
+    if (this.swRegistration?.waiting) {
+      this.swRegistration.waiting.postMessage('SKIP_WAITING');
+    } else {
+      window.location.reload();
+    }
+  },
+
+  async clearAppCache() {
+    if (!confirm('App cache clear ചെയ്യണോ? (Quran data safe ആണ്)')) return;
+    try {
+      const keys = await caches.keys();
+      for (const k of keys) {
+        if (k.startsWith('alhalaqah-')) await caches.delete(k);
+      }
+      U.toast('App cache cleared. Reloading…');
+      setTimeout(() => location.reload(), 800);
+    } catch (e) { U.toast('Failed: ' + e.message); }
+  }
+};
+
+window.PWA = PWA;
+
+/* =====================================================
+   SETTINGS
+===================================================== */
 const Settings = {
   async load() {
     const s = await DB.get("settings","app");
@@ -1115,6 +1295,7 @@ const Settings = {
     document.getElementById("sheetScrim").classList.add("open");
     this.tab(tab);
     if (tab === "students") Students.renderList();
+    if (tab === "data") { Ingest.updateFontUI(); PWA.updateCacheInfo(); }
   },
   closeSheet(e) { if (e && e.target !== e.currentTarget) return; document.getElementById("sheetScrim").classList.remove("open"); },
   tab(name) {
@@ -1195,7 +1376,9 @@ const Settings = {
   }
 };
 
-/* MENUS */
+/* =====================================================
+   MENUS
+===================================================== */
 const Menus = {
   closeAll() { document.querySelectorAll(".menu").forEach(m => m.classList.remove("open")); },
   positionAt(menu, anchor, align = "left") {
@@ -1289,11 +1472,16 @@ const Menus = {
     if (el) el.textContent = s ? s.name : "Student";
   }
 };
+
 document.addEventListener("click", e => {
-  if (!e.target.closest(".menu") && !e.target.closest(".pill-btn") && !e.target.closest(".dock-btn")) this?.Menus?.closeAll?.();
+  if (!e.target.closest(".menu") && !e.target.closest(".pill-btn") && !e.target.closest(".dock-btn")) {
+    Menus.closeAll();
+  }
 });
 
-/* STUDENTS */
+/* =====================================================
+   STUDENTS
+===================================================== */
 const Students = {
   async load() {
     State.students = await DB.all("students");
@@ -1432,12 +1620,13 @@ const Students = {
   }
 };
 
-/* MARKS */
+/* =====================================================
+   MARKS
+===================================================== */
 const Marks = {
   async load() { State.marks = await DB.all("marks"); },
   setTool(t) {
     State.currentTool = t;
-    // Update dock button
     const btn = document.getElementById("toolBtn");
     const icon = document.getElementById("toolBtnIcon");
     const label = document.getElementById("toolBtnLabel");
@@ -1521,7 +1710,9 @@ const Marks = {
   }
 };
 
-/* LESSON */
+/* =====================================================
+   LESSON
+===================================================== */
 const Lesson = {
   async load() { State.lessons = await DB.all("lessons"); },
   fillCategories(sel) {
@@ -1648,7 +1839,9 @@ const Lessons = {
   }
 };
 
-/* AUDIO */
+/* =====================================================
+   AUDIO
+===================================================== */
 const AudioPlayer = {
   el: null,
   play(verseKey) {
@@ -1677,7 +1870,9 @@ const AudioPlayer = {
   }
 };
 
-/* AYAH ACTION */
+/* =====================================================
+   AYAH ACTION
+===================================================== */
 const AyahAction = {
   current: null,
   open(e, el, verseKey) {
@@ -1713,7 +1908,9 @@ const AyahAction = {
   }
 };
 
-/* READER */
+/* =====================================================
+   READER
+===================================================== */
 const Reader = {
   isSpread() { return window.innerWidth > 1000 && window.innerWidth > window.innerHeight; },
   async changeMushaf(id) {
@@ -1862,13 +2059,14 @@ const Reader = {
       await Marks.toggle(wordId, verse, State.currentPage);
       return;
     }
-    // Select tool → show popup (Start/End/Play)
     if (State.settings.audio.enabled) AudioPlayer.play(verse);
     AyahAction.open(e, el, verse);
   }
 };
 
-/* REPORT */
+/* =====================================================
+   REPORT
+===================================================== */
 const Report = {
   open() { this.populateStudents(); document.getElementById("reportScreen").classList.add("open"); this.render(); },
   close() { document.getElementById("reportScreen").classList.remove("open"); },
@@ -1955,7 +2153,9 @@ const Report = {
   print() { this.render(); setTimeout(() => window.print(), 200); }
 };
 
-/* SYNC / BACKUP */
+/* =====================================================
+   SYNC / BACKUP
+===================================================== */
 const Sync = {
   async download() {
     if (State.syncRunning) { U.toast("Already running"); return; }
@@ -2024,16 +2224,23 @@ const Sync = {
   }
 };
 
-/* UI */
+/* =====================================================
+   UI HELPERS
+===================================================== */
 const UI = {
   openDrawer() { document.getElementById("drawer").classList.add("open"); document.getElementById("drawerScrim").classList.add("open"); },
   closeDrawer() { document.getElementById("drawer").classList.remove("open"); document.getElementById("drawerScrim").classList.remove("open"); },
   closeModal(id) { document.getElementById(id).classList.remove("open"); }
 };
 
-/* APP */
+/* =====================================================
+   APP BOOT
+===================================================== */
 const App = {
   async init() {
+    // 0) PWA init first (register SW early)
+    PWA.init();
+
     await DB.init();
     await Ingest.run();
     await Settings.load();
@@ -2106,5 +2313,6 @@ window.addEventListener("DOMContentLoaded", async () => {
   }
 });
 </script>
+
 </body>
 </html>
