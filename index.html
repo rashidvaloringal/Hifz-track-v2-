@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#0a0f0d">
-<meta name="description" content="Al-Halaqah — Hifz Quran Management PWA">
+<meta name="description" content="Al-Halaqah — Hifz Quran Management">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -32,10 +32,10 @@
   --border-1:#2c3831; --border-2:#3a4740;
   --text-1:#e8e4dc; --text-2:#a8a89e; --text-3:#6b7570;
   --jalalah-red:#c81e1e; --ghalat-red:#d42222; --tajweed-yellow:#f4c430; --underline-blue:#2563eb;
+  --pencil-blue:#2563eb;
   --success:#16a34a; --danger:#dc2626;
   --shadow-md:0 4px 16px rgba(0,0,0,0.4);
   --shadow-lg:0 12px 40px rgba(0,0,0,0.6);
-  --radius-sm:6px; --radius-md:10px; --radius-lg:14px; --radius-xl:20px;
 }
 * { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
 html, body { height:100%; background:var(--app-bg); color:var(--text-1); font-family:'Inter','Noto Sans Malayalam',system-ui,sans-serif; overflow:hidden; font-size:14px; line-height:1.5; }
@@ -43,7 +43,6 @@ button { font:inherit; cursor:pointer; border:none; background:none; color:inher
 input, select, textarea { font:inherit; outline:none; }
 .hidden { display:none !important; }
 
-/* ============== PWA BANNERS ============== */
 #pwaInstallBanner {
   position:fixed; bottom:70px; left:12px; right:12px; z-index:950;
   background:linear-gradient(135deg,var(--emerald-700),var(--emerald-900));
@@ -89,7 +88,13 @@ input, select, textarea { font:inherit; outline:none; }
 .tb-left { display:flex; align-items:center; gap:6px; flex-shrink:0; }
 .tb-center { display:flex; align-items:center; gap:4px; flex:1; justify-content:center; min-width:0; }
 .tb-right { display:flex; align-items:center; gap:5px; flex-shrink:0; }
-.brand-mark { width:32px; height:32px; border-radius:8px; background:linear-gradient(135deg,var(--emerald-600),var(--emerald-800)); display:flex; align-items:center; justify-content:center; color:var(--gold-400); font-size:16px; border:1px solid var(--gold-500); flex-shrink:0; }
+.brand-mark {
+  width:32px; height:32px; border-radius:8px;
+  background:linear-gradient(135deg,var(--emerald-600),var(--emerald-800));
+  display:flex; align-items:center; justify-content:center;
+  color:var(--gold-400); font-size:16px;
+  border:1px solid var(--gold-500); flex-shrink:0;
+}
 .brand-text { display:flex; flex-direction:column; line-height:1.1; }
 .brand-text strong { font-size:12px; font-weight:700; color:var(--gold-400); max-width:120px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .brand-text span { font-size:8px; color:var(--text-3); letter-spacing:0.08em; text-transform:uppercase; }
@@ -103,40 +108,64 @@ input, select, textarea { font:inherit; outline:none; }
 .pill-btn .caret { font-size:8px; opacity:0.6; }
 
 /* STAGE */
-.stage { height:calc(100vh - 52px - 58px); height:calc(100dvh - 52px - 58px); overflow:hidden; display:flex; justify-content:center; align-items:center; padding:5px 3px; background:radial-gradient(circle at 50% 40%,#14201a 0%,#060908 100%); position:relative; }
+.stage {
+  height:calc(100vh - 52px - 58px); height:calc(100dvh - 52px - 58px);
+  overflow:hidden; display:flex; justify-content:center; align-items:center;
+  padding:5px 3px;
+  background:radial-gradient(circle at 50% 40%,#14201a 0%,#060908 100%);
+  position:relative;
+}
 .book-spread { display:flex; direction:rtl; gap:10px; align-items:center; justify-content:center; height:100%; max-width:100%; }
 
-.mushaf-sheet { height:100%; aspect-ratio:1/1.5; max-width:49vw; background:var(--paper); position:relative; padding:6px 14px 5px; box-shadow:var(--shadow-lg); border:2px solid #2d2417; outline:2px solid var(--gold-500); outline-offset:2px; border-radius:3px; display:flex; flex-direction:column; flex-shrink:0; }
+.mushaf-sheet {
+  height:100%; aspect-ratio:1/1.5; max-width:49vw;
+  background:var(--paper); position:relative; padding:6px 14px 5px;
+  box-shadow:var(--shadow-lg); border:2px solid #2d2417;
+  outline:2px solid var(--gold-500); outline-offset:2px;
+  border-radius:3px; display:flex; flex-direction:column; flex-shrink:0;
+}
 .mushaf-sheet::before { content:''; position:absolute; inset:3px; border:1px solid rgba(166,137,76,0.4); pointer-events:none; z-index:1; }
 .corner { position:absolute; width:18px; height:18px; pointer-events:none; z-index:2; opacity:0.85; }
 .c-tr { top:5px; right:5px; } .c-tl { top:5px; left:5px; transform:scaleX(-1); }
 .c-br { bottom:5px; right:5px; transform:scaleY(-1); } .c-bl { bottom:5px; left:5px; transform:scale(-1,-1); }
-.sheet-header { height:20px; display:flex; justify-content:space-between; align-items:center; font-family:'Amiri',serif; font-size:11px; font-weight:700; color:#594017; border-bottom:1px solid #dfd4b7; padding-bottom:2px; direction:rtl; margin-bottom:1px; flex-shrink:0; }
-.sheet-footer { height:18px; display:flex; justify-content:space-between; align-items:center; border-top:1px solid #dfd4b7; padding-top:2px; direction:rtl; margin-top:1px; flex-shrink:0; }
+.sheet-header { height:20px; display:flex; justify-content:space-between; align-items:center; font-family:'Amiri',serif; font-size:11px; font-weight:700; color:#594017; border-bottom:1px solid #dfd4b7; padding-bottom:2px; direction:rtl; margin-bottom:1px; position:relative; z-index:2; }
+.sheet-footer { height:18px; display:flex; justify-content:space-between; align-items:center; border-top:1px solid #dfd4b7; padding-top:2px; direction:rtl; margin-top:1px; position:relative; z-index:2; }
 .mushaf-tag { font-size:8px; font-weight:700; color:#8c734b; letter-spacing:0.08em; text-transform:uppercase; }
 .page-num-display { font-family:'Amiri',serif; font-size:14px; font-weight:700; color:#3b2c14; }
 
-.lines-grid { flex:1; display:flex; flex-direction:column; justify-content:space-between; direction:rtl; width:100%; margin:1px 0; position:relative; min-height:0; }
+.lines-grid { flex:1; display:flex; flex-direction:column; justify-content:space-between; direction:rtl; width:100%; margin:1px 0; position:relative; z-index:2; }
 .qline { height:calc(100%/15); min-height:5.8%; display:flex; align-items:center; justify-content:space-between; white-space:nowrap; direction:rtl; position:relative; width:100%; padding:0 1px; }
 .qline.centered { justify-content:center; gap:10px; }
 .madani-mode .qline { border-bottom:none; }
 .qudratullah-mode .qline { border-bottom:1px solid rgba(70,55,35,0.35); }
 .qudratullah-mode .qline:last-child { border-bottom:none; }
 
-.word { font-size:clamp(16px, 2.35vh, 27px); line-height:1.1; color:var(--ink); display:inline-block; font-family:'Amiri',serif; cursor:pointer; padding:0 1.5px; border-radius:3px; transition:background 0.12s; position:relative; }
+.word {
+  font-size:clamp(16px, 2.35vh, 27px); line-height:1.1; color:var(--ink);
+  display:inline-block; font-family:'Amiri',serif; cursor:pointer;
+  padding:0 1.5px; border-radius:3px; transition:background 0.12s; position:relative;
+}
 .word:hover { background:rgba(0,107,84,0.08); }
 .word.jalalah { color:var(--jalalah-red) !important; font-weight:700; }
 .word.mark-underline { box-shadow:inset 0 -3px 0 var(--underline-blue); }
 .word.mark-ghalat { background:rgba(212,34,34,0.14); box-shadow:inset 0 -3px 0 var(--ghalat-red); }
 .word.mark-tajweed { background:rgba(244,196,48,0.35); box-shadow:inset 0 -3px 0 var(--tajweed-yellow); }
-.word.mark-pencil { position:relative; }
 
-.qudratullah-mode .word { font-family:'DigitalKhatt IndoPak','Noto Nastaliq Urdu','Amiri',serif !important; font-size:clamp(14px, 2.1vh, 24px); line-height:1.9; }
+.qudratullah-mode .word {
+  font-family:'DigitalKhatt IndoPak','Noto Nastaliq Urdu','Amiri',serif !important;
+  font-size:clamp(14px, 2.1vh, 24px); line-height:1.9;
+}
 
-.surah-head { width:100%; height:100%; display:flex; align-items:center; justify-content:center; gap:8px; background:linear-gradient(180deg,#fefbf2 0%,#f4e7c3 50%,#fefbf2 100%); border:1.5px solid #2d2417; outline:1px solid var(--gold-500); outline-offset:-3px; padding:0 8px; border-radius:2px; }
+.surah-head {
+  width:100%; height:100%; display:flex; align-items:center; justify-content:center;
+  gap:8px; background:linear-gradient(180deg,#fefbf2 0%,#f4e7c3 50%,#fefbf2 100%);
+  border:1.5px solid #2d2417; outline:1px solid var(--gold-500); outline-offset:-3px;
+  padding:0 8px; border-radius:2px;
+}
 .surah-head .sep { color:#8c734b; font-size:9px; }
 .surah-head .meta { font-family:'Amiri',serif; font-size:10px; font-weight:700; color:#5c4118; white-space:nowrap; }
 .surah-head .title { font-family:'Amiri',serif; font-size:15px; font-weight:700; color:#16291e; white-space:nowrap; }
+
 .bismillah { height:100%; display:flex; align-items:center; justify-content:center; font-family:'Amiri',serif; font-size:17px; color:#172d21; }
 
 .ayah-mark { display:inline-block; cursor:pointer; padding:0 2px; border-radius:5px; transition:all 0.15s; font-family:'Amiri',serif; }
@@ -145,41 +174,34 @@ input, select, textarea { font:inherit; outline:none; }
 .ayah-mark.lesson-end { background:rgba(220,38,38,0.25); box-shadow:0 0 0 1.5px var(--danger); }
 
 /* PENCIL CANVAS OVERLAY */
-#pencilCanvas {
-  position:absolute; inset:0; z-index:5; pointer-events:none;
-  touch-action:none;
+.pencil-canvas {
+  position:absolute; inset:0; z-index:5;
+  pointer-events:none; touch-action:none;
+  border-radius:3px;
 }
-#pencilCanvas.active { pointer-events:auto; cursor:crosshair; }
-.pencil-controls {
-  position:absolute; top:6px; right:6px; z-index:6;
-  display:none; gap:4px; background:rgba(20,32,26,0.92);
-  border:1px solid var(--gold-500); border-radius:8px; padding:4px;
-  backdrop-filter:blur(6px);
+.pencil-canvas.active {
+  pointer-events:auto;
+  cursor:crosshair;
 }
-.pencil-controls.show { display:flex; }
-.pencil-controls button {
-  width:30px; height:30px; border-radius:6px;
-  background:transparent; color:var(--text-1);
-  display:flex; align-items:center; justify-content:center;
-  font-size:13px; font-weight:700; transition:all 0.12s;
-}
-.pencil-controls button:hover { background:var(--surface-3); }
-.pencil-controls button.on { background:var(--gold-500); color:var(--emerald-900); }
-.pencil-controls .color-dot {
-  width:22px; height:22px; border-radius:50%; cursor:pointer;
-  border:2px solid transparent; transition:border-color 0.12s;
-}
-.pencil-controls .color-dot.on { border-color:#fff; }
 
 /* DOCK */
-.dock { height:58px; background:var(--surface-1); border-top:1px solid var(--border-1); display:flex; align-items:center; justify-content:center; gap:5px; padding:0 8px; overflow-x:auto; direction:ltr; position:relative; z-index:40; }
+.dock {
+  height:58px; background:var(--surface-1); border-top:1px solid var(--border-1);
+  display:flex; align-items:center; justify-content:center; gap:5px;
+  padding:0 8px; overflow-x:auto; direction:ltr; position:relative; z-index:40;
+}
 .dock::-webkit-scrollbar { height:0; }
-.dock-btn { min-width:42px; height:42px; padding:0 10px; border-radius:10px; background:var(--surface-2); border:1px solid var(--border-2); color:var(--text-1); display:flex; align-items:center; justify-content:center; gap:5px; font-size:13px; font-weight:600; transition:all 0.15s; white-space:nowrap; }
+.dock-btn {
+  min-width:42px; height:42px; padding:0 10px; border-radius:10px;
+  background:var(--surface-2); border:1px solid var(--border-2);
+  color:var(--text-1); display:flex; align-items:center; justify-content:center;
+  gap:5px; font-size:13px; font-weight:600; transition:all 0.15s; white-space:nowrap;
+}
 .dock-btn:hover { background:var(--surface-3); border-color:var(--gold-500); }
 .dock-btn.active { background:var(--gold-500); color:var(--emerald-900); border-color:var(--gold-400); }
 .dock-btn.audio-on { background:var(--emerald-600); color:#fff; border-color:var(--emerald-500); }
 .dock-btn.danger-on { background:rgba(220,38,38,0.15); border-color:var(--danger); color:#ff8a8a; }
-.dock-btn.pencil-on { background:var(--emerald-600); color:#fff; border-color:var(--emerald-500); }
+.dock-btn.pencil-on { background:var(--pencil-blue); color:#fff; border-color:#1d4ed8; }
 .dock-btn .label { font-size:11px; }
 
 /* MENUS */
@@ -237,7 +259,7 @@ input, select, textarea { font:inherit; outline:none; }
 .drawer-item:hover { background:var(--surface-2); color:var(--gold-400); }
 .drawer-item .ico { font-size:15px; width:20px; text-align:center; flex-shrink:0; }
 
-/* SETTINGS SHEET */
+/* SHEET */
 .sheet-scrim { position:fixed; inset:0; z-index:800; background:rgba(0,0,0,0.6); backdrop-filter:blur(3px); opacity:0; pointer-events:none; transition:opacity 0.2s; }
 .sheet-scrim.open { opacity:1; pointer-events:auto; }
 .sheet-panel { position:fixed; bottom:0; left:50%; transform:translateX(-50%) translateY(100%); width:min(720px,100%); max-height:88vh; background:var(--surface-1); border:1px solid var(--gold-500); border-bottom:none; border-radius:18px 18px 0 0; z-index:810; transition:transform 0.3s cubic-bezier(0.1,0.9,0.2,1); box-shadow:0 -12px 40px rgba(0,0,0,0.7); display:flex; flex-direction:column; direction:ltr; }
@@ -271,6 +293,30 @@ input, select, textarea { font:inherit; outline:none; }
 .cat-item .name { font-family:'Amiri',serif; font-size:14px; font-weight:700; }
 .cat-item .label { font-size:11px; color:var(--text-3); margin-left:8px; }
 
+/* ABOUT */
+.about-box {
+  text-align:center; padding:22px 14px;
+  background:linear-gradient(135deg,rgba(0,107,84,0.15),rgba(197,160,89,0.08));
+  border:1px solid var(--gold-500); border-radius:14px;
+  margin-bottom:16px;
+}
+.about-box .logo-big {
+  width:72px; height:72px; margin:0 auto 14px;
+  background:linear-gradient(135deg,var(--emerald-600),var(--emerald-800));
+  border:2px solid var(--gold-500); border-radius:18px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:36px;
+}
+.about-box h2 { font-size:17px; font-weight:800; color:var(--gold-400); margin-bottom:4px; }
+.about-box .ver { font-size:11px; color:var(--text-3); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:14px; }
+.about-box p { font-size:13px; line-height:1.9; color:var(--text-1); text-align:center; padding:0 8px; }
+.about-box .dua {
+  margin-top:14px; padding:12px 14px;
+  background:rgba(197,160,89,0.1); border-radius:10px;
+  border-left:3px solid var(--gold-500);
+  font-size:12.5px; color:var(--gold-300); font-style:italic; line-height:1.7;
+}
+
 /* REPORT */
 .report-screen { position:fixed; inset:0; z-index:900; display:none; flex-direction:column; background:#e5e7e5; direction:ltr; }
 .report-screen.open { display:flex; }
@@ -302,31 +348,6 @@ input, select, textarea { font:inherit; outline:none; }
 .paper .signs { display:grid; grid-template-columns:1fr 1fr; gap:40px; margin-top:50px; }
 .paper .sign { padding-top:8px; border-top:1px solid #555; text-align:center; font-size:10px; color:#555; font-weight:600; }
 
-/* ABOUT MODAL */
-.about-card { text-align:center; }
-.about-logo { width:80px; height:80px; margin:0 auto 16px; border-radius:20px; background:linear-gradient(135deg,var(--emerald-600),var(--emerald-800)); display:flex; align-items:center; justify-content:center; font-size:40px; border:3px solid var(--gold-500); }
-.about-card h2 { font-size:22px; font-weight:800; color:var(--gold-400); margin-bottom:4px; }
-.about-card .tagline { font-size:11px; color:var(--text-3); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:18px; }
-.about-card .msg {
-  padding:16px 18px;
-  background:linear-gradient(135deg,rgba(0,107,84,0.15),rgba(197,160,89,0.08));
-  border:1px solid rgba(197,160,89,0.3); border-radius:12px;
-  font-family:'Noto Sans Malayalam','Inter',sans-serif;
-  font-size:13.5px; line-height:1.9; color:var(--text-1);
-  text-align:center; direction:ltr; margin-bottom:18px;
-}
-.about-card .msg .highlight { color:var(--gold-400); font-weight:700; }
-.about-card .msg .dua {
-  display:block; margin-top:12px; padding-top:12px;
-  border-top:1px dashed rgba(197,160,89,0.4);
-  font-family:'Amiri',serif; font-size:16px;
-  color:var(--gold-400); direction:rtl;
-}
-.about-features { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-bottom:16px; }
-.about-feature { padding:7px 12px; background:var(--surface-2); border:1px solid var(--border-2); border-radius:20px; font-size:11px; color:var(--text-2); }
-.about-version { font-size:10.5px; color:var(--text-3); padding-top:14px; border-top:1px solid var(--border-1); }
-.about-version b { color:var(--gold-400); }
-
 /* TOAST */
 .toast { position:fixed; left:50%; bottom:75px; z-index:1000; padding:10px 16px; background:var(--surface-2); border:1px solid var(--gold-500); color:var(--text-1); border-radius:9px; font-size:12.5px; font-weight:600; opacity:0; pointer-events:none; transform:translateX(-50%) translateY(12px); transition:all 0.22s; box-shadow:var(--shadow-lg); direction:ltr; max-width:90vw; text-align:center; }
 .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
@@ -339,12 +360,6 @@ input, select, textarea { font:inherit; outline:none; }
 .splash-card p { font-size:11.5px; color:var(--text-3); line-height:1.6; margin-bottom:14px; }
 .splash-status { font-size:11px; color:var(--gold-400); font-weight:600; min-height:16px; margin-top:9px; }
 
-/* SKELETON LOADER */
-.skeleton-line { height:calc(100%/15); display:flex; align-items:center; justify-content:center; }
-.skeleton-bar { height:60%; width:80%; background:linear-gradient(90deg,rgba(0,0,0,0.05),rgba(0,0,0,0.12),rgba(0,0,0,0.05)); border-radius:4px; animation:shimmer 1.4s infinite; }
-@keyframes shimmer { 0% { background-position:-200% 0; } 100% { background-position:200% 0; } }
-
-/* RESPONSIVE */
 @media (max-width:1000px), (orientation:portrait) {
   .mushaf-sheet.left-sheet { display:none !important; }
   .mushaf-sheet { width:100vw; max-width:100vw; aspect-ratio:auto; height:100%; border-left:none; border-right:none; outline-offset:1px; padding:6px 10px 4px; }
@@ -373,7 +388,6 @@ input, select, textarea { font:inherit; outline:none; }
 </head>
 <body>
 
-<!-- SPLASH -->
 <div class="splash" id="splash">
   <div class="splash-card">
     <div class="splash-mark">📖</div>
@@ -385,16 +399,12 @@ input, select, textarea { font:inherit; outline:none; }
   </div>
 </div>
 
-<!-- OFFLINE BADGE -->
 <div id="offlineBadge">📴 <span>Offline Mode</span></div>
-
-<!-- UPDATE TOAST -->
 <div id="updateToast">
   <span>🔄 New version available</span>
   <button onclick="window.PWA.applyUpdate()">Update</button>
 </div>
 
-<!-- PWA INSTALL BANNER -->
 <div id="pwaInstallBanner">
   <img src="icon.svg" alt="Al-Halaqah">
   <div class="txt">
@@ -403,11 +413,10 @@ input, select, textarea { font:inherit; outline:none; }
   </div>
   <div class="btns">
     <button class="install" onclick="window.PWA.triggerInstall()">Install</button>
-    <button class="dismiss" onclick="window.PWA.dismissBanner()" title="Later">✕</button>
+    <button class="dismiss" onclick="window.PWA.dismissBanner()">✕</button>
   </div>
 </div>
 
-<!-- TOP BAR -->
 <header class="topbar">
   <div class="tb-left">
     <button class="icon-btn" onclick="UI.openDrawer()" title="Menu">☰</button>
@@ -432,7 +441,6 @@ input, select, textarea { font:inherit; outline:none; }
   </div>
 </header>
 
-<!-- STAGE -->
 <main class="stage" id="stage">
   <div class="book-spread" id="bookSpread">
     <article class="mushaf-sheet right-sheet" id="sheetRight">
@@ -445,7 +453,7 @@ input, select, textarea { font:inherit; outline:none; }
         <span id="rightSurahLbl">سورة --</span>
       </header>
       <section class="lines-grid" id="linesRight"></section>
-      <canvas id="pencilCanvasRight" class="pencilCanvas"></canvas>
+      <canvas class="pencil-canvas" id="pencilRight"></canvas>
       <footer class="sheet-footer">
         <span class="mushaf-tag" id="rightTag">MADANI 1405H</span>
         <span class="page-num-display" id="rightPageNum">١</span>
@@ -461,44 +469,27 @@ input, select, textarea { font:inherit; outline:none; }
         <span id="leftSurahLbl">سورة --</span>
       </header>
       <section class="lines-grid" id="linesLeft"></section>
-      <canvas id="pencilCanvasLeft" class="pencilCanvas"></canvas>
+      <canvas class="pencil-canvas" id="pencilLeft"></canvas>
       <footer class="sheet-footer">
         <span class="mushaf-tag" id="leftTag">MADANI 1405H</span>
         <span class="page-num-display" id="leftPageNum">٢</span>
       </footer>
     </article>
   </div>
-
-  <!-- PENCIL CONTROLS -->
-  <div class="pencil-controls" id="pencilControls">
-    <div class="color-dot on" data-color="#c81e1e" style="background:#c81e1e" onclick="Pencil.setColor('#c81e1e')" title="Red"></div>
-    <div class="color-dot" data-color="#2563eb" style="background:#2563eb" onclick="Pencil.setColor('#2563eb')" title="Blue"></div>
-    <div class="color-dot" data-color="#16a34a" style="background:#16a34a" onclick="Pencil.setColor('#16a34a')" title="Green"></div>
-    <div class="color-dot" data-color="#14120e" style="background:#14120e" onclick="Pencil.setColor('#14120e')" title="Black"></div>
-    <button id="pencilThin" onclick="Pencil.setSize(1.5)" title="Thin">▪</button>
-    <button id="pencilMed" class="on" onclick="Pencil.setSize(3)" title="Medium">◼</button>
-    <button id="pencilThick" onclick="Pencil.setSize(5)" title="Thick">⬛</button>
-    <button onclick="Pencil.undo()" title="Undo">↶</button>
-    <button onclick="Pencil.clear()" title="Clear Page">🗑</button>
-  </div>
 </main>
 
-<!-- DOCK -->
 <nav class="dock">
   <button class="dock-btn" id="toolBtn" onclick="Menus.toggleTools(event)">
     <span id="toolBtnIcon">_</span>
     <span class="label" id="toolBtnLabel">Underline</span>
     <span class="caret" style="font-size:8px;opacity:0.6;">▼</span>
   </button>
-  <button class="dock-btn" id="pencilBtn" onclick="Pencil.toggle()" title="Pencil">
-    <span>✏️</span>
-  </button>
   <button class="dock-btn" id="eraserBtn" onclick="Marks.setTool('eraser')" title="Eraser">🧹</button>
+  <button class="dock-btn" id="pencilBtn" onclick="Pencil.toggle()" title="Pencil">✏️</button>
   <button class="dock-btn" id="audioBtn" onclick="AudioPlayer.toggle()" title="Audio">🔇</button>
   <button class="dock-btn" id="moreBtn" onclick="Menus.toggleMore(event)" title="More">⋮</button>
 </nav>
 
-<!-- TOOLS MENU -->
 <div class="menu" id="toolsMenu">
   <div class="menu-header">Marking Tool</div>
   <button class="menu-item" id="tm-underline" onclick="Marks.setTool('underline')"><span class="ico">_</span><span>Underline</span></button>
@@ -506,10 +497,12 @@ input, select, textarea { font:inherit; outline:none; }
   <button class="menu-item" id="tm-ghalat" onclick="Marks.setTool('ghalat')"><span class="ico">🔴</span><span>Ghalat (Error)</span></button>
   <button class="menu-item" id="tm-tajweed" onclick="Marks.setTool('tajweed')"><span class="ico">🟡</span><span>Tajweed</span></button>
   <div class="menu-divider"></div>
+  <button class="menu-item" id="tm-pencil" onclick="Pencil.toggle()"><span class="ico">✏️</span><span>Pencil (Free Draw)</span></button>
+  <button class="menu-item" id="tm-pencil-eraser" onclick="Pencil.setErase(true)"><span class="ico">🧽</span><span>Pencil Eraser</span></button>
+  <div class="menu-divider"></div>
   <button class="menu-item" id="tm-select" onclick="Marks.setTool('select')"><span class="ico">👆</span><span>Select (Play / Lesson)</span></button>
 </div>
 
-<!-- STUDENT MENU -->
 <div class="menu" id="studentMenu">
   <div class="menu-header">Switch Student</div>
   <div id="studentMenuList"></div>
@@ -518,7 +511,6 @@ input, select, textarea { font:inherit; outline:none; }
   <button class="menu-item" onclick="Menus.closeAll(); Settings.open('students')"><span class="ico">⚙️</span><span>Manage Students</span></button>
 </div>
 
-<!-- LESSON MENU -->
 <div class="menu" id="lessonMenu">
   <div class="menu-header">Lesson Category</div>
   <div id="lessonMenuList"></div>
@@ -526,30 +518,28 @@ input, select, textarea { font:inherit; outline:none; }
   <button class="menu-item" onclick="Menus.closeAll(); Settings.open('categories')"><span class="ico">➕</span><span>Add / Edit Categories</span></button>
 </div>
 
-<!-- MORE MENU -->
 <div class="menu" id="moreMenu">
   <button class="menu-item" onclick="Menus.closeAll(); Report.open()"><span class="ico">📊</span><span>Progress Report</span></button>
   <button class="menu-item" onclick="Menus.closeAll(); Lessons.open()"><span class="ico">📋</span><span>Lesson History</span></button>
   <div class="menu-divider"></div>
   <button class="menu-item" onclick="Menus.closeAll(); Marks.undo()"><span class="ico">↶</span><span>Undo Last Mark</span></button>
   <button class="menu-item" onclick="Menus.closeAll(); Marks.clearPage()"><span class="ico">🗑</span><span>Clear Page Marks</span></button>
+  <button class="menu-item" onclick="Menus.closeAll(); Pencil.clearPage()"><span class="ico">🧽</span><span>Clear Page Pencil</span></button>
   <div class="menu-divider"></div>
   <button class="menu-item" onclick="Menus.closeAll(); Settings.open('institution')"><span class="ico">🏛</span><span>Institution</span></button>
   <button class="menu-item" onclick="Menus.closeAll(); Settings.open('report')"><span class="ico">📄</span><span>Report Settings</span></button>
   <button class="menu-item" onclick="Menus.closeAll(); Settings.open('data')"><span class="ico">⬇</span><span>Batch Download / Sync</span></button>
   <div class="menu-divider"></div>
   <button class="menu-item" onclick="Menus.closeAll(); PWA.showInstall()"><span class="ico">📲</span><span>Install App</span></button>
-  <button class="menu-item" onclick="Menus.closeAll(); About.open()"><span class="ico">ℹ️</span><span>About Al-Halaqah</span></button>
+  <button class="menu-item" onclick="Menus.closeAll(); Settings.open('about')"><span class="ico">ℹ️</span><span>About</span></button>
 </div>
 
-<!-- AYAH POPUP -->
 <div class="menu" id="ayahMenu" style="min-width:220px;">
   <button class="menu-item" onclick="AyahAction.play()"><span class="ico">🔊</span><span>Play this Ayah</span></button>
   <button class="menu-item" onclick="AyahAction.startFrom()"><span class="ico">▶</span><span>Start lesson here</span></button>
   <button class="menu-item" onclick="AyahAction.endAt()"><span class="ico">🎯</span><span>End lesson here</span></button>
 </div>
 
-<!-- DRAWER -->
 <div class="drawer-scrim" id="drawerScrim" onclick="UI.closeDrawer()"></div>
 <aside class="drawer" id="drawer">
   <div class="drawer-head">
@@ -585,12 +575,11 @@ input, select, textarea { font:inherit; outline:none; }
 
     <div class="drawer-label">App</div>
     <button class="drawer-item" onclick="UI.closeDrawer(); PWA.showInstall()"><span class="ico">📲</span><span>Install App</span></button>
-    <button class="drawer-item" onclick="UI.closeDrawer(); About.open()"><span class="ico">ℹ️</span><span>About Al-Halaqah</span></button>
+    <button class="drawer-item" onclick="UI.closeDrawer(); Settings.open('about')"><span class="ico">ℹ️</span><span>About</span></button>
     <button class="drawer-item" id="drawerInstallState"><span class="ico">✅</span><span id="installStateText">Install Status</span></button>
   </div>
 </aside>
 
-<!-- SETTINGS SHEET -->
 <div class="sheet-scrim" id="sheetScrim" onclick="Settings.closeSheet(event)">
   <div class="sheet-panel" onclick="event.stopPropagation()">
     <div class="sheet-head">
@@ -604,6 +593,7 @@ input, select, textarea { font:inherit; outline:none; }
       <button class="sheet-tab" data-tab="report" onclick="Settings.tab('report')">📄 Report</button>
       <button class="sheet-tab" data-tab="audio" onclick="Settings.tab('audio')">🔊 Audio</button>
       <button class="sheet-tab" data-tab="data" onclick="Settings.tab('data')">⬇ Data</button>
+      <button class="sheet-tab" data-tab="about" onclick="Settings.tab('about')">ℹ️ About</button>
     </div>
     <div class="sheet-body">
       <div class="tab-pane active" data-pane="students">
@@ -625,7 +615,7 @@ input, select, textarea { font:inherit; outline:none; }
       </div>
       <div class="tab-pane" data-pane="categories">
         <div class="section-title">Lesson Categories</div>
-        <p style="font-size:11px;color:var(--text-3);line-height:1.6;margin-bottom:12px;">Add as many as needed. Each student can have 1–10+ lessons.</p>
+        <p style="font-size:11px;color:var(--text-3);line-height:1.6;margin-bottom:12px;">Add as many as needed.</p>
         <div id="categoryList"></div>
         <div class="form-grid" style="margin-top:12px;">
           <div class="field"><label>Arabic Name</label><input id="newCatArabic" placeholder="سبق"></div>
@@ -677,7 +667,6 @@ input, select, textarea { font:inherit; outline:none; }
       </div>
       <div class="tab-pane" data-pane="data">
         <div class="section-title">Quran Data — Batch Sync</div>
-        <p style="font-size:11px;color:var(--text-3);line-height:1.6;margin-bottom:10px;">Download Quran CSV data from GitHub into IndexedDB. Fast batch writes.</p>
         <div class="progress-bar"><div class="progress-fill" id="syncBar"></div></div>
         <div style="font-size:11px;color:var(--gold-400);font-weight:600;margin:7px 0;" id="syncStatus">Ready</div>
         <div style="display:flex;gap:8px;margin-bottom:18px;">
@@ -687,14 +676,14 @@ input, select, textarea { font:inherit; outline:none; }
         <div class="section-title">QPC Fonts (604 pages)</div>
         <div class="progress-bar"><div class="progress-fill" id="fontBar"></div></div>
         <div style="font-size:11px;color:var(--gold-400);font-weight:600;margin:7px 0;" id="fontCount">0 / 604</div>
-        <button class="btn btn-gold btn-block" style="margin-bottom:18px;" id="btnFonts" onclick="Sync.downloadFonts()">⬇ Download All Fonts (Resumable)</button>
+        <button class="btn btn-gold btn-block" style="margin-bottom:18px;" id="btnFonts" onclick="Sync.downloadFonts()">⬇ Download All Fonts</button>
         <div class="section-title">Backup & Restore</div>
         <div style="display:flex;gap:8px;">
           <button class="btn btn-ghost" style="flex:1;" onclick="Sync.backup()">💾 Export</button>
           <button class="btn btn-ghost" style="flex:1;" onclick="Sync.restore()">📥 Import</button>
         </div>
         <div class="section-title" style="margin-top:22px;">App / PWA</div>
-        <div style="font-size:11.5px;color:var(--text-2);line-height:1.9;margin-bottom:10px;" id="pwaInfoBox">
+        <div style="font-size:11.5px;color:var(--text-2);line-height:1.9;margin-bottom:10px;">
           <div>Display: <b id="pwaDisplayMode">Browser</b></div>
           <div>Install: <b id="pwaInstallState">Not Installed</b></div>
           <div>Service Worker: <b id="pwaSwState">Checking…</b></div>
@@ -705,11 +694,39 @@ input, select, textarea { font:inherit; outline:none; }
           <button class="btn btn-danger" style="flex:1;" onclick="PWA.clearAppCache()">🗑 Clear App Cache</button>
         </div>
       </div>
+      <div class="tab-pane" data-pane="about">
+        <div class="about-box">
+          <div class="logo-big">📖</div>
+          <h2>Al-Halaqah</h2>
+          <div class="ver">Hifz Quran Management · v2.0</div>
+          <p>ഖുർആൻ മനപ്പാഠമാക്കുന്നവർക്കും ഖുർആൻ പഠിക്കുന്നവർക്കും പഠിപ്പിക്കുന്നവർക്കും ഉപകാരപ്പെടുന്ന ഒരു വെബ് ആപ്ലിക്കേഷൻ ആണ് ഇത്.</p>
+          <div class="dua">ഇത് ഉണ്ടാക്കിയവർക്ക് ദുആ ചെയ്യുക 🤲</div>
+        </div>
+        <div class="section-title">Features</div>
+        <div style="font-size:12px;line-height:2;color:var(--text-2);">
+          <div>📖 Madani 1405H & Indo-Pak Qudratullah Mushaf</div>
+          <div>✏️ Underline · Highlight · Ghalat · Tajweed · Pencil</div>
+          <div>🎓 Multi-student management</div>
+          <div>📊 Progress reports (PDF ready)</div>
+          <div>🔊 Audio recitation (6 reciters)</div>
+          <div>📴 Full offline support (PWA)</div>
+          <div>💾 Backup / Restore</div>
+        </div>
+        <div class="section-title" style="margin-top:22px;">Technical</div>
+        <div style="font-size:11px;color:var(--text-3);line-height:1.9;">
+          <div>Progressive Web App (PWA)</div>
+          <div>Service Worker + IndexedDB</div>
+          <div>Works completely offline</div>
+        </div>
+        <div class="section-title" style="margin-top:22px;">Contact / Feedback</div>
+        <div style="font-size:11.5px;color:var(--text-2);line-height:1.8;">
+          നിർദ്ദേശങ്ങളും പരാതികളും ഞങ്ങളെ അറിയിക്കുക.
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- STUDENT MODAL -->
 <div class="modal" id="studentModal">
   <div class="modal-card">
     <div class="modal-head">
@@ -742,7 +759,6 @@ input, select, textarea { font:inherit; outline:none; }
   </div>
 </div>
 
-<!-- LESSON END MODAL -->
 <div class="modal" id="lessonModal">
   <div class="modal-card">
     <div class="modal-head">
@@ -750,7 +766,7 @@ input, select, textarea { font:inherit; outline:none; }
       <button class="close-x" onclick="UI.closeModal('lessonModal')">×</button>
     </div>
     <div style="padding:10px;background:rgba(197,160,89,0.1);border-left:3px solid var(--gold-500);border-radius:6px;font-size:11px;line-height:1.6;margin-bottom:14px;">
-      Last read point is auto-filled from the last Ayah marker tapped. Adjust if needed.
+      Last read point is auto-filled from the last Ayah marker tapped.
     </div>
     <div class="form-grid">
       <div class="field"><label>Lesson Category *</label><select id="lesCategory"></select></div>
@@ -769,7 +785,6 @@ input, select, textarea { font:inherit; outline:none; }
   </div>
 </div>
 
-<!-- LESSON START MODAL -->
 <div class="modal" id="lessonStartModal">
   <div class="modal-card">
     <div class="modal-head">
@@ -789,7 +804,6 @@ input, select, textarea { font:inherit; outline:none; }
   </div>
 </div>
 
-<!-- HISTORY MODAL -->
 <div class="modal" id="historyModal">
   <div class="modal-card" style="width:min(900px,100%);">
     <div class="modal-head">
@@ -800,34 +814,6 @@ input, select, textarea { font:inherit; outline:none; }
   </div>
 </div>
 
-<!-- ABOUT MODAL -->
-<div class="modal" id="aboutModal">
-  <div class="modal-card about-card" style="width:min(440px,100%);">
-    <div class="modal-head" style="justify-content:flex-end;border-bottom:none;margin-bottom:0;padding-bottom:0;">
-      <button class="close-x" onclick="UI.closeModal('aboutModal')">×</button>
-    </div>
-    <div class="about-logo">📖</div>
-    <h2>Al-Halaqah</h2>
-    <div class="tagline">Hifz Quran Management</div>
-    <div class="msg">
-      ഖുർആൻ മനപ്പാഠമാക്കുന്നവർക്കും ഖുർആൻ പഠിക്കുന്നവർക്കും പഠിപ്പിക്കുന്നവർക്കും ഉപകാരപ്പെടുന്ന ഒരു <span class="highlight">വെബ് ആപ്ലിക്കേഷൻ</span> ആണ് ഇത്. ഇത് ഉണ്ടാക്കിയവർക്ക് <span class="highlight">ദുആ ചെയ്യുക</span>.
-      <span class="dua">اللَّهُمَّ اجْعَلْهُ نَافِعًا لِلْمُسْلِمِينَ</span>
-    </div>
-    <div class="about-features">
-      <span class="about-feature">📖 Mushaf 604 pages</span>
-      <span class="about-feature">✏️ Pencil</span>
-      <span class="about-feature">🖍️ Marks</span>
-      <span class="about-feature">🎧 Audio</span>
-      <span class="about-feature">📊 Reports</span>
-      <span class="about-feature">📴 Offline</span>
-    </div>
-    <div class="about-version">
-      <b>Version 2.0</b> · Made with ❤️ for Hifz students & teachers
-    </div>
-  </div>
-</div>
-
-<!-- REPORT SCREEN -->
 <div class="report-screen" id="reportScreen">
   <div class="report-toolbar">
     <button class="btn btn-ghost" onclick="Report.close()">← Back</button>
@@ -876,7 +862,7 @@ const DEFAULT_SETTINGS = {
 
 const State = {
   settings: structuredClone(DEFAULT_SETTINGS),
-  students: [], assignments: [], lessons: [], marks: [],
+  students: [], assignments: [], lessons: [], marks: [], drawings: [],
   currentStudentId: null, currentMushaf: "madani", currentPage: 1,
   currentTool: "underline", currentLessonId: null,
   lastBoundary: null, currentAyah: null,
@@ -884,7 +870,7 @@ const State = {
   defaultCategoryId: null,
   undoStack: [],
   renderToken: 0,
-  pencilActive: false
+  renderLock: false
 };
 
 const U = {
@@ -892,7 +878,7 @@ const U = {
   today: () => new Date().toISOString().slice(0,10),
   ar: n => String(n).replace(/\d/g, d => "٠١٢٣٤٥٦٧٨٩"[d]),
   esc: v => String(v ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"),
-  sleep: () => new Promise(r => setTimeout(r, 0)),
+  sleep: (ms=0) => new Promise(r => setTimeout(r, ms)),
   isJalalah(t) {
     if (!t) return false;
     let x = t.replace(/[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED\u0640\u06E5\u06E6]/g,"").trim();
@@ -916,14 +902,12 @@ const U = {
   }
 };
 
-/* =====================================================
-   INDEXEDDB
-===================================================== */
+/* ===== DB ===== */
 const DB = {
   db: null, name: "AlHalaqah_Pro_v3",
   init() {
     return new Promise((res, rej) => {
-      const r = indexedDB.open(this.name, 1);
+      const r = indexedDB.open(this.name, 2);
       r.onupgradeneeded = e => {
         const d = e.target.result;
         if (!d.objectStoreNames.contains("page_lines")) {
@@ -937,7 +921,10 @@ const DB = {
         if (!d.objectStoreNames.contains("page_states")) d.createObjectStore("page_states", { keyPath:"id" });
         if (!d.objectStoreNames.contains("lessons")) d.createObjectStore("lessons", { keyPath:"id" });
         if (!d.objectStoreNames.contains("marks")) d.createObjectStore("marks", { keyPath:"id" });
-        if (!d.objectStoreNames.contains("pencil")) d.createObjectStore("pencil", { keyPath:"id" });
+        if (!d.objectStoreNames.contains("drawings")) {
+          const s = d.createObjectStore("drawings", { keyPath:"id" });
+          s.createIndex("spm", ["studentId","mushafId","page"]);
+        }
         if (!d.objectStoreNames.contains("settings")) d.createObjectStore("settings", { keyPath:"id" });
         if (!d.objectStoreNames.contains("meta")) d.createObjectStore("meta", { keyPath:"key" });
       };
@@ -970,14 +957,24 @@ const DB = {
       r.onsuccess = () => { const a = r.result || []; a.sort((x,y)=>x.line-y.line); res(a); };
       r.onerror = () => res([]);
     });
+  },
+  drawingsByPage(studentId, mushaf, page) {
+    return new Promise(res => {
+      try {
+        const tx = this.db.transaction("drawings","readonly");
+        const idx = tx.objectStore("drawings").index("spm");
+        const r = idx.getAll(IDBKeyRange.only([studentId, mushaf, page]));
+        r.onsuccess = () => res(r.result || []);
+        r.onerror = () => res([]);
+      } catch(e){ res([]); }
+    });
   }
 };
 
-/* =====================================================
-   CSV / INGESTION / FONTS
-===================================================== */
+/* ===== CSV ===== */
 function clean(v) { let t = String(v ?? "").trim(); if (t.length >= 2 && ((t[0]==="'" && t.endsWith("'")) || (t[0]==='"' && t.endsWith('"')))) t = t.slice(1,-1); return t; }
 
+/* ===== Ingest ===== */
 const Ingest = {
   async run() {
     const meta = await DB.get("meta","csv_ready");
@@ -1067,14 +1064,13 @@ const Ingest = {
     if (have.size >= 604) return;
     const queue = [];
     for (let p = 1; p <= 604; p++) if (!have.has("p"+p)) queue.push(p);
-    let done = 604 - queue.length;
-    const workers = 6;
+    const workers = 4;
     let idx = 0;
     const worker = async () => {
       while (idx < queue.length && navigator.onLine) {
         const p = queue[idx++];
         const url = "https://verses.quran.foundation/fonts/quran/hafs/v1/woff2/p" + p + ".woff2";
-        try { const r = await fetch(url); if (r.ok) { const buf = await r.arrayBuffer(); await DB.put("fonts", { name:"p"+p, data:buf }); done++; if (done % 20 === 0) this.updateFontUI(); } } catch (e) {}
+        try { const r = await fetch(url); if (r.ok) { const buf = await r.arrayBuffer(); await DB.put("fonts", { name:"p"+p, data:buf }); } } catch (e) {}
       }
     };
     await Promise.all(Array.from({ length:workers }, worker));
@@ -1101,197 +1097,131 @@ const Fonts = {
   }
 };
 
-/* =====================================================
-   PENCIL (free draw)
-===================================================== */
-const Pencil = {
-  color: "#c81e1e",
-  size: 3,
-  active: false,
-  drawings: {}, // key = mushaf:page:side → dataURL
-  undoStack: [],
-
+/* ===== PWA ===== */
+const PWA = {
+  deferredPrompt: null,
+  swRegistration: null,
+  initialized: false,
   async init() {
-    this.canvases = {
-      Right: document.getElementById("pencilCanvasRight"),
-      Left: document.getElementById("pencilCanvasLeft")
-    };
-    for (const side of ["Right","Left"]) {
-      const c = this.canvases[side];
-      if (!c) continue;
-      this.attach(c, side);
-    }
-    window.addEventListener("resize", () => this.resizeAll());
-  },
+    if (this.initialized) return;
+    this.initialized = true;
+    if ('serviceWorker' in navigator) {
+      try {
+        this.swRegistration = await navigator.serviceWorker.register('sw.js', { scope: './' });
+        this.updateSwState('Active ✅');
+        this.watchForUpdates();
+      } catch (err) { this.updateSwState('Failed ❌'); }
+    } else { this.updateSwState('Not Supported'); }
 
-  attach(canvas, side) {
-    let drawing = false, lastX = 0, lastY = 0;
-
-    const setup = (e) => {
-      if (!this.active) return;
+    window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
-      const rect = canvas.getBoundingClientRect();
-      const pt = e.touches ? e.touches[0] : e;
-      lastX = pt.clientX - rect.left;
-      lastY = pt.clientY - rect.top;
-      drawing = true;
-      const ctx = canvas.getContext("2d");
-      ctx.beginPath();
-      ctx.arc(lastX, lastY, this.size/2, 0, Math.PI*2);
-      ctx.fillStyle = this.color;
-      ctx.fill();
+      this.deferredPrompt = e;
+      if (!localStorage.getItem('pwa_banner_dismissed')) {
+        setTimeout(() => this.showBanner(), 1500);
+      }
+      this.updateInstallState('Ready to Install');
+    });
+    window.addEventListener('appinstalled', () => {
+      this.deferredPrompt = null;
+      this.hideBanner();
+      this.updateInstallState('Installed ✅');
+      U.toast('App installed 🎉');
+    });
+    const standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    this.updateDisplayMode(standalone ? 'Standalone 📱' : 'Browser 🌐');
+    this.updateInstallState(standalone ? 'Installed ✅' : 'Not Installed');
+    window.matchMedia('(display-mode: standalone)').addEventListener('change', (e) => {
+      this.updateDisplayMode(e.matches ? 'Standalone 📱' : 'Browser 🌐');
+      this.updateInstallState(e.matches ? 'Installed ✅' : 'Not Installed');
+    });
+    const updateNet = () => {
+      const badge = document.getElementById('offlineBadge');
+      if (!navigator.onLine) badge?.classList.add('show');
+      else badge?.classList.remove('show');
     };
-
-    const move = (e) => {
-      if (!drawing || !this.active) return;
-      e.preventDefault();
-      const rect = canvas.getBoundingClientRect();
-      const pt = e.touches ? e.touches[0] : e;
-      const x = pt.clientX - rect.left;
-      const y = pt.clientY - rect.top;
-      const ctx = canvas.getContext("2d");
-      ctx.beginPath();
-      ctx.moveTo(lastX, lastY);
-      ctx.lineTo(x, y);
-      ctx.strokeStyle = this.color;
-      ctx.lineWidth = this.size;
-      ctx.lineCap = "round";
-      ctx.lineJoin = "round";
-      ctx.stroke();
-      lastX = x; lastY = y;
-    };
-
-    const end = (e) => {
-      if (!drawing) return;
-      drawing = false;
-      this.save(side);
-    };
-
-    canvas.addEventListener("mousedown", setup);
-    canvas.addEventListener("mousemove", move);
-    canvas.addEventListener("mouseup", end);
-    canvas.addEventListener("mouseleave", end);
-    canvas.addEventListener("touchstart", setup, { passive: false });
-    canvas.addEventListener("touchmove", move, { passive: false });
-    canvas.addEventListener("touchend", end);
-    canvas.addEventListener("touchcancel", end);
+    window.addEventListener('online', updateNet);
+    window.addEventListener('offline', updateNet);
+    updateNet();
+    setTimeout(() => this.updateCacheInfo(), 2000);
   },
-
-  async toggle() {
-    this.active = !this.active;
-    State.pencilActive = this.active;
-    const btn = document.getElementById("pencilBtn");
-    const controls = document.getElementById("pencilControls");
-    btn?.classList.toggle("pencil-on", this.active);
-    controls?.classList.toggle("show", this.active);
-    for (const side of ["Right","Left"]) {
-      const c = this.canvases?.[side];
-      if (c) c.classList.toggle("active", this.active);
-    }
-    if (this.active) {
-      // Turn off mark tools
-      Marks.setTool("select");
-      U.toast("✏️ Pencil ON — Draw on the page");
-      // Refresh canvas with existing drawing
-      for (const side of ["Right","Left"]) await this.load(side);
-    } else {
-      U.toast("Pencil OFF");
-    }
+  showBanner() {
+    const b = document.getElementById('pwaInstallBanner');
+    if (!b) return;
+    if (window.matchMedia('(display-mode: standalone)').matches) return;
+    b.classList.add('show');
   },
-
-  setColor(c) {
-    this.color = c;
-    document.querySelectorAll(".pencil-controls .color-dot").forEach(d => {
-      d.classList.toggle("on", d.dataset.color === c);
+  hideBanner() { document.getElementById('pwaInstallBanner')?.classList.remove('show'); },
+  dismissBanner() { this.hideBanner(); localStorage.setItem('pwa_banner_dismissed', '1'); },
+  async triggerInstall() {
+    if (!this.deferredPrompt) {
+      this.hideBanner();
+      alert('ഇൻസ്റ്റാൾ ചെയ്യാൻ:\n\n1. Chrome menu (⋮)\n2. "Install app" / "Add to Home screen"\n3. Confirm');
+      return;
+    }
+    try {
+      this.deferredPrompt.prompt();
+      const { outcome } = await this.deferredPrompt.userChoice;
+      if (outcome === 'accepted') { this.hideBanner(); U.toast('Installing…'); }
+      this.deferredPrompt = null;
+    } catch (e) {}
+  },
+  showInstall() {
+    if (window.matchMedia('(display-mode: standalone)').matches) { U.toast('Already installed ✅'); return; }
+    if (this.deferredPrompt) this.triggerInstall();
+    else alert('ഇൻസ്റ്റാൾ ചെയ്യാൻ:\n\n1. Chrome menu (⋮)\n2. "Install app" / "Add to Home screen"\n3. Confirm');
+  },
+  updateSwState(txt) { const el = document.getElementById('pwaSwState'); if (el) el.textContent = txt; },
+  updateInstallState(txt) {
+    const e1 = document.getElementById('pwaInstallState');
+    const e2 = document.getElementById('installStateText');
+    if (e1) e1.textContent = txt;
+    if (e2) e2.textContent = txt;
+  },
+  updateDisplayMode(txt) { const el = document.getElementById('pwaDisplayMode'); if (el) el.textContent = txt; },
+  async updateCacheInfo() {
+    try {
+      const keys = await caches.keys();
+      const total = (await Promise.all(keys.map(async k => (await (await caches.open(k)).keys()).length))).reduce((a,b)=>a+b,0);
+      const el = document.getElementById('pwaCacheState');
+      if (el) el.textContent = total + ' files';
+    } catch (e) {}
+  },
+  watchForUpdates() {
+    if (!this.swRegistration) return;
+    this.swRegistration.addEventListener('updatefound', () => {
+      const nw = this.swRegistration.installing;
+      if (!nw) return;
+      nw.addEventListener('statechange', () => {
+        if (nw.state === 'installed' && navigator.serviceWorker.controller) {
+          document.getElementById('updateToast')?.classList.add('show');
+        }
+      });
+    });
+    let refreshing = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (refreshing) return;
+      refreshing = true;
+      window.location.reload();
     });
   },
-
-  setSize(s) {
-    this.size = s;
-    document.getElementById("pencilThin")?.classList.toggle("on", s === 1.5);
-    document.getElementById("pencilMed")?.classList.toggle("on", s === 3);
-    document.getElementById("pencilThick")?.classList.toggle("on", s === 5);
+  applyUpdate() {
+    document.getElementById('updateToast')?.classList.remove('show');
+    if (this.swRegistration?.waiting) this.swRegistration.waiting.postMessage('SKIP_WAITING');
+    else window.location.reload();
   },
-
-  key(side) {
-    return State.currentStudentId + "_" + State.currentMushaf + "_" + State.currentPage + "_" + side;
-  },
-
-  async save(side) {
-    const c = this.canvases?.[side];
-    if (!c) return;
-    const dataURL = c.toDataURL("image/png");
-    await DB.put("pencil", { id: this.key(side), data: dataURL, updatedAt: new Date().toISOString() });
-  },
-
-  async load(side) {
-    const c = this.canvases?.[side];
-    if (!c) return;
-    const k = this.key(side);
-    const rec = await DB.get("pencil", k);
-    const ctx = c.getContext("2d");
-    ctx.clearRect(0, 0, c.width, c.height);
-    if (rec?.data) {
-      const img = new Image();
-      img.onload = () => ctx.drawImage(img, 0, 0, c.width, c.height);
-      img.src = rec.data;
-    }
-  },
-
-  async undo() {
-    // Simple: reload from DB (no incremental undo). Fallback: clear last stroke not supported.
-    U.toast("Clearing page drawing…");
-    await this.clear();
-  },
-
-  async clear() {
-    for (const side of ["Right","Left"]) {
-      const c = this.canvases?.[side];
-      if (c) {
-        const ctx = c.getContext("2d");
-        ctx.clearRect(0, 0, c.width, c.height);
-        await DB.del("pencil", this.key(side));
-      }
-    }
-    U.toast("Drawing cleared");
-  },
-
-  resizeAll() {
-    for (const side of ["Right","Left"]) {
-      const c = this.canvases?.[side];
-      if (!c) continue;
-      const rect = c.parentElement?.getBoundingClientRect();
-      if (!rect) continue;
-      const dpr = window.devicePixelRatio || 1;
-      const old = c.toDataURL();
-      c.width = rect.width * dpr;
-      c.height = rect.height * dpr;
-      c.style.width = rect.width + "px";
-      c.style.height = rect.height + "px";
-      const ctx = c.getContext("2d");
-      ctx.setTransform(1, 0, 0, 1, 0, 0);
-      ctx.scale(dpr, dpr);
-      // redraw old content
-      if (old && old !== "data:,") {
-        const img = new Image();
-        img.onload = () => ctx.drawImage(img, 0, 0, rect.width, rect.height);
-        img.src = old;
-      }
-    }
-  },
-
-  async refreshForPage() {
-    if (!this.active) return;
-    // Resize then load
-    this.resizeAll();
-    await this.load("Right");
-    await this.load("Left");
+  async clearAppCache() {
+    if (!confirm('App cache clear ചെയ്യണോ?')) return;
+    try {
+      const keys = await caches.keys();
+      for (const k of keys) if (k.startsWith('alhalaqah-')) await caches.delete(k);
+      U.toast('Cache cleared. Reloading…');
+      setTimeout(() => location.reload(), 800);
+    } catch (e) { U.toast('Failed'); }
   }
 };
+window.PWA = PWA;
 
-/* =====================================================
-   SETTINGS
-===================================================== */
+/* ===== Settings ===== */
 const Settings = {
   async load() {
     const s = await DB.get("settings","app");
@@ -1317,7 +1247,7 @@ const Settings = {
   tab(name) {
     document.querySelectorAll(".sheet-tab").forEach(t => t.classList.toggle("active", t.dataset.tab === name));
     document.querySelectorAll(".tab-pane").forEach(p => p.classList.toggle("active", p.dataset.pane === name));
-    const titles = { students:"Students", institution:"Institution", categories:"Lesson Categories", report:"Report Settings", audio:"Audio Settings", data:"Data & Sync" };
+    const titles = { students:"Students", institution:"Institution", categories:"Lesson Categories", report:"Report Settings", audio:"Audio Settings", data:"Data & Sync", about:"About Al-Halaqah" };
     document.getElementById("sheetTitle").textContent = titles[name] || "Settings";
   },
   render() {
@@ -1358,18 +1288,18 @@ const Settings = {
     State.settings.report.dateFormat = $("repDateFormat").value;
     State.settings.report.teacherSignature = $("repTeacherSig").value === "yes";
     await this.save();
-    U.toast("Report settings saved");
+    U.toast("Report saved");
   },
   async saveLessonSettings() {
     State.settings.lesson.start = document.getElementById("lessonStartMode").value;
     State.settings.lesson.end = document.getElementById("lessonEndMode").value;
     await this.save();
-    U.toast("Lesson settings saved");
+    U.toast("Saved");
   },
   async saveAudio() {
     State.settings.audio.reciter = document.getElementById("audioReciter").value;
     await this.save();
-    U.toast("Audio settings saved");
+    U.toast("Audio saved");
   },
   async addCategory() {
     const ar = document.getElementById("newCatArabic").value.trim();
@@ -1381,7 +1311,7 @@ const Settings = {
     document.getElementById("newCatLabel").value = "";
     this.renderCategories();
     Menus.buildLessonMenu();
-    U.toast("Category added");
+    U.toast("Added");
   },
   async removeCategory(id) {
     if (State.settings.categories.length <= 1) { U.toast("At least one required"); return; }
@@ -1392,9 +1322,7 @@ const Settings = {
   }
 };
 
-/* =====================================================
-   MENUS
-===================================================== */
+/* ===== Menus ===== */
 const Menus = {
   closeAll() { document.querySelectorAll(".menu").forEach(m => m.classList.remove("open")); },
   positionAt(menu, anchor, align = "left") {
@@ -1449,8 +1377,8 @@ const Menus = {
   },
   updateToolMenu() {
     const t = State.currentTool;
-    ["tm-underline","tm-highlight","tm-ghalat","tm-tajweed","tm-select"].forEach(id => document.getElementById(id)?.classList.remove("active"));
-    const map = { underline:"tm-underline", highlight:"tm-highlight", ghalat:"tm-ghalat", tajweed:"tm-tajweed", select:"tm-select" };
+    ["tm-underline","tm-highlight","tm-ghalat","tm-tajweed","tm-select","tm-pencil"].forEach(id => document.getElementById(id)?.classList.remove("active"));
+    const map = { underline:"tm-underline", highlight:"tm-highlight", ghalat:"tm-ghalat", tajweed:"tm-tajweed", select:"tm-select", pencil:"tm-pencil" };
     if (map[t]) document.getElementById(map[t])?.classList.add("active");
   },
   buildStudentMenu() {
@@ -1488,16 +1416,13 @@ const Menus = {
     if (el) el.textContent = s ? s.name : "Student";
   }
 };
-
 document.addEventListener("click", e => {
   if (!e.target.closest(".menu") && !e.target.closest(".pill-btn") && !e.target.closest(".dock-btn")) {
     Menus.closeAll();
   }
 });
 
-/* =====================================================
-   STUDENTS
-===================================================== */
+/* ===== Students ===== */
 const Students = {
   async load() {
     State.students = await DB.all("students");
@@ -1516,7 +1441,7 @@ const Students = {
     const box = document.getElementById("studentList");
     if (!box) return;
     if (!State.students.length) {
-      box.innerHTML = '<div style="padding:12px;color:var(--text-3);font-size:12px;">No students yet. Click above to add.</div>';
+      box.innerHTML = '<div style="padding:12px;color:var(--text-3);font-size:12px;">No students yet.</div>';
       return;
     }
     box.innerHTML = State.students.map(s => {
@@ -1591,7 +1516,7 @@ const Students = {
     await this.load();
     UI.closeModal("studentModal");
     if (!editId) await this.select(stu.id);
-    U.toast("Student saved");
+    U.toast("Saved");
   },
   async select(id) {
     const s = State.students.find(x => x.id === id);
@@ -1615,15 +1540,15 @@ const Students = {
   async remove(id) {
     const s = State.students.find(x => x.id === id);
     if (!s) return;
-    if (!confirm("Delete " + s.name + " and all their data?")) return;
-    for (const store of ["students","assignments","page_states","lessons","marks","pencil"]) {
+    if (!confirm("Delete " + s.name + "?")) return;
+    for (const store of ["students","assignments","page_states","lessons","marks","drawings"]) {
       const recs = await DB.all(store);
-      for (const r of recs) if (r.studentId === id || (store === "students" && r.id === id) || (store === "pencil" && r.id?.startsWith(id + "_"))) await DB.del(store, r.id);
+      for (const r of recs) if (r.studentId === id || (store === "students" && r.id === id)) await DB.del(store, r.id);
     }
     if (State.currentStudentId === id) { State.currentStudentId = null; State.currentMushaf = State.settings.reader.defaultMushaf; State.currentPage = 1; }
     await this.load();
     await Reader.render();
-    U.toast("Student deleted");
+    U.toast("Deleted");
   },
   async setDefaultCategory(catId) {
     const s = this.current();
@@ -1632,30 +1557,22 @@ const Students = {
     await DB.put("students", s);
     State.defaultCategoryId = catId;
     Menus.updateLessonPill();
-    U.toast("Lesson category set");
+    U.toast("Category set");
   }
 };
 
-/* =====================================================
-   MARKS
-===================================================== */
+/* ===== Marks ===== */
 const Marks = {
   async load() { State.marks = await DB.all("marks"); },
   setTool(t) {
     State.currentTool = t;
-    // Turn off pencil if mark tool selected
-    if (Pencil.active && t !== "select") {
-      Pencil.active = false;
-      State.pencilActive = false;
-      document.getElementById("pencilBtn")?.classList.remove("pencil-on");
-      document.getElementById("pencilControls")?.classList.remove("show");
-      document.getElementById("pencilCanvasRight")?.classList.remove("active");
-      document.getElementById("pencilCanvasLeft")?.classList.remove("active");
-    }
+    if (t === "pencil") { Pencil.setActive(true); return; }
+    else Pencil.setActive(false);
     const btn = document.getElementById("toolBtn");
     const icon = document.getElementById("toolBtnIcon");
     const label = document.getElementById("toolBtnLabel");
     const eraserBtn = document.getElementById("eraserBtn");
+    const pencilBtn = document.getElementById("pencilBtn");
     const map = {
       underline:{ icon:"_", label:"Underline" },
       highlight:{ icon:"🖍", label:"Highlight" },
@@ -1670,6 +1587,7 @@ const Marks = {
     }
     btn?.classList.toggle("active", t !== "eraser");
     eraserBtn?.classList.toggle("danger-on", t === "eraser");
+    pencilBtn?.classList.remove("pencil-on");
     Menus.updateToolMenu();
     Menus.closeAll();
   },
@@ -1683,10 +1601,10 @@ const Marks = {
         await DB.del("marks", m.id);
       }
       await this.load();
-      Reader.updateWordClasses();  // smooth — no full render
+      Reader.patchWord(wordId);
       return;
     }
-    if (State.currentTool === "select") return;
+    if (State.currentTool === "select" || State.currentTool === "pencil") return;
     const existing = State.marks.find(m => m.studentId === State.currentStudentId && m.mushafId === State.currentMushaf && m.wordNumberAll === wordId);
     if (existing) {
       if (existing.type === State.currentTool) {
@@ -1714,16 +1632,23 @@ const Marks = {
       State.undoStack.push({ kind:"delete", id:rec.id });
     }
     await this.load();
-    Reader.updateWordClasses();  // smooth — no full render
+    Reader.patchWord(wordId);
   },
   async undo() {
     const last = State.undoStack.pop();
     if (!last) { U.toast("Nothing to undo"); return; }
     try {
-      if (last.kind === "delete") await DB.del("marks", last.id);
-      else if (last.kind === "restore") await DB.put("marks", last.rec);
+      let wordId = null;
+      if (last.kind === "delete") {
+        const m = State.marks.find(x => x.id === last.id);
+        wordId = m?.wordNumberAll;
+        await DB.del("marks", last.id);
+      } else if (last.kind === "restore") {
+        wordId = last.rec.wordNumberAll;
+        await DB.put("marks", last.rec);
+      }
       await this.load();
-      Reader.updateWordClasses();
+      if (wordId) Reader.patchWord(wordId);
       U.toast("Undone");
     } catch (e) { U.toast("Undo failed"); }
   },
@@ -1733,14 +1658,217 @@ const Marks = {
     const list = State.marks.filter(m => m.studentId === State.currentStudentId && m.mushafId === State.currentMushaf && m.page === State.currentPage);
     for (const m of list) await DB.del("marks", m.id);
     await this.load();
-    Reader.updateWordClasses();
-    U.toast("Page marks cleared");
+    Reader.patchAll();
+    U.toast("Cleared");
   }
 };
 
-/* =====================================================
-   LESSON
-===================================================== */
+/* ===== Pencil ===== */
+const Pencil = {
+  active: false,
+  drawing: false,
+  erasing: false,
+  ctxRight: null,
+  ctxLeft: null,
+  currentPageRight: null,
+  currentPageLeft: null,
+  currentStroke: null,
+  saveTimer: null,
+
+  init() {
+    const setup = (canvasId, side) => {
+      const c = document.getElementById(canvasId);
+      if (!c) return null;
+      const parent = c.parentElement;
+      const resize = () => {
+        const rect = parent.getBoundingClientRect();
+        const dpr = window.devicePixelRatio || 1;
+        c.width = Math.round(rect.width * dpr);
+        c.height = Math.round(rect.height * dpr);
+        c.style.width = rect.width + 'px';
+        c.style.height = rect.height + 'px';
+        const ctx = c.getContext('2d');
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        return ctx;
+      };
+      const ctx = resize();
+      window.addEventListener('resize', () => { resize(); this.redraw(side); });
+
+      // Pointer events (supports mouse + touch + stylus)
+      const getPos = (e) => {
+        const r = c.getBoundingClientRect();
+        return { x: e.clientX - r.left, y: e.clientY - r.top };
+      };
+      const start = (e) => {
+        if (!this.active) return;
+        if (!State.currentStudentId) { U.toast("Select a student"); return; }
+        e.preventDefault();
+        e.stopPropagation();
+        c.setPointerCapture?.(e.pointerId);
+        const p = getPos(e);
+        this.drawing = true;
+        this.currentStroke = {
+          side,
+          studentId: State.currentStudentId,
+          mushafId: State.currentMushaf,
+          page: side === 'right' ? this.currentPageRight : this.currentPageLeft,
+          erase: this.erasing,
+          color: this.erasing ? '#ffffff' : '#2563eb',
+          width: this.erasing ? 22 : 3,
+          points: [p]
+        };
+        this.drawSegment(ctx, p, p, this.currentStroke);
+      };
+      const move = (e) => {
+        if (!this.drawing || !this.currentStroke) return;
+        if (this.currentStroke.side !== side) return;
+        e.preventDefault();
+        const p = getPos(e);
+        const prev = this.currentStroke.points[this.currentStroke.points.length - 1];
+        this.currentStroke.points.push(p);
+        this.drawSegment(ctx, prev, p, this.currentStroke);
+      };
+      const end = async (e) => {
+        if (!this.drawing) return;
+        e.preventDefault();
+        this.drawing = false;
+        if (this.currentStroke && this.currentStroke.points.length > 1) {
+          // Save stroke
+          const rec = {
+            id: U.id("drw"),
+            ...this.currentStroke,
+            points: this.currentStroke.points,
+            createdAt: new Date().toISOString()
+          };
+          State.drawings.push(rec);
+          DB.put("drawings", rec).catch(() => {});
+        }
+        this.currentStroke = null;
+        clearTimeout(this.saveTimer);
+        this.saveTimer = setTimeout(() => DB.put("settings", { id:"app", value:State.settings }), 500);
+      };
+
+      c.addEventListener('pointerdown', start);
+      c.addEventListener('pointermove', move);
+      c.addEventListener('pointerup', end);
+      c.addEventListener('pointercancel', end);
+      c.addEventListener('pointerleave', end);
+      return ctx;
+    };
+
+    this.ctxRight = setup('pencilRight', 'right');
+    this.ctxLeft = setup('pencilLeft', 'left');
+  },
+
+  setActive(on) {
+    this.active = !!on;
+    if (!this.active) this.erasing = false;
+    const cR = document.getElementById('pencilRight');
+    const cL = document.getElementById('pencilLeft');
+    if (cR) cR.classList.toggle('active', this.active);
+    if (cL) cL.classList.toggle('active', this.active);
+    const pBtn = document.getElementById('pencilBtn');
+    if (pBtn) pBtn.classList.toggle('pencil-on', this.active);
+    if (this.active) { State.currentTool = 'pencil'; Menus.updateToolMenu(); Menus.closeAll(); U.toast('Pencil mode'); }
+    else if (State.currentTool === 'pencil') State.currentTool = 'underline';
+    this.syncCursor();
+  },
+
+  setErase(on) {
+    this.erasing = !!on;
+    if (this.erasing && !this.active) this.setActive(true);
+    this.syncCursor();
+    U.toast(this.erasing ? 'Pencil eraser' : 'Pencil draw');
+  },
+
+  syncCursor() {
+    const cursor = this.erasing ? 'cell' : 'crosshair';
+    ['pencilRight','pencilLeft'].forEach(id => {
+      const c = document.getElementById(id);
+      if (c) c.style.cursor = cursor;
+    });
+  },
+
+  toggle() { this.setActive(!this.active); },
+
+  drawSegment(ctx, p1, p2, stroke) {
+    if (!ctx) return;
+    ctx.save();
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.strokeStyle = stroke.erase ? 'rgba(255,255,255,1)' : stroke.color;
+    ctx.lineWidth = stroke.width;
+    ctx.globalAlpha = stroke.erase ? 1 : 0.85;
+    if (stroke.erase) {
+      ctx.globalCompositeOperation = 'destination-out';
+    } else {
+      ctx.globalCompositeOperation = 'source-over';
+    }
+    ctx.beginPath();
+    ctx.moveTo(p1.x, p1.y);
+    ctx.lineTo(p2.x, p2.y);
+    ctx.stroke();
+    ctx.restore();
+  },
+
+  async loadPage(pageNum, side) {
+    if (side === 'right') this.currentPageRight = pageNum;
+    else this.currentPageLeft = pageNum;
+    await this.redraw(side);
+  },
+
+  async redraw(side) {
+    const ctx = side === 'right' ? this.ctxRight : this.ctxLeft;
+    const canvas = document.getElementById(side === 'right' ? 'pencilRight' : 'pencilLeft');
+    if (!ctx || !canvas) return;
+    const pageNum = side === 'right' ? this.currentPageRight : this.currentPageLeft;
+    const dpr = window.devicePixelRatio || 1;
+    // clear
+    ctx.save();
+    ctx.setTransform(1,0,0,1,0,0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.restore();
+    if (!State.currentStudentId || !pageNum) return;
+    const strokes = State.drawings.filter(d =>
+      d.studentId === State.currentStudentId &&
+      d.mushafId === State.currentMushaf &&
+      d.page === pageNum &&
+      d.side === side
+    );
+    for (const s of strokes) {
+      const pts = s.points || [];
+      for (let i = 1; i < pts.length; i++) {
+        this.drawSegment(ctx, pts[i-1], pts[i], s);
+      }
+    }
+  },
+
+  async loadAll() {
+    State.drawings = await DB.all("drawings");
+  },
+
+  async loadPageFromDB(studentId, mushaf, page) {
+    const list = await DB.drawingsByPage(studentId, mushaf, page);
+    return list;
+  },
+
+  async clearPage() {
+    if (!State.currentStudentId) return;
+    if (!confirm("Clear pencil drawings on this page?")) return;
+    const list = State.drawings.filter(d =>
+      d.studentId === State.currentStudentId &&
+      d.mushafId === State.currentMushaf &&
+      (d.page === State.currentPage || d.page === State.currentPage + 1)
+    );
+    for (const d of list) await DB.del("drawings", d.id);
+    State.drawings = State.drawings.filter(d => !list.includes(d));
+    await this.redraw('right');
+    await this.redraw('left');
+    U.toast("Pencil cleared");
+  }
+};
+
+/* ===== Lesson ===== */
 const Lesson = {
   async load() { State.lessons = await DB.all("lessons"); },
   fillCategories(sel) {
@@ -1752,17 +1880,6 @@ const Lesson = {
     const s = Students.current();
     const assigned = s ? Students.assignedMushafs(s.id) : [];
     sel.innerHTML = assigned.map(m => '<option value="' + m + '">' + U.esc(CONFIG[m]?.name || m) + '</option>').join("");
-  },
-  startDialog() {
-    if (State.settings.lesson.start === "disabled") { U.toast("Lesson Start is disabled"); return; }
-    const s = Students.current();
-    if (!s) { U.toast("Select a student first"); return; }
-    this.fillCategories(document.getElementById("lesStartCategory"));
-    document.getElementById("lesStartCategory").value = State.defaultCategoryId || State.settings.categories[0].id;
-    document.getElementById("lesStartSurah").value = "";
-    document.getElementById("lesStartAyah").value = "";
-    document.getElementById("lesStartPage").value = State.currentPage;
-    document.getElementById("lessonStartModal").classList.add("open");
   },
   async saveStart() {
     const s = Students.current();
@@ -1862,14 +1979,12 @@ const Lessons = {
           '<td style="padding:10px;">' + U.esc(l.toSurah || "-") + ' ' + (l.toAyah ? "Ayah " + l.toAyah : "") + '<br><small>Page ' + (l.toPage || "-") + '</small></td>' +
           '</tr>').join("") +
         '</tbody></table>'
-      : '<div style="padding:22px;text-align:center;color:var(--text-3);">No lessons recorded yet.</div>';
+      : '<div style="padding:22px;text-align:center;color:var(--text-3);">No lessons yet.</div>';
     document.getElementById("historyModal").classList.add("open");
   }
 };
 
-/* =====================================================
-   AUDIO
-===================================================== */
+/* ===== Audio ===== */
 const AudioPlayer = {
   el: null,
   play(verseKey) {
@@ -1898,9 +2013,7 @@ const AudioPlayer = {
   }
 };
 
-/* =====================================================
-   AYAH ACTION
-===================================================== */
+/* ===== Ayah Action ===== */
 const AyahAction = {
   current: null,
   open(e, el, verseKey) {
@@ -1936,12 +2049,9 @@ const AyahAction = {
   }
 };
 
-/* =====================================================
-   READER (with flicker-fix via word-only update)
-===================================================== */
+/* ===== Reader (with patch optimization) ===== */
 const Reader = {
   isSpread() { return window.innerWidth > 1000 && window.innerWidth > window.innerHeight; },
-
   async changeMushaf(id) {
     const s = Students.current();
     if (s) {
@@ -1955,7 +2065,6 @@ const Reader = {
     this.sync();
     await this.render();
   },
-
   async go(v) {
     let p = Number(v);
     if (!Number.isFinite(p)) p = 1;
@@ -1966,32 +2075,21 @@ const Reader = {
     this.sync();
     await this.render();
   },
-
   prev() { if (State.currentPage > 1) this.go(State.currentPage - 1); },
   next() { if (State.currentPage < CONFIG[State.currentMushaf].pages) this.go(State.currentPage + 1); },
-
   jump() {
     const max = CONFIG[State.currentMushaf].pages;
     const v = prompt("Page (1 - " + max + ")", State.currentPage);
     if (v !== null) this.go(v);
   },
-
   async saveState() {
     if (!State.currentStudentId) return;
-    await DB.put("page_states", {
-      id: State.currentStudentId + "_" + State.currentMushaf,
-      studentId: State.currentStudentId,
-      mushafId: State.currentMushaf,
-      page: State.currentPage,
-      updatedAt: new Date().toISOString()
-    });
+    await DB.put("page_states", { id:State.currentStudentId + "_" + State.currentMushaf, studentId:State.currentStudentId, mushafId:State.currentMushaf, page:State.currentPage, updatedAt:new Date().toISOString() });
   },
-
   sync() {
     const el = document.getElementById("pageIndicator");
     if (el) el.textContent = State.currentPage + " / " + CONFIG[State.currentMushaf].pages;
   },
-
   async renderWords(words, fontName, isIndo, isQcf) {
     let html = "";
     for (const w of words) {
@@ -2000,37 +2098,25 @@ const Reader = {
       if (!text) continue;
       const isJ = U.isJalalah(w.uthmani || w.indopak || "");
       const verseKey = w.surah + ":" + w.ayah;
-      const mark = State.marks.find(m => m.studentId === State.currentStudentId && m.mushafId === State.currentMushaf && m.wordNumberAll === Number(w.id));
       let cls = "word";
       if (isJ) cls += " jalalah";
-      if (mark?.type === "ghalat") cls += " mark-ghalat";
-      if (mark?.type === "tajweed") cls += " mark-tajweed";
-      if (mark?.type === "underline" || mark?.type === "highlight") cls += " mark-underline";
       const style = isQcf ? "font-family:'" + fontName + "','Amiri',serif;" : "";
-      const wordStyle = mark?.type === "highlight" ? "background:rgba(244,196,48,0.5);box-shadow:none;" : "";
-      html += '<span class="' + cls + '" style="' + style + wordStyle + '" ' +
+      html += '<span class="' + cls + '" style="' + style + '" ' +
         'data-word="' + w.id + '" data-verse="' + verseKey + '" ' +
         'onclick="Reader.wordClick(event, this)">' + U.esc(text) + '</span>';
     }
     return html;
   },
-
-  async renderSheet(pageNum, side, token) {
+  async renderSheet(pageNum, side) {
     const box = document.getElementById("lines" + side);
     if (!box) return;
-    // Show skeleton while loading
-    box.innerHTML = Array.from({ length:15 }, () => '<div class="skeleton-line"><div class="skeleton-bar"></div></div>').join("");
-
     const isIndo = State.currentMushaf === "indopak";
     const fontName = await Fonts.page(pageNum, isIndo);
-    if (token !== State.renderToken) return; // cancelled
     const isQcf = !isIndo && fontName.startsWith("QCF_P");
     const lines = await DB.layoutLines(State.currentMushaf, pageNum);
-    if (token !== State.renderToken) return;
-
     const map = new Map(lines.map(l => [l.line, l]));
     let detectedSurah = null;
-    box.innerHTML = "";
+    const frag = document.createDocumentFragment();
 
     for (let n = 1; n <= 15; n++) {
       const row = document.createElement("div");
@@ -2057,7 +2143,6 @@ const Reader = {
         if (l.is_centered) row.classList.add("centered");
         if (l.start && l.end) {
           const words = await DB.wordsRange(l.start, l.end);
-          if (token !== State.renderToken) return;
           if (!l.is_centered && words.length <= 5) row.classList.add("centered");
           for (const w of words) if (!detectedSurah && w.surah) detectedSurah = w.surah;
           row.innerHTML = await this.renderWords(words, fontName, isIndo, isQcf);
@@ -2065,8 +2150,13 @@ const Reader = {
           row.innerHTML = "&nbsp;";
         }
       }
-      box.appendChild(row);
+      frag.appendChild(row);
     }
+    box.innerHTML = "";
+    box.appendChild(frag);
+
+    // Apply marks
+    this.applyMarksToSheet(side);
 
     const pre = side.toLowerCase();
     const sLbl = document.getElementById(pre + "SurahLbl");
@@ -2075,65 +2165,98 @@ const Reader = {
     if (pEl) pEl.textContent = U.ar(pageNum);
     const tEl = document.getElementById(pre + "Tag");
     if (tEl) tEl.textContent = CONFIG[State.currentMushaf].shortName;
+
+    // Pencil: load drawings for this page
+    await Pencil.loadPage(pageNum, side);
+  },
+
+  applyMarksToSheet(side) {
+    const box = document.getElementById("lines" + side);
+    if (!box) return;
+    const words = box.querySelectorAll('.word');
+    const markMap = new Map();
+    for (const m of State.marks) {
+      if (m.studentId === State.currentStudentId && m.mushafId === State.currentMushaf) {
+        markMap.set(String(m.wordNumberAll), m.type);
+      }
+    }
+    words.forEach(el => {
+      const wid = el.dataset.word;
+      const type = markMap.get(wid);
+      el.classList.remove('mark-underline','mark-ghalat','mark-tajweed');
+      el.style.background = '';
+      el.style.boxShadow = '';
+      if (type === 'underline') el.classList.add('mark-underline');
+      else if (type === 'ghalat') el.classList.add('mark-ghalat');
+      else if (type === 'tajweed') el.classList.add('mark-tajweed');
+      else if (type === 'highlight') el.style.background = 'rgba(244,196,48,0.5)';
+    });
+  },
+
+  patchWord(wordId) {
+    const sheets = ['Right','Left'];
+    for (const side of sheets) {
+      const el = document.querySelector('#lines' + side + ' .word[data-word="' + wordId + '"]');
+      if (el) {
+        const m = State.marks.find(x => x.studentId === State.currentStudentId && x.mushafId === State.currentMushaf && x.wordNumberAll === wordId);
+        el.classList.remove('mark-underline','mark-ghalat','mark-tajweed');
+        el.style.background = '';
+        el.style.boxShadow = '';
+        if (m) {
+          if (m.type === 'underline') el.classList.add('mark-underline');
+          else if (m.type === 'ghalat') el.classList.add('mark-ghalat');
+          else if (m.type === 'tajweed') el.classList.add('mark-tajweed');
+          else if (m.type === 'highlight') el.style.background = 'rgba(244,196,48,0.5)';
+        }
+      }
+    }
+  },
+
+  patchAll() {
+    this.applyMarksToSheet('Right');
+    this.applyMarksToSheet('Left');
   },
 
   async render() {
-    const token = ++State.renderToken;
-    const spread = this.isSpread();
-    const stage = document.getElementById("stage");
-    stage.classList.toggle("qudratullah-mode", State.currentMushaf === "indopak");
-    stage.classList.toggle("madani-mode", State.currentMushaf === "madani");
-
-    let r = State.currentPage, l = null;
-    if (spread) {
-      r = State.currentPage % 2 === 1 ? State.currentPage : State.currentPage - 1;
-      l = r + 1;
-      const ok = l <= CONFIG[State.currentMushaf].pages;
-      document.getElementById("sheetLeft").style.display = ok ? "flex" : "none";
-    } else {
-      document.getElementById("sheetLeft").style.display = "none";
+    // Render lock to prevent flicker & overlapping renders
+    if (State.renderLock) {
+      State.renderToken++;
+      await U.sleep(30);
     }
+    State.renderLock = true;
+    const myToken = ++State.renderToken;
+    try {
+      const spread = this.isSpread();
+      const stage = document.getElementById("stage");
+      stage.classList.toggle("qudratullah-mode", State.currentMushaf === "indopak");
+      stage.classList.toggle("madani-mode", State.currentMushaf === "madani");
+      let r = State.currentPage, l = null;
+      if (spread) {
+        r = State.currentPage % 2 === 1 ? State.currentPage : State.currentPage - 1;
+        l = r + 1;
+        const ok = l <= CONFIG[State.currentMushaf].pages;
+        document.getElementById("sheetLeft").style.display = ok ? "flex" : "none";
+      } else {
+        document.getElementById("sheetLeft").style.display = "none";
+      }
+      document.getElementById("pageIndicator").textContent = spread && l
+        ? r + " – " + l + " / " + CONFIG[State.currentMushaf].pages
+        : r + " / " + CONFIG[State.currentMushaf].pages;
 
-    document.getElementById("pageIndicator").textContent = spread && l
-      ? r + " – " + l + " / " + CONFIG[State.currentMushaf].pages
-      : r + " / " + CONFIG[State.currentMushaf].pages;
-
-    await Promise.all([
-      this.renderSheet(r, "Right", token),
-      (spread && l <= CONFIG[State.currentMushaf].pages) ? this.renderSheet(l, "Left", token) : Promise.resolve()
-    ]);
-
-    // Refresh pencil canvas
-    setTimeout(() => Pencil.refreshForPage(), 50);
-  },
-
-  // ---------- FAST PATH: update only word classes (no flicker) ----------
-  updateWordClasses() {
-    const apply = (side) => {
-      const sheet = document.getElementById(side === "Right" ? "sheetRight" : "sheetLeft");
-      if (!sheet) return;
-      sheet.querySelectorAll(".word").forEach(el => {
-        const wordId = Number(el.dataset.word);
-        el.classList.remove("mark-ghalat", "mark-tajweed", "mark-underline", "mark-pencil");
-        el.style.background = "";
-        el.style.boxShadow = "";
-        const mark = State.marks.find(m => m.studentId === State.currentStudentId && m.mushafId === State.currentMushaf && m.wordNumberAll === wordId);
-        if (!mark) return;
-        if (mark.type === "ghalat") el.classList.add("mark-ghalat");
-        else if (mark.type === "tajweed") el.classList.add("mark-tajweed");
-        else if (mark.type === "underline") el.classList.add("mark-underline");
-        else if (mark.type === "highlight") { el.classList.add("mark-underline"); el.style.background = "rgba(244,196,48,0.5)"; el.style.boxShadow = "none"; }
-      });
-    };
-    apply("Right");
-    apply("Left");
+      await this.renderSheet(r, "Right");
+      if (myToken !== State.renderToken) return;
+      if (spread && l <= CONFIG[State.currentMushaf].pages) {
+        await this.renderSheet(l, "Left");
+      }
+      if (myToken !== State.renderToken) return;
+    } finally {
+      if (myToken === State.renderToken) State.renderLock = false;
+    }
   },
 
   async wordClick(e, el) {
     e.stopPropagation();
-    // Pencil active → ignore word click
-    if (Pencil.active) return;
-
+    if (Pencil.active) return; // don't intercept while drawing
     const wordId = Number(el.dataset.word);
     const verse = el.dataset.verse;
     State.currentAyah = verse;
@@ -2147,16 +2270,7 @@ const Reader = {
   }
 };
 
-/* =====================================================
-   ABOUT
-===================================================== */
-const About = {
-  open() { document.getElementById("aboutModal").classList.add("open"); }
-};
-
-/* =====================================================
-   REPORT
-===================================================== */
+/* ===== Report ===== */
 const Report = {
   open() { this.populateStudents(); document.getElementById("reportScreen").classList.add("open"); this.render(); },
   close() { document.getElementById("reportScreen").classList.remove("open"); },
@@ -2213,7 +2327,6 @@ const Report = {
     const pages = new Set(lessons.map(l => l.studentId + "_" + l.mushafId + "_" + (l.toPage || l.fromPage))).size;
     const period = rng.from ? U.date(rng.from) + (rng.to ? " — " + U.date(rng.to) : "") : "All Records";
     const inst = State.settings.institution;
-
     document.getElementById("reportPaper").innerHTML =
       '<div class="r-header">' +
       '<div class="r-inst">' + U.esc(inst.name) + '</div>' +
@@ -2228,7 +2341,7 @@ const Report = {
       '<div><b>Period:</b> ' + period + '</div>' +
       '<div><b>Generated:</b> ' + U.date(U.today()) + '</div></div>' +
       '<table><thead><tr><th>Date</th>' + headerCells + '</tr></thead><tbody>' +
-      (body || '<tr><td colspan="' + (cats.length + 1) + '" style="padding:30px;color:#888;">No lesson records found.</td></tr>') +
+      (body || '<tr><td colspan="' + (cats.length + 1) + '" style="padding:30px;color:#888;">No records.</td></tr>') +
       '</tbody></table>' +
       '<div class="summary">' +
       '<div class="sum-box"><b>' + lessons.length + '</b><span>Lessons</span></div>' +
@@ -2243,9 +2356,7 @@ const Report = {
   print() { this.render(); setTimeout(() => window.print(), 200); }
 };
 
-/* =====================================================
-   SYNC / BACKUP
-===================================================== */
+/* ===== Sync ===== */
 const Sync = {
   async download() {
     if (State.syncRunning) { U.toast("Already running"); return; }
@@ -2266,25 +2377,25 @@ const Sync = {
     await DB.clear("words");
     await DB.del("meta", "csv_ready");
     State.quranReady = false;
-    U.toast("Quran cache cleared");
+    U.toast("Cleared");
   },
   async downloadFonts() {
     const btn = document.getElementById("btnFonts");
     if (btn) { btn.disabled = true; btn.textContent = "Downloading…"; }
     await Ingest.autoResumeFonts();
-    if (btn) { btn.disabled = false; btn.textContent = "⬇ Download All Fonts (Resumable)"; }
-    U.toast("Font download complete");
+    if (btn) { btn.disabled = false; btn.textContent = "⬇ Download All Fonts"; }
+    U.toast("Fonts complete");
   },
   async backup() {
     const data = {
-      app:"Al-Halaqah", version:4, exportedAt:new Date().toISOString(),
+      app:"Al-Halaqah", version:3, exportedAt:new Date().toISOString(),
       settings:State.settings,
       students:await DB.all("students"),
       assignments:await DB.all("assignments"),
       page_states:await DB.all("page_states"),
       lessons:await DB.all("lessons"),
       marks:await DB.all("marks"),
-      pencil:await DB.all("pencil")
+      drawings:await DB.all("drawings")
     };
     const blob = new Blob([JSON.stringify(data, null, 2)], { type:"application/json" });
     const url = URL.createObjectURL(blob);
@@ -2302,214 +2413,37 @@ const Sync = {
       try {
         const data = JSON.parse(await file.text());
         if (data.settings) { State.settings = Settings.merge(structuredClone(DEFAULT_SETTINGS), data.settings); await Settings.save(); }
-        for (const st of ["students","assignments","page_states","lessons","marks","pencil"]) {
+        for (const st of ["students","assignments","page_states","lessons","marks","drawings"]) {
           if (!Array.isArray(data[st])) continue;
           await DB.clear(st);
           await DB.putMany(st, data[st]);
         }
         await App.reload();
-        U.toast("Backup restored");
+        U.toast("Restored");
       } catch (e) { console.error(e); alert("Restore failed: " + e.message); }
     };
     inp.click();
   }
 };
 
-/* =====================================================
-   PWA
-===================================================== */
-const PWA = {
-  deferredPrompt: null,
-  swRegistration: null,
-  initialized: false,
-
-  async init() {
-    if (this.initialized) return;
-    this.initialized = true;
-
-    if ('serviceWorker' in navigator) {
-      try {
-        this.swRegistration = await navigator.serviceWorker.register('./sw.js', { scope: './' });
-        console.log('✅ SW registered:', this.swRegistration.scope);
-        this.updateSwState('Active ✅');
-        this.watchForUpdates();
-      } catch (err) {
-        console.warn('⚠ SW registration failed:', err);
-        this.updateSwState('Failed ❌');
-      }
-    } else {
-      this.updateSwState('Not Supported');
-    }
-
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      this.deferredPrompt = e;
-      console.log('📲 Install prompt available');
-      if (!localStorage.getItem('pwa_banner_dismissed')) {
-        setTimeout(() => this.showBanner(), 1500);
-      }
-      this.updateInstallState('Ready to Install');
-    });
-
-    window.addEventListener('appinstalled', () => {
-      console.log('✅ Al-Halaqah installed!');
-      this.deferredPrompt = null;
-      this.hideBanner();
-      this.updateInstallState('Installed ✅');
-      U.toast('App installed successfully 🎉');
-    });
-
-    const standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
-    this.updateDisplayMode(standalone ? 'Standalone 📱' : 'Browser 🌐');
-    this.updateInstallState(standalone ? 'Installed ✅' : 'Not Installed');
-
-    window.matchMedia('(display-mode: standalone)').addEventListener('change', (e) => {
-      this.updateDisplayMode(e.matches ? 'Standalone 📱' : 'Browser 🌐');
-      this.updateInstallState(e.matches ? 'Installed ✅' : 'Not Installed');
-    });
-
-    const updateNet = () => {
-      const badge = document.getElementById('offlineBadge');
-      if (!navigator.onLine) badge?.classList.add('show');
-      else badge?.classList.remove('show');
-    };
-    window.addEventListener('online', updateNet);
-    window.addEventListener('offline', updateNet);
-    updateNet();
-
-    setTimeout(() => this.updateCacheInfo(), 2000);
-  },
-
-  showBanner() {
-    const b = document.getElementById('pwaInstallBanner');
-    if (!b) return;
-    if (window.matchMedia('(display-mode: standalone)').matches) return;
-    b.classList.add('show');
-  },
-
-  hideBanner() { document.getElementById('pwaInstallBanner')?.classList.remove('show'); },
-
-  dismissBanner() {
-    this.hideBanner();
-    localStorage.setItem('pwa_banner_dismissed', '1');
-  },
-
-  async triggerInstall() {
-    if (!this.deferredPrompt) {
-      this.hideBanner();
-      alert(
-        'ഇൻസ്റ്റാൾ ചെയ്യാൻ:\n\n' +
-        '1. Chrome menu (⋮) തുറക്കുക\n' +
-        '2. "Install app" അല്ലെങ്കിൽ "Add to Home screen" tap ചെയ്യുക\n' +
-        '3. Install confirm ചെയ്യുക'
-      );
-      return;
-    }
-    try {
-      this.deferredPrompt.prompt();
-      const { outcome } = await this.deferredPrompt.userChoice;
-      if (outcome === 'accepted') {
-        this.hideBanner();
-        U.toast('Installing…');
-      }
-      this.deferredPrompt = null;
-    } catch (e) { console.warn('Install error:', e); }
-  },
-
-  showInstall() {
-    if (window.matchMedia('(display-mode: standalone)').matches) { U.toast('Already installed ✅'); return; }
-    if (this.deferredPrompt) this.triggerInstall();
-    else alert(
-      'ഇൻസ്റ്റാൾ ചെയ്യാൻ:\n\n' +
-      '1. Chrome menu (⋮) തുറക്കുക\n' +
-      '2. "Install app" അല്ലെങ്കിൽ "Add to Home screen" tap ചെയ്യുക\n' +
-      '3. Install confirm ചെയ്യുക'
-    );
-  },
-
-  updateSwState(txt) { const el = document.getElementById('pwaSwState'); if (el) el.textContent = txt; },
-  updateInstallState(txt) {
-    const e1 = document.getElementById('pwaInstallState');
-    const e2 = document.getElementById('installStateText');
-    if (e1) e1.textContent = txt;
-    if (e2) e2.textContent = txt;
-  },
-  updateDisplayMode(txt) { const el = document.getElementById('pwaDisplayMode'); if (el) el.textContent = txt; },
-
-  async updateCacheInfo() {
-    try {
-      const keys = await caches.keys();
-      const sizes = await Promise.all(keys.map(async k => {
-        const c = await caches.open(k);
-        const rs = await c.keys();
-        return { name: k, count: rs.length };
-      }));
-      const total = sizes.reduce((a, s) => a + s.count, 0);
-      const el = document.getElementById('pwaCacheState');
-      if (el) el.textContent = total + ' files · ' + keys.length + ' caches';
-    } catch (e) {}
-  },
-
-  watchForUpdates() {
-    if (!this.swRegistration) return;
-    this.swRegistration.addEventListener('updatefound', () => {
-      const nw = this.swRegistration.installing;
-      if (!nw) return;
-      nw.addEventListener('statechange', () => {
-        if (nw.state === 'installed' && navigator.serviceWorker.controller) {
-          document.getElementById('updateToast')?.classList.add('show');
-        }
-      });
-    });
-    let refreshing = false;
-    navigator.serviceWorker.addEventListener('controllerchange', () => {
-      if (refreshing) return;
-      refreshing = true;
-      window.location.reload();
-    });
-  },
-
-  applyUpdate() {
-    document.getElementById('updateToast')?.classList.remove('show');
-    if (this.swRegistration?.waiting) this.swRegistration.waiting.postMessage('SKIP_WAITING');
-    else window.location.reload();
-  },
-
-  async clearAppCache() {
-    if (!confirm('App cache clear ചെയ്യണോ? (Quran data safe ആണ്)')) return;
-    try {
-      const keys = await caches.keys();
-      for (const k of keys) if (k.startsWith('alhalaqah-')) await caches.delete(k);
-      U.toast('App cache cleared. Reloading…');
-      setTimeout(() => location.reload(), 800);
-    } catch (e) { U.toast('Failed: ' + e.message); }
-  }
-};
-
-window.PWA = PWA;
-
-/* =====================================================
-   UI HELPERS
-===================================================== */
+/* ===== UI ===== */
 const UI = {
   openDrawer() { document.getElementById("drawer").classList.add("open"); document.getElementById("drawerScrim").classList.add("open"); },
   closeDrawer() { document.getElementById("drawer").classList.remove("open"); document.getElementById("drawerScrim").classList.remove("open"); },
   closeModal(id) { document.getElementById(id).classList.remove("open"); }
 };
 
-/* =====================================================
-   APP BOOT
-===================================================== */
+/* ===== App ===== */
 const App = {
   async init() {
     PWA.init();
-
     await DB.init();
     await Ingest.run();
     await Settings.load();
     await Students.load();
     await Lesson.load();
     await Marks.load();
+    await Pencil.loadAll();
 
     if (!State.students.length) {
       const s = { id:"stu_default", roll:"", name:"Hafidh Student", className:"", notes:"", mushafId:"madani", defaultCategoryId:State.settings.categories[0]?.id || null, createdAt:new Date().toISOString() };
@@ -2527,8 +2461,6 @@ const App = {
       State.defaultCategoryId = s.defaultCategoryId || State.settings.categories[0]?.id;
     }
 
-    await Pencil.init();
-
     document.getElementById("brandName").textContent = State.settings.institution.name || "Al-Halaqah";
     Reader.sync();
     Students.updateBadge();
@@ -2537,29 +2469,37 @@ const App = {
     AudioPlayer.syncUI();
     Marks.setTool("underline");
 
+    // Pencil init after layout
+    setTimeout(() => {
+      Pencil.init();
+    }, 300);
+
     if (State.quranReady) await Reader.render();
 
-    // Resize debounce — avoid flicker on every resize
-    let resizeT;
+    let resizeTimer;
     window.addEventListener("resize", () => {
-      clearTimeout(resizeT);
-      resizeT = setTimeout(() => { if (State.quranReady) Reader.render(); Pencil.resizeAll(); }, 300);
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(async () => {
+        if (Pencil.ctxRight || Pencil.ctxLeft) {
+          // canvases auto-resize on their own listener
+        }
+        if (State.quranReady) await Reader.render();
+      }, 250);
     });
-
     document.addEventListener("keydown", e => {
       const tag = e.target.tagName;
       if (tag === "INPUT" || tag === "SELECT" || tag === "TEXTAREA") return;
       if (e.key === "ArrowLeft") Reader.prev();
       if (e.key === "ArrowRight") Reader.next();
-      if (e.key === "Escape") { Menus.closeAll(); UI.closeDrawer(); }
+      if (e.key === "Escape") Menus.closeAll();
     });
   },
-
   async reload() {
     await Settings.load();
     await Students.load();
     await Lesson.load();
     await Marks.load();
+    await Pencil.loadAll();
     const s = Students.current();
     if (s) {
       State.currentMushaf = s.mushafId || State.settings.reader.defaultMushaf;
