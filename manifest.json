@@ -1,9 +1,9 @@
 {
   "name": "Al-Halaqah — Hifz Quran",
   "short_name": "Al-Halaqah",
-  "description": "Hifz Quran management for teachers and students — offline ready",
-  "start_url": "./",
-  "scope": "./",
+  "description": "ഖുർആൻ മനപ്പാഠമാക്കുന്നവർക്കും ഖുർആൻ പഠിക്കുന്നവർക്കും പഠിപ്പിക്കുന്നവർക്കും ഉപകാരപ്പെടുന്ന ഒരു വെബ് ആപ്ലിക്കേഷൻ",
+  "start_url": "/",
+  "scope": "/",
   "id": "/",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui"],
@@ -23,7 +23,7 @@
     {
       "name": "Quran Reader",
       "short_name": "Reader",
-      "url": "./",
+      "url": "/",
       "icons": [{ "src": "icon.svg", "sizes": "192x192" }]
     }
   ]
