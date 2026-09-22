@@ -1,9 +1,8 @@
 /* =====================================================
-   Al-Halaqah — Service Worker
-   Caches: shell, quran data, fonts, audio
+   Al-Halaqah — Service Worker (v2 — fixed routing)
    ===================================================== */
 
-const CACHE_VERSION = 'alhalaqah-v1';
+const CACHE_VERSION = 'alhalaqah-v2';
 const SHELL_CACHE = CACHE_VERSION + '-shell';
 const DATA_CACHE  = CACHE_VERSION + '-data';
 const AUDIO_CACHE = CACHE_VERSION + '-audio';
@@ -27,47 +26,30 @@ const DATA_ASSETS = [
 self.addEventListener('install', (event) => {
   console.log('[SW] Installing…');
   event.waitUntil((async () => {
-    // Shell — strict (must succeed)
     const shellCache = await caches.open(SHELL_CACHE);
-    try {
-      await shellCache.addAll(SHELL_ASSETS);
-      console.log('[SW] Shell cached ✅');
-    } catch (e) {
-      console.warn('[SW] Shell cache partial:', e);
-    }
-
-    // Data — tolerant (each file individually)
+    await Promise.all(
+      SHELL_ASSETS.map(async (url) => {
+        try { const r = await fetch(url, { cache: 'no-cache' }); if (r.ok) await shellCache.put(url, r); }
+        catch (e) { console.warn('[SW] Skip shell:', url); }
+      })
+    );
     const dataCache = await caches.open(DATA_CACHE);
     await Promise.all(
       DATA_ASSETS.map(async (url) => {
-        try {
-          const res = await fetch(url, { cache: 'no-cache' });
-          if (res.ok) {
-            await dataCache.put(url, res);
-            console.log('[SW] Cached:', url);
-          }
-        } catch (e) {
-          console.warn('[SW] Skip (offline?):', url);
-        }
+        try { const r = await fetch(url, { cache: 'no-cache' }); if (r.ok) await dataCache.put(url, r); }
+        catch (e) { console.warn('[SW] Skip data:', url); }
       })
     );
-
     await self.skipWaiting();
   })());
 });
 
 /* ---------- ACTIVATE ---------- */
 self.addEventListener('activate', (event) => {
-  console.log('[SW] Activating…');
   event.waitUntil((async () => {
     const keys = await caches.keys();
     await Promise.all(
-      keys
-        .filter((k) => !k.startsWith(CACHE_VERSION))
-        .map((k) => {
-          console.log('[SW] Removing old cache:', k);
-          return caches.delete(k);
-        })
+      keys.filter(k => !k.startsWith(CACHE_VERSION)).map(k => caches.delete(k))
     );
     await self.clients.claim();
     console.log('[SW] Activated ✅');
@@ -82,37 +64,39 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(request.url);
   if (!url.protocol.startsWith('http')) return;
 
-  // 1) Audio — cache-first (on demand)
+  // Audio — cache-first (on demand)
   if (url.hostname.includes('everyayah.com') || url.hostname.includes('quranicaudio.com')) {
     event.respondWith(cacheFirst(request, AUDIO_CACHE));
     return;
   }
 
-  // 2) Quran data / fonts / CDN — cache-first
+  // Quran data / fonts — cache-first
   if (
     url.pathname.endsWith('.csv') ||
     url.pathname.endsWith('.otf') ||
     url.pathname.endsWith('.woff') ||
     url.pathname.endsWith('.woff2') ||
     url.hostname.includes('qurancdn.com') ||
-    url.hostname.includes('quran.foundation') ||
-    url.hostname.includes('verses.quran.foundation')
+    url.hostname.includes('quran.foundation')
   ) {
     event.respondWith(cacheFirst(request, DATA_CACHE));
     return;
   }
 
-  // 3) Google Fonts — cache-first
+  // Google Fonts — cache-first
   if (url.hostname.includes('fonts.googleapis.com') || url.hostname.includes('fonts.gstatic.com')) {
     event.respondWith(cacheFirst(request, SHELL_CACHE));
     return;
   }
 
-  // 4) App shell — cache-first
+  // Navigation requests → try network, fallback to cached index
+  if (request.mode === 'navigate') {
+    event.respondWith(networkFirstNavigation(request));
+    return;
+  }
+
+  // App shell assets — cache-first
   if (
-    url.pathname === '/' ||
-    url.pathname.endsWith('/') ||
-    url.pathname.endsWith('index.html') ||
     url.pathname.endsWith('manifest.json') ||
     url.pathname.endsWith('icon.svg')
   ) {
@@ -120,7 +104,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // 5) Everything else — network-first
+  // Everything else — network-first
   event.respondWith(networkFirst(request, SHELL_CACHE));
 });
 
@@ -129,7 +113,6 @@ async function cacheFirst(request, cacheName) {
   const cache = await caches.open(cacheName);
   const cached = await cache.match(request);
   if (cached) return cached;
-
   try {
     const res = await fetch(request);
     if (res && res.status === 200 && res.type !== 'opaque') {
@@ -137,12 +120,8 @@ async function cacheFirst(request, cacheName) {
     }
     return res;
   } catch (err) {
-    if (request.mode === 'navigate') {
-      const shell = await caches.open(SHELL_CACHE);
-      const fallback = await shell.match('./index.html');
-      if (fallback) return fallback;
-    }
-    return new Response('Offline', { status: 503, statusText: 'Offline' });
+    if (request.mode === 'navigate') return navigationFallback();
+    return new Response('Offline', { status: 503 });
   }
 }
 
@@ -157,21 +136,42 @@ async function networkFirst(request, cacheName) {
   } catch (err) {
     const cached = await cache.match(request);
     if (cached) return cached;
-    if (request.mode === 'navigate') {
-      const shell = await caches.open(SHELL_CACHE);
-      const fallback = await shell.match('./index.html');
-      if (fallback) return fallback;
-    }
-    return new Response('Offline', { status: 503, statusText: 'Offline' });
+    if (request.mode === 'navigate') return navigationFallback();
+    return new Response('Offline', { status: 503 });
   }
+}
+
+async function networkFirstNavigation(request) {
+  try {
+    const res = await fetch(request);
+    if (res && res.status === 200) {
+      const cache = await caches.open(SHELL_CACHE);
+      cache.put(request, res.clone()).catch(() => {});
+      return res;
+    }
+    throw new Error('Bad status');
+  } catch (err) {
+    return navigationFallback();
+  }
+}
+
+async function navigationFallback() {
+  const shell = await caches.open(SHELL_CACHE);
+  // Try both '/' and './index.html'
+  let cached = await shell.match('./index.html');
+  if (!cached) cached = await shell.match('./');
+  if (!cached) cached = await shell.match('index.html');
+  if (cached) return cached;
+
+  return new Response(
+    '<!DOCTYPE html><html><body style="background:#0a0f0d;color:#e8e4dc;font-family:sans-serif;text-align:center;padding:50px;"><h1>📖 Al-Halaqah</h1><p>ഓഫ്‌ലൈൻ mode — App വീണ്ടും തുറക്കാൻ ശ്രമിക്കുന്നു…</p><button onclick="location.reload()" style="padding:12px 24px;background:#c5a059;color:#04211a;border:none;border-radius:8px;font-weight:bold;">Retry</button></body></html>',
+    { status: 200, headers: { 'Content-Type': 'text/html' } }
+  );
 }
 
 /* ---------- MESSAGE ---------- */
 self.addEventListener('message', (event) => {
-  if (event.data === 'SKIP_WAITING') {
-    console.log('[SW] Skip waiting requested');
-    self.skipWaiting();
-  }
+  if (event.data === 'SKIP_WAITING') self.skipWaiting();
 });
 
 /* ---------- NOTIFICATION CLICK ---------- */
@@ -179,9 +179,7 @@ self.addEventListener('notificationclick', (event) => {
   event.notification.close();
   event.waitUntil(
     clients.matchAll({ type: 'window' }).then((list) => {
-      for (const c of list) {
-        if (c.url && 'focus' in c) return c.focus();
-      }
+      for (const c of list) if (c.url && 'focus' in c) return c.focus();
       if (clients.openWindow) return clients.openWindow('./');
     })
   );
